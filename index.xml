@@ -1610,15 +1610,6 @@ function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
     </item>
     
     <item>
-      <title>Vue创建DOM元素</title>
-      <link>https://xtid.github.io/2020/vue%E5%88%9B%E5%BB%BAdom%E5%85%83%E7%B4%A0/</link>
-      <pubDate>Thu, 06 Aug 2020 01:06:09 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue%E5%88%9B%E5%BB%BAdom%E5%85%83%E7%B4%A0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Vue中的VNode</title>
       <link>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84vnode/</link>
       <pubDate>Tue, 04 Aug 2020 23:28:03 +0800</pubDate>
@@ -4253,6 +4244,178 @@ proxy_redirect :用于修改后端服务器返回的响应头中的Location和Re
 
 &lt;p&gt;关于d3的文档可以参考官网：&lt;a href=&#34;https://github.com/d3/d3/wiki&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/d3/d3/wiki&lt;/a&gt;
 也可以看下&lt;a href=&#34;https://github.com/xswei/d3-selection/blob/master/README.md&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/xswei/d3-selection/blob/master/README.md&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>最近一些效果的实现</title>
+      <link>https://xtid.github.io/2019/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 07 Aug 2019 21:42:19 +0623</pubDate>
+      
+      <guid>https://xtid.github.io/2019/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;楼层定位效果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const leftNav = {
+    $newLeftNav: $(&#39;.left-nav&#39;),
+    $leftNav: $(&#39;.left-nav-item&#39;),
+    init: function () {
+        this.bind();
+    },
+    bind: function () {
+        const self = this;
+        self.$leftNav.on(&#39;click&#39;, function () {
+            const _this = this;
+            const area = &#39;.&#39; + $(_this).attr(&#39;data-area&#39;);
+            const distance = $(_this).attr(&#39;data-area&#39;) ? $(area).offset().top : 0;
+            $(&#39;html, body&#39;).animate({
+                &#39;scrollTop&#39;: distance + &#39;px&#39;
+            }, 1000);
+        });
+        self.handlePageScroll();
+        $(document).scroll(function () {
+            self.debounce(self.handlePageScroll, 200);
+        });
+    },
+    // 页面滑动选中左侧导航栏
+    handlePageScroll: function () {
+        const self = this;
+        let scrollEl = $(document.scrollingElement || document.body);
+        let top = scrollEl.scrollTop();
+        if (top &amp;gt; $(&#39;.daily_recom&#39;).offset().top) {
+            self.$newLeftNav.fadeIn();
+        } else {
+            self.$newLeftNav.fadeOut();
+        }
+        let area = null;
+        let floor = null;
+        let nav = null;
+        for (let i = self.$leftNav.length - 1; i &amp;gt;= 0; i--) {
+            nav = self.$leftNav.eq(i);
+            area = nav.attr(&#39;data-area&#39;);
+            floor = $(&#39;.&#39; + area);
+            if (!floor || !floor.length) {
+                continue;
+            } else if (floor.offset().top &amp;lt;= top) {
+                nav.addClass(&#39;active&#39;).siblings().removeClass(&#39;active&#39;);
+                return;
+            }
+        }
+        nav &amp;amp;&amp;amp; nav.addClass(&#39;active&#39;).siblings().removeClass(&#39;active&#39;);
+    },
+    // 防抖函数
+    debounce: function (action, delay) {
+        let lastTimer;
+        if (lastTimer) {
+            return;
+        }
+        action.apply(this, arguments);
+        lastTimer = setTimeout(function () {
+            clearTimeout(lastTimer);
+            lastTimer = null;
+        }, delay);
+    }
+}
+
+leftNav.init();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可拖动的效果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+
+&amp;lt;head&amp;gt;
+    &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0&amp;quot;&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;ie=edge&amp;quot;&amp;gt;
+    &amp;lt;title&amp;gt;Document&amp;lt;/title&amp;gt;
+    &amp;lt;script src=&amp;quot;https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;style&amp;gt;
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+
+            width: 100px;
+            height: 100px;
+
+            background: orange;
+        }
+    &amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;body&amp;gt;
+    &amp;lt;div id=&amp;quot;box&amp;quot;&amp;gt;
+
+    &amp;lt;/div&amp;gt;
+    &amp;lt;script&amp;gt;
+        $(function () {
+            //创建小方块的jquery对象
+            var $box = $(&amp;quot;#box&amp;quot;);
+            //创建小方块的鼠标点按下事件
+            $box.on(&#39;touchstart&#39;, function (e) {
+                //获取鼠标按下的时候左侧偏移量和上侧偏移量
+                var touch = e.originalEvent.targetTouches[0];
+                var old_left = touch.pageX; //左侧偏移量
+                var old_top = touch.pageY; //竖直偏移量
+
+                //获取鼠标的位置
+                var old_position_left = $(this).position().left;
+                var old_position_top = $(this).position().top;
+
+                //鼠标移动
+                $box.on(&#39;touchmove&#39;, function (e) {
+                    var touch = e.originalEvent.targetTouches[0];
+                    var new_left = touch.pageX; //新的鼠标左侧偏移量
+                    var new_top = touch.pageY; //新的鼠标竖直方向上的偏移量
+
+                    //计算发生改变的偏移量是多少
+                    var chang_x = new_left - old_left;
+                    var change_y = new_top - old_top;
+
+                    //计算出现在的位置是多少
+
+                    var new_position_left = old_position_left + chang_x;
+                    var new_position_top = old_position_top + change_y;
+                    //加上边界限制
+                    if (new_position_top &amp;lt; 0) { //当上边的偏移量小于0的时候，就是上边的临界点，就让新的位置为0
+                        new_position_top = 0;
+                    }
+                    //如果向下的偏移量大于文档对象的高度减去自身的高度，就让它等于这个高度
+                    if (new_position_top &amp;gt; $(document).height() - $box.height()) {
+                        new_position_top = $(document).height() - $box.height();
+                    }
+                    //右限制
+                    if (new_position_left &amp;gt; $(document).width() - $box.width()) {
+                        new_position_left = $(document).width() - $box.width();
+                    }
+                    if (new_position_left &amp;lt; 0) { //左边的偏移量小于0的时候设置 左边的位置为0
+                        new_position_left = 0;
+                    }
+
+                    $box.css({
+                        left: new_position_left + &#39;px&#39;,
+                        top: new_position_top + &#39;px&#39;
+                    })
+                });
+                $box.on(&#39;touchend&#39;, function () {
+                    $(this).off(&amp;quot;mousemove&amp;quot;);
+                })
+            });
+        })
+    &amp;lt;/script&amp;gt;
+
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     

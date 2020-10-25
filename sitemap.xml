@@ -2,7 +2,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
+      <loc>https://xtid.github.io/categories/</loc>
+      
+      <lastmod>2020-10-24T23:45:12+08:00</lastmod>
+      
+      
+      
+      <priority>0</priority>
+      
+      
+    </url>
+  
+    <url>
       <loc>https://xtid.github.io/posts/</loc>
+      
+      <lastmod>2020-10-24T23:45:12+08:00</lastmod>
+      
+      
+      
+      <priority>0</priority>
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</loc>
       
       <lastmod>2020-10-24T23:45:12+08:00</lastmod>
       
@@ -66,18 +90,6 @@
     </url>
   
     <url>
-      <loc>https://xtid.github.io/categories/</loc>
-      
-      <lastmod>2020-08-13T00:12:17+08:00</lastmod>
-      
-      
-      
-      <priority>0</priority>
-      
-      
-    </url>
-  
-    <url>
       <loc>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84patch/</loc>
       
       <lastmod>2020-08-13T00:12:17+08:00</lastmod>
@@ -95,16 +107,6 @@
       
       
       <priority>0</priority>
-      
-      
-    </url>
-  
-    <url>
-      <loc>https://xtid.github.io/2020/vue%E5%88%9B%E5%BB%BAdom%E5%85%83%E7%B4%A0/</loc>
-      
-      <lastmod>2020-08-06T01:06:09+08:00</lastmod>
-      
-      
       
       
     </url>
