@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  
+  
+  
+  
+  <link rel="prev" href="https://xtid.github.io/2020/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" />
+  
+  <link rel="canonical" href="https://xtid.github.io/2020/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Webpack打包优化 | 😳
+       
+  </title>
+  <meta name="title" content="Webpack打包优化 | 😳">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xtid.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Webpack打包优化",
+    "headline" : "Webpack打包优化",
+    "description" : "之前了解了webpack的基本打包流程或者说原理，如果只是配置一个基本的webpack打包配置， 打包后的文件会变得很大，当你项目部署后，用户",
+    "inLanguage" : "zh-CN",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-09-07 22:03:34 \x2b0800 CST",
+    "dateModified" : "2020-09-07 22:03:34 \x2b0800 CST",
+    "url" : "https:\/\/xtid.github.io\/2020\/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96\/",
+    "wordCount" : "2656",
+    "keywords" : [  "😳"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Webpack打包优化</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xtid.github.io" rel="author"></a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-09-07 itemprop="datePublished">September 7, 2020</time>
+                </span>
+                in
+                
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p>之前了解了<code>webpack</code>的基本打包流程或者说原理，如果只是配置一个基本的<code>webpack</code>打包配置，
+打包后的文件会变得很大，当你项目部署后，用户打开对应的界面，也许会很长时间才加载完(当然和网络环境或硬件设备也有关系)，尤其是单页面应用效果很明显，这样的用户体验自然是不好的，所以此文章主要是对<code>webpack</code>打包优化的一个小小总结</p>
+
+<p>首先搭建好一个基本的项目，目录结构</p>
+
+<pre><code class="language-javascript">├── dist // 打包目录
+│   ├── bundle.js // 打包后的js
+│   └── index.html // 入口html文件
+├── package-lock.json
+├── package.json
+├── public
+│   └── index.html // html模板文件
+├── src
+│   ├── actions // redux actions文件
+│   │   └── index.js
+│   ├── app.js // webpack打包入口文件，也是项目的入口文件
+│   ├── assets // scss
+│   │   ├── about.scss
+│   │   ├── title.scss
+│   │   └── user.scss
+│   ├── dev.js // 开发时的一些配置
+│   ├── pages // page页面
+│   │   ├── about.jsx
+│   │   ├── index.jsx
+│   │   ├── title.jsx
+│   │   └── user.jsx
+│   ├── reducers // redux中的reducer
+│   │   └── index.js
+│   └── store.js
+└── webpack.config.js
+</code></pre>
+
+<p><code>webpack</code>基本配置如下</p>
+
+<pre><code class="language-javascript">const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: path.resolve(__dirname, './dist/'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx']
+  },
+
+  devServer: {
+    contentBase: path.join(__dirname, './src/'),
+    publicPath: '/',
+    host: '127.0.0.1',
+    port: 3000,
+    hot: true,
+    stats: {
+      colors: true
+    }
+  },
+  module: {
+    rules: [{
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader'
+      }
+    }, {
+      test: /\.scss$/,
+      use: ['style-loader', 'css-loader', 'sass-loader']
+    }]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: 'public/index.html',
+      filename: 'index.html',
+      inject: true
+    })
+  ]
+}
+</code></pre>
+
+<p>优化：</p>
+
+<p>1.基础优化</p>
+
+<p>配置<code>loader</code>，添加<code>exclude</code>、<code>include</code>缩小搜索范围，比如</p>
+
+<pre><code class="language-javascript">{
+  test: /\.jsx?$/,
+    exclude: /node_modules/, // 过滤node_modules
+      use: {
+        loader: 'babel-loader'
+      }
+}
+</code></pre>
+
+<p>2.使用<code>DllPlugin</code></p>
+
+<p>将一些变动较少或者根本不会变动的库先打包生成对应的<code>.dll.js</code>，在<code>webpack</code>打包的时候，将这些资源引入</p>
+
+<p>首先新建一个<code>webpack.config.dll.js</code></p>
+
+<pre><code class="language-javascript">const path = require('path');
+const DllPlugin = require('webpack/lib/DllPlugin');
+
+module.exports = {
+  entry: {
+    react: ['react', 'react-dom']
+  },
+  output: {
+    filename: '[name].dll.js',
+    // 生成的文件目录
+    path: path.resolve(__dirname, 'dist'),
+    // 动态链接库名称
+    library: '_dll_[name]'
+  },
+  plugins: [
+    new DllPlugin({
+      name: '_dll_[name]',
+      path: path.join(__dirname, 'dist', '[name].manifest.json'),
+      context: __dirname, 
+    })
+  ]
+}
+</code></pre>
+
+<p>然后在<code>package.json</code>的<code>scripts</code>中添加dll打包命令</p>
+
+<pre><code class="language-javascript">webpack --config webpack.config.dll.js
+</code></pre>
+
+<p>然后运行此命令，可以看到会在<code>dist</code>目录下面生成<code>react.dll</code>，<code>react.manifest.json</code>两个文件，这就是生成的<code>dll</code>文件，然后<code>webpack.config.js</code>里面添加配置，打包时引入这些的<code>dll</code>文件。</p>
+
+<p>首先安装插件<code>add-asset-html-webpack-plugin</code>，引入<code>DllReferencePlugin</code></p>
+
+<pre><code class="language-javascript">const DllReferencePlugin = require('webpack/lib/DllReferencePlugin')
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+</code></pre>
+
+<p>插件里面配置(webpack4+)</p>
+
+<pre><code class="language-javascript">new DllReferencePlugin({
+  context: __dirname,
+  manifest: require('./dist/react.manifest.json'),
+}),
+new AddAssetHtmlPlugin({
+  filepath: path.resolve(__dirname, './dist/react.dll.js')
+})
+</code></pre>
+
+<p>这样打包时页面就会引入<code>react.dll.js</code>资源了，从而减少重复的资源打包。这种方式可以简单的理解为，抽出公共模块打包，然后引入</p>
+
+<p>3.<code>splitChunks</code></p>
+
+<p>以前<code>webpack</code>拆分模块还会用<code>CommonsChunkPlugin</code>，在<code>webpack4</code>后，可以直接用<code>splitChunks</code>来代替完成这项工作，在<code>optimization</code>里面设置了<code>splitChunks</code>后，打包分割出来的文件是默认压缩过的</p>
+
+<pre><code class="language-javascript">splitChunks: {
+  chunks: &quot;async&quot;, // &quot;initial&quot; | &quot;all&quot; | &quot;async&quot;，对哪种代码进行分割
+  minSize: 30000, // 超过minSize的包才做代码分割
+  minChunks: 1, // 一个包至少被用了多少次的时候才进行代码分割
+  maxAsyncRequests: 5, // 按需加载最多能加载多少个模块
+  maxInitialRequests: 3, // 对于entry里面的文件做代码分割最多能生成多少个js文件
+  automaticNameDelimiter: '~', // 文件生成时的连接符
+  name: true, // 为true的时候，打包出来的文件名由cacheGroups里面设置的为准
+  cacheGroups: {
+    vendors: {
+      test: /[\\/]node_modules[\\/]/, // 匹配哪些需要分割的模块
+      priority: -10, // 优先级
+     	filename: 'vendors.js'// 打包到一个叫vendors.js的文件
+    },
+    default: {
+      minChunks: 2,
+      priority: -20,
+      reuseExistingChunk: true
+    }
+  }
+}
+</code></pre>
+
+<p>4.<code>catch-loader</code></p>
+
+<p>在一些性能开销较大的<code>loader</code>之前添加此 <code>loader</code>，以将结果缓存到磁盘里，不做过多介绍</p>
+
+<pre><code class="language-javascript">module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.ext$/,
+        use: [
+          'cache-loader',
+          ...loaders
+        ],
+        include: path.resolve('src')
+      }
+    ]
+  }
+}
+</code></pre>
+
+<p>5.<code>HappyPack</code></p>
+
+<p><code>HappyPack</code>使用<code>node</code>多线程进行构建来提升构建的速度，使用情况较少</p>
+
+<pre><code class="language-javascript">const HappyPack = require('happypack')
+const os = require('os')
+const happyThreadPool = HappyPack.ThreadPool({
+  size: os.cpus().length
+})
+
+......
+plugins: [
+  new HtmlWebPackPlugin({
+    template: 'public/index.html',
+    filename: 'index.html',
+    inject: true
+  }),
+  new HappyPack({
+    id: 'happyBabel',
+    loaders: [{
+      loader: 'babel-loader?cacheDirectory=true',
+    }],
+    threadPool: happyThreadPool,
+    verbose: true,
+  })
+],
+</code></pre>
+
+<p>6.<code>css</code>的压缩</p>
+
+<p>对于<code>scss</code>文件，一般来讲，依次配置<code>sass-loader</code>、<code>css-loader</code>、<code>style-loader</code>来进行处理</p>
+
+<pre><code class="language-javascript">{
+  test: /\.scss$/,
+  use: ['style-loader', 'css-loader', 'sass-loader']
+}
+</code></pre>
+
+<p>最后加载完后的页面<code>css</code>会以内联样式的形式签入到页面中。在<code>webpack4</code>中使用<code>mini-css-extract-plugin</code>插件来提取、压缩<code>css</code>。首先将<code>style-loade</code>用<code>MiniCssExtractPlugin.loader</code>代替，然后使用<code>MiniCssExtractPlugin</code>插件，打包出对应的文件，并在页面中引入对应的<code>css</code>文件</p>
+
+<pre><code class="language-javascript">const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+......
+
+{
+  test: /\.scss$/,
+  use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+}
+
+new MiniCssExtractPlugin({
+  filename: '[name].[hash:5].css',
+  chunkFilename: '[id].[hash:5].css'
+})
+
+</code></pre>
+
+<p>7.图片的处理</p>
+
+<p>同样的，先用<code>file-loader</code>解析图片保证webpack能处理，然后可以用<code>image-webpack-loader</code>压缩图片，或者说用<code>url-loader</code>将图片转为<code>base64</code>编码的形式，不多赘述</p>
+
+<p>8.CDN加速
+通常在打包中，把不变的一些静态文件放到<code>CDN</code>上，可以直观地减小资源包大小，比如项目中用到了<code>clipboard.js</code>，然后在模板<code>html</code>中引入这个文件</p>
+
+<pre><code class="language-javascript">&lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.6/clipboard.min.js&quot; defer&gt;&lt;/script&gt;
+</code></pre>
+
+<p>一般来讲，这种方式引入js静态文件，那么全局对象(如window)里面是会有对应的对象的，就可以直接引用对应的对象。当然还可以加上</p>
+
+<pre><code class="language-javascript">externals: {
+  clipboard: 'clipboard'
+},
+</code></pre>
+
+<p>这样就保证了打包时不打包<code>clipboard</code>，优化打包后的文件体积</p>
+
+<p>还有一种方式就是把所有的静态资源，如<code>js</code>、<code>css</code>都放在相应的<code>CDN</code>上，在打包的<code>config</code>中指定对应资源的<code>CDN</code>域名，同样配置<code>externals</code>。但其实这种方式有个很大的缺点就是，如果全部这样做的话，万一<code>CDN</code>挂了，整个页面也就挂了</p>
+
+<p>9.按需加载</p>
+
+<p>以<code>react</code>为例，使用<code>react-loadable</code>来做按需加载，以前还有些其它方法这里就不赘述。主要是针对<code>react-router</code>做一个处理，首先安装依赖<code>react-loadable</code>，入口文件中封装一个<code>loading</code>组件，用于页面加载时给一个提示，然后封装一个方法，用于异步加载这些组件</p>
+
+<pre><code class="language-javascript">import Loadable from 'react-loadable'
+const Loading = (props) =&gt; {
+  return &lt;div&gt;这是一个loading组件&lt;/div&gt;
+};
+const asyncLoad = loader =&gt; Loadable({
+  loader,
+  loading: Loading
+})
+</code></pre>
+
+<p>以下有三个页面，<code>index</code>、<code>about</code>、<code>user</code>，调用<code>asyncLoad</code>，引入这些文件</p>
+
+<pre><code class="language-javascript">const Index = asyncLoad(() =&gt; import('./pages/index'))
+const About = asyncLoad(() =&gt; import('./pages/about'))
+const User = asyncLoad(() =&gt; import('./pages/user'))
+</code></pre>
+
+<p>再配置好路由，这样打包出来的<code>js</code>文件就只会在对应页面或者说对应路由命中时加载了，从而提升页面的一个加载速度，当然也把打包出来的js文件进一步的分割，减小体积，当然需要注意的是，要在<code>webpack.config</code>里面配置好<code>chunFilename(按需加载的chunk名字)</code>，资源的<code>publickPath</code></p>
+
+<pre><code class="language-javascript">&lt;Router&gt;
+  &lt;Switch&gt;
+  	&lt;Route path=&quot;/&quot; exact component={Index} /&gt;
+    &lt;Route path=&quot;/about/&quot; component={About} /&gt;
+    &lt;Route path=&quot;/users/&quot; component={User} /&gt;
+  &lt;/Switch&gt;
+&lt;/Router&gt;
+</code></pre>
+
+<p><code>webpack.config.js</code></p>
+
+<pre><code class="language-javascript">output: {
+  path: path.resolve(__dirname, './dist/'),
+  filename: '[name].[hash:5].bundle.js',
+  chunkFilename: '[name].[hash:5].bundle.js',
+  publicPath: '/'
+},
+</code></pre>
+
+    </div>
+
+    
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://xtid.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xtid.github.io/2020/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" class="prev" rel="prev" title="Webpack简单理解"><i class="iconfont icon-left"></i>&nbsp;Webpack简单理解</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  
+  
+  
+  
+  
+  <link rel="next" href="https://xtid.github.io/2020/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/" />
+  <link rel="canonical" href="https://xtid.github.io/2020/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Webpack简单理解 | 😳
+       
+  </title>
+  <meta name="title" content="Webpack简单理解 | 😳">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xtid.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Webpack简单理解",
+    "headline" : "Webpack简单理解",
+    "description" : "webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加",
+    "inLanguage" : "zh-CN",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-08-23 21:36:20 \x2b0800 CST",
+    "dateModified" : "2020-08-23 21:36:20 \x2b0800 CST",
+    "url" : "https:\/\/xtid.github.io\/2020\/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3\/",
+    "wordCount" : "3194",
+    "keywords" : [  "😳"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Webpack简单理解</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xtid.github.io" rel="author"></a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-08-23 itemprop="datePublished">August 23, 2020</time>
+                </span>
+                in
+                
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p><code>webpack</code>是一个模块打包器，老一点的还有<code>gulp</code>、<code>grunt</code>等等，
+他最显著的特点就是将文件视为一个个模块，通过设置入口文件<code>entry</code>，加载不同类型的文件用不同<code>loader</code>转换文件，
+然后使用不同<code>plugin</code>对文件处理，最后输出多个打包、分割后的文件</p>
+
+<p>首先有几个概念
+1.entry：即<code>webpack</code>打包的入口，告诉它应该从那个文件开始进行构建
+2.output：设置打包后文件的输出路径以及如何命名这些文件
+3.loader：处理那些非<code>javaScript</code>文件，通过指定对应文件所需的对应<code>loader</code>的处理，将文件转换为<code>webpack</code>能够处理的有效模块
+4.plugins：转换某些类型的模块，功能强大，可以做到打包优化，压缩以及各种各样的其它任务</p>
+
+<p><code>bundle</code>：视为<code>webpack</code>打包提取的模块生成的<code>js</code>文件，将其它具体模块的代码传入其中执行，原本独立的模块文件，通过调用<code>__webpack_require__</code>，合并到了<code>bundle</code>中</p>
+
+<pre><code class="language-javascript">(function(modules) {
+/******/    var installedModules = {};
+/******/
+/******/    var installedChunks = {
+/******/        2: 0
+/******/    };
+/******/
+/******/    function __webpack_require__(moduleId) {
+/******/
+/******/        if(installedModules[moduleId]) {
+/******/            return installedModules[moduleId].exports;
+/******/        }
+/******/        var module = installedModules[moduleId] = {
+/******/            i: moduleId,
+/******/            l: false,
+/******/            exports: {}
+/******/        };
+/******/
+/******/        modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/        module.l = true;
+/******/
+/******/        return module.exports;
+/******/    }
+/******/ })
+/************************************************************************/
+/******/ ({
+	// 传入的模块
+	......
+});
+</code></pre>
+
+<p>打包后的<code>bundle</code>是一个立即执行的匿名函数，其参数就是打包后的模块，上面<code>__webpack_require__</code>方法会首先判断当前模块<code>moduleId</code>是否已经存在缓存<code>installedModules</code>中，若是存在则直接返回。若是不存在，则会构造一个对象并将其同时存到<code>installedModules</code>中和<code>module</code>中</p>
+
+<p><code>modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)</code>
+这段代码首先执行当前模块的具体代码，传入<code>module</code>，<code>module.exports</code>，<code>__webpack_require__</code>，递归调用<code>__webpack_require__</code>处理每个模块种引入的其它模块
+如以下形式</p>
+
+<pre><code class="language-javascript">/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+	......
+	__webpack_require__(1);
+	module.exports = __webpack_require__(2);
+	......
+
+/***/ })
+</code></pre>
+
+<p>一个简单的bundle构建过程：</p>
+
+<pre><code class="language-javascript">// 引入相关依赖，对文件进行编译转换输出处理
+const fs = require('fs');
+const path = require('path');
+const parse = require('@babel/parser');
+const traverse = require('@babel/traverse').default;
+const babel = require('@babel/core');
+
+
+let ID = 0;
+// 读取文件信息，并获得当前js文件的依赖关系
+function createAsset(filename) {
+  // 获取文件，返回值是字符串
+  const content = fs.readFileSync(filename, 'utf-8');
+
+  // 将字符串转为ast
+  const ast = parse.parse(content, {
+    sourceType: 'module'
+  });
+
+  //用来存储 文件所依赖的模块，简单来说就是，当前js文件 import 了哪些文件，都会保存在这个数组里
+  const dependencies = [];
+
+  //遍历当前ast（抽象语法树）
+  traverse(ast, {
+    //找到有 import语法 的对应节点
+    ImportDeclaration: ({ node }) =&gt; {
+      //把当前依赖的模块加入到数组中
+      dependencies.push(node.source.value);
+    }
+  });
+
+  //模块的id 从0开始， 相当一个js文件 可以看成一个模块
+  const id = ID++;
+
+  //这边主要把ES6 的代码转成 ES5
+  const { code } = babel.transformFromAstSync(ast, null, {
+    presets: ['@babel/preset-env']
+  });
+
+  return {
+    id,
+    filename,
+    dependencies,
+    code
+  };
+}
+
+// 从入口开始分析所有依赖项，形成依赖图，采用广度遍历
+function createGraph(entry) {
+  const mainAsset = createAsset(entry);
+    
+  const queue = [mainAsset];
+
+  for (const asset of queue) {
+    const dirname = path.dirname(asset.filename);
+    // 新增一个属性来保存子依赖项的数据
+    asset.mapping = {};
+    asset.dependencies.forEach(relativePath =&gt; {
+      const absolutePath = path.join(dirname, relativePath);
+      //获得子依赖（子模块）的依赖项、代码、模块id，文件名
+      const child = createAsset(absolutePath);
+      //给子依赖项赋值，
+      asset.mapping[relativePath] = child.id;
+      //将子依赖也加入队列中，广度遍历
+      queue.push(child);
+    });
+  }
+  return queue;
+}
+
+//根据生成的依赖关系图，生成对应环境能执行的代码，目前是生产浏览器可以执行的
+function bundle(graph) {
+  let modules = '';
+
+  //循环依赖关系，并把每个模块中的代码存在function作用域里
+  graph.forEach(mod =&gt; {
+    modules += `${mod.id}:[
+      function (require, module, exports){
+        ${mod.code}
+      },
+      ${JSON.stringify(mod.mapping)},
+    ],`;
+  });
+
+  //require, module, exports 是 cjs的标准不能再浏览器中直接使用，所以这里模拟cjs模块加载，执行，导出操作。
+  const result = `
+    (function(modules){
+      //创建require函数， 它接受一个模块ID（这个模块id是数字0，1，2） ，它会在我们上面定义 modules 中找到对应是模块.
+      function __webpack_require__(id){
+        const [fn, mapping] = modules[id];
+        function localRequire(relativePath){
+          //根据模块的路径在mapping中找到对应的模块id
+          return __webpack_require__(mapping[relativePath]);
+        }
+        const module = {exports:{}};
+        //执行每个模块的代码。
+        fn(localRequire,module,module.exports);
+        return module.exports;
+      }
+      //执行入口文件，
+      __webpack_require__(0);
+    })({${modules}})
+  `;
+
+  return result;
+}
+
+// 入口文件
+const graph = createGraph('./entry.js');
+// 文件内容
+const ret = bundle(graph);
+
+// 打包生成文件
+fs.writeFileSync('./bundle.js', ret);
+</code></pre>
+
+<p><code>loader</code>，通过设置对应的<code>rule</code>，使用不同的<code>loader</code>来转换、处理不同的组件，比如<code>css</code>文件使用<code>css-loader</code>以及<code>style-loader</code>来处理</p>
+
+<pre><code class="language-javascript">{
+  test: /\.css$/,
+  loader: 'style-loader!css-loader'
+}
+</code></pre>
+
+<p>除此之外，还有一种内联<code>loader</code>的形式，即<code>import loader from '......'</code></p>
+
+<p>两种方式处理的顺序也不同，大致流程为
+1.<code>webpack</code>启动后，创建新的<code>compilation</code>
+2.实例化<code>rules</code>
+3.解析<code>inline loaders</code>
+4.解析<code>config</code>配置里面的<code>loaders</code>
+5.组合这两种形式的<code>loader</code>，最终输出上诉第一种形式的配置
+6.使用<code>Loader-runner</code>按配置执行<code>loader</code></p>
+
+<p>以下简单写一个<code>loader</code>，首先写一个方法用于加载<code>loader</code>，并处理传入的模块，然后返回处理完了之后的代码</p>
+
+<pre><code class="language-javascript">let source = ...... // source为获取到的模块的代码
+function loaderModule(loaderName) {
+  // 获取loader路径
+  const loaderPath = path.join(process.cwd(), loaderName)
+  const loader = require(loaderPath)
+  source = loader.call(_this, source)
+}
+</code></pre>
+
+<p>定义一个规则</p>
+
+<pre><code class="language-javascript">rules: [{
+  test:/\.js/,
+  use:[
+    './loaderModule.js', // loader的路径
+  ]
+}]
+</code></pre>
+
+<p>执行的时候遍历<code>rules</code></p>
+
+<pre><code class="language-javascript">for (let i = rules.length - 1; i &gt;= 0; i--) {
+  const { test, use } = rules[i]
+  if (test.test(modulePath)) {
+    // 使用多个loader
+    if (Array.isArray(use)) {
+      for (let j = use.length - 1; j &gt;= 0; j--) {
+        loaderModule(use[j])
+      }
+    } else if (typeof use === 'string') {
+      loaderModule(use)
+      // 带参数型的loader
+    } else if (use instanceof Object) {
+      loaderModule(use.loader, {
+        query: use.options
+      })
+    }
+  }
+}
+
+// loaderModule.js内容
+// loader-utils是webpack一个工具类，用于解析loader，获取配置的一些loader参数
+const loaderUtils = require('loader-utils')
+
+// 这个简单的loader会将js文件里面的hello字符串替换成word
+module.exports = function (source) {
+  const optionsName = loaderUtils.getOptions(this) &amp;&amp; loaderUtils.getOptions(this).name || 'world'
+  return source.replace(/hello/g, optionsName)
+}
+</code></pre>
+
+<p>前面是一个同步的<code>loader</code>，如果想写一个异步的<code>loader</code>，可以在<code>loader</code>内部调用<code>async</code>方法，然后在处理之后调用对应的回调方法处理</p>
+
+<pre><code class="language-javascript">module.exports = function (source) {
+  const optionsName = loaderUtils.getOptions(this) &amp;&amp; loaderUtils.getOptions(this).name || 'world'
+  cosnt callback = this.async()
+
+  // 操作完了之后，调用callback返回结果进入下一个loader
+  asyncOperation(source, optionsName, function(err, result) {
+    if（err）return callback(err)
+    callback(err, result)
+  })
+}
+</code></pre>
+
+<p>如果不用上面的方式，返回一个<code>promise</code>也是可以的</p>
+
+<pre><code class="language-javascript">module.exports = function (source) {
+  const optionsName = loaderUtils.getOptions(this) &amp;&amp; loaderUtils.getOptions(this).name || 'world'
+  return new Promise(resolve =&gt; {
+    asyncOperation(source, function(err, result) {
+      if (err) resolve(err)
+      resolve(err, result)
+    })
+  })
+}
+</code></pre>
+
+<p><code>plugin</code>
+<code>plugin</code>进一步拓展了<code>webpack</code>的功能，比如打包优化和压缩，清空当前项目的目录，重新定义环境变量，将代码输出到某个文件，提取功能模块等等</p>
+
+<p>定义一个<code>plugin</code>的时候，首先要提供一个<code>apply</code>方法，接受一个<code>compiler</code>对象，然后注册对应的钩子函数，在回调里面拿到对应参数，然后处理
+以下定义一个<code>plugin</code></p>
+
+<pre><code class="language-javascript">const path = require('path')
+const fs = require('fs')
+const cheerio = require('cheerio')
+
+class BasePlugin {
+  constructor(options){
+    // 插件的参数，filename、template等
+    this.options = options
+  }
+  apply(compiler) {
+    // 注册afterEmit钩子函数
+    compiler.hooks.afterEmit.tap('BasePlugin', (compilation) =&gt; {
+      // 2. 根据模板读取html文件内容
+      const result = fs.readFileSync(this.options.template, 'utf-8')
+      
+      // 3. 使用 cheerio 来分析 HTML
+      let $ = cheerio.load(result)
+    
+      // 4. 创建 script 标签后插入HTML中
+      // compilation.assets代表所有输出的资源文件
+      Object.keys(compilation.assets).forEach(item =&gt; {
+        $(`&lt;script src=&quot;/${item}&quot;&gt;&lt;/script&gt;`).appendTo('body')
+      })
+    
+      // 5. 转换成新的HTML并写入到 dist 目录中
+      fs.writeFileSync(path.join(process.cwd(), 'dist', this.options.filename), $.html())
+    })
+  } 
+}
+</code></pre>
+
+<p><code>compiler</code>对象包含了<code>webpack</code>环境所有的的配置信息，包含<code>options</code>，<code>loaders</code>，<code>plugins</code>这些信息，这个对象在<code>webpack</code>启动时候被实例化，它是全局唯一的，可以简单地把它理解为<code>webpack</code>实例，<code>compilation</code>对象包含了当前的模块资源、编译生成资源、变化的文件等。当<code>webpack</code>以开发模式运行时，每当检测到一个文件变化，<code>compilation</code>就会被重新构建，其它的一些<a href="https://www.webpackjs.com/api/compiler-hooks/#hooks" rel="nofollow noreferrer" target="_blank">钩子函数</a></p>
+
+<p>顺便总结一下，实现一个简单的<code>webpack</code>的步骤
+1.定一个基础对象，构造方法里面传入<code>entry</code>、<code>output</code>、<code>rules</code>、<code>plugins</code>等属性
+2.然后定义一系列钩子函数，在<code>webpack</code>执行中可以调用这些钩子函数做处理，
+3.开始执行，初始化对应的钩子函数，传入<code>entry</code>等相关信息
+4.拿到文件源码信息，使用<code>loader</code>处理，将代码转换成<code>ast</code>形式
+5.<code>traverse</code>将<code>ast</code>代码中的<code>require</code>替换为<code>__webpack_require__</code>，添加新的<code>module</code>信息
+6.递归处理每一个依赖，重复上面的步骤
+7.初始化<code>plugin</code>，并对文件做处理
+8.输入到指定目录
+9.客户端/浏览器运行时执行</p>
+
+<p>参考链接</p>
+
+<p>1.<a href="https://juejin.im/post/6844903957769224206" rel="nofollow noreferrer" target="_blank">webpack原理</a></p>
+
+<p>2.<a href="https://www.webpackjs.com/" rel="nofollow noreferrer" target="_blank">webpack官方文档</a></p>
+
+    </div>
+
+    
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://xtid.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+         
+        
+        <a href="https://xtid.github.io/2020/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/" class="next" rel="next" title="Webpack打包优化">Webpack打包优化&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>
