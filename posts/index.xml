@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 😳</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 07 Sep 2020 22:03:34 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2020 23:45:12 +0800</lastBuildDate>
     
 	<atom:link href="https://xtid.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>白屏时间</title>
+      <link>https://xtid.github.io/2020/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Sat, 24 Oct 2020 23:45:12 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</guid>
+      <description>白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连接、发送</description>
+    </item>
     
     <item>
       <title>Webpack打包优化</title>
@@ -27,6 +36,150 @@
       
       <guid>https://xtid.github.io/2020/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/</guid>
       <description>webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加</description>
+    </item>
+    
+    <item>
+      <title>Babel简介</title>
+      <link>https://xtid.github.io/2020/babel%E7%AE%80%E4%BB%8B/</link>
+      <pubDate>Sun, 23 Aug 2020 21:32:52 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/babel%E7%AE%80%E4%BB%8B/</guid>
+      <description>1.babel 简介 Babel是现代JavaScript语法转换器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其</description>
+    </item>
+    
+    <item>
+      <title>Vue中的patch</title>
+      <link>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84patch/</link>
+      <pubDate>Thu, 13 Aug 2020 00:12:17 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84patch/</guid>
+      <description>在生成vnode之后，可以通过patch方法创建DOM元素、进行diff更新DOM元素、销毁DOM元素 1.首先是第一次初始化时，生成了vno</description>
+    </item>
+    
+    <item>
+      <title>Vue创建DOM元素</title>
+      <link>https://xtid.github.io/2020/vue%E5%88%9B%E5%BB%BAdom%E5%85%83%E7%B4%A0/</link>
+      <pubDate>Thu, 06 Aug 2020 01:06:09 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/vue%E5%88%9B%E5%BB%BAdom%E5%85%83%E7%B4%A0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vue中的VNode</title>
+      <link>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84vnode/</link>
+      <pubDate>Tue, 04 Aug 2020 23:28:03 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84vnode/</guid>
+      <description>经过compile编译模板字符串变成了render函数，在src/core/instance/render.js中，通过vnode = render.call(vm._renderProxy, vm.</description>
+    </item>
+    
+    <item>
+      <title>Vue里面compile模板编译</title>
+      <link>https://xtid.github.io/2020/vue%E9%87%8C%E9%9D%A2compile%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91/</link>
+      <pubDate>Thu, 30 Jul 2020 22:16:42 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/vue%E9%87%8C%E9%9D%A2compile%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91/</guid>
+      <description>1.complie简述 complie阶段主要是将Vue代码通过一系列转换，最终生成对应的render字符串，然后Vue通过render字符串</description>
+    </item>
+    
+    <item>
+      <title>Vue2.x里面的双向数据绑定</title>
+      <link>https://xtid.github.io/2020/vue2.x%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/</link>
+      <pubDate>Wed, 29 Jul 2020 22:13:21 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/vue2.x%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/</guid>
+      <description>Vue2.x的数据绑定是通过数据劫持的方式来实现的，其中最核心的便是Object.defineProperty()，而Vue3.0里面数据绑</description>
+    </item>
+    
+    <item>
+      <title>Vue的初始化渲染过程简介</title>
+      <link>https://xtid.github.io/2020/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</link>
+      <pubDate>Mon, 27 Jul 2020 22:25:56 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</guid>
+      <description>首先进入到src/core/instance/index.js，可以看到定义了一个Vue构造函数，内容很简单，如果不是生产环境并且不是通过n</description>
+    </item>
+    
+    <item>
+      <title>Vue自定义指令</title>
+      <link>https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/</link>
+      <pubDate>Sun, 26 Jul 2020 22:35:47 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/</guid>
+      <description>Vue自定义指令也分全局指令和局部指令两种，全局指令和局部指令的使用方法分别为： // 全局指令使用方法 Vue.directive(&#39;test&#39;, { bind: function(){ ... } }) // 局部指令使用方法 Vue({ directives: { test: {</description>
+    </item>
+    
+    <item>
+      <title>使用Canvas实现一个红包雨的效果</title>
+      <link>https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Mon, 15 Jun 2020 18:12:19 +0700</pubDate>
+      
+      <guid>https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
+      <description>之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做</description>
+    </item>
+    
+    <item>
+      <title>nodejs实现excel导出数据的功能</title>
+      <link>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Sun, 10 Nov 2019 22:42:19 +0915</pubDate>
+      
+      <guid>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
+      <description>1.对于一些业务系统，很常见的一个功能就是将数据生成excel导出，其实在nodejs中已经很多优秀的第三方库可以实现这个功能，我这里选择的</description>
+    </item>
+    
+    <item>
+      <title>nginx学习总结</title>
+      <link>https://xtid.github.io/2019/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 25 Oct 2019 22:42:19 +0915</pubDate>
+      
+      <guid>https://xtid.github.io/2019/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</guid>
+      <description>1.nginx简介 &amp;ldquo;nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常</description>
+    </item>
+    
+    <item>
+      <title>d3.js绘制中国地图</title>
+      <link>https://xtid.github.io/2019/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</link>
+      <pubDate>Tue, 13 Aug 2019 22:42:19 +0915</pubDate>
+      
+      <guid>https://xtid.github.io/2019/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</guid>
+      <description>d3.js是一个JavaScript库，用于根据数据操作文档。d3可以使用HTML、SVG和CSS将数据变为现实。d3对网络标准的强调让你拥</description>
+    </item>
+    
+    <item>
+      <title>最近一些效果的实现</title>
+      <link>https://xtid.github.io/2019/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 07 Aug 2019 21:42:19 +0623</pubDate>
+      
+      <guid>https://xtid.github.io/2019/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>楼层定位效果 const leftNav = { $newLeftNav: $(&#39;.left-nav&#39;), $leftNav: $(&#39;.left-nav-item&#39;), init: function () { this.bind(); }, bind: function () { const self = this; self.$leftNav.on(&#39;click&#39;, function () { const _this = this; const area = &#39;.&#39; + $(_this).attr(&#39;data-area&#39;); const distance = $(_this).attr(&#39;data-area&#39;) ? $(area).offset().top : 0; $(&#39;html, body&#39;).animate({ &#39;scrollTop&#39;: distance + &#39;px&#39; }, 1000); }); self.handlePageScroll(); $(document).scroll(function () { self.debounce(self.handlePageScroll, 200); }); }, // 页面</description>
+    </item>
+    
+    <item>
+      <title>使用文本过滤的方式防御XSS</title>
+      <link>https://xtid.github.io/2019/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</link>
+      <pubDate>Mon, 15 Jul 2019 19:12:19 +0700</pubDate>
+      
+      <guid>https://xtid.github.io/2019/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</guid>
+      <description>​ 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其</description>
+    </item>
+    
+    <item>
+      <title>实现一个红包雨的效果</title>
+      <link>https://xtid.github.io/2019/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Tue, 28 May 2019 19:23:19 +0700</pubDate>
+      
+      <guid>https://xtid.github.io/2019/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
+      <description>在很多活动页面我们经常会看到这种效果，屏幕上下着红包雨，点开有有各种礼品或者是优惠券什么的。之前项目要求做一个这样的效果，于是尝试着写了下 1</description>
+    </item>
+    
+    <item>
+      <title>简单实现一个单屏滚动效果</title>
+      <link>https://xtid.github.io/2019/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Mon, 22 Apr 2019 20:23:19 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2019/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/</guid>
+      <description>单屏滚动效果这里指的是滑动鼠标滚落，每次只滚动一个整屏，这种效果多用于一些展示性的网站首页以及一些活动页，这里就用使用jQuery实现这种效</description>
     </item>
     
   </channel>

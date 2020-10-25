@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  
+  
+  
+  
+  
+  <link rel="next" href="https://xtid.github.io/2019/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" />
+  <link rel="canonical" href="https://xtid.github.io/2019/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           简单实现一个单屏滚动效果 | 😳
+       
+  </title>
+  <meta name="title" content="简单实现一个单屏滚动效果 | 😳">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xtid.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "简单实现一个单屏滚动效果",
+    "headline" : "简单实现一个单屏滚动效果",
+    "description" : "单屏滚动效果这里指的是滑动鼠标滚落，每次只滚动一个整屏，这种效果多用于一些展示性的网站首页以及一些活动页，这里就用使用jQuery实现这种效",
+    "inLanguage" : "zh-CN",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-04-22 20:23:19 \x2b0800 CST",
+    "dateModified" : "2019-04-22 20:23:19 \x2b0800 CST",
+    "url" : "https:\/\/xtid.github.io\/2019\/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C\/",
+    "wordCount" : "780",
+    "keywords" : [  "😳"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">简单实现一个单屏滚动效果</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xtid.github.io" rel="author"></a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-04-22 itemprop="datePublished">April 22, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"> 实际应用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p>单屏滚动效果这里指的是滑动鼠标滚落，每次只滚动一个整屏，这种效果多用于一些展示性的网站首页以及一些活动页，这里就用使用jQuery实现这种效果。</p>
+
+<p>页面结构以及一些简单样式如下：</p>
+
+<pre><code class="language-html">&lt;style&gt;
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .section {
+        width: 100%;
+        height: 1080px;
+        line-height: 1080px;
+        text-align: center;
+    }
+    .section h3 {
+        font-size: 36px;
+        color: #fff;
+    }
+    .first-section {
+        background-color: rgb(27, 188, 155);
+    }
+    .second-section {
+        background-color: rgb(75, 191, 195);
+    }
+    .third-section {
+        background-color: rgb(123, 170, 190);
+    }
+    .fourth-section {
+        background-color: rgb(250, 157, 17);
+    }
+    ::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+&lt;/style&gt;	  
+&lt;div id=&quot;dowebok&quot;&gt;
+    &lt;div class=&quot;section first-section active&quot;&gt;
+        &lt;h3&gt;第一屏&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;section second-section&quot;&gt;
+        &lt;h3&gt;第二屏&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;section third-section&quot;&gt;
+        &lt;h3&gt;第三屏&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;section fourth-section&quot;&gt;
+        &lt;h3&gt;第四屏&lt;/h3&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>接下来就是js部分</p>
+
+<p>1.添加一个鼠标滚轮滚动事件</p>
+
+<pre><code class="language-javascript">document.addEventListener(&quot;mousewheel&quot;, this.mouseWheelHandler, false); // IE9, Chrome, Safari, Oper
+document.addEventListener(&quot;wheel&quot;, this.mouseWheelHandler, false); // Firefox
+</code></pre>
+
+<p>2.鼠标滚动的时候页面也会滑动，所以给window对象添加一个监听页面滚动的滚动事件</p>
+
+<pre><code class="language-javascript">$(window).on('scroll', this.scrollHandler);
+</code></pre>
+
+<p>3.页面滚动时比较每一个区块与滑动距离的差值，找出第一个在此滑动距离外的区块，拿到它的索引，然后将页面滑动相应距离，这里要注意因为是在滑动距离外，所以还要剪去一个区块的高度</p>
+
+<pre><code class="language-javascript">// 页面滚动事件处理函数
+scrollHandler: function (e) {
+    var currentScroll = $(window).scrollTop();
+    var visibleSectionIndex = 0; // 区块索引
+    var initial = Math.abs(currentScroll - $('.section').first().offset().top); // 窗口滑动距离
+    $('.section').each(function (index) {
+        var current = Math.abs(currentScroll - $(this).offset().top);
+        if (current &lt; initial) {
+            visibleSectionIndex = index;
+            initial = current;
+        }
+    });
+    _this.currentSection = $('.section').eq(visibleSectionIndex);
+}
+</code></pre>
+
+<p>4.此外还要注意的是鼠标有向上滚动与向下滚动的区别</p>
+
+<pre><code class="language-javascript">// 兼容性写法，通过判断鼠标的滚动值的正负可以判断是向上还是向下滚动，若delta为正，则为向上滚动，反之向下
+var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.deltaY || -e.detail))); 
+
+</code></pre>
+
+<p>完整js代码</p>
+
+<pre><code class="language-javascript">var simpleFullPage = {
+    init: function () {
+        this.bind();
+        this.currentSection = $('.section')[0];
+    },
+    bind: function () {
+        _this = this;
+        document.addEventListener(&quot;mousewheel&quot;, this.mouseWheelHandler, false); // IE9, Chrome, Safari, Oper
+        document.addEventListener(&quot;wheel&quot;, this.mouseWheelHandler, false); // Firefox
+        $(window).on('scroll', this.scrollHandler);
+    },
+    scrollHandler: function (e) {
+        var currentScroll = $(window).scrollTop();
+        var visibleSectionIndex = 0;
+        var initial = Math.abs(currentScroll - $('.section').first().offset().top); // 窗口滑动距离
+        $('.section').each(function (index) {
+            var current = Math.abs(currentScroll - $(this).offset().top);
+            if (current &lt; initial) {
+                visibleSectionIndex = index;
+                initial = current;
+            }
+        });
+        _this.currentSection = $('.section').eq(visibleSectionIndex);
+    },
+    mouseWheelHandler: function (e) {
+        e.preventDefault ? e.preventDefault() : e.returnValue = false; // 阻止默认事件
+        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.deltaY || -e.detail))); // 判断页面滚动方向
+        clearTimeout(_this.timer);
+        _this.timer = setTimeout(function () {
+            _this.scrollPage(_this.currentSection, delta);
+        }, 300);
+    },
+    scrollPage: function (element, delta) {
+        delta &lt; 0 ? _this.scrollPageDown(element) : _this.scrollPageUp(element);
+    },
+    scrollPageUp: function (element) {
+        if ($(element).prev().hasClass('section')) {
+            $('html, body').animate({
+                scrollTop: $(element).position().top - 1080
+            }, 500);
+        }
+    },
+    scrollPageDown: function (element) {
+        if ($(element).next().hasClass('section')) {
+            $('html, body').animate({
+                scrollTop: $(element).position().top + 1080
+            }, 500);
+        }
+    }
+}
+
+simpleFullPage.init();
+</code></pre>
+
+    </div>
+
+    
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://xtid.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+         
+        
+        <a href="https://xtid.github.io/2019/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" class="next" rel="next" title="实现一个红包雨的效果">实现一个红包雨的效果&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

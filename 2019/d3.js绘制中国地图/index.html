@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  
+  
+  
+  
+  <link rel="prev" href="https://xtid.github.io/2019/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/" />
+  <link rel="next" href="https://xtid.github.io/2019/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" />
+  <link rel="canonical" href="https://xtid.github.io/2019/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           d3.js绘制中国地图 | 😳
+       
+  </title>
+  <meta name="title" content="d3.js绘制中国地图 | 😳">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xtid.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "d3.js绘制中国地图",
+    "headline" : "d3.js绘制中国地图",
+    "description" : "d3.js是一个JavaScript库，用于根据数据操作文档。d3可以使用HTML、SVG和CSS将数据变为现实。d3对网络标准的强调让你拥",
+    "inLanguage" : "zh-CN",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-08-13 22:42:19 \x2b0915 \x2b0915",
+    "dateModified" : "2019-08-13 22:42:19 \x2b0915 \x2b0915",
+    "url" : "https:\/\/xtid.github.io\/2019\/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE\/",
+    "wordCount" : "979",
+    "keywords" : [  "😳"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">d3.js绘制中国地图</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xtid.github.io" rel="author"></a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-08-13 itemprop="datePublished">August 13, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"> 实际应用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>d3.js是一个JavaScript库，用于根据数据操作文档。d3可以使用HTML、SVG和CSS将数据变为现实。d3对网络标准的强调让你拥有了现代浏览器的全部功能，而不会将自己束缚在专有框架中，将强大的可视化组件和数据驱动的DOM操作方法结合在一起。</p>
+</blockquote>
+
+<p>最近使用d3做了一个中国地图，也实现了一些交互，所以记录下来：</p>
+
+<p>1.首先得准备一份中国地图的json文件，这里就不提供了，网上可以找到下载链接，也可以参考这个项目</p>
+
+<p><a href="https://github.com/clemsos/d3-china-map" rel="nofollow noreferrer" target="_blank">https://github.com/clemsos/d3-china-map</a></p>
+
+<p>2.这里就不对d3的具体api进行介绍了，直接上源码</p>
+
+<pre><code class="language-html">&lt;style type=&quot;text/css&quot;&gt;
+    body {
+        background: #fdfdfd;
+    }
+    path {
+        stroke-width: 1px;
+    }
+    .subProvince {
+        fill: #fff;
+        transform: translate(0, 5px);
+    }
+    .choose-city {
+        fill: #ee9b8a !important;
+        stroke: #df9269 !important;
+    }
+    .thirdProvince {
+        fill: #e6f3f3;
+        transform: translate(0, 10px);
+    }
+    .cityExist {
+        fill: #daf6f6;
+        stroke: #bceaea;
+    }
+    .cityNoExist {
+        fill: #afd8f6;
+        stroke: #8ec7e2;
+    }
+    text {
+        font-size: 14px;
+        font-weight: 700;
+        fill: #56abab;
+    }
+    .cityExist+text,
+    .cityNoExist+text {
+        fill: #56abab;
+    }
+    .choose-city+text {
+        fill: #fff;
+    }
+    .whiteFont {
+        fill: #fff !important;
+    }
+    circle {
+        fill: steelblue;
+        fill-opacity: .8;
+        stroke: #fff;
+    }
+&lt;/style&gt;
+
+// svg元素
+&lt;svg width=&quot;960&quot; height=&quot;960&quot;&gt;
+
+&lt;/svg&gt;
+
+&lt;script&gt;
+    'use strict';
+    const d3 = window.d3;
+
+    const mapData = window.map; // 地图数据
+
+    // 选择SVG对象
+    const $svg = d3.select('svg');
+
+    // 地图阴影效果
+    const $thirdProvince = $svg.append('svg:g')
+        .attr('id', 'thirdProvince');
+    // 地图阴影效果
+    const $subProvince = $svg.append('svg:g')
+        .attr('id', 'subProvince');
+
+    const $province = $svg.append('svg:g')
+        .attr('id', 'province');
+
+    const width = $svg.attr('width');
+    const height = $svg.attr('height');
+    // 生成投影函数
+    const projection = d3.geoMercator() // 设定经纬度3D转2D算法
+        .center([103, 30]) // 设置经纬度中心点
+        .scale(850) // 设定标尺
+        .translate([width / 2, height / 2]); // 设定转换宽高
+    const path = d3.geoPath(projection); // 设置路径转换函数
+    // 选中省路径并插入路径数据
+
+    $subProvince.append('path')
+        .datum(mapData)
+        .attr('d', path)
+        .attr('class', 'subProvince');
+
+    $thirdProvince.append('path')
+        .datum(mapData)
+        .attr('d', path)
+        .attr('class', 'thirdProvince');
+
+    const $provinceGraph = $province.selectAll('path')
+        .data(mapData.features) // 绑定数据
+        .enter() // 获取所有数据
+        .append('g')
+    $provinceGraph.append('path') // 插入路径
+        .attr('d', path) // 使用地理位置生成器
+        .attr('data-exist', function (d) { // 插入属性
+            return d.properties.exist ? &quot;true&quot; : '';
+        })
+        .attr('class', function (d) { // 插入属性
+            return d.properties.exist ? 'cityExist common-city-class city' + d.properties.id :
+                'cityNoExist common-city-class city' + d.properties.id
+        });
+
+    $provinceGraph.append('text')
+        .attr('transform', function (d) {
+            return 'translate(' + projection(d.properties.cp) + ')';
+        })
+        .attr('dy', '.35em')
+        .attr('dx', '-1em')
+        .text(function (d) { // 插入名称
+            return d.properties.name;
+        });
+
+    $('.common-city-class').mouseenter(function () {
+        $('.common-city-class').removeClass('choose-city');
+        $(this).addClass('choose-city');
+    });
+&lt;/script&gt;
+</code></pre>
+
+<p>4.以上代码可以直接使用，只需要引入d3 .js以及中国地图的json文件，需要特别注意的是，svg 对象中设置某个元素的样式与css不太相同，比如设置区块填充颜色使用的是<code>fill</code>，其他的可以根据具体的数据设置不同的地图属性，如</p>
+
+<pre><code class="language-javascript">$provinceGraph.append('path') // 插入路径
+    .attr('d', path) // 使用地理位置生成器
+    .attr('data-exist', function (d) { // 插入属性
+    return d.properties.exist ? &quot;true&quot; : '';
+})
+    .attr('class', function (d) { // 插入属性
+    return d.properties.exist ? 'cityExist common-city-class city' + d.properties.id :
+    'cityNoExist common-city-class city' + d.properties.id
+});
+</code></pre>
+
+<p>这里<code>return d.properties.exist ? 'cityExist common-city-class city' + d.properties.id :
+'cityNoExist common-city-class city' + d.properties.id</code>指的是如果属性中有<code>exist</code>属性这返回前者，反之返回后者，这样就方便我们一些实际的项目开发需求，另外最好使用原生js操作svg对象。</p>
+
+<p>关于d3的文档可以参考官网：<a href="https://github.com/d3/d3/wiki" rel="nofollow noreferrer" target="_blank">https://github.com/d3/d3/wiki</a>
+也可以看下<a href="https://github.com/xswei/d3-selection/blob/master/README.md" rel="nofollow noreferrer" target="_blank">https://github.com/xswei/d3-selection/blob/master/README.md</a></p>
+
+    </div>
+
+    
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://xtid.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xtid.github.io/2019/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="prev" rel="prev" title="最近一些效果的实现"><i class="iconfont icon-left"></i>&nbsp;最近一些效果的实现</a>
+         
+        
+        <a href="https://xtid.github.io/2019/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="next" rel="next" title="nginx学习总结">nginx学习总结&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

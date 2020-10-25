@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  
+  
+  
+  
+  <link rel="prev" href="https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/" />
+  <link rel="next" href="https://xtid.github.io/2020/vue2.x%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/" />
+  <link rel="canonical" href="https://xtid.github.io/2020/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Vue的初始化渲染过程简介 | 😳
+       
+  </title>
+  <meta name="title" content="Vue的初始化渲染过程简介 | 😳">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xtid.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Vue的初始化渲染过程简介",
+    "headline" : "Vue的初始化渲染过程简介",
+    "description" : "首先进入到src\/core\/instance\/index.js，可以看到定义了一个Vue构造函数，内容很简单，如果不是生产环境并且不是通过n",
+    "inLanguage" : "zh-CN",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-07-27 22:25:56 \x2b0800 CST",
+    "dateModified" : "2020-07-27 22:25:56 \x2b0800 CST",
+    "url" : "https:\/\/xtid.github.io\/2020\/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B\/",
+    "wordCount" : "3980",
+    "keywords" : [  "😳"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Vue的初始化渲染过程简介</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xtid.github.io" rel="author"></a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-07-27 itemprop="datePublished">July 27, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://xtid.github.io/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/"> 源码理解 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p>首先进入到<code>src/core/instance/index.js</code>，可以看到定义了一个<code>Vue</code>构造函数，内容很简单，如果不是生产环境并且不是通过<code>new</code>关键字创建对象的话，就在控制台打印一个<code>warn</code></p>
+
+<pre><code class="language-javascript">function Vue (options) {
+  if (process.env.NODE_ENV !== 'production' &amp;&amp;
+    !(this instanceof Vue)
+  ) {
+    warn('Vue is a constructor and should be called with the `new` keyword')
+  }
+  this._init(options)
+}
+</code></pre>
+
+<p>后面调用了几个函数，用来在<code>Vue</code>对象上创建各种属性或者方法</p>
+
+<pre><code class="language-javascript">initMixin(Vue)
+stateMixin(Vue)
+eventsMixin(Vue)
+lifecycleMixin(Vue)
+renderMixin(Vue)
+</code></pre>
+
+<h2>1.initMixin</h2>
+
+<p>初始化方法，首先为当前<code>vm</code>设置一个<code>_uid</code>，然后添加属性<code>_isVue</code>，其目的在于监听数据变化时过滤<code>vm</code>，<code>_isComponent</code>是内部创建子组件时才会添加为<code>true</code>的属性，然后走到<code>else</code>分支，调用<code>resolveConstructorOptions</code>会获取构造器父级的<code>options</code>，然后调用<code>mergeOptions</code>合并父级的<code>options</code>以及本身传入的<code>options</code>，最后生成的<code>options</code>包含<code>components、directives</code>等属性</p>
+
+<pre><code class="language-javascript">export function initMixin (Vue: Class&lt;Component&gt;) {
+  Vue.prototype._init = function (options?: Object) {
+    const vm: Component = this
+    // a uid
+    vm._uid = uid++
+
+    let startTag, endTag
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== 'production' &amp;&amp; config.performance &amp;&amp; mark) {
+      startTag = `vue-perf-start:${vm._uid}`
+      endTag = `vue-perf-end:${vm._uid}`
+      mark(startTag)
+    }
+
+    // a flag to avoid this being observed
+    vm._isVue = true
+    // merge options
+    if (options &amp;&amp; options._isComponent) {
+      // optimize internal component instantiation
+      // since dynamic options merging is pretty slow, and none of the
+      // internal component options needs special treatment.
+      initInternalComponent(vm, options)
+    } else {
+      vm.$options = mergeOptions(
+        resolveConstructorOptions(vm.constructor),
+        options || {},
+        vm
+      )
+    }
+    /* istanbul ignore else */
+    if (process.env.NODE_ENV !== 'production') {
+      initProxy(vm)
+    } else {
+      vm._renderProxy = vm
+    }
+    // expose real self
+    vm._self = vm
+    initLifecycle(vm)
+    initEvents(vm)
+    initRender(vm)
+    callHook(vm, 'beforeCreate')
+    initInjections(vm) // resolve injections before data/props
+    initState(vm)
+    initProvide(vm) // resolve provide after data/props
+    callHook(vm, 'created')
+
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== 'production' &amp;&amp; config.performance &amp;&amp; mark) {
+      vm._name = formatComponentName(vm, false)
+      mark(endTag)
+      measure(`vue ${vm._name} init`, startTag, endTag)
+    }
+
+    if (vm.$options.el) {
+      vm.$mount(vm.$options.el)
+    }
+  }
+}
+</code></pre>
+
+<h3> 1.1initLifecycle </h3>
+
+<p>这个方法首先会设置<code>vm</code>的一个父子节点、根节点信息，然后会定义一些生命周期相关的属性，比如<code>_isMounted、_isDestroyed、_isBeingDestroyed</code>等</p>
+
+<pre><code class="language-javascript">export function initLifecycle (vm: Component) {
+  const options = vm.$options
+
+  // locate first non-abstract parent
+  let parent = options.parent
+  if (parent &amp;&amp; !options.abstract) {
+    while (parent.$options.abstract &amp;&amp; parent.$parent) {
+      parent = parent.$parent
+    }
+    parent.$children.push(vm)
+  }
+
+  vm.$parent = parent
+  vm.$root = parent ? parent.$root : vm
+
+  vm.$children = []
+  vm.$refs = {}
+
+  vm._watcher = null
+  vm._inactive = null
+  vm._directInactive = false
+  vm._isMounted = false
+  vm._isDestroyed = false
+  vm._isBeingDestroyed = false
+}
+</code></pre>
+
+<h3> 1.2initEvents </h3>
+
+<p>通过名字可以看出是一个初始化事件相关的方法</p>
+
+<pre><code class="language-javascript">export function initEvents (vm: Component) {
+  // events表示父组件绑定在当前组件上的事件
+  vm._events = Object.create(null)
+  // 属性表示父组件是否通过&quot;@hook:&quot;把钩子函数绑定在当前组件上
+  vm._hasHookEvent = false
+  // init parent attached events
+  // 同样是来表示父组件绑定在当前组件上的事件
+  const listeners = vm.$options._parentListeners
+  if (listeners) {
+    updateComponentListeners(vm, listeners)
+  }
+}
+</code></pre>
+
+<p>如果<code>listeners</code>有值，则调用<code>updateComponentListeners</code>这个方法，其内部调用了<code>updateListeners</code>，其中的<code>add</code>方法会调用<code>vm.$on</code>，<code>vm.$on</code>会监听当前实例上的自定义事件，<code>remove</code>会调用<code>vm.$off</code>，移出这个事件监听</p>
+
+<pre><code class="language-javascript">function add (event, fn) {
+  target.$on(event, fn)
+}
+
+function remove (event, fn) {
+  target.$off(event, fn)
+}
+
+export function updateComponentListeners (
+  vm: Component,
+  listeners: Object,
+  oldListeners: ?Object
+) {
+  // 保存当前的vm引用
+  target = vm
+  // 传入listeners，父组件绑定在当前组件上的事件，oldListeners同理，不过在第一次初始化的时候为空
+  // 其内部会遍历listeners调用add方法添加监听事件，同时移出oldListeners
+  updateListeners(listeners, oldListeners || {}, add, remove, createOnceHandler, vm)
+  target = undefined
+}
+</code></pre>
+
+<h3> 1.3initRender </h3>
+
+<p>主要是添加了一些虚拟dom、<code>slot</code>等相关的属性和方法</p>
+
+<pre><code class="language-javascript">export function initRender (vm: Component) {
+  // 表示虚拟dom节点
+  vm._vnode = null 
+  // 表示当前实例render得到的Vnode
+  vm._staticTrees = null 
+  const options = vm.$options
+  const parentVnode = vm.$vnode = options._parentVnode  tree
+  const renderContext = parentVnode &amp;&amp; parentVnode.context
+  // 生成插槽内容
+  vm.$slots = resolveSlots(options._renderChildren, renderContext)
+  // 作用域插槽，此时为空
+  vm.$scopedSlots = emptyObject
+  vm._c = (a, b, c, d) =&gt; createElement(vm, a, b, c, d, false)
+  vm.$createElement = (a, b, c, d) =&gt; createElement(vm, a, b, c, d, true)
+  const parentData = parentVnode &amp;&amp; parentVnode.data
+	......
+}
+</code></pre>
+
+<p><code>resolveSlots</code>方法</p>
+
+<pre><code class="language-javascript">export function resolveSlots (
+  children: ?Array&lt;VNode&gt;,
+  context: ?Component
+): { [key: string]: Array&lt;VNode&gt; } {
+  if (!children || !children.length) {
+    return {}
+  }
+  const slots = {}
+  // 遍历当前节点chilren
+  for (let i = 0, l = children.length; i &lt; l; i++) {
+    const child = children[i]
+    // 获取data
+    const data = child.data
+    if (data &amp;&amp; data.attrs &amp;&amp; data.attrs.slot) {
+      delete data.attrs.slot
+    }
+    if ((child.context === context || child.fnContext === context) &amp;&amp;
+      data &amp;&amp; data.slot != null
+    ) {
+      // 拿到插槽名称
+      const name = data.slot
+      const slot = (slots[name] || (slots[name] = []))
+      if (child.tag === 'template') {
+        slot.push.apply(slot, child.children || [])
+      } else {
+        slot.push(child)
+      }
+    } else {
+      // 如果 data.slot 不存在，则是默认插槽的内容，则把对应的 child 添加到 slots.defaults 中
+      (slots.default || (slots.default = [])).push(child)
+    }
+  }
+  // 最后过滤一些空内容
+  for (const name in slots) {
+    if (slots[name].every(isWhitespace)) {
+      delete slots[name]
+    }
+  }
+  return slots
+}
+</code></pre>
+
+<p>调用钩子函数<code>beforeCreate</code></p>
+
+<h3> 1.4initProvide和initInjection </h3>
+
+<pre><code class="language-javascript">function initProvide (vm) {
+  var provide = vm.$options.provide;
+  if (provide) {
+    vm._provided = typeof provide === 'function'
+      ? provide.call(vm)
+    : provide;
+  }
+}
+function initInjections (vm) {
+  // 获取当前节点上的inject属性
+  var result = resolveInject(vm.$options.inject, vm);
+  if (result) {
+    toggleObserving(false);
+    // 遍历这些属性，defineReactive，将这些属性变成响应式的
+    Object.keys(result).forEach(function (key) {
+      /* istanbul ignore else */
+      {
+        defineReactive$$1(vm, key, result[key], function () {
+          warn(
+            &quot;Avoid mutating an injected value directly since the changes will be &quot; +
+            &quot;overwritten whenever the provided component re-renders. &quot; +
+            &quot;injection being mutated: \&quot;&quot; + key + &quot;\&quot;&quot;,
+            vm
+          );
+        });
+      }
+    });
+    toggleObserving(true);
+  }
+}
+</code></pre>
+
+<h3> 1.5initState </h3>
+
+<p>主要是初始化一些数据和属性，比如<code>props</code>、<code>methods</code>、<code>data</code>、<code>computed</code>、<code>watch</code>,</p>
+
+<pre><code class="language-javascript">function initState (vm) {
+  vm._watchers = [];
+  var opts = vm.$options;
+  if (opts.props) { initProps(vm, opts.props); }
+  if (opts.methods) { initMethods(vm, opts.methods); }
+  if (opts.data) {
+    initData(vm);
+  } else {
+    observe(vm._data = {}, true /* asRootData */);
+  }
+  if (opts.computed) { initComputed(vm, opts.computed); }
+  if (opts.watch &amp;&amp; opts.watch !== nativeWatch) {
+    initWatch(vm, opts.watch);
+  }
+}
+</code></pre>
+
+<p>初始化<code>props</code>属性</p>
+
+<pre><code class="language-javascript">function initProps (vm, propsOptions) {
+  // 获取当前节点的props属性值
+  var propsData = vm.$options.propsData || {};
+  var props = vm._props = {};
+  var isRoot = !vm.$parent;
+  // 用于保存当前组件的props里的key，以便之后在父组件更新props时可以直接使用数组迭代
+  var keys = vm.$options._propKeys = [];
+  var isRoot = !vm.$parent;
+  if (!isRoot) {
+    toggleObserving(false);
+  }
+  var loop = function ( key ) {
+    keys.push(key);
+    // validateProp验证当前prop[key]是否propsOptions定义的要求
+    var value = validateProp(key, propsOptions, propsData, vm);
+    {
+      var hyphenatedKey = hyphenate(key);
+      if (isReservedAttribute(hyphenatedKey) ||
+          config.isReservedAttr(hyphenatedKey)) {
+        warn(
+          (&quot;\&quot;&quot; + hyphenatedKey + &quot;\&quot; is a reserved attribute and cannot be used as component prop.&quot;),
+          vm
+        );
+      }
+      // 添加响应式属性，这样props里面的值改变之后，组件会自动更新视图
+      defineReactive$$1(props, key, value, function () {
+        if (!isRoot &amp;&amp; !isUpdatingChildComponent) {
+          warn(
+            &quot;Avoid mutating a prop directly since the value will be &quot; +
+            &quot;overwritten whenever the parent component re-renders. &quot; +
+            &quot;Instead, use a data or computed property based on the prop's &quot; +
+            &quot;value. Prop being mutated: \&quot;&quot; + key + &quot;\&quot;&quot;,
+            vm
+          );
+        }
+      });
+    }
+    // static props are already proxied on the component's prototype
+    // during Vue.extend(). We only need to proxy props defined at
+    // instantiation here.
+    if (!(key in vm)) {
+      proxy(vm, &quot;_props&quot;, key);
+    }
+  };
+	// 循环遍历key
+  for (var key in propsOptions) loop( key );
+  toggleObserving(true);
+}
+</code></pre>
+
+<p>初始化<code>methods</code>属性</p>
+
+<pre><code class="language-javascript">function initMethods (vm, methods) {
+  // props属性用于判断methods中的方法名是否和props的属性重名
+  var props = vm.$options.props;
+  for (var key in methods) {
+    {
+      if (typeof methods[key] !== 'function') {
+        warn(
+          &quot;Method \&quot;&quot; + key + &quot;\&quot; has type \&quot;&quot; + (typeof methods[key]) + &quot;\&quot; in the component definition. &quot; +
+          &quot;Did you reference the function correctly?&quot;,
+          vm
+        );
+      }
+      // 如果props中有同名属性，则报错
+      if (props &amp;&amp; hasOwn(props, key)) {
+        warn(
+          (&quot;Method \&quot;&quot; + key + &quot;\&quot; has already been defined as a prop.&quot;),
+          vm
+        );
+      }
+      // 如果key是以$或_开头则，也报错
+      if ((key in vm) &amp;&amp; isReserved(key)) {
+        warn(
+          &quot;Method \&quot;&quot; + key + &quot;\&quot; conflicts with an existing Vue instance method. &quot; +
+          &quot;Avoid defining component methods that start with _ or $.&quot;
+        );
+      }
+    }
+    vm[key] = typeof methods[key] !== 'function' ? noop : bind(methods[key], vm);
+  }
+}
+</code></pre>
+
+<p>初始化<code>data</code>属性</p>
+
+<pre><code class="language-javascript">function initData (vm) {
+  // 获取data属性
+  var data = vm.$options.data;
+  // 如果data是一个function，则调用getData返回里面的值，否则直接将data属性赋给_data
+  data = vm._data = typeof data === 'function'
+    ? getData(data, vm)
+  : data || {};
+  // 如果data属性不是一个对象，设置data为空对象，并打印一个warn
+  if (!isPlainObject(data)) {
+    data = {};
+    warn(
+      'data functions should return an object:\n' +
+      'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
+      vm
+    );
+  }
+  // 获取data keys，props属性，methods属性
+  var keys = Object.keys(data);
+  var props = vm.$options.props;
+  var methods = vm.$options.methods;
+  var i = keys.length;
+  while (i--) {
+    var key = keys[i];
+    {
+      // 当前data的key如果和methods中的方法重名，抛出警告
+      if (methods &amp;&amp; hasOwn(methods, key)) {
+        warn(
+          (&quot;Method \&quot;&quot; + key + &quot;\&quot; has already been defined as a data property.&quot;),
+          vm
+        );
+      }
+    }
+    // 当前data的key如果和props中的属性重名，抛出警告
+    if (props &amp;&amp; hasOwn(props, key)) {
+      warn(
+        &quot;The data property \&quot;&quot; + key + &quot;\&quot; is already declared as a prop. &quot; +
+        &quot;Use prop default value instead.&quot;,
+        vm
+      );
+    } else if (!isReserved(key)) {
+      proxy(vm, &quot;_data&quot;, key);
+    }
+  }
+  // 双向数据绑定data
+  observe(data, true /* asRootData */);
+}
+</code></pre>
+
+<p>初始化<code>computed</code>属性</p>
+
+<pre><code class="language-javascript">function initComputed (vm, computed) {
+  // $flow-disable-line
+  var watchers = vm._computedWatchers = Object.create(null);
+  // computed properties are just getters during SSR
+  var isSSR = isServerRendering();
+
+  for (var key in computed) {
+    // 每个computed key所定义的方法
+    var userDef = computed[key];
+    // 将该方法赋值给getter变量
+    var getter = typeof userDef === 'function' ? userDef : userDef.get;
+    if (getter == null) {
+			// 如果为空，打印错误
+      warn(
+        (&quot;Getter is missing for computed property \&quot;&quot; + key + &quot;\&quot;.&quot;),
+        vm
+      );
+    }
+
+    if (!isSSR) {
+      // create internal watcher for the computed property.
+      watchers[key] = new Watcher(
+        vm,
+        getter || noop,
+        noop,
+        computedWatcherOptions
+      );
+    }
+
+    // 如果当前节点computed上未有key这个方法
+    if (!(key in vm)) {
+      // defineComputed方法主要是为当前节点的computed属性添加响应式更新方法
+      // 可以在defineComputed定义最后看到 Object.defineProperty(target, key, sharedPropertyDefinition) 
+      defineComputed(vm, key, userDef);
+    } else {
+      if (key in vm.$data) {
+        warn((&quot;The computed property \&quot;&quot; + key + &quot;\&quot; is already defined in data.&quot;), vm);
+      } else if (vm.$options.props &amp;&amp; key in vm.$options.props) {
+        warn((&quot;The computed property \&quot;&quot; + key + &quot;\&quot; is already defined as a prop.&quot;), vm);
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>初始化<code>watch</code>属性比较简单，在做了相应的判断后直接添加一个响应式更新属性，这里不多赘述，调用完<code>initState</code>之后，会调用<code>created</code>钩子函数，此时<code>vm</code>上的属性</p>
+
+<pre><code class="language-javascript">// _init
+vm._uid = 0
+vm._isVue = true
+vm.$options = {
+  components: {
+    KeepAlive,
+    Transition,
+    TransitionGroup
+  },
+  directives: {
+    model,
+    show
+  },
+  methods: {},
+  computed: {},
+  watch: {},
+  filters: {},
+  _base: Vue,
+  el: '#app',
+  data: function mergedInstanceDataFn(){}
+}
+vm._renderProxy = vm
+vm._self = vm
+
+// initLifecycle
+vm.$parent = parent
+vm.$root = parent ? parent.$root : vm
+
+vm.$children = []
+vm.$refs = {}
+
+vm._watcher = null
+vm._inactive = null
+vm._directInactive = false
+vm._isMounted = false
+vm._isDestroyed = false
+vm._isBeingDestroyed = false
+
+// initEvents	
+vm._events = Object.create(null)
+vm._hasHookEvent = false
+
+// initRender
+vm.$vnode = null  
+vm._vnode = null
+vm._staticTrees = null
+vm.$slots = resolveSlots(vm.$options._renderChildren, renderContext)
+vm.$scopedSlots = emptyObject
+
+vm._c = (a, b, c, d) =&gt; createElement(vm, a, b, c, d, false)
+
+vm.$createElement = (a, b, c, d) =&gt; createElement(vm, a, b, c, d, true)
+// 在 initState 中添加的属性
+vm._watchers = []
+vm._data
+vm.message
+</code></pre>
+
+<p>执行完上面步骤后，会调用<code>vm.$mount</code></p>
+
+<pre><code class="language-javascript">// 保存之前定义的$mount方法，然后重写Vue.prototype.$mount
+const mount = Vue.prototype.$mount
+Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+  // 查找当前节点
+  el = el &amp;&amp; query(el)
+
+ 	// 如果事body元素或者documentElement元素则抛错
+  if (el === document.body || el === document.documentElement) {
+    process.env.NODE_ENV !== 'production' &amp;&amp; warn(
+      `Do not mount Vue to &lt;html&gt; or &lt;body&gt; - mount to normal elements instead.`
+    )
+    return this
+  }
+	
+  // 拿到options
+  const options = this.$options
+  // 如果节点上没有render函数
+  if (!options.render) {
+    // 获取template，template可以是#id、模板字符串、dom元素
+    let template = options.template
+    if (template) {
+      if (typeof template === 'string') {
+        if (template.charAt(0) === '#') {
+          // 获取templatge innerHTML
+          template = idToTemplate(template)
+          /* istanbul ignore if */
+          if (process.env.NODE_ENV !== 'production' &amp;&amp; !template) {
+            warn(
+              `Template element not found or is empty: ${options.template}`,
+              this
+            )
+          }
+        }
+      } else if (template.nodeType) {
+        // 如果不是#id、模板字符串，直接获取其innerHTML
+        template = template.innerHTML
+      } else {
+        if (process.env.NODE_ENV !== 'production') {
+          warn('invalid template option:' + template, this)
+        }
+        return this
+      }
+    } else if (el) {
+      // 如果没有template，则获取el以及其子内容作为模板
+      template = getOuterHTML(el)
+    }
+    if (template) {
+      ......
+    }
+  }
+  // 有render函数，直接执行mount.call(this, el, hydrating)
+  return mount.call(this, el, hydrating)
+}
+
+function getOuterHTML (el: Element): string {
+  if (el.outerHTML) {
+    return el.outerHTML
+  } else {
+    const container = document.createElement('div')
+    container.appendChild(el.cloneNode(true))
+    return container.innerHTML
+  }
+}
+</code></pre>
+
+<p>上面最后调用了<code>mount.call(this, el, hydrating)</code>，其方法对应于</p>
+
+<pre><code class="language-javascript">Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+  el = el &amp;&amp; inBrowser ? query(el) : undefined
+  return mountComponent(this, el, hydrating)
+}
+
+  vm: Component,
+  el: ?Element,
+  hydrating?: boolean
+): Component {
+  vm.$el = el
+	......
+  // 调用beforeMount钩子函数
+  callHook(vm, 'beforeMount')
+
+  let updateComponent
+	
+  ......
+  
+  // 更新当前节点的方法
+  updateComponent = () =&gt; {
+    // vm._render会返回一个render字符串，_update其内部会调用patch方法来进行节点的增删改
+    vm._update(vm._render(), hydrating)
+  }
+
+	// 创建一个watch对象，在调用updateComponent之前会先调用before方法
+  new Watcher(vm, updateComponent, noop, {
+    before () {
+      if (vm._isMounted &amp;&amp; !vm._isDestroyed) {
+        // 如果是更新节点，调用beforeUpdate钩子函数
+        callHook(vm, 'beforeUpdate')
+      }
+    }
+  }, true /* isRenderWatcher */)
+  hydrating = false
+
+   // 当页面渲染完成后，调用钩子函数mounted
+  if (vm.$vnode == null) {
+    vm._isMounted = true
+    callHook(vm, 'mounted')
+  }
+  return vm
+}
+</code></pre>
+
+    </div>
+
+    
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://xtid.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/" class="prev" rel="prev" title="Vue自定义指令"><i class="iconfont icon-left"></i>&nbsp;Vue自定义指令</a>
+         
+        
+        <a href="https://xtid.github.io/2020/vue2.x%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/" class="next" rel="next" title="Vue2.x里面的双向数据绑定">Vue2.x里面的双向数据绑定&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

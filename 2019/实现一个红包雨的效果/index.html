@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  
+  
+  
+  
+  <link rel="prev" href="https://xtid.github.io/2019/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/" />
+  <link rel="next" href="https://xtid.github.io/2019/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/" />
+  <link rel="canonical" href="https://xtid.github.io/2019/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           实现一个红包雨的效果 | 😳
+       
+  </title>
+  <meta name="title" content="实现一个红包雨的效果 | 😳">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xtid.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "实现一个红包雨的效果",
+    "headline" : "实现一个红包雨的效果",
+    "description" : "在很多活动页面我们经常会看到这种效果，屏幕上下着红包雨，点开有有各种礼品或者是优惠券什么的。之前项目要求做一个这样的效果，于是尝试着写了下 1",
+    "inLanguage" : "zh-CN",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-05-28 19:23:19 \x2b0700 \x2b0700",
+    "dateModified" : "2019-05-28 19:23:19 \x2b0700 \x2b0700",
+    "url" : "https:\/\/xtid.github.io\/2019\/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C\/",
+    "wordCount" : "724",
+    "keywords" : [  "😳"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">实现一个红包雨的效果</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xtid.github.io" rel="author"></a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-05-28 itemprop="datePublished">May 28, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"> 实际应用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p>在很多活动页面我们经常会看到这种效果，屏幕上下着红包雨，点开有有各种礼品或者是优惠券什么的。之前项目要求做一个这样的效果，于是尝试着写了下</p>
+
+<p>1.首先要明白这个思路，每个红包下落的位置以及从开始出现到消失的时间都各不相同。那么也就是说我们可以写两个函数随机生成红包出现的位置以及设置下落的时间</p>
+
+<p>2.其次，点击红包后肯定会有一系列的操作，在这个过程中应该将其他红包元素的点击事件去除，以免多次点击，达不到我们想要的效果</p>
+
+<p>3.关于下落的效果，这里是用的css的动画。还有个地方需要注意，因为下落的过程中红包是不停的旋转的，所以得将该元素的<code>animation-iteration-count</code>属性设置为<code>infinite</code>，表示一直重复该动画</p>
+
+<p>4.这里的红包元素是一开始使用for循环依次创建的，对于一些性能要求很高的页面来说不是那么的友好，可以选择其它的方式优化一下。</p>
+
+<p>5.下面是一个简单的demo</p>
+
+<p>html部分</p>
+
+<pre><code class="language-html">    &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;Document&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;./index.css&quot;&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    
+    &lt;body&gt;
+        &lt;div id=&quot;envelope-box&quot;&gt;&lt;/div&gt;
+        &lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+    
+    &lt;/html&gt;
+</code></pre>
+
+<p>css部分</p>
+
+<pre><code class="language-css">    #envelope-box {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1001;
+    }
+    
+    #envelope-box&gt;div {
+        position: absolute;
+        border-radius: 5px;
+        width: 80px;
+        height: 100px;
+        background: url('./img/petal.png') no-repeat;
+        background-size: contain;
+        animation-timing-function: linear;
+        -moz-animation-timing-function: linear;
+        -webkit-animation-timing-function: linear;
+        z-index: 1001;
+    }
+    
+    #envelope-box&gt;div:hover {
+        cursor: pointer;
+    }
+    
+    .red-envelope {
+        transition: transform .3s;
+    }
+    
+    .red-envelope.active {
+        transform: scale(1.5, 1.5);
+    }
+    
+    @keyframes rotary {
+        0% {
+            transform: rotate(0deg);
+        }
+    
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</code></pre>
+
+<p>js部分</p>
+
+<pre><code class="language-js">    const readEnvelope = {
+        NUMBER_OF_LEAVES: 20,
+        wWidth: $(window).width(),
+        wHight: $(window).height(),
+        $container: $('#envelope-box'),
+        init: function () {
+            const self = this;
+            for (let i = 0; i &lt; self.NUMBER_OF_LEAVES; i++) {
+                self.$container.append(self.createWedding());
+            }
+        },
+        // 创建红包元素
+        createWedding: function () {
+            const self = this;
+            let ele = $('&lt;div class=&quot;red-envelope&quot;&gt;&lt;/div&gt;');
+            ele.css({
+                top: self.pixelValue(self.randomInteger(-200, -100)),
+                left: self.pixelValue(self.randomInteger(0, self.wWidth - 100)),
+                'animationName': 'rotary',
+                'animationDuration': self.durationValue(self.randomFloat(2, 8)),
+                'animation-iteration-count': 'infinite'
+            }).animate({
+                'top': self.wHight + 60
+            }, self.randomFloat(1.2, 8.2) * 1000, 'linear', function () {
+                $(this).remove();
+            }).hover(function () {
+                $(this).stop();
+                $(this).css('animation', 'none');
+                $(this).css('z-index', '1002');
+                $(this).addClass('active');
+            }).mouseout(function () {
+                $(this).fadeOut();
+                $(this).removeClass('active');
+                setTimeout(function () {
+                    $(this).remove();
+                }, 2000);
+            }).on('click', function () {
+                $(this).fadeOut();
+                setTimeout(function () {
+                    $(this).remove();
+                }, 2000);
+                $('.red-envelope').unbind('click');
+            });
+            return ele;
+        },
+        // 设置红包生成位置
+        randomInteger: function (low, high) {
+            return low + Math.floor(Math.random() * (high - low));
+        },
+        // 设置每个红包下降的秒数
+        randomFloat: function (low, high) {
+            return low + Math.random() * (high - low);
+        },
+        // 添加px符号
+        pixelValue: function (value) {
+            return value + 'px';
+        },
+        // 添加时间单位
+        durationValue: function (value) {
+            return value + 's';
+        },
+    };
+    readEnvelope.init();
+</code></pre>
+
+<p>6.以上是一个小demo，以后有时间再想想其他更好的方式。</p>
+
+    </div>
+
+    
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://xtid.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xtid.github.io/2019/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/" class="prev" rel="prev" title="简单实现一个单屏滚动效果"><i class="iconfont icon-left"></i>&nbsp;简单实现一个单屏滚动效果</a>
+         
+        
+        <a href="https://xtid.github.io/2019/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/" class="next" rel="next" title="使用文本过滤的方式防御XSS">使用文本过滤的方式防御XSS&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

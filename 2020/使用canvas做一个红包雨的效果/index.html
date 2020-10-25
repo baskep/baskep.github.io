@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  
+  
+  
+  
+  <link rel="prev" href="https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" />
+  <link rel="next" href="https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/" />
+  <link rel="canonical" href="https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           使用Canvas实现一个红包雨的效果 | 😳
+       
+  </title>
+  <meta name="title" content="使用Canvas实现一个红包雨的效果 | 😳">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xtid.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "使用Canvas实现一个红包雨的效果",
+    "headline" : "使用Canvas实现一个红包雨的效果",
+    "description" : "之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做",
+    "inLanguage" : "zh-CN",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-06-15 18:12:19 \x2b0700 \x2b0700",
+    "dateModified" : "2020-06-15 18:12:19 \x2b0700 \x2b0700",
+    "url" : "https:\/\/xtid.github.io\/2020\/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C\/",
+    "wordCount" : "1020",
+    "keywords" : [  "😳"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">😳</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">使用Canvas实现一个红包雨的效果</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xtid.github.io" rel="author"></a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-06-15 itemprop="datePublished">June 15, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"> 实际应用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<p>之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做一个红包雨的效果</p>
+
+<h3 id="1-核心原理">1.核心原理</h3>
+
+<p>1.生成红包，设置好默认的背景图像，传入页面上所需的红包数量</p>
+
+<p>2.保存状态，利用Canvas的原生API实现页面的渲染，每次移动各个红包到不同位置，利用<code>window.requestAnimationFrame</code>实现每一帧的动画绘制，使整个页面不会卡顿</p>
+
+<p>3.点击红包，计算是否点中红包，如果点中，则进行相应的事件处理</p>
+
+<h3 id="2-具体实现">2.具体实现</h3>
+
+<p>2.1定义一些基本变量</p>
+
+<pre><code class="language-javascript">redEnvelopeArr: [], // 当前整个红包对象数组
+itemSpeed: [], // 每个红包对象对应的一些属性，如下落速度，页面上所在的位置
+count: 0, // 加载好的红包图片的数量
+ctx: null, // Canvas context对象
+</code></pre>
+
+<p>2.2加载红包图片</p>
+
+<pre><code class="language-javascript">loadImgs(totalCount) {
+  const self = this
+  const canvas = document.getElementById('canvas')
+  if (canvas.width &lt; window.innerWidth) {
+    canvas.width = window.innerWidth
+  }
+  if (canvas.height &lt; window.innerHeight) {
+    canvas.height = window.innerHeight
+  }
+  return new Promise(resolve =&gt; {
+    for (let index = 0; index &lt; totalCount; index++) {
+      const image = new Image()
+      image.src = '' // 图片地址
+      image.onload = () =&gt; {
+        self.count++
+        self.itemSpeed.push({
+          speed: 0, // 开始下落的位置
+          step: self.randomFloat(2, 6) // 每个红包下落的速度
+        })
+        self.redEnvelopeArr.push({
+          x: self.randomFloat(0, window.innerWidth - 100),
+          y: 0,
+          img: image
+        })
+        if (self.count === totalCount) resolve() // 所有图片加载完成跳出
+      }
+    }
+  })
+}
+</code></pre>
+
+<p>2.2生成随机数的一个方法</p>
+
+<pre><code class="language-javascript">randomFloat(low, high) {
+  return low + Math.random() * (high - low)
+}
+</code></pre>
+
+<p>2.3绘制红包图片下落，这里做了一个旋转下落的效果，主要原理是利用<code>translate</code>移动context位置，旋转一定角度后，将原点移动到之前位置，做一个旋转的效果，每次操作的时候记得<code>sava</code>、<code>restore</code>。当然如果不想做旋转效果，那直接用<code>drawImage</code>每次画不同位置的红包就行了</p>
+
+<pre><code class="language-javascript">drawRedEnvelope() {
+  const self = this
+  self.ctx.width = 100 // 红包的宽度
+  self.ctx.height = 120 // 红包的高度
+  self.redEnvelopeArr.forEach((item, index) =&gt; {
+    const newRedEnvelope = {
+      x: item.x, // 红包所在的x轴位置
+      y: item.y + self.itemSpeed[index].step, // 红包所在的y轴位置，主要由下落速度决定
+      img: item.img,
+      speed: item.speed
+    }
+    self.ctx.save()
+    self.redEnvelopeArr.splice(index, 1, newRedEnvelope)
+    self.ctx.translate(item.x + 50, 60 + self.itemSpeed[index].speed)
+    self.ctx.rotate(self.itemSpeed[index].speed * Math.PI / 180)
+    self.ctx.translate(-item.x - 50, -60 - self.itemSpeed[index].speed)
+    self.ctx.drawImage(item.img, item.x, self.itemSpeed[index].speed)
+    self.ctx.restore()
+    self.itemSpeed[index].speed += self.itemSpeed[index].step
+    // self.ctx.drawImage(item.img, item.x, item.y, self.ctx.width, self.ctx.height)
+  })
+},
+</code></pre>
+
+<p>2.4使用<code>clearRect</code>清除上一帧的效果，在调用<code>drawRedEnvelope</code>绘制新一帧的效果，使用<code>requestAnimationFrame</code>重复执行</p>
+
+<pre><code class="language-javascript">moveRedEnvelope() {
+  const self = this
+  self.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+  self.drawRedEnvelope()
+  window.requestAnimationFrame(self.moveRedEnvelope.bind(this))
+}
+</code></pre>
+
+<p>2.5点击红包时，循环遍历判断当前点击位置是否在某个红包内，如果遇到多个红包重叠的情况，只需取最上面一个就行了</p>
+
+<pre><code class="language-javascript">redEnvelopeClick() {
+  const self = this
+  const canvas = document.getElementById('canvas')
+  canvas.addEventListener('click', e =&gt; {
+    let result = {}
+    this.redEnvelopeArr.forEach((item, index) =&gt; {
+      const distanceX = e.clientX - item.x
+      const distanceY = e.clientY - item.y
+      const withinX = distanceX &gt; 0
+      const withinY = distanceY &gt; 0
+      if (withinX &amp;&amp; withinY) {
+        result = item // 最后的result返回，然后做一些处理
+      }
+    })
+  })
+}
+</code></pre>
+
+<h3 id="后言">后言</h3>
+
+<p>以上就是主要内容，需要特别注意的是，点击完了某个红包需要找个时间点清空整个页面上的动画，还有就是具体的点击实现的业务逻辑需自己去处理</p>
+
+    </div>
+
+    
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://xtid.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" class="prev" rel="prev" title="nodejs实现excel导出数据的功能"><i class="iconfont icon-left"></i>&nbsp;nodejs实现excel导出数据的功能</a>
+         
+        
+        <a href="https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/" class="next" rel="next" title="Vue自定义指令">Vue自定义指令&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>
