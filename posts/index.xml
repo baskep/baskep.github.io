@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 24 Oct 2020 23:45:12 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2020 21:38:01 +0800</lastBuildDate>
     
 	<atom:link href="https://xtid.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>浅谈前端统计</title>
+      <link>https://xtid.github.io/2020/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</link>
+      <pubDate>Wed, 28 Oct 2020 21:38:01 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</guid>
+      <description>监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案</description>
+    </item>
     
     <item>
       <title>白屏时间</title>
