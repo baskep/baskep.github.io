@@ -5,13 +5,13 @@
     <description>Recent content in 👨🏻‍💻 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 28 Oct 2020 21:38:01 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2020 21:45:40 +0800</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>浅谈前端统计</title>
       <link>https://xtid.github.io/2020/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</link>
-      <pubDate>Wed, 28 Oct 2020 21:38:01 +0800</pubDate>
+      <pubDate>Wed, 28 Oct 2020 21:45:40 +0800</pubDate>
       
       <guid>https://xtid.github.io/2020/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</guid>
       <description>&lt;p&gt;监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案、营销策略以及项目的迭代。 试想，如果没有这些监控系统，那么线上的运行的项目出问题了，定位是比较困难的，这时候修复起来就比较劳神了。我记录下我所了解的，常见的方式。&lt;/p&gt;
