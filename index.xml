@@ -5,8 +5,120 @@
     <description>Recent content in 👨🏻‍💻 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 28 Oct 2020 21:45:40 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2020 15:21:34 +0800</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>输入一个URL到页面呈现的过程</title>
+      <link>https://xtid.github.io/2020/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sun, 15 Nov 2020 15:21:34 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</guid>
+      <description>
+
+&lt;h4 id=&#34;1-dns解析&#34;&gt;1.DNS解析&lt;/h4&gt;
+
+&lt;p&gt;平时在浏览器中输入的域名并非是网址或资源真实所在的服务器地址或资源，域名只是与&lt;code&gt;ip&lt;/code&gt;地址的一个映射。在进行正式的请求之前，就会先有这个过程：&lt;code&gt;DNS&lt;/code&gt;服务将域名解析成对应的&lt;code&gt;ip&lt;/code&gt;地址。其解析过程：&lt;/p&gt;
+
+&lt;p&gt;1.检查本机&lt;code&gt;host&lt;/code&gt;中是否有配置相应的&lt;code&gt;ip&lt;/code&gt;映射关系，如果有则使用这个&lt;code&gt;ip&lt;/code&gt;地址，完成域名解析
+2.检查浏览器缓存中是否缓存过该域名对应的&lt;code&gt;ip&lt;/code&gt;地址
+3.检查找本机系统中是否缓存过&lt;code&gt;ip&lt;/code&gt;
+4.向本地域名解析服务发起域名解析的请求
+5.向根域名解析服务器发起域名解析请求
+6.按照根域名&lt;code&gt;(.)&lt;/code&gt; -&amp;gt; 顶级域&lt;code&gt;(如：.com)&lt;/code&gt; -&amp;gt; 第二层域&lt;code&gt;(如：xxx.com)&lt;/code&gt; -&amp;gt; 子域&lt;code&gt;(如：www.xxx.com)&lt;/code&gt;的顺序查找到ip地址
+8.返回解析结果给用户&lt;/p&gt;
+
+&lt;h4 id=&#34;2-建立-tcp-连接&#34;&gt;2.建立&lt;code&gt;TCP&lt;/code&gt;连接&lt;/h4&gt;
+
+&lt;p&gt;经典的三次握手&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;第一次握手： 建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；&lt;/p&gt;
+
+&lt;p&gt;第二次握手： 服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；&lt;/p&gt;
+
+&lt;p&gt;第三次握手： 客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;简单来说其步骤就是，客户端发送数据包告诉服务端连接请求，服务端返回数据包响应表示可以收到建立连接请求并且返回数据包通知客户端，客服端再次发送数据包确认并建立&lt;code&gt;TCP&lt;/code&gt;连接&lt;/p&gt;
+
+&lt;h4 id=&#34;3-发送-http-请求&#34;&gt;3.发送&lt;code&gt;HTTP&lt;/code&gt;请求&lt;/h4&gt;
+
+&lt;p&gt;一个&lt;code&gt;HTTP&lt;/code&gt;请求包含请求行，请求头，请求主体&lt;/p&gt;
+
+&lt;h5 id=&#34;3-1请求行&#34;&gt;3.1请求行&lt;/h5&gt;
+
+&lt;p&gt;常见的信息有请求地址、请求方法&lt;code&gt;GET、POST、PUT、DELETE、PATCH、HEAD、OPTIONS、TRACE&lt;/code&gt;、&lt;code&gt;Http&lt;/code&gt;协议信息&lt;/p&gt;
+
+&lt;h5 id=&#34;3-2请求头&#34;&gt;3.2请求头&lt;/h5&gt;
+
+&lt;p&gt;常见的请求头信息有&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Host&lt;/code&gt;：主机名
+&lt;code&gt;Connection&lt;/code&gt;：&lt;code&gt;HTTP/1.1&lt;/code&gt;增加的，使用&lt;code&gt;keepalive&lt;/code&gt;，一个连接可以发多个请求
+&lt;code&gt;User-Agent&lt;/code&gt;：客户端程序的信息，就是发送请求的浏览器信息，可根据这个信息来对不同设备进行处理
+&lt;code&gt;Accept&lt;/code&gt;：浏览器可以接收的媒体数据类型
+&lt;code&gt;Accept-Encoding&lt;/code&gt;：是浏览器用来告知服务器它能够支持的内容编码及内容编码的优先级顺序，可一次性指定多种内容编码
+&lt;code&gt;Accept-Language&lt;/code&gt;：告诉服务器浏览器能够处理的自然语言集
+&lt;code&gt;Content-Type&lt;/code&gt;：请求中的数据的媒体类型
+&lt;code&gt;Cookie&lt;/code&gt;：浏览器记录的用户相关信息&lt;/p&gt;
+
+&lt;p&gt;当然还有很多其他的，这里就不罗列完了，另外还可以自己添加一些自定义请求头，在服务端手动获取处理就行了&lt;/p&gt;
+
+&lt;h5 id=&#34;3-3请求主体&#34;&gt;3.3请求主体&lt;/h5&gt;
+
+&lt;p&gt;主要是请求所带的一些参数信息，这里就不多赘述&lt;/p&gt;
+
+&lt;h4 id=&#34;4-使用浏览器缓存&#34;&gt;4.使用浏览器缓存&lt;/h4&gt;
+
+&lt;p&gt;浏览器缓存主要&lt;code&gt;强缓存&lt;/code&gt;和&lt;code&gt;协商缓存&lt;/code&gt;，具体使用哪一种缓存，强缓存的优先级比协商缓存高，怎么设置还是得从实际出发&lt;/p&gt;
+
+&lt;h5 id=&#34;4-1强缓存&#34;&gt;4.1强缓存&lt;/h5&gt;
+
+&lt;p&gt;强缓存可以用&lt;code&gt;Expires&lt;/code&gt;和&lt;code&gt;Cache-Control&lt;/code&gt;来控制，强缓存最大的特点就是通过服务器返回的过期时间来判断缓存是否过期，不会再去和服务端做校验看资源是否真正更新了&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Expires&lt;/code&gt;：主由服务端返给客户端，在过期时间内，浏览器可直接使用缓存而不需要重新请求，但它也有不少局限，首先它只能精确到秒，对于那种毫秒级更新的资源它没办法判断，其次它受限于本地时间，如果修改了本地时间，可能会造成缓存失效。&lt;code&gt;Expires&lt;/code&gt;是&lt;code&gt;Http/1&lt;/code&gt;时候的请求头，现在这样设置通常也是为了兼容&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Cache-Control&lt;/code&gt;：是现在主要使用的方式，可以在请求头以及响应头中设置，常见设置有&lt;code&gt;max-age(表示缓存在多少秒后过期)&lt;/code&gt;，&lt;code&gt;no-cache(表示使用Etag或者Last-Modified字段来控制缓存，即协商缓存)&lt;/code&gt;，通常来讲，&lt;code&gt;Cache-control&lt;/code&gt;的优先级是要高于&lt;code&gt;Expires&lt;/code&gt;的&lt;/p&gt;
+
+&lt;h5 id=&#34;4-2协商缓存&#34;&gt;4.2协商缓存&lt;/h5&gt;
+
+&lt;p&gt;在强缓存失效后就会用协商缓存，协商缓存主要使用&lt;code&gt;Last-Modified 和 ETag&lt;/code&gt;请求头控制，这两个字段都是由服务端返回的。如果说缓存还生效，那么这次请求的状态码会返回&lt;code&gt;304&lt;/code&gt;，表示资源未改动，如果缓存失效，返回新的资源并设置缓存，返回&lt;code&gt;200&lt;/code&gt;状态码&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Last-Modified&lt;/code&gt;：在设置&lt;code&gt;Last-Modified&lt;/code&gt;后，下次请求时请求头会带上&lt;code&gt;If-Modified-Since&lt;/code&gt;这个字段，然后服务器会用这个时间与资源修改时间做对比，然后就是返回&lt;code&gt;304&lt;/code&gt;还是&lt;code&gt;200&lt;/code&gt;的问题了，同样它也只能精确到秒，所以一些需要毫秒级更新的资源使用这个并不准确&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ETag&lt;/code&gt;：通常与&lt;code&gt;If-None-Match&lt;/code&gt;配合使用，&lt;code&gt;Etag&lt;/code&gt;为服务端为这资源生成的唯一标识，下次客户端请求的时候，带上这个值，由服务端再做校验，如果资源未改动，返回&lt;code&gt;304&lt;/code&gt;，使用原来的缓存，反之返回&lt;code&gt;200&lt;/code&gt;，设置缓存&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/10/28/O2gaJWm8jYPeI7c.png&#34; alt=&#34;浏览器缓存.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;图出自&lt;a href=&#34;https://github.com/ljianshu/Blog&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;5-浏览器接收响应&#34;&gt;5.浏览器接收响应&lt;/h4&gt;
+
+&lt;p&gt;响应分为状态码，响应头，响应主体组成，响应主体通常是一些文件&lt;code&gt;如(HTML、JS、CSS文件)&lt;/code&gt;或者说是一些响应数据&lt;code&gt;(请求的响应数据)&lt;/code&gt;，状态码和响应头这里就不罗列了。有个特别的通常为了提升响应的效率，服务端会将一些进行&lt;code&gt;gzip&lt;/code&gt;压缩，然后响应头里面会有个响应头&lt;code&gt;content-encoding:gzip&lt;/code&gt;，然后浏览器会再进行解压&lt;/p&gt;
+
+&lt;h4 id=&#34;6-页面渲染&#34;&gt;6.页面渲染&lt;/h4&gt;
+
+&lt;p&gt;在接收响应成功之后，浏览器就开始渲染页面了。其步骤包括：1.解析&lt;code&gt;HTML&lt;/code&gt;为&lt;code&gt;DOM&lt;/code&gt;树、2.解析&lt;code&gt;CSS&lt;/code&gt;为&lt;code&gt;CSS&lt;/code&gt;树、3.合并&lt;code&gt;DOM&lt;/code&gt;树已经&lt;code&gt;CSS&lt;/code&gt;树、4.遍历整个节点、5.按照&lt;code&gt;CSS&lt;/code&gt;的优先级渲染每个节点的样式，呈现在屏幕上。当浏览器遇到一个&lt;code&gt;script&lt;/code&gt;标记时，&lt;code&gt;DOM&lt;/code&gt;构建将暂停，直至脚本完成执行，然后继续构建&lt;code&gt;DOM&lt;/code&gt;。每次去执行&lt;code&gt;JS&lt;/code&gt;脚本都会严重阻塞&lt;code&gt;DOM&lt;/code&gt;树的构建，如果&lt;code&gt;JS&lt;/code&gt;脚本还操作的&lt;code&gt;CSSOM&lt;/code&gt;，而正好这个&lt;code&gt;CSSOM&lt;/code&gt;还没有下载和构建，浏览器甚至会延迟脚本执行和构建&lt;code&gt;DOM&lt;/code&gt;，直至完成其&lt;code&gt;CSSOM&lt;/code&gt;的下载和构建。所以这里通常会有个常见的小优化，&lt;code&gt;CSS&lt;/code&gt;放在顶部，&lt;code&gt;JS&lt;/code&gt;放在底部，并且减少使用在加载的过程中操作&lt;code&gt;DOM&lt;/code&gt;，当然这也是比较老的做法了。在页面加载的过程中，所写的&lt;code&gt;CSS&lt;/code&gt;和&lt;code&gt;JS&lt;/code&gt;也要尽量避免重绘和回流&lt;/p&gt;
+
+&lt;h4 id=&#34;7-四次握手&#34;&gt;7.四次握手&lt;/h4&gt;
+
+&lt;p&gt;四次握手用于断开&lt;code&gt;Tcp&lt;/code&gt;连接，客户端发送请求表示要断开连接，服务接受到请求后响应，客户端收到响应准备断开连接，服务端将其余数据或没响应的数据全部返给客户端(即又一次握手)，客户端收到后响应后再发送请求确认关闭，服务端收到后断开连接&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;1）客户端进程发出连接释放报文，并且停止发送数据。释放数据报文首部，FIN=1，其序列号为seq=u（等于前面已经传送过来的数据的最后一个字节的序号加1），此时，客户端进入FIN-WAIT-1（终止等待1）状态。 TCP规定，FIN报文段即使不携带数据，也要消耗一个序号。
+2）服务器收到连接释放报文，发出确认报文，ACK=1，ack=u+1，并且带上自己的序列号seq=v，此时，服务端就进入了CLOSE-WAIT（关闭等待）状态。TCP服务器通知高层的应用进程，客户端向服务器的方向就释放了，这时候处于半关闭状态，即客户端已经没有数据要发送了，但是服务器若发送数据，客户端依然要接受。这个状态还要持续一段时间，也就是整个CLOSE-WAIT状态持续的时间。
+3）客户端收到服务器的确认请求后，此时，客户端就进入FIN-WAIT-2（终止等待2）状态，等待服务器发送连接释放报文（在这之前还需要接受服务器发送的最后的数据）。
+4）服务器将最后的数据发送完毕后，就向客户端发送连接释放报文，FIN=1，ack=u+1，由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq=w，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认。
+5）客户端收到服务器的连接释放报文后，必须发出确认，ACK=1，ack=w+1，而自己的序列号是seq=u+1，此时，客户端就进入了TIME-WAIT（时间等待）状态。注意此时TCP连接还没有释放，必须经过2∗∗MSL（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才进入CLOSED状态。
+6）服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h6 id=&#34;参考链接&#34;&gt;参考链接&lt;/h6&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ljianshu/Blog&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;博客&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>浅谈前端统计</title>
@@ -4264,169 +4376,6 @@ proxy_redirect :用于修改后端服务器返回的响应头中的Location和Re
         }
 }
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>d3.js绘制中国地图</title>
-      <link>https://xtid.github.io/2019/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</link>
-      <pubDate>Tue, 13 Aug 2019 22:42:19 +0915</pubDate>
-      
-      <guid>https://xtid.github.io/2019/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;d3.js是一个JavaScript库，用于根据数据操作文档。d3可以使用HTML、SVG和CSS将数据变为现实。d3对网络标准的强调让你拥有了现代浏览器的全部功能，而不会将自己束缚在专有框架中，将强大的可视化组件和数据驱动的DOM操作方法结合在一起。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;最近使用d3做了一个中国地图，也实现了一些交互，所以记录下来：&lt;/p&gt;
-
-&lt;p&gt;1.首先得准备一份中国地图的json文件，这里就不提供了，网上可以找到下载链接，也可以参考这个项目&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/clemsos/d3-china-map&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/clemsos/d3-china-map&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;2.这里就不对d3的具体api进行介绍了，直接上源码&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;
-    body {
-        background: #fdfdfd;
-    }
-    path {
-        stroke-width: 1px;
-    }
-    .subProvince {
-        fill: #fff;
-        transform: translate(0, 5px);
-    }
-    .choose-city {
-        fill: #ee9b8a !important;
-        stroke: #df9269 !important;
-    }
-    .thirdProvince {
-        fill: #e6f3f3;
-        transform: translate(0, 10px);
-    }
-    .cityExist {
-        fill: #daf6f6;
-        stroke: #bceaea;
-    }
-    .cityNoExist {
-        fill: #afd8f6;
-        stroke: #8ec7e2;
-    }
-    text {
-        font-size: 14px;
-        font-weight: 700;
-        fill: #56abab;
-    }
-    .cityExist+text,
-    .cityNoExist+text {
-        fill: #56abab;
-    }
-    .choose-city+text {
-        fill: #fff;
-    }
-    .whiteFont {
-        fill: #fff !important;
-    }
-    circle {
-        fill: steelblue;
-        fill-opacity: .8;
-        stroke: #fff;
-    }
-&amp;lt;/style&amp;gt;
-
-// svg元素
-&amp;lt;svg width=&amp;quot;960&amp;quot; height=&amp;quot;960&amp;quot;&amp;gt;
-
-&amp;lt;/svg&amp;gt;
-
-&amp;lt;script&amp;gt;
-    &#39;use strict&#39;;
-    const d3 = window.d3;
-
-    const mapData = window.map; // 地图数据
-
-    // 选择SVG对象
-    const $svg = d3.select(&#39;svg&#39;);
-
-    // 地图阴影效果
-    const $thirdProvince = $svg.append(&#39;svg:g&#39;)
-        .attr(&#39;id&#39;, &#39;thirdProvince&#39;);
-    // 地图阴影效果
-    const $subProvince = $svg.append(&#39;svg:g&#39;)
-        .attr(&#39;id&#39;, &#39;subProvince&#39;);
-
-    const $province = $svg.append(&#39;svg:g&#39;)
-        .attr(&#39;id&#39;, &#39;province&#39;);
-
-    const width = $svg.attr(&#39;width&#39;);
-    const height = $svg.attr(&#39;height&#39;);
-    // 生成投影函数
-    const projection = d3.geoMercator() // 设定经纬度3D转2D算法
-        .center([103, 30]) // 设置经纬度中心点
-        .scale(850) // 设定标尺
-        .translate([width / 2, height / 2]); // 设定转换宽高
-    const path = d3.geoPath(projection); // 设置路径转换函数
-    // 选中省路径并插入路径数据
-
-    $subProvince.append(&#39;path&#39;)
-        .datum(mapData)
-        .attr(&#39;d&#39;, path)
-        .attr(&#39;class&#39;, &#39;subProvince&#39;);
-
-    $thirdProvince.append(&#39;path&#39;)
-        .datum(mapData)
-        .attr(&#39;d&#39;, path)
-        .attr(&#39;class&#39;, &#39;thirdProvince&#39;);
-
-    const $provinceGraph = $province.selectAll(&#39;path&#39;)
-        .data(mapData.features) // 绑定数据
-        .enter() // 获取所有数据
-        .append(&#39;g&#39;)
-    $provinceGraph.append(&#39;path&#39;) // 插入路径
-        .attr(&#39;d&#39;, path) // 使用地理位置生成器
-        .attr(&#39;data-exist&#39;, function (d) { // 插入属性
-            return d.properties.exist ? &amp;quot;true&amp;quot; : &#39;&#39;;
-        })
-        .attr(&#39;class&#39;, function (d) { // 插入属性
-            return d.properties.exist ? &#39;cityExist common-city-class city&#39; + d.properties.id :
-                &#39;cityNoExist common-city-class city&#39; + d.properties.id
-        });
-
-    $provinceGraph.append(&#39;text&#39;)
-        .attr(&#39;transform&#39;, function (d) {
-            return &#39;translate(&#39; + projection(d.properties.cp) + &#39;)&#39;;
-        })
-        .attr(&#39;dy&#39;, &#39;.35em&#39;)
-        .attr(&#39;dx&#39;, &#39;-1em&#39;)
-        .text(function (d) { // 插入名称
-            return d.properties.name;
-        });
-
-    $(&#39;.common-city-class&#39;).mouseenter(function () {
-        $(&#39;.common-city-class&#39;).removeClass(&#39;choose-city&#39;);
-        $(this).addClass(&#39;choose-city&#39;);
-    });
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;4.以上代码可以直接使用，只需要引入d3 .js以及中国地图的json文件，需要特别注意的是，svg 对象中设置某个元素的样式与css不太相同，比如设置区块填充颜色使用的是&lt;code&gt;fill&lt;/code&gt;，其他的可以根据具体的数据设置不同的地图属性，如&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$provinceGraph.append(&#39;path&#39;) // 插入路径
-    .attr(&#39;d&#39;, path) // 使用地理位置生成器
-    .attr(&#39;data-exist&#39;, function (d) { // 插入属性
-    return d.properties.exist ? &amp;quot;true&amp;quot; : &#39;&#39;;
-})
-    .attr(&#39;class&#39;, function (d) { // 插入属性
-    return d.properties.exist ? &#39;cityExist common-city-class city&#39; + d.properties.id :
-    &#39;cityNoExist common-city-class city&#39; + d.properties.id
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这里&lt;code&gt;return d.properties.exist ? &#39;cityExist common-city-class city&#39; + d.properties.id :
-&#39;cityNoExist common-city-class city&#39; + d.properties.id&lt;/code&gt;指的是如果属性中有&lt;code&gt;exist&lt;/code&gt;属性这返回前者，反之返回后者，这样就方便我们一些实际的项目开发需求，另外最好使用原生js操作svg对象。&lt;/p&gt;
-
-&lt;p&gt;关于d3的文档可以参考官网：&lt;a href=&#34;https://github.com/d3/d3/wiki&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/d3/d3/wiki&lt;/a&gt;
-也可以看下&lt;a href=&#34;https://github.com/xswei/d3-selection/blob/master/README.md&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/xswei/d3-selection/blob/master/README.md&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

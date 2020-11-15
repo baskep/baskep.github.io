@@ -6,10 +6,19 @@
     <description>Recent content in 日常学习 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 28 Oct 2020 21:45:40 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2020 15:21:34 +0800</lastBuildDate>
     
 	<atom:link href="https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>输入一个URL到页面呈现的过程</title>
+      <link>https://xtid.github.io/2020/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sun, 15 Nov 2020 15:21:34 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</guid>
+      <description>1.DNS解析 平时在浏览器中输入的域名并非是网址或资源真实所在的服务器地址或资源，域名只是与ip地址的一个映射。在进行正式的请求之前，就会先</description>
+    </item>
     
     <item>
       <title>浅谈前端统计</title>
