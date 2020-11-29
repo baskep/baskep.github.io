@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  
+  
+  
+  
+  <link rel="prev" href="https://xtid.github.io/2020/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/" />
+  
+  <link rel="canonical" href="https://xtid.github.io/2020/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" sizes="16x16" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Flutter自定义组件 | 👨🏻‍💻
+       
+  </title>
+  <meta name="title" content="Flutter自定义组件 | 👨🏻‍💻">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/xtid.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Flutter自定义组件",
+    "headline" : "Flutter自定义组件",
+    "description" : "简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T",
+    "inLanguage" : "zh-CN",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-11-28 16:23:05 \x2b0800 CST",
+    "dateModified" : "2020-11-28 16:23:05 \x2b0800 CST",
+    "url" : "https:\/\/xtid.github.io\/2020\/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6\/",
+    "wordCount" : "2919",
+    "keywords" : [  "👨🏻‍💻"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">👨🏻‍💻</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://xtid.github.io">👨🏻‍💻</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Flutter自定义组件</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://xtid.github.io" rel="author"></a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-11-28 itemprop="datePublished">November 28, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"> 实际应用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h3 id="简言">简言</h3>
+
+<p>在使用<code>Flutter</code>开发app的时候，是使用各种各样的<code>Widget</code> 组合绘制出的页面，一些最基础的如<code>Container</code>、<code>Padding</code>、<code>Text</code> 等等，由官方封装好的比较复杂的组件如<code>AppBar</code>、<code>日历选择器</code>等等。仅仅使用这些组件也确实能写出一些app，但是官方封装好的拓展性我觉得不太好，有些属性根本无法改变；另外一旦和设计稿出入比较大，那根不就玩不了了，所以这就涉及到自定义组件。<code>Flutter</code>自定义组件的方式我了解到有三种，一是通过组合其它组件来达到你想要的效果；二是自绘，这块牵扯到<code>Canvas</code>；三是实现<code>RenderObject</code>。</p>
+
+<h4 id="1-原理基本介绍">1.原理基本介绍</h4>
+
+<p><code>Flutter</code>引擎会将我们所写组件生成一个<code>Widget Tree</code>，而实际渲染出来的结果又有一个<code>RenderObject Tree</code>，<code>RenderObject</code>是继承<code>Widget</code>的。在项目运行中`<code>Widget Tree</code>是不断变化的，如果每次变化都要导致整个<code>RenderObject Tree</code>变化，这对性能来说是一个很大的消耗，于是就有了一个<code>Element Trre</code>，这就相当于一个中间层，由<code>Widget</code>→<code>Elment</code>→<code>RenderObject</code>。每次<code>Widget</code>变化时，与<code>Element</code>做对比，找出最小最优的变化，作用于<code>RenderObject</code>。我们创建的<code>Widget</code>基本继承于<code>StatelessWidget</code>、<code>StatefulWidget</code>，他们仅负责属性、生命周期等的管理，最终也还是会继承于<code>RenderObjectWidget</code></p>
+
+<p><code>RenderObjectWidget</code>下面又有三个子类</p>
+
+<p><code>SngleChildRenderObjectWidget</code>：<code>RenderObject</code>只有一个 <code>child</code></p>
+
+<p><code>MultiChildRenderObjectWidget</code>：可以有多个 <code>child</code></p>
+
+<p><code>LeafRenderObjectWidget</code> ：<code>RenderObject</code>是一个叶子节点，没有<code>child</code></p>
+
+<p>官方所提供的组件很多都是继承<code>singleChildRenderObjectWidget</code>，所以我们通常只能传一个<code>child</code>，找到<code>singleChildRenderObjectWidget</code>定义</p>
+
+<pre><code class="language-dart">abstract class SingleChildRenderObjectWidget extends RenderObjectWidget {
+  const SingleChildRenderObjectWidget({ Key key, this.child }) : super(key: key);
+  final Widget child;
+
+  @override
+  SingleChildRenderObjectElement createElement() =&gt; SingleChildRenderObjectElement(this);
+}
+</code></pre>
+
+<p>可以看到每次创建一个<code>SingleChildRenderObjectWidget</code>就会调用`<code>CreateElement</code>生成一个对应的<code>Elment</code>，当然<code>MultiChildRenderObjectWidget</code>也是类似，这也就说明了他们一对一的关系。所以我们实现自定义组件必须得继承<code>SingleChildRenderObjectWidget</code>或者<code>MultiChildRenderObjectWidget</code>或者调用官方实现好的自绘类，这也是<code>Flutter</code>引擎渲染的基本结构。</p>
+
+<h4 id="2-组合其它组件">2..组合其它组件</h4>
+
+<p>这种方式是最基本最简单的方式，说白了就是将一些原有的、封装好的组件合并再封装一次。<code>Flutter</code>本身就有很多组合组件，比如常用的<code>Container</code>，查看它的源码就知道，它是由<code>DecoratedBox</code>、<code>ConstrainedBox</code>、<code>Transform</code>、<code>Padding</code>、<code>Align</code>等组件组成，其内部做了很多判断处理。这里实现一个自定义宽度的<code>drawer</code>组件，创建一个类<code>SmartDrawer</code>继承<code>StatelessWidget</code>，并实现其具体方法</p>
+
+<pre><code class="language-dart">class SmartDrawer extends StatelessWidget {
+  final double elevation;
+  final Widget child;
+  final String semanticLabel;
+  final double widthPercent;
+  const SmartDrawer({
+    Key key,
+    this.elevation = 16.0,
+    this.child,
+    this.semanticLabel,
+    this.widthPercent = 0.7,
+  }) : 
+   assert(widthPercent != null &amp;&amp; widthPercent &lt; 1.0 &amp;&amp; widthPercent&gt; 0.0)
+   ,super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    assert(debugCheckHasMaterialLocalizations(context));
+    String label = semanticLabel;
+    final double _width = MediaQuery.of(context).size.width * widthPercent;
+    
+    return Semantics(
+      scopesRoute: true,
+      namesRoute: true,
+      explicitChildNodes: true,
+      label: label,
+      child: ConstrainedBox(
+        constraints: BoxConstraints.expand(width: _width),
+        child: Material(
+          elevation: elevation,
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+</code></pre>
+
+<p>可以看到，上述组件就是将<code>ConstrainedBox</code>以及传入的<code>child</code>组合成一个新的组件，其他属性则是来控制样式的。这里需要特别说明的，最后返回的<code>Semantics</code>，它继承<code>SingleChildRenderObjectWidget</code>，它上面定义的属性有点带有语义化的意思，而它上面定义的<code>child</code>属性则是返回的组件，这样<code>return Semantices{}</code>实际就表示返回了带有一些语义的组件。</p>
+
+<h4 id="4-自绘组件">4.自绘组件</h4>
+
+<p><code>Flutter</code>跨平台的实现方式就是在不同操作系统的上层绘制一个中间的UI系统，对不同的操作系统的<code>API</code>进行适配，风格统一，这样就能实现一个跨平台应用了，这也是和<code>React Native</code>的最大的差异以及优于<code>React Native</code>的地方。当你无法用现有的组件来描绘你所需要UI时，可以考虑使用自绘组件来实现。下面是一个自绘的验证码组件示例</p>
+
+<p>首先创建一个名为<code>CodeReview</code>的<code>StatefulWidget</code></p>
+
+<pre><code class="language-dart">class CodeReview extends StatefulWidget {
+
+  final String text;
+  final callback;
+
+  CodeReview({Key key, this.text, this.callback}) : super(key: key);
+
+  _CodeReviewState createState() =&gt; _CodeReviewState();
+
+}
+</code></pre>
+
+<p>然后实现具体代码</p>
+
+<pre><code class="language-dart">class _CodeReviewState extends State&lt;CodeReview&gt; {
+	
+  // 存放每个验证码字符上的横线的位置
+  List&lt;Offset&gt; _lineOffsets = &lt;Offset&gt;[];
+
+  // 验证码的长度，由外部传入
+  int _textLength;
+  // 验证码宽度
+  double _width;
+  // 验证码高度
+  double _height;
+
+  // 生成验证码上的横线遮挡物的位置
+  void _randLines() {
+    _lineOffsets.clear();
+    for (var i = 0; i &lt; _textLength; i++) {
+      double fromX = randomBetween(10, 20).toDouble();
+      double fromY = randomBetween(3, 33).toDouble();
+      Offset from = Offset(fromX, fromY);
+      _lineOffsets.add(from);
+
+      double endX = randomBetween(60, _width.toInt() - 10).toDouble();
+      double endY = randomBetween(3, 33).toDouble();
+      Offset end = Offset(endX, endY);
+      _lineOffsets.add(end);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _textLength = widget.text.length ?? 4;
+    _width = _textLength.toDouble() * 22;
+    _height = 36;
+    _randLines();
+  }
+
+  void _changeCode() {
+    setState(() {
+      _randLines();
+    });
+  }
+	
+  // 对每个字符进行随机rotate操作
+  Container _subString(index) {
+    return Container(
+      padding: EdgeInsets.only(left: 2, right: 2, top: randomBetween(0, 14).toDouble()),
+      child: Transform.rotate(
+        angle: pi / randomBetween(3, 30) * randomBetween(0, 1),
+        child: Text(widget.text[index], style: TextStyle(fontSize: randomBetween(20, 22).toDouble(), color: Color(0xFF4abdcc))),
+      ),
+    );
+  }
+	
+ 	// 描绘验证码上横线遮挡物
+  Container _backLines() {
+    return Container(
+      width: _width,
+      height: _height,
+      child: CustomPaint(
+        painter: CodePaint(_lineOffsets, Tool.randomColor()),
+        foregroundPainter: CodePaint(_lineOffsets, Tool.randomColor()),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: _width,
+      height: _height,
+      color: Colors.grey[200],
+      child: Stack(
+        alignment: Alignment.center,
+        children: &lt;Widget&gt;[
+          _backLines(),
+          _backLines(),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              _changeCode();
+              widget.callback();
+            },
+            child: Container(
+              width: _width,
+              height: _height,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(_textLength, (int index) {
+                  return _subString(index);
+                }),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+</code></pre>
+
+<p>可以看到上面用到了<code>CustomPaint</code>，这个类继承<code>SingleChildRenderObjectWidget</code>，这让我们直接能使用<code>Canvas</code>来绘制你所需要的UI</p>
+
+<pre><code class="language-dart">class CustomPaint extends SingleChildRenderObjectWidget {
+  /// Creates a widget that delegates its painting.
+  const CustomPaint({
+    Key key,
+    this.painter,
+    this.foregroundPainter,
+    this.size = Size.zero,
+    this.isComplex = false,
+    this.willChange = false,
+    Widget child,
+  })......
+    ......
+    ......
+</code></pre>
+
+<p>传入<code>painter</code> 、<code>foregroundPainter</code>对应类，在上述代码中，是创建一个类的<code>CodePaint</code>继承<code>CustomPainer</code>，重写<code>paint</code>方法，然后设置画笔的属性，最后调用对应的<code>Canvas</code>api即可，这里使用的是<code>drawPoints</code>，还有其他的，如<code>drawCircle</code>、<code>drawLine</code>等等。</p>
+
+<pre><code class="language-dart">class CodePaint extends CustomPainter {
+  final List&lt;Offset&gt; lineOffsets;
+  final Color ranColor;
+  CodePaint(this.lineOffsets, this.ranColor);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // debugPrint(canvas.runtimeType.toString());
+    canvas.save();
+    Paint _paint = Paint()
+      ..color = ranColor // 画笔颜色
+      ..strokeCap = StrokeCap.round // 画笔笔触类型
+      ..isAntiAlias = true // 是否启动抗锯齿
+      ..blendMode = BlendMode.exclusion // 颜色混合模式
+      ..style = PaintingStyle.fill // 绘画风格，默认为填充
+      ..colorFilter = ColorFilter.mode(ranColor, BlendMode.exclusion) // 颜色渲染模式，一般是矩阵效果来改变的,但是flutter中只能使用颜色混合模式
+      ..maskFilter = MaskFilter.blur(BlurStyle.inner, 1.0) // 模糊遮罩效果
+      ..filterQuality = FilterQuality.high // 颜色渲染模式的质量
+      // ..strokeWidth = randomBetween(1, 3).toDouble(); // 暂时固定
+      ..strokeWidth = 1;
+
+    final pointMode = PointMode.lines;
+    canvas.drawPoints(pointMode, lineOffsets, _paint);
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}
+</code></pre>
+
+<p>综上，自绘逐渐的核心是继承<code>CustomPaint</code>，然后使用<code>Canvas</code>实现UI的绘制</p>
+
+<h4 id="5-实现renderobject">5.实现RenderObject</h4>
+
+<p>实现<code>RenderObject</code>即是自己重写一整套渲染树，首先得继承一个<code>RenderObject</code>，实现其内置仿佛，还得继承<code>Element</code>，实现其内置方法，复杂的自定义组件最终也是通过<code>Canvas</code> API来绘制的，而上面说的<code>CustomPaint</code>只是为了方便开发者封装的一个代理类，它直接继承自<code>SingleChildRenderObjectWidget</code>，通过<code>RenderCustomPaint</code>的<code>paint</code>方法将<code>Canvas</code>和画笔<code>Painter</code>连接起来实现自绘组件。这种方式操作起来实在比较麻烦，我也没怎么用过，所以就不提供示例展示了。</p>
+
+    </div>
+
+    
+
+  
+    <div class="post-tags">
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://xtid.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://xtid.github.io/2020/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/" class="prev" rel="prev" title="输入一个URL到页面呈现的过程"><i class="iconfont icon-left"></i>&nbsp;输入一个URL到页面呈现的过程</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2019 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

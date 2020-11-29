@@ -5,8 +5,271 @@
     <description>Recent content in 👨🏻‍💻 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 15 Nov 2020 15:21:34 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2020 16:23:05 +0800</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Flutter自定义组件</title>
+      <link>https://xtid.github.io/2020/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Sat, 28 Nov 2020 16:23:05 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</guid>
+      <description>
+
+&lt;h3 id=&#34;简言&#34;&gt;简言&lt;/h3&gt;
+
+&lt;p&gt;在使用&lt;code&gt;Flutter&lt;/code&gt;开发app的时候，是使用各种各样的&lt;code&gt;Widget&lt;/code&gt; 组合绘制出的页面，一些最基础的如&lt;code&gt;Container&lt;/code&gt;、&lt;code&gt;Padding&lt;/code&gt;、&lt;code&gt;Text&lt;/code&gt; 等等，由官方封装好的比较复杂的组件如&lt;code&gt;AppBar&lt;/code&gt;、&lt;code&gt;日历选择器&lt;/code&gt;等等。仅仅使用这些组件也确实能写出一些app，但是官方封装好的拓展性我觉得不太好，有些属性根本无法改变；另外一旦和设计稿出入比较大，那根不就玩不了了，所以这就涉及到自定义组件。&lt;code&gt;Flutter&lt;/code&gt;自定义组件的方式我了解到有三种，一是通过组合其它组件来达到你想要的效果；二是自绘，这块牵扯到&lt;code&gt;Canvas&lt;/code&gt;；三是实现&lt;code&gt;RenderObject&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h4 id=&#34;1-原理基本介绍&#34;&gt;1.原理基本介绍&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;Flutter&lt;/code&gt;引擎会将我们所写组件生成一个&lt;code&gt;Widget Tree&lt;/code&gt;，而实际渲染出来的结果又有一个&lt;code&gt;RenderObject Tree&lt;/code&gt;，&lt;code&gt;RenderObject&lt;/code&gt;是继承&lt;code&gt;Widget&lt;/code&gt;的。在项目运行中`&lt;code&gt;Widget Tree&lt;/code&gt;是不断变化的，如果每次变化都要导致整个&lt;code&gt;RenderObject Tree&lt;/code&gt;变化，这对性能来说是一个很大的消耗，于是就有了一个&lt;code&gt;Element Trre&lt;/code&gt;，这就相当于一个中间层，由&lt;code&gt;Widget&lt;/code&gt;→&lt;code&gt;Elment&lt;/code&gt;→&lt;code&gt;RenderObject&lt;/code&gt;。每次&lt;code&gt;Widget&lt;/code&gt;变化时，与&lt;code&gt;Element&lt;/code&gt;做对比，找出最小最优的变化，作用于&lt;code&gt;RenderObject&lt;/code&gt;。我们创建的&lt;code&gt;Widget&lt;/code&gt;基本继承于&lt;code&gt;StatelessWidget&lt;/code&gt;、&lt;code&gt;StatefulWidget&lt;/code&gt;，他们仅负责属性、生命周期等的管理，最终也还是会继承于&lt;code&gt;RenderObjectWidget&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;RenderObjectWidget&lt;/code&gt;下面又有三个子类&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;SngleChildRenderObjectWidget&lt;/code&gt;：&lt;code&gt;RenderObject&lt;/code&gt;只有一个 &lt;code&gt;child&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;MultiChildRenderObjectWidget&lt;/code&gt;：可以有多个 &lt;code&gt;child&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;LeafRenderObjectWidget&lt;/code&gt; ：&lt;code&gt;RenderObject&lt;/code&gt;是一个叶子节点，没有&lt;code&gt;child&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;官方所提供的组件很多都是继承&lt;code&gt;singleChildRenderObjectWidget&lt;/code&gt;，所以我们通常只能传一个&lt;code&gt;child&lt;/code&gt;，找到&lt;code&gt;singleChildRenderObjectWidget&lt;/code&gt;定义&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;abstract class SingleChildRenderObjectWidget extends RenderObjectWidget {
+  const SingleChildRenderObjectWidget({ Key key, this.child }) : super(key: key);
+  final Widget child;
+
+  @override
+  SingleChildRenderObjectElement createElement() =&amp;gt; SingleChildRenderObjectElement(this);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到每次创建一个&lt;code&gt;SingleChildRenderObjectWidget&lt;/code&gt;就会调用`&lt;code&gt;CreateElement&lt;/code&gt;生成一个对应的&lt;code&gt;Elment&lt;/code&gt;，当然&lt;code&gt;MultiChildRenderObjectWidget&lt;/code&gt;也是类似，这也就说明了他们一对一的关系。所以我们实现自定义组件必须得继承&lt;code&gt;SingleChildRenderObjectWidget&lt;/code&gt;或者&lt;code&gt;MultiChildRenderObjectWidget&lt;/code&gt;或者调用官方实现好的自绘类，这也是&lt;code&gt;Flutter&lt;/code&gt;引擎渲染的基本结构。&lt;/p&gt;
+
+&lt;h4 id=&#34;2-组合其它组件&#34;&gt;2..组合其它组件&lt;/h4&gt;
+
+&lt;p&gt;这种方式是最基本最简单的方式，说白了就是将一些原有的、封装好的组件合并再封装一次。&lt;code&gt;Flutter&lt;/code&gt;本身就有很多组合组件，比如常用的&lt;code&gt;Container&lt;/code&gt;，查看它的源码就知道，它是由&lt;code&gt;DecoratedBox&lt;/code&gt;、&lt;code&gt;ConstrainedBox&lt;/code&gt;、&lt;code&gt;Transform&lt;/code&gt;、&lt;code&gt;Padding&lt;/code&gt;、&lt;code&gt;Align&lt;/code&gt;等组件组成，其内部做了很多判断处理。这里实现一个自定义宽度的&lt;code&gt;drawer&lt;/code&gt;组件，创建一个类&lt;code&gt;SmartDrawer&lt;/code&gt;继承&lt;code&gt;StatelessWidget&lt;/code&gt;，并实现其具体方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;class SmartDrawer extends StatelessWidget {
+  final double elevation;
+  final Widget child;
+  final String semanticLabel;
+  final double widthPercent;
+  const SmartDrawer({
+    Key key,
+    this.elevation = 16.0,
+    this.child,
+    this.semanticLabel,
+    this.widthPercent = 0.7,
+  }) : 
+   assert(widthPercent != null &amp;amp;&amp;amp; widthPercent &amp;lt; 1.0 &amp;amp;&amp;amp; widthPercent&amp;gt; 0.0)
+   ,super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    assert(debugCheckHasMaterialLocalizations(context));
+    String label = semanticLabel;
+    final double _width = MediaQuery.of(context).size.width * widthPercent;
+    
+    return Semantics(
+      scopesRoute: true,
+      namesRoute: true,
+      explicitChildNodes: true,
+      label: label,
+      child: ConstrainedBox(
+        constraints: BoxConstraints.expand(width: _width),
+        child: Material(
+          elevation: elevation,
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到，上述组件就是将&lt;code&gt;ConstrainedBox&lt;/code&gt;以及传入的&lt;code&gt;child&lt;/code&gt;组合成一个新的组件，其他属性则是来控制样式的。这里需要特别说明的，最后返回的&lt;code&gt;Semantics&lt;/code&gt;，它继承&lt;code&gt;SingleChildRenderObjectWidget&lt;/code&gt;，它上面定义的属性有点带有语义化的意思，而它上面定义的&lt;code&gt;child&lt;/code&gt;属性则是返回的组件，这样&lt;code&gt;return Semantices{}&lt;/code&gt;实际就表示返回了带有一些语义的组件。&lt;/p&gt;
+
+&lt;h4 id=&#34;4-自绘组件&#34;&gt;4.自绘组件&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;Flutter&lt;/code&gt;跨平台的实现方式就是在不同操作系统的上层绘制一个中间的UI系统，对不同的操作系统的&lt;code&gt;API&lt;/code&gt;进行适配，风格统一，这样就能实现一个跨平台应用了，这也是和&lt;code&gt;React Native&lt;/code&gt;的最大的差异以及优于&lt;code&gt;React Native&lt;/code&gt;的地方。当你无法用现有的组件来描绘你所需要UI时，可以考虑使用自绘组件来实现。下面是一个自绘的验证码组件示例&lt;/p&gt;
+
+&lt;p&gt;首先创建一个名为&lt;code&gt;CodeReview&lt;/code&gt;的&lt;code&gt;StatefulWidget&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;class CodeReview extends StatefulWidget {
+
+  final String text;
+  final callback;
+
+  CodeReview({Key key, this.text, this.callback}) : super(key: key);
+
+  _CodeReviewState createState() =&amp;gt; _CodeReviewState();
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后实现具体代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;class _CodeReviewState extends State&amp;lt;CodeReview&amp;gt; {
+	
+  // 存放每个验证码字符上的横线的位置
+  List&amp;lt;Offset&amp;gt; _lineOffsets = &amp;lt;Offset&amp;gt;[];
+
+  // 验证码的长度，由外部传入
+  int _textLength;
+  // 验证码宽度
+  double _width;
+  // 验证码高度
+  double _height;
+
+  // 生成验证码上的横线遮挡物的位置
+  void _randLines() {
+    _lineOffsets.clear();
+    for (var i = 0; i &amp;lt; _textLength; i++) {
+      double fromX = randomBetween(10, 20).toDouble();
+      double fromY = randomBetween(3, 33).toDouble();
+      Offset from = Offset(fromX, fromY);
+      _lineOffsets.add(from);
+
+      double endX = randomBetween(60, _width.toInt() - 10).toDouble();
+      double endY = randomBetween(3, 33).toDouble();
+      Offset end = Offset(endX, endY);
+      _lineOffsets.add(end);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _textLength = widget.text.length ?? 4;
+    _width = _textLength.toDouble() * 22;
+    _height = 36;
+    _randLines();
+  }
+
+  void _changeCode() {
+    setState(() {
+      _randLines();
+    });
+  }
+	
+  // 对每个字符进行随机rotate操作
+  Container _subString(index) {
+    return Container(
+      padding: EdgeInsets.only(left: 2, right: 2, top: randomBetween(0, 14).toDouble()),
+      child: Transform.rotate(
+        angle: pi / randomBetween(3, 30) * randomBetween(0, 1),
+        child: Text(widget.text[index], style: TextStyle(fontSize: randomBetween(20, 22).toDouble(), color: Color(0xFF4abdcc))),
+      ),
+    );
+  }
+	
+ 	// 描绘验证码上横线遮挡物
+  Container _backLines() {
+    return Container(
+      width: _width,
+      height: _height,
+      child: CustomPaint(
+        painter: CodePaint(_lineOffsets, Tool.randomColor()),
+        foregroundPainter: CodePaint(_lineOffsets, Tool.randomColor()),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: _width,
+      height: _height,
+      color: Colors.grey[200],
+      child: Stack(
+        alignment: Alignment.center,
+        children: &amp;lt;Widget&amp;gt;[
+          _backLines(),
+          _backLines(),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              _changeCode();
+              widget.callback();
+            },
+            child: Container(
+              width: _width,
+              height: _height,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(_textLength, (int index) {
+                  return _subString(index);
+                }),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到上面用到了&lt;code&gt;CustomPaint&lt;/code&gt;，这个类继承&lt;code&gt;SingleChildRenderObjectWidget&lt;/code&gt;，这让我们直接能使用&lt;code&gt;Canvas&lt;/code&gt;来绘制你所需要的UI&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;class CustomPaint extends SingleChildRenderObjectWidget {
+  /// Creates a widget that delegates its painting.
+  const CustomPaint({
+    Key key,
+    this.painter,
+    this.foregroundPainter,
+    this.size = Size.zero,
+    this.isComplex = false,
+    this.willChange = false,
+    Widget child,
+  })......
+    ......
+    ......
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;传入&lt;code&gt;painter&lt;/code&gt; 、&lt;code&gt;foregroundPainter&lt;/code&gt;对应类，在上述代码中，是创建一个类的&lt;code&gt;CodePaint&lt;/code&gt;继承&lt;code&gt;CustomPainer&lt;/code&gt;，重写&lt;code&gt;paint&lt;/code&gt;方法，然后设置画笔的属性，最后调用对应的&lt;code&gt;Canvas&lt;/code&gt;api即可，这里使用的是&lt;code&gt;drawPoints&lt;/code&gt;，还有其他的，如&lt;code&gt;drawCircle&lt;/code&gt;、&lt;code&gt;drawLine&lt;/code&gt;等等。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;class CodePaint extends CustomPainter {
+  final List&amp;lt;Offset&amp;gt; lineOffsets;
+  final Color ranColor;
+  CodePaint(this.lineOffsets, this.ranColor);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // debugPrint(canvas.runtimeType.toString());
+    canvas.save();
+    Paint _paint = Paint()
+      ..color = ranColor // 画笔颜色
+      ..strokeCap = StrokeCap.round // 画笔笔触类型
+      ..isAntiAlias = true // 是否启动抗锯齿
+      ..blendMode = BlendMode.exclusion // 颜色混合模式
+      ..style = PaintingStyle.fill // 绘画风格，默认为填充
+      ..colorFilter = ColorFilter.mode(ranColor, BlendMode.exclusion) // 颜色渲染模式，一般是矩阵效果来改变的,但是flutter中只能使用颜色混合模式
+      ..maskFilter = MaskFilter.blur(BlurStyle.inner, 1.0) // 模糊遮罩效果
+      ..filterQuality = FilterQuality.high // 颜色渲染模式的质量
+      // ..strokeWidth = randomBetween(1, 3).toDouble(); // 暂时固定
+      ..strokeWidth = 1;
+
+    final pointMode = PointMode.lines;
+    canvas.drawPoints(pointMode, lineOffsets, _paint);
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;综上，自绘逐渐的核心是继承&lt;code&gt;CustomPaint&lt;/code&gt;，然后使用&lt;code&gt;Canvas&lt;/code&gt;实现UI的绘制&lt;/p&gt;
+
+&lt;h4 id=&#34;5-实现renderobject&#34;&gt;5.实现RenderObject&lt;/h4&gt;
+
+&lt;p&gt;实现&lt;code&gt;RenderObject&lt;/code&gt;即是自己重写一整套渲染树，首先得继承一个&lt;code&gt;RenderObject&lt;/code&gt;，实现其内置仿佛，还得继承&lt;code&gt;Element&lt;/code&gt;，实现其内置方法，复杂的自定义组件最终也是通过&lt;code&gt;Canvas&lt;/code&gt; API来绘制的，而上面说的&lt;code&gt;CustomPaint&lt;/code&gt;只是为了方便开发者封装的一个代理类，它直接继承自&lt;code&gt;SingleChildRenderObjectWidget&lt;/code&gt;，通过&lt;code&gt;RenderCustomPaint&lt;/code&gt;的&lt;code&gt;paint&lt;/code&gt;方法将&lt;code&gt;Canvas&lt;/code&gt;和画笔&lt;code&gt;Painter&lt;/code&gt;连接起来实现自绘组件。这种方式操作起来实在比较麻烦，我也没怎么用过，所以就不提供示例展示了。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>输入一个URL到页面呈现的过程</title>
@@ -4188,194 +4451,6 @@ function getXlsxInfo(xlsxData, name, option, res) {
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;4.有个坑就是使用这种方式下载，必须是直接访问你所写的&lt;code&gt;nodejs接口地址&lt;/code&gt;才能打开下载功能，若使用&lt;code&gt;ajax&lt;/code&gt;或&lt;code&gt;fetch&lt;/code&gt;等方式返回的会是乱码的形式。其原因在于，这两种方式的请求发送的数据不一样，后端解析返回头也不一样，异步请求是不能触发下载返回头的。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>nginx学习总结</title>
-      <link>https://xtid.github.io/2019/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Fri, 25 Oct 2019 22:42:19 +0915</pubDate>
-      
-      <guid>https://xtid.github.io/2019/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</guid>
-      <description>
-
-&lt;h4 id=&#34;1-nginx简介&#34;&gt;1.nginx简介&lt;/h4&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&amp;ldquo;nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常用于服务端的反向代理和负载均衡。&amp;rdquo;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&#34;2-nginx优点&#34;&gt;2.nginx优点&lt;/h4&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;2.1 支持海量高并发：采用IO多路复用epoll。官方测试nginx能够支持5万并发链接，实际生产环境中可以支撑2-4万并发连接数。&lt;/p&gt;
-
-&lt;p&gt;2.2 内存消耗少：在主流的服务器中nginx目前是内存消耗最小的了，比如我们用nginx+PHP，在3万并发链接下，开启10个nginx进程消耗150M内存。&lt;/p&gt;
-
-&lt;p&gt;2.3 免费使用可以商业化：nginx为开源软件，采用的是2-clause BSD-like协议，可以免费使用，并且可以用于商业。并且配置简单&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&#34;3-nginx配置介绍&#34;&gt;3.nginx配置介绍&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;nginx.conf&lt;/code&gt; 文件是nginx总配置文件，nginx的基本配置或者设置代理等等基本配置可以在此设置&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;#运行用户，默认即是nginx，可以不进行设置
-user  nginx;
-#nginx进程，一般设置为和CPU核数一样
-worker_processes  1;   
-#错误日志存放目录
-error_log  /var/log/nginx/error.log warn;
-#进程pid存放位置
-pid        /var/run/nginx.pid;
-
-
-events {
-    worker_connections  1024; # 单个后台进程的最大并发数
-}
-
-
-http {
-    include       /etc/nginx/mime.types;   #文件扩展名与类型映射表
-    default_type  application/octet-stream;  #默认文件类型
-    #设置日志模式
-    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &amp;quot;$request&amp;quot; &#39;
-                      &#39;$status $body_bytes_sent &amp;quot;$http_referer&amp;quot; &#39;
-                      &#39;&amp;quot;$http_user_agent&amp;quot; &amp;quot;$http_x_forwarded_for&amp;quot;&#39;;
-
-    access_log  /var/log/nginx/access.log  main;   #nginx访问日志存放位置
-
-    sendfile        on;   #开启高效传输模式
-    #tcp_nopush     on;    #减少网络报文段的数量
-
-    keepalive_timeout  65;  #保持连接的时间，也叫超时时间
-
-    #gzip  on;  #开启gzip压缩
-
-    include /etc/nginx/conf.d/*.conf; #包含的子配置项位置和文件
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;nginx.default.conf&lt;/code&gt;，nginx具体的默认配置，代理，服务配置等等都可以写在这个配置文件里&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server {
-    listen       80;   #配置监听端口
-    server_name  localhost;  //配置域名
-
-    #charset koi8-r;     
-    #access_log  /var/log/nginx/host.access.log  main;
-
-    location / {
-        root   /usr/share/nginx/html;     #服务默认启动目录
-        index  index.html index.htm;    #默认访问文件
-    }
-
-    #error_page  404              /404.html;   # 配置404页面
-
-    # redirect server error pages to the static page /50x.html
-    #
-    error_page   500 502 503 504  /50x.html;   #错误状态码的显示页面，配置后需要重启
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-
-    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-    #
-    #location ~ \.php$ {
-    #    proxy_pass   http://127.0.0.1;
-    #}
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #    root           html;
-    #    fastcgi_pass   127.0.0.1:9000;
-    #    fastcgi_index  index.php;
-    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-    #    include        fastcgi_params;
-    #}
-
-    # deny access to .htaccess files, if Apache&#39;s document root
-    # concurs with nginx&#39;s one
-    #
-    #location ~ /\.ht {
-    #    deny  all;
-    #}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;4-nginx基本的访问权限配置&#34;&gt;4.nginx基本的访问权限配置&lt;/h4&gt;
-
-&lt;p&gt;依靠deny和allow这两个指令，可以实现基本的访问权限控制，如以下的配置，表示只允许&lt;code&gt;45.76.202.231&lt;/code&gt;进行访问，其他的IP是禁止访问的&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;location / {
-        allow  45.76.202.231;
-        deny   all;
-	}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果对于其他复杂的需求，可以使用&lt;a href=&#34;http://seanlook.com/2015/05/17/nginx-location-rewrite/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;正则&lt;/a&gt;实现。&lt;/p&gt;
-
-&lt;h4 id=&#34;5-nginx设置虚拟主机&#34;&gt;5.nginx设置虚拟主机&lt;/h4&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;虚拟主机是指在一台物理主机服务器上划分出多个磁盘空间，每个磁盘空间都是一个虚拟主机，每台虚拟主机都可以对外提供Web服务，并且互不干扰。在外界看来，虚拟主机就是一台独立的服务器主机，这意味着用户能够利用虚拟主机把多个不同域名的网站部署在同一台服务器上，而不必再为简历一个网站单独购买一台服务器，既解决了维护服务器技术的难题，同时又极大地节省了服务器硬件成本和相关的维护费用。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;具体做法是，在&lt;code&gt;nginx.default.conf&lt;/code&gt;添加多个server，可根据ip，端口或域名来划分，这样，就可以访问同一台服务器上的不同资源了，值得注意是，如果是使用域名，这还要让域名的dns解析指向你的服务器&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server{
-        listen 8001;
-        server_name localhost;
-        root /usr/share/nginx/html/html8001;
-        index index.html;
-}
-server{
-        listen 8002;
-        server_name localhost;
-        root /usr/share/nginx/html/html8002;
-        index index.html;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;6-nginx设置反向代理&#34;&gt;6.nginx设置反向代理&lt;/h4&gt;
-
-&lt;p&gt;客户端发送的请求，想要访问server服务器上的内容。发送的内容被发送到代理服务器上，这个代理服务器再把请求发送到自己设置好的内部服务器上，而用户真实想获得的内容就在这些设置好的服务器上，反向代理实际生产环境可以说用的非常多&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server{
-        listen 80;
-        server_name https://www.baidu.com;
-        location / {
-               proxy_pass https://www.baidu1.com;
-        }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这样，当你访问&lt;code&gt;https://www.baidu.com&lt;/code&gt;的时候就会去请求&lt;code&gt;https://www.baidu1.com&lt;/code&gt;的资源了，以下还有常用的反向代理命令&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;proxy_set_header :在将客户端请求发送给后端服务器之前，更改来自客户端的请求头信息。
-
-proxy_connect_timeout:配置nginx与后端代理服务器尝试建立连接的超时时间。
-
-proxy_read_timeout : 配置nginx向后端服务器组发出read请求后，等待相应的超时时间。
-
-proxy_send_timeout：配置nginx向后端服务器组发出write请求后，等待相应的超时时间。
-
-proxy_redirect :用于修改后端服务器返回的响应头中的Location和Refresh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;7-nginx匹配pc或wap端&#34;&gt;7.nginx匹配PC或wap端&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server{
-        listen 80;
-        server_name nginx2.jspang.com;
-        location / {
-         root /usr/share/nginx/pc;
-         if ($http_user_agent ~* &#39;(Android|webOS|iPhone|iPod|BlackBerry)&#39;) {
-            root /usr/share/nginx/mobile;
-         }
-         index index.html;
-        }
-}
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

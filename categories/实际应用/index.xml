@@ -6,10 +6,19 @@
     <description>Recent content in 实际应用 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 15 Jun 2020 18:12:19 +0700</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2020 16:23:05 +0800</lastBuildDate>
     
 	<atom:link href="https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flutter自定义组件</title>
+      <link>https://xtid.github.io/2020/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</link>
+      <pubDate>Sat, 28 Nov 2020 16:23:05 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</guid>
+      <description>简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T</description>
+    </item>
     
     <item>
       <title>使用Canvas实现一个红包雨的效果</title>
