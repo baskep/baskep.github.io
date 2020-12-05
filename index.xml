@@ -5,8 +5,347 @@
     <description>Recent content in 👨🏻‍💻 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 28 Nov 2020 16:23:05 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 05 Dec 2020 16:06:56 +0800</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Flutter各种踩坑心得</title>
+      <link>https://xtid.github.io/2020/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Sat, 05 Dec 2020 16:06:56 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2020/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/</guid>
+      <description>
+
+&lt;h2 id=&#34;1-安卓开发环境的基本配置&#34;&gt;1.安卓开发环境的基本配置&lt;/h2&gt;
+
+&lt;p&gt;首先修改你创建的项目中的&lt;code&gt;/android/build.gradle&lt;/code&gt;文件，修改&lt;code&gt;buildscript&lt;/code&gt;以及&lt;code&gt;allprojects&lt;/code&gt;的仓库地址，否则编译打包会卡住不动，其次就是&lt;code&gt;package get&lt;/code&gt;会卡住，原因是因为连接不上谷歌的服务，有点蛋疼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;buildscript {
+    repositories {
+        // google()
+        // jcenter()
+        maven { url &#39;https://maven.aliyun.com/repository/google&#39; }
+        maven { url &#39;https://maven.aliyun.com/repository/jcenter&#39; }
+        maven { url &#39;https://maven.aliyun.com/nexus/content/groups/public&#39; }
+    }
+}
+
+allprojects {
+    repositories {
+        // google()
+        // jcenter()
+        maven { url &#39;https://maven.aliyun.com/repository/google&#39; }
+        maven { url &#39;https://maven.aliyun.com/repository/jcenter&#39; }
+        maven { url &#39;https://maven.aliyun.com/nexus/content/groups/public&#39; }
+    }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;2-signlechildscrollview页面不满一屏无法撑满全屏&#34;&gt;2.SignleChildScrollView页面不满一屏无法撑满全屏&lt;/h2&gt;
+
+&lt;p&gt;可以换个布局组件或者将其设置为&lt;code&gt;Container&lt;/code&gt;子组件，设置&lt;code&gt;alignment&lt;/code&gt;，如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;Container(
+  alignment: Alignment.topLeft,
+  child: SingleChildScrollView(),
+),
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;3-自定义appbar&#34;&gt;3.自定义AppBar&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;AppBar&lt;/code&gt;这个组件可拓展性还是比较低的，尤其是它的高度都是写死的，这种情况可以换&lt;code&gt;SliverAppBar&lt;/code&gt;或者自定义&lt;code&gt;AppBar&lt;/code&gt;，换句话说自定义组件，这里就不详诉&lt;/p&gt;
+
+&lt;h2 id=&#34;4-push页面返回-保持上一次的页面位置状态&#34;&gt;4.push页面返回，保持上一次的页面位置状态&lt;/h2&gt;
+
+&lt;p&gt;使用 &lt;code&gt;StatefulWidget&lt;/code&gt; 混入 &lt;code&gt;AutomaticKeepAliveClientMixin&lt;/code&gt;，覆盖&lt;code&gt;wantKeepAlive&lt;/code&gt;属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;class TesPage extends StatefulWidget {
+  @override
+  createState() =&amp;gt; TesPageState();
+}
+
+class TesPageState extends State&amp;lt;TesPage&amp;gt; with AutomaticKeepAliveClientMixin {
+  
+  @override
+  bool get wantKeepAlive =&amp;gt; true;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;5-路由跳转方式的选择&#34;&gt;5.路由跳转方式的选择&lt;/h2&gt;
+
+&lt;p&gt;通常路由跳转会用到&lt;code&gt;Navigator.push&lt;/code&gt;推入路由栈，&lt;code&gt;Navigator.pop&lt;/code&gt;就移出、返回上一个的状态。如果在页面上全部用这两个方法，你会发现你的页面间的跳转仿佛乱了一样，原因就是&lt;code&gt;Navigator.push&lt;/code&gt;是每次将你的路由推入栈，也就是你可以一直做返回操作、手势来获取之前的页面状态。这个时候就要考虑用其他方式，如&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;pushAndRemoveUntil&lt;/code&gt;：跳转到指定路由，删除先前的路由栈
+&lt;code&gt;pushNamed&lt;/code&gt;：跳转到指定命名路由，路由栈不会删除。这种方式需要配合命名路由使用，即在入口文件&lt;code&gt;MaterialApp&lt;/code&gt;配置好&lt;code&gt;routes&lt;/code&gt;
+&lt;code&gt;pushNamedAndRemoveUntil&lt;/code&gt;：跳转到指定路由，删除先前的路由栈
+&lt;code&gt;pushReplacement&lt;/code&gt;：路由替换
+&lt;code&gt;pushReplacementNamed&lt;/code&gt;：跳转到指定命名路由，并删除最后的路由&lt;/p&gt;
+
+&lt;h2 id=&#34;6-页面初始化时拿到context&#34;&gt;6.页面初始化时拿到context&lt;/h2&gt;
+
+&lt;p&gt;有时候，可能会在页面初始化使用&lt;code&gt;context&lt;/code&gt;，比如说路由相关的&lt;code&gt;Navigator.of(context)&lt;/code&gt;。解决方法很简单，在&lt;code&gt;initState&lt;/code&gt;方法中，&lt;code&gt;this&lt;/code&gt;指向上下文，即使用&lt;code&gt;this.context&lt;/code&gt;即可以保存页面初始的&lt;code&gt;context&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;7-键盘弹出时将布局打乱-或者说将元素顶起来了&#34;&gt;7.键盘弹出时将布局打乱，或者说将元素顶起来了&lt;/h2&gt;
+
+&lt;p&gt;在 &lt;code&gt;Scafold&lt;/code&gt; 里设置 &lt;code&gt;resizeToAvoidBottomInset: false&lt;/code&gt;，键盘会遮住布局，而不是顶起布局。&lt;/p&gt;
+
+&lt;h2 id=&#34;8-无法设置虚线边框&#34;&gt;8.无法设置虚线边框&lt;/h2&gt;
+
+&lt;p&gt;说实话当时发现&lt;code&gt;Flutter&lt;/code&gt;无法设置虚线边框的时候我是很震惊的，我感觉这算是基本的不能在基本的属性了，解决方法，参考官方&lt;code&gt;issues&lt;/code&gt;中大佬的解法，目前只能自己实现&lt;code&gt;paint&lt;/code&gt;方法，自己用&lt;code&gt;Canvas&lt;/code&gt;画&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dart&#34;&gt;import &#39;package:flutter/material.dart&#39;;
+import &#39;package:path_drawing/path_drawing.dart&#39;;
+
+void main() =&amp;gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &#39;Flutter Demo&#39;,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: &#39;Flutter Demo Home Page&#39;),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _MyHomePageState createState() =&amp;gt; _MyHomePageState();
+}
+
+class _MyHomePageState extends State&amp;lt;MyHomePage&amp;gt; {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: &amp;lt;Widget&amp;gt;[
+            Container(
+              decoration: BoxDecoration(
+                border: DashPathBorder.all(
+                  dashArray: CircularIntervalList&amp;lt;double&amp;gt;(&amp;lt;double&amp;gt;[5.0, 2.5]),
+                ),
+              ),
+              padding: const EdgeInsets.all(20.0),
+              child: const Text(&#39;You have pushed the button this many times:&#39;),
+            ),
+            Text(
+              &#39;$_counter&#39;,
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: &#39;Increment&#39;,
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class DashPathBorder extends Border {
+  DashPathBorder({
+    @required this.dashArray,
+    BorderSide top = BorderSide.none,
+    BorderSide left = BorderSide.none,
+    BorderSide right = BorderSide.none,
+    BorderSide bottom = BorderSide.none,
+  }) : super(
+          top: top,
+          left: left,
+          right: right,
+          bottom: bottom,
+        );
+
+  factory DashPathBorder.all({
+    BorderSide borderSide = const BorderSide(),
+    @required CircularIntervalList&amp;lt;double&amp;gt; dashArray,
+  }) {
+    return DashPathBorder(
+      dashArray: dashArray,
+      top: borderSide,
+      right: borderSide,
+      left: borderSide,
+      bottom: borderSide,
+    );
+  }
+  final CircularIntervalList&amp;lt;double&amp;gt; dashArray;
+
+  @override
+  void paint(
+    Canvas canvas,
+    Rect rect, {
+    TextDirection textDirection,
+    BoxShape shape = BoxShape.rectangle,
+    BorderRadius borderRadius,
+  }) {
+    if (isUniform) {
+      switch (top.style) {
+        case BorderStyle.none:
+          return;
+        case BorderStyle.solid:
+          switch (shape) {
+            case BoxShape.circle:
+              assert(borderRadius == null,
+                  &#39;A borderRadius can only be given for rectangular boxes.&#39;);
+              canvas.drawPath(
+                dashPath(Path()..addOval(rect), dashArray: dashArray),
+                top.toPaint(),
+              );
+              break;
+            case BoxShape.rectangle:
+              if (borderRadius != null) {
+                final RRect rrect =
+                    RRect.fromRectAndRadius(rect, borderRadius.topLeft);
+                canvas.drawPath(
+                  dashPath(Path()..addRRect(rrect), dashArray: dashArray),
+                  top.toPaint(),
+                );
+                return;
+              }
+              canvas.drawPath(
+                dashPath(Path()..addRect(rect), dashArray: dashArray),
+                top.toPaint(),
+              );
+
+              break;
+          }
+          return;
+      }
+    }
+
+    assert(borderRadius == null,
+        &#39;A borderRadius can only be given for uniform borders.&#39;);
+    assert(shape == BoxShape.rectangle,
+        &#39;A border can only be drawn as a circle if it is uniform.&#39;);
+
+    // TODO(dnfield): implement when borders are not uniform.
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;9-使用dio时-设置相应数据的媒体类型&#34;&gt;9.使用Dio时，设置相应数据的媒体类型&lt;/h2&gt;
+
+&lt;p&gt;使用&lt;code&gt;Dio&lt;/code&gt;封装网络请求，普通的请求最好设置相应类型&lt;code&gt;dio.options.responseType = ResponseType.json&lt;/code&gt;，否则可能接收到的响应可能是字符串。&lt;/p&gt;
+
+&lt;h2 id=&#34;10-build配置&#34;&gt;10.build配置&lt;/h2&gt;
+
+&lt;h4 id=&#34;1-安卓的sha1码获取方式&#34;&gt;1.安卓的SHA1码获取方式&lt;/h4&gt;
+
+&lt;p&gt;很多第三方应用都需要用到安卓的SHA1码，在&lt;code&gt;Flutter&lt;/code&gt;应用中，首先用&lt;code&gt;Andriod Studio&lt;/code&gt;打开项目，随意选择一个文件，点击右上角&lt;code&gt;Open for Editing in Android Studio&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/12/05/KrYUhiXpHu3cLBs.png&#34; alt=&#34;1.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;打开&lt;code&gt;Terminal&lt;/code&gt;，输入&lt;code&gt;gradlew signingReport&lt;/code&gt;，mac环境需要指定当前目录&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/12/05/BxEfHGOAtQcLSn7.png&#34; alt=&#34;2.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最后控制台会打印出应用的各种签名信息，复制&lt;code&gt;SHA1&lt;/code&gt;码即可&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg&#34; alt=&#34;3.jpg&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;2-安卓打包-release-配置&#34;&gt;2.安卓打包&lt;code&gt;release&lt;/code&gt;配置&lt;/h4&gt;
+
+&lt;p&gt;首先打开&lt;code&gt;/android/build.gradle&lt;/code&gt;文件，在&lt;code&gt;buildscript&lt;/code&gt;中指定&lt;code&gt;kotlin_version&lt;/code&gt;，否则&lt;code&gt;debug&lt;/code&gt;、&lt;code&gt;release&lt;/code&gt;编译会不通过&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;buildscript {
+    ext.kotlin_version = &#39;1.3.50&#39;
+    repositories {
+        // google()
+        // jcenter()
+        maven { url &#39;https://maven.aliyun.com/repository/google&#39; }
+        maven { url &#39;https://maven.aliyun.com/repository/jcenter&#39; }
+        maven { url &#39;https://maven.aliyun.com/nexus/content/groups/public&#39; }
+    }
+
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:3.5.0&#39;
+        classpath &amp;quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后生成&lt;code&gt;key&lt;/code&gt;，同样打开&lt;code&gt;Andriod Studio&lt;/code&gt;，打开&lt;code&gt;Terminal&lt;/code&gt;，输入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;keytool -genkey -v -keystore ~/key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias key
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;生成过程中会让你输入存储密码和文件密码，生成完&lt;code&gt;key&lt;/code&gt;后记住文件地址&lt;/p&gt;
+
+&lt;p&gt;然后在在&lt;code&gt;android&lt;/code&gt;目录中创建一个文件，文件名为：&lt;code&gt;key.properties&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/12/05/MuVAtUaI3TojQi6.jpg&#34; alt=&#34;05D6800C-27E4-4550-A7CD-88C691BC8202.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;添加内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;storePassword = // 和生成key输入的存储密码一致
+keyPassword = // 和生成key输入的密码一致
+keyAlias = key // 
+storeFile = // key文件的存储路径
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;找到&lt;code&gt;android/app/build.gradle&lt;/code&gt;文件，添加签名配置&lt;code&gt;singingConfig&lt;/code&gt;以及打包配置&lt;code&gt;buildTypes&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;android {
+		.....
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties[&#39;keyAlias&#39;]
+            keyPassword keystoreProperties[&#39;keyPassword&#39;]
+            storeFile file(keystoreProperties[&#39;storeFile&#39;])
+            storePassword keystoreProperties[&#39;storePassword&#39;]
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            ndk {
+                abiFilters &#39;armeabi-v7a&#39;,&#39;x86&#39; // 指定打包平台
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后进入项目根目录，执行&lt;code&gt;flutter build apk&lt;/code&gt;，即可以打包一个安卓apk包&lt;/p&gt;
+
+&lt;h4 id=&#34;3-ios调试打包注意事项&#34;&gt;3.iOS调试打包注意事项&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;iOS&lt;/code&gt;模拟器调试体验比安卓好的多，但是真机调试，首先你得有个苹果ID，然后用&lt;code&gt;Xcode&lt;/code&gt;打开项目，点击&lt;code&gt;Signing &amp;amp; Capabilities&lt;/code&gt;，找到&lt;code&gt;Team&lt;/code&gt;设置，设置一个开发账号，可以是未付费注册的苹果ID，设置好开发者证书&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/12/05/IM1z4KEkUxPFAvl.jpg&#34; alt=&#34;4.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后&lt;code&gt;flutter run&lt;/code&gt;的时候，选择一个真机设备，即可在真机上调试&lt;code&gt;app&lt;/code&gt;了，但是未付费注册的苹果ID证书有效期只有七天，七天后你手机上的&lt;code&gt;app&lt;/code&gt;就不可用了。&lt;/p&gt;
+
+&lt;p&gt;未付费注册的账号也无法打包上传&lt;code&gt;App Store&lt;/code&gt;，不过配置完了开发团队、账号后、开发证书后，可以直接&lt;code&gt;flutter build ios&lt;/code&gt;，这样会生成一个文件。这时候创建一个名为&lt;code&gt;Payload&lt;/code&gt;的文件夹，将打包生成的文件放进去、压缩，然后将压缩文件后缀改为&lt;code&gt;ipa&lt;/code&gt;，即可以生成一个&lt;code&gt;ipa&lt;/code&gt;文件了。然后借助第三方工具，如&lt;code&gt;itunes(貌似已经不能用)、xxx助手&lt;/code&gt;即可将这个文件安装在终端上运行。&lt;/p&gt;
+
+&lt;h4 id=&#34;11-总结&#34;&gt;11.总结&lt;/h4&gt;
+
+&lt;p&gt;断断续续做这个小项目已经有几个月了，因为平常很忙，所以拖了这么久。&lt;code&gt;Flutter&lt;/code&gt;给我的感觉优点就是流程、动画较为细腻，相对于其它跨平台方案，使用&lt;code&gt;JsBrigde&lt;/code&gt;与&lt;code&gt;native&lt;/code&gt;端通信，有较大的优势，毕竟它是自己的引擎绘制的页面。但是它的官方组件太少，自定义组件所需精力较多(可能是我不熟悉)，&lt;code&gt;iOS&lt;/code&gt;风格组件虽然样式和原生的差不多，但具体效果还是有差距。这种跨平台框架终于还是得要和原生开发人员一起操作才玩的溜。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Flutter自定义组件</title>
@@ -4256,201 +4595,12 @@ res += `{name:&amp;quot;${dir.name}&amp;quot;,rawName:&amp;quot;${dir.rawName}&a
     </item>
     
     <item>
-      <title>使用Canvas实现一个红包雨的效果</title>
-      <link>https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
-      <pubDate>Mon, 15 Jun 2020 18:12:19 +0700</pubDate>
+      <title>关于</title>
+      <link>https://xtid.github.io/about/</link>
+      <pubDate>Wed, 24 Jun 2020 00:08:20 +0800</pubDate>
       
-      <guid>https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
-      <description>
-
-&lt;p&gt;之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做一个红包雨的效果&lt;/p&gt;
-
-&lt;h3 id=&#34;1-核心原理&#34;&gt;1.核心原理&lt;/h3&gt;
-
-&lt;p&gt;1.生成红包，设置好默认的背景图像，传入页面上所需的红包数量&lt;/p&gt;
-
-&lt;p&gt;2.保存状态，利用Canvas的原生API实现页面的渲染，每次移动各个红包到不同位置，利用&lt;code&gt;window.requestAnimationFrame&lt;/code&gt;实现每一帧的动画绘制，使整个页面不会卡顿&lt;/p&gt;
-
-&lt;p&gt;3.点击红包，计算是否点中红包，如果点中，则进行相应的事件处理&lt;/p&gt;
-
-&lt;h3 id=&#34;2-具体实现&#34;&gt;2.具体实现&lt;/h3&gt;
-
-&lt;p&gt;2.1定义一些基本变量&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;redEnvelopeArr: [], // 当前整个红包对象数组
-itemSpeed: [], // 每个红包对象对应的一些属性，如下落速度，页面上所在的位置
-count: 0, // 加载好的红包图片的数量
-ctx: null, // Canvas context对象
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;2.2加载红包图片&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;loadImgs(totalCount) {
-  const self = this
-  const canvas = document.getElementById(&#39;canvas&#39;)
-  if (canvas.width &amp;lt; window.innerWidth) {
-    canvas.width = window.innerWidth
-  }
-  if (canvas.height &amp;lt; window.innerHeight) {
-    canvas.height = window.innerHeight
-  }
-  return new Promise(resolve =&amp;gt; {
-    for (let index = 0; index &amp;lt; totalCount; index++) {
-      const image = new Image()
-      image.src = &#39;&#39; // 图片地址
-      image.onload = () =&amp;gt; {
-        self.count++
-        self.itemSpeed.push({
-          speed: 0, // 开始下落的位置
-          step: self.randomFloat(2, 6) // 每个红包下落的速度
-        })
-        self.redEnvelopeArr.push({
-          x: self.randomFloat(0, window.innerWidth - 100),
-          y: 0,
-          img: image
-        })
-        if (self.count === totalCount) resolve() // 所有图片加载完成跳出
-      }
-    }
-  })
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;2.2生成随机数的一个方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;randomFloat(low, high) {
-  return low + Math.random() * (high - low)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;2.3绘制红包图片下落，这里做了一个旋转下落的效果，主要原理是利用&lt;code&gt;translate&lt;/code&gt;移动context位置，旋转一定角度后，将原点移动到之前位置，做一个旋转的效果，每次操作的时候记得&lt;code&gt;sava&lt;/code&gt;、&lt;code&gt;restore&lt;/code&gt;。当然如果不想做旋转效果，那直接用&lt;code&gt;drawImage&lt;/code&gt;每次画不同位置的红包就行了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;drawRedEnvelope() {
-  const self = this
-  self.ctx.width = 100 // 红包的宽度
-  self.ctx.height = 120 // 红包的高度
-  self.redEnvelopeArr.forEach((item, index) =&amp;gt; {
-    const newRedEnvelope = {
-      x: item.x, // 红包所在的x轴位置
-      y: item.y + self.itemSpeed[index].step, // 红包所在的y轴位置，主要由下落速度决定
-      img: item.img,
-      speed: item.speed
-    }
-    self.ctx.save()
-    self.redEnvelopeArr.splice(index, 1, newRedEnvelope)
-    self.ctx.translate(item.x + 50, 60 + self.itemSpeed[index].speed)
-    self.ctx.rotate(self.itemSpeed[index].speed * Math.PI / 180)
-    self.ctx.translate(-item.x - 50, -60 - self.itemSpeed[index].speed)
-    self.ctx.drawImage(item.img, item.x, self.itemSpeed[index].speed)
-    self.ctx.restore()
-    self.itemSpeed[index].speed += self.itemSpeed[index].step
-    // self.ctx.drawImage(item.img, item.x, item.y, self.ctx.width, self.ctx.height)
-  })
-},
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;2.4使用&lt;code&gt;clearRect&lt;/code&gt;清除上一帧的效果，在调用&lt;code&gt;drawRedEnvelope&lt;/code&gt;绘制新一帧的效果，使用&lt;code&gt;requestAnimationFrame&lt;/code&gt;重复执行&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;moveRedEnvelope() {
-  const self = this
-  self.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-  self.drawRedEnvelope()
-  window.requestAnimationFrame(self.moveRedEnvelope.bind(this))
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;2.5点击红包时，循环遍历判断当前点击位置是否在某个红包内，如果遇到多个红包重叠的情况，只需取最上面一个就行了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;redEnvelopeClick() {
-  const self = this
-  const canvas = document.getElementById(&#39;canvas&#39;)
-  canvas.addEventListener(&#39;click&#39;, e =&amp;gt; {
-    let result = {}
-    this.redEnvelopeArr.forEach((item, index) =&amp;gt; {
-      const distanceX = e.clientX - item.x
-      const distanceY = e.clientY - item.y
-      const withinX = distanceX &amp;gt; 0
-      const withinY = distanceY &amp;gt; 0
-      if (withinX &amp;amp;&amp;amp; withinY) {
-        result = item // 最后的result返回，然后做一些处理
-      }
-    })
-  })
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;后言&#34;&gt;后言&lt;/h3&gt;
-
-&lt;p&gt;以上就是主要内容，需要特别注意的是，点击完了某个红包需要找个时间点清空整个页面上的动画，还有就是具体的点击实现的业务逻辑需自己去处理&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>nodejs实现excel导出数据的功能</title>
-      <link>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
-      <pubDate>Sun, 10 Nov 2019 22:42:19 +0915</pubDate>
-      
-      <guid>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
-      <description>&lt;p&gt;1.对于一些业务系统，很常见的一个功能就是将数据生成excel导出，其实在&lt;code&gt;nodejs&lt;/code&gt;中已经很多优秀的第三方库可以实现这个功能，我这里选择的是&lt;code&gt;node-xlsx&lt;/code&gt;这个模块，其实它的本质也是依赖的&lt;code&gt;xlsx&lt;/code&gt;这个模块。&lt;/p&gt;
-
-&lt;p&gt;2.首先得将你需要的导出的数据组装好，并且设置好没一个列表的宽度，如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 后台所返回的数据
-let result = data || [];
-// 遍历组装数据
-result.map(item =&amp;gt; {
-    xlsxData.push([1, 2, 3]);
-});
-// 设置每一列的宽度
-let option = { 
-    &#39;!cols&#39;: [{
-        wch: 30
-    }, {
-        wch: 20
-    }, {
-        wch: 20
-    }]
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;3.调用&lt;code&gt;node-xlsx&lt;/code&gt;模块的&lt;code&gt;build&lt;/code&gt;方法，将数据转换为字节流数据，并设置请求的响应头，下载保存，大致代码如下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 后台所返回的数据
-let result = data || [];
-
-// 遍历组装数据
-result.map(item =&amp;gt; {
-    xlsxData.push([1, 2, 3]);
-});
-
-// 设置每一列的宽度
-let option = { 
-    &#39;!cols&#39;: [{
-        wch: 30
-    }, {
-        wch: 20
-    }, {
-        wch: 20
-    }]
-};
-
-// res为express或koa2请求的相应结果，此方法需在express或koa2框架下运行
-getXlsxInfo(xlsxData, &#39;渠道粉丝统计数据&#39;, option, res);
-
-// 生成Excel表格并下载
-function getXlsxInfo(xlsxData, name, option, res) {
-    const buffer = xlsx.build([{
-        name: &#39;sheet&#39;,
-        data: xlsxData
-    }], option);
-    res.setHeader(&#39;Content-Type&#39;, &#39;application/vnd.openxmlformats&#39;);
-    res.setHeader(&#39;Content-Disposition&#39;, &#39;attachment; filename=&#39; + encodeURIComponent(name) + &#39;.xlsx&#39;);
-    res.end(buffer, &#39;binary&#39;);
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;4.有个坑就是使用这种方式下载，必须是直接访问你所写的&lt;code&gt;nodejs接口地址&lt;/code&gt;才能打开下载功能，若使用&lt;code&gt;ajax&lt;/code&gt;或&lt;code&gt;fetch&lt;/code&gt;等方式返回的会是乱码的形式。其原因在于，这两种方式的请求发送的数据不一样，后端解析返回头也不一样，异步请求是不能触发下载返回头的。&lt;/p&gt;
+      <guid>https://xtid.github.io/about/</guid>
+      <description>&lt;p&gt;小小码农可笑可笑&lt;/p&gt;
 </description>
     </item>
     
