@@ -6,10 +6,19 @@
     <description>Recent content in 源码理解 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2020 00:12:17 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 05 Jan 2021 23:02:17 +0800</lastBuildDate>
     
 	<atom:link href="https://xtid.github.io/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React调度过程</title>
+      <link>https://xtid.github.io/2021/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Tue, 05 Jan 2021 23:02:17 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2021/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</guid>
+      <description>1.forwardRef 用来解决高阶组件传递ref的问题。它的用法就像是使用redux的时候，在外面包裹一层，通过...props的方式把外部的props传入到实</description>
+    </item>
     
     <item>
       <title>Vue中的patch</title>

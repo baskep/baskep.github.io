@@ -57,11 +57,11 @@
     </item>
     
     <item>
-      <title>Webpack简单理解</title>
-      <link>https://xtid.github.io/2020/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/</link>
+      <title>Webpack理解</title>
+      <link>https://xtid.github.io/2020/webpack%E7%90%86%E8%A7%A3/</link>
       <pubDate>Sun, 23 Aug 2020 21:36:20 +0800</pubDate>
       
-      <guid>https://xtid.github.io/2020/webpack%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/</guid>
+      <guid>https://xtid.github.io/2020/webpack%E7%90%86%E8%A7%A3/</guid>
       <description>webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加</description>
     </item>
     
