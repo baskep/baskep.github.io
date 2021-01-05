@@ -57,7 +57,7 @@
     "datePublished": "2021-01-05 23:02:17 \x2b0800 CST",
     "dateModified" : "2021-01-05 23:02:17 \x2b0800 CST",
     "url" : "https:\/\/xtid.github.io\/2021\/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B\/",
-    "wordCount" : "7748",
+    "wordCount" : "7689",
     "keywords" : [  "👨🏻‍💻"]
 }
 </script>
@@ -1268,7 +1268,7 @@ const classComponentUpdater = {
 
 <h2 id="13-commitroot">13.commitRoot</h2>
 
-<p>调用完<code>renderRoot</code>之后，<code>fiber</code>中对应的每个节点都执行了<code>render</code>之前所有的生命周期函数，并创建了对应的DOM元素，放在<code>workInProgress.stateNode</code>中。然后调用<code>commitRoot</code>，被提交的任务应该是：子树中优先级最高的任务或者外部指定的优先级（flushSync或者retry），然后调用<code>componentWillMount</code>，更新DOM元素的属性后，挂载组件，调用<code>componentDidMount</code></p>
+<p>调用完<code>renderRoot</code>之后，<code>fiber</code>中对应的每个节点都执行了<code>render</code>之前所有的生命周期函数，并创建了对应的DOM元素，放在<code>workInProgress.stateNode</code>中。然后调用<code>commitRoot</code>，提交子树中优先级最高的任务，更新DOM元素的属性后，挂载组件，调用<code>componentDidMount</code></p>
 
     </div>
 

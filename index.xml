@@ -1140,7 +1140,7 @@ const classComponentUpdater = {
 
 &lt;h2 id=&#34;13-commitroot&#34;&gt;13.commitRoot&lt;/h2&gt;
 
-&lt;p&gt;调用完&lt;code&gt;renderRoot&lt;/code&gt;之后，&lt;code&gt;fiber&lt;/code&gt;中对应的每个节点都执行了&lt;code&gt;render&lt;/code&gt;之前所有的生命周期函数，并创建了对应的DOM元素，放在&lt;code&gt;workInProgress.stateNode&lt;/code&gt;中。然后调用&lt;code&gt;commitRoot&lt;/code&gt;，被提交的任务应该是：子树中优先级最高的任务或者外部指定的优先级（flushSync或者retry），然后调用&lt;code&gt;componentWillMount&lt;/code&gt;，更新DOM元素的属性后，挂载组件，调用&lt;code&gt;componentDidMount&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;调用完&lt;code&gt;renderRoot&lt;/code&gt;之后，&lt;code&gt;fiber&lt;/code&gt;中对应的每个节点都执行了&lt;code&gt;render&lt;/code&gt;之前所有的生命周期函数，并创建了对应的DOM元素，放在&lt;code&gt;workInProgress.stateNode&lt;/code&gt;中。然后调用&lt;code&gt;commitRoot&lt;/code&gt;，提交子树中优先级最高的任务，更新DOM元素的属性后，挂载组件，调用&lt;code&gt;componentDidMount&lt;/code&gt;&lt;/p&gt;
 </description>
     </item>
     
