@@ -5,8 +5,33 @@
     <description>Recent content in 👨🏻‍💻 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 05 Jan 2021 23:02:17 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 10 Jan 2021 23:35:28 +0800</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Links</title>
+      <link>https://xtid.github.io/links/</link>
+      <pubDate>Sun, 10 Jan 2021 23:35:28 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/links/</guid>
+      <description>&lt;p&gt;友情链接&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;table style=&#34;width: 100%&#34;&gt;
+ &lt;thead&gt;
+  &lt;th colspan=&#34;3&#34;&gt;友情链接&lt;/th&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+  &lt;tr&gt;
+  &lt;td align=&#34;center&#34;&gt;
+      &lt;a href=&#34;http://jsshou.cn/&#34; title=&#34;JSShou的博客网站&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;JSShou&lt;/a&gt;
+    &lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
     
     <item>
       <title>React调度过程</title>
@@ -1141,6 +1166,10 @@ const classComponentUpdater = {
 &lt;h2 id=&#34;13-commitroot&#34;&gt;13.commitRoot&lt;/h2&gt;
 
 &lt;p&gt;调用完&lt;code&gt;renderRoot&lt;/code&gt;之后，&lt;code&gt;fiber&lt;/code&gt;中对应的每个节点都执行了&lt;code&gt;render&lt;/code&gt;之前所有的生命周期函数，并创建了对应的DOM元素，放在&lt;code&gt;workInProgress.stateNode&lt;/code&gt;中。然后调用&lt;code&gt;commitRoot&lt;/code&gt;，提交子树中优先级最高的任务，更新DOM元素的属性后，挂载组件，调用&lt;code&gt;componentDidMount&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;参考链接&#34;&gt;参考链接&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://react.jokcy.me/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;react源码解析&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -5490,242 +5519,6 @@ function getOuterHTML (el: Element): string {
   }
   return vm
 }
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Vue自定义指令</title>
-      <link>https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/</link>
-      <pubDate>Sun, 26 Jul 2020 22:35:47 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/</guid>
-      <description>&lt;p&gt;Vue自定义指令也分全局指令和局部指令两种，全局指令和局部指令的使用方法分别为：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 全局指令使用方法
-Vue.directive(&#39;test&#39;, {
-  bind: function(){
-    ...
-  }
-})
-
-// 局部指令使用方法
-Vue({
-  directives: {
-    test: {
-      bind: function(){
-    	...
-  	  }
-    }
-  } 
-})
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上面写的&lt;code&gt;bind&lt;/code&gt;方法其实就是自定义指令的几个钩子函数之一，可以视情况添加其他的钩子函数，官方的介绍：&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;bind&lt;/code&gt;：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;inserted&lt;/code&gt;：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)，实际应用场景：被绑定元素插入父节点后，做一些初始化的操作，比如改变颜色，字体大小等等&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;update&lt;/code&gt;：所在组件的&lt;code&gt;VNode&lt;/code&gt; 更新时调用，但是可能发生在其子 &lt;code&gt;VNode&lt;/code&gt; 更新之前，实际应用场景：被绑定元素状态/样式、内容发生改变时触发&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;componentUpdated&lt;/code&gt;：指令所在组件的 &lt;code&gt;VNode&lt;/code&gt;及其子&lt;code&gt;VNode&lt;/code&gt;全部更新后调用&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;unbind&lt;/code&gt;：只调用一次，指令与元素解绑时调用，实际应用场景：当指令绑定的元素从 dom 中删除时触发，可在这个时候做一些需要的操作&lt;/p&gt;
-
-&lt;p&gt;指令钩子函数会被传入以下参数：&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;el&lt;/code&gt;：指令所绑定的元素，可以用来直接操作 DOM 。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;binding&lt;/code&gt;：一个对象，包含以下属性：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;name&lt;/code&gt;：指令名，不包括 &lt;code&gt;v-&lt;/code&gt; 前缀。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;value&lt;/code&gt;：指令的绑定值，例如：&lt;code&gt;v-my-directive=&amp;quot;1 + 1&amp;quot;&lt;/code&gt; 中，绑定值为 &lt;code&gt;2&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;oldValue&lt;/code&gt;：指令绑定的前一个值，仅在 &lt;code&gt;update&lt;/code&gt; 和 &lt;code&gt;componentUpdated&lt;/code&gt; 钩子中可用。无论值是否改变都可用。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;expression&lt;/code&gt;：字符串形式的指令表达式。例如 &lt;code&gt;v-my-directive=&amp;quot;1 + 1&amp;quot;&lt;/code&gt; 中，表达式为 &lt;code&gt;&amp;quot;1 + 1&amp;quot;&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;arg&lt;/code&gt;：传给指令的参数，可选。例如 &lt;code&gt;v-my-directive:foo&lt;/code&gt; 中，参数为 &lt;code&gt;&amp;quot;foo&amp;quot;&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;modifiers&lt;/code&gt;：一个包含修饰符的对象。例如：&lt;code&gt;v-my-directive.foo.bar&lt;/code&gt; 中，修饰符对象为 &lt;code&gt;{ foo: true, bar: true }&lt;/code&gt;。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code&gt;vnode&lt;/code&gt;：Vue 编译生成的虚拟节点&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;oldVnode&lt;/code&gt;：上一个虚拟节点，仅在 &lt;code&gt;update&lt;/code&gt; 和 &lt;code&gt;componentUpdated&lt;/code&gt; 钩子中可用。&lt;/p&gt;
-
-&lt;p&gt;在文件&lt;code&gt;src/core/global-api/index.js&lt;/code&gt;中可以看到&lt;code&gt;initAssetRegisters&lt;/code&gt;，这个方法会用来初始化&lt;code&gt;component&lt;/code&gt;以及&lt;code&gt;directive&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initGlobalAPI (Vue: GlobalAPI) {
-  .
-  .
-  .
-
-  initUse(Vue)
-  initMixin(Vue)
-  initExtend(Vue)
-  initAssetRegisters(Vue)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;initGlobalAPI&lt;/code&gt;会接受两个参数，第一个参数代表指令的名字，第二个参数如果是函数，则会创建一个&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;{ bind: definition, update: definition}&lt;/code&gt;对象，并将他赋值给&lt;code&gt;definition&lt;/code&gt;，这个对象会在生成&lt;code&gt;Vue&lt;/code&gt;实例的时候会合并到&lt;code&gt;vm.$options.directives&lt;/code&gt;上。顺便说一下这里面也对自定义&lt;code&gt;component&lt;/code&gt;进行一个处理，他会根据传入的组件定义创建一个&lt;code&gt;Vue&lt;/code&gt;子类，设置好&lt;code&gt;name&lt;/code&gt;或者&lt;code&gt;id&lt;/code&gt;，最后返回。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;  ASSET_TYPES.forEach(type =&amp;gt; {
-    Vue[type] = function (
-      id: string,
-      definition: Function | Object
-    ): Function | Object | void {
-      if (!definition) {
-        return this.options[type + &#39;s&#39;][id]
-      } else {
-        /* istanbul ignore if */
-        if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; type === &#39;component&#39;) {
-          validateComponentName(id)
-        }
-        if (type === &#39;component&#39; &amp;amp;&amp;amp; isPlainObject(definition)) {
-          definition.name = definition.name || id
-          definition = this.options._base.extend(definition)
-        }
-        if (type === &#39;directive&#39; &amp;amp;&amp;amp; typeof definition === &#39;function&#39;) {
-          definition = { bind: definition, update: definition }
-        }
-        this.options[type + &#39;s&#39;][id] = definition
-        return definition
-      }
-    }
-  })
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;指令的解析在&lt;code&gt;src/compiler/parser/index.js&lt;/code&gt;中完成，用正则匹配指令，在解析完&lt;code&gt;v-bind&lt;/code&gt;、&lt;code&gt;v-on&lt;/code&gt;等等原生的指令后，调用&lt;code&gt;addDirective&lt;/code&gt;，将指令属性添加到当前节点的&lt;code&gt;directives&lt;/code&gt;上。其中的正则&lt;code&gt;modifierRE&lt;/code&gt;会去掉修饰符，&lt;code&gt;dirRE&lt;/code&gt;是去掉前面的&lt;code&gt;v-&lt;/code&gt;，&lt;code&gt;argRE&lt;/code&gt;匹配冒号及后面的值&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt; else { // normal directives
-   name = name.replace(dirRE, &#39;&#39;)
-   // parse arg
-   const argMatch = name.match(argRE)
-   const arg = argMatch &amp;amp;&amp;amp; argMatch[1]
-   if (arg) {
-     name = name.slice(0, -(arg.length + 1))
-   }
-   addDirective(el, name, rawName, value, arg, modifiers, list[i])
-   if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; name === &#39;model&#39;) {
-     checkForAliasModel(el, value)
-   }
- }
-
-
-export function addDirective (
-  el: ASTElement,
-  name: string,
-  rawName: string,
-  value: string,
-  arg: ?string,
-  modifiers: ?ASTModifiers,
-  range?: Range
-) {
-  (el.directives || (el.directives = [])).push(rangeSetItem({ name, rawName, value, arg, modifiers }, range))
-  el.plain = false
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;编译阶段，在&lt;code&gt;src/compiler/codegen/index.js&lt;/code&gt;中，调用&lt;code&gt;genDirectives&lt;/code&gt;，循环遍历&lt;code&gt;directives&lt;/code&gt;对象，最终生成对应的属性，生成的形式为&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;directives:[{
-  name: &#39;&#39;,
-  rawName: &#39;&#39;,
-  value: &#39;&#39;,
-  expression: &#39;&#39;,
-  arg: &#39;&#39;,
-  modifiers: {}
-}
-...
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其代码为&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;...      
-res += `{name:&amp;quot;${dir.name}&amp;quot;,rawName:&amp;quot;${dir.rawName}&amp;quot;${
-        dir.value ? `,value:(${dir.value}),expression:${JSON.stringify(dir.value)}` : &#39;&#39;
-      }${
-        dir.arg ? `,arg:&amp;quot;${dir.arg}&amp;quot;` : &#39;&#39;
-      }${
-        dir.modifiers ? `,modifiers:${JSON.stringify(dir.modifiers)}` : &#39;&#39;
-      }},`
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;最后，会在&lt;code&gt;src/core/vdom/modules/directives.js&lt;/code&gt;中调用&lt;code&gt;_update&lt;/code&gt;，这个方法的主要作用遍历指令对象，将上面的属性通过回调函数调用对应的钩子函数，然后处理，钩子函数即上面提到的&lt;code&gt;bind&lt;/code&gt;、&lt;code&gt;update&lt;/code&gt;、&lt;code&gt;inserted&lt;/code&gt;等&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _update (oldVnode, vnode) {
-  // 第一次实例化组件时，oldVnode是emptyNode
-  const isCreate = oldVnode === emptyNode
-  // 销毁组件时，vnode是emptyNode
-  const isDestroy = vnode === emptyNode
-  //normalizeDirectives函数是从组件的vm.$options.directives中获取指令的定义
-  const oldDirs = normalizeDirectives(oldVnode.data.directives, oldVnode.context)
-  const newDirs = normalizeDirectives(vnode.data.directives, vnode.context)
-
-  const dirsWithInsert = []
-  const dirsWithPostpatch = []
-
-  let key, oldDir, dir
-  for (key in newDirs) {
-    //循环新vnode上绑定的指令
-    oldDir = oldDirs[key]
-    dir = newDirs[key]
-    if (!oldDir) {
-      // new directive, bind   =&amp;gt; 如果第一次绑定，则直接调用bind钩子函数
-      callHook(dir, &#39;bind&#39;, vnode, oldVnode)
-      if (dir.def &amp;amp;&amp;amp; dir.def.inserted) {
-        //若同时还添加了inserted钩子，则会先把它添加到dirsWithInsert数组中。
-        dirsWithInsert.push(dir)
-      }
-    } else {
-      // existing directive, update   =&amp;gt;  如果不是第一次绑定，则调用update钩子函数
-      dir.oldValue = oldDir.value
-      dir.oldArg = oldDir.arg
-      callHook(dir, &#39;update&#39;, vnode, oldVnode)
-      if (dir.def &amp;amp;&amp;amp; dir.def.componentUpdated) {
-         //若同时定义了componentUpdated钩子，则会先把它添加到dirsWithPostpatch数组中。
-        dirsWithPostpatch.push(dir)
-      }
-    }
-  }
-
-  if (dirsWithInsert.length) {
-    const callInsert = () =&amp;gt; {
-      for (let i = 0; i &amp;lt; dirsWithInsert.length; i++) {
-        callHook(dirsWithInsert[i], &#39;inserted&#39;, vnode, oldVnode)
-      }
-    }
-    if (isCreate) {
-       //如果是vnode是第一次创建，
-      //则会把dirsWithInsert数组中的回调追加到vnode.data.hook.insert中执行
-      mergeVNodeHook(vnode, &#39;insert&#39;, callInsert)
-    } else {
-      callInsert()
-    }
-  }
-
-  if (dirsWithPostpatch.length) {
-    mergeVNodeHook(vnode, &#39;postpatch&#39;, () =&amp;gt; {
-      for (let i = 0; i &amp;lt; dirsWithPostpatch.length; i++) {
-        callHook(dirsWithPostpatch[i], &#39;componentUpdated&#39;, vnode, oldVnode)
-      }
-    })
-  }
-
-  if (!isCreate) {
-    for (key in oldDirs) {
-      if (!newDirs[key]) {
-        // no longer present, unbind  
-        // 如果不是第一次创建，就调用旧vnode中新vnode不存在的指令的unbind钩子函数
-        callHook(oldDirs[key], &#39;unbind&#39;, oldVnode, oldVnode, isDestroy)
-      }
-    }
-  }
-}
-
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
