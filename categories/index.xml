@@ -6,10 +6,19 @@
     <description>Recent content in Categories on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 05 Jan 2021 23:02:17 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 10 Jul 2021 16:51:03 +0800</lastBuildDate>
     
 	<atom:link href="https://xtid.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>日常学习</title>
+      <link>https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Sat, 10 Jul 2021 16:51:03 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>源码理解</title>
@@ -17,15 +26,6 @@
       <pubDate>Tue, 05 Jan 2021 23:02:17 +0800</pubDate>
       
       <guid>https://xtid.github.io/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>日常学习</title>
-      <link>https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
-      <pubDate>Sat, 05 Dec 2020 16:06:56 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</guid>
       <description></description>
     </item>
     

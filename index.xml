@@ -5,8 +5,213 @@
     <description>Recent content in 👨🏻‍💻 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 10 Jan 2021 23:35:28 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 10 Jul 2021 16:51:03 +0800</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>前端的模块规范简述以及如何实现一个UMD-Loader方法</title>
+      <link>https://xtid.github.io/2021/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sat, 10 Jul 2021 16:51:03 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2021/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</guid>
+      <description>
+
+&lt;p&gt;在现在的前端开发中是根本离不开组件化、模块化的开发方式，这些模块肯定有各种各样的规范，比如：&lt;/p&gt;
+
+&lt;h4 id=&#34;1-commonjs规范&#34;&gt;1.CommonJS规范&lt;/h4&gt;
+
+&lt;p&gt;主要用在与Nodejs服务端，在服务器端，模块的加载是&lt;strong&gt;运行时&lt;/strong&gt;同步加载的；在浏览器端，模块需要提前编译打包处理。模块本身是&lt;strong&gt;输出的是一个值的拷贝&lt;/strong&gt;，意思就是说拿到模块后，对其中exports的变量进行修改的时候，是不会影响到原来的模块的&lt;/p&gt;
+
+&lt;p&gt;1.1.导出模块&lt;/p&gt;
+
+&lt;p&gt;导出模块的方式有两种，两种写法都可以，&lt;code&gt;module.exports&lt;/code&gt;是对&lt;code&gt;exports&lt;/code&gt;的一个引用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;module.exports = {}
+
+exports.xxx = &#39;xxx&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;1.2.引入模块&lt;/p&gt;
+
+&lt;p&gt;指的说的一点就是这个路径可以是一个js表达式计算的结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const module = requore(&#39;路径&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;2-amd规范&#34;&gt;2.AMD规范&lt;/h4&gt;
+
+&lt;p&gt;出现AMD规范的原因是因为CommonJS以服务端同步的方式加载本地的模块(文件)，服务器端所有的模块都存放在本地硬盘中，可以同步加载完成，等待时间就是硬盘的读取时间；而如果在客户端使用这个规范的去请求服务器上的模块资源的时候，请求的时间就取决于当前的网络状态了，加上CommonJS是一个同步的加载，那页面就会阻塞、卡顿，所以也就有了AMD(Asynchronous Module Definition)规范，主要用在客户端&lt;/p&gt;
+
+&lt;p&gt;2.1定义(导出模块)&lt;/p&gt;
+
+&lt;p&gt;定义模块使用&lt;code&gt;define(id?, dependencies?, factory)&lt;/code&gt;方法，id为你自定义模块的名称，dependencies为你当前模块所依赖的其他模块集合的路径数组，factory则是实际的定义模块的方法。也就是说一个简单AMD模块甚至直接传个factory函数就行了，这个回调函数里面的入参是dependencies数组里面加载成功的依赖&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define(function(){
+   return 
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.2引入模块&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;require([&#39;module1&#39;, &#39;module2&#39;], function(m1, m2){
+	// 使用module1、module2
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;需要注意的地方浏览器本身是不支持这个规范的，要使用的话必须依赖于require.js&lt;/p&gt;
+
+&lt;h4 id=&#34;3-cmd规范&#34;&gt;3.CMD规范&lt;/h4&gt;
+
+&lt;p&gt;CMD规范与AMD规范很相似，都用于浏览器编程，依赖就近执行，延迟执行&lt;/p&gt;
+
+&lt;p&gt;3.1定义(导出模块)&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;define(id?, dependencies?, factory)&lt;/code&gt;，关于定义它和AMD规范很像，包括入参，不同地方在于&lt;code&gt;factory&lt;/code&gt;回调函数的入参不同&lt;code&gt;require, exports, module&lt;/code&gt;，可以通过这些关键字再导出或者引入相关依赖，然后&lt;code&gt;dependencies&lt;/code&gt;一般不会去使用，通常会在&lt;code&gt;factory&lt;/code&gt;的回调函数中用&lt;code&gt;require&lt;/code&gt;关键字去加载其他的依赖。&lt;/p&gt;
+
+&lt;p&gt;它和AMD规范最大的不同，就是定义模块时，AMD会先去加载&lt;code&gt;dependencies&lt;/code&gt;的内容，然后加载模块本身的内容，CMD的话会加载就近的依赖，意思是遇到了require关键字的时候才会去加载模块。所以使用CMD规范的话，可以将require关键字写在模块的顶层，当然浏览器环境也要依赖与&lt;code&gt;sea.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define(function(require, exports, module){
+  // require对象可以在模块中引入其他模块
+  exports.xxx = value
+  module.exports = value
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4.ES6的模块规范&lt;/p&gt;
+
+&lt;p&gt;1.导出：ES6模块有两种模块导出方式：命名式导出(名称导出)、默认导出(自定义导出)&lt;/p&gt;
+
+&lt;p&gt;命名式导出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 最基本的
+export const a = &#39;1&#39;
+
+// 导出使用别名
+const a = &#39;1&#39;
+export { a as A }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;默认导出通常会在export后面加上一个default：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const a = &#39;1&#39;
+export default a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.import导入模块&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export const a = &#39;1&#39;
+import { a } from &#39;路径&#39;
+
+
+export default const a = &#39;1&#39;
+import a from &#39;./module&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上述的&lt;code&gt;Commone.js&lt;/code&gt;、&lt;code&gt;CMD&lt;/code&gt;、&lt;code&gt;AMD&lt;/code&gt;规范的特点就是运行时加载、模块值的拷贝&lt;/p&gt;
+
+&lt;p&gt;而&lt;code&gt;ES6&lt;/code&gt;模块的特点则是静态编译时加载、按需加载、模块值的引用，每个模块都有自己的上下文，每一个模块内声明的变量都是局部变量，不会污染全局作用域&lt;/p&gt;
+
+&lt;p&gt;requireJS会先尽早地执行(依赖)模块, 相当于所有的require都被提前了, 而且模块执行的顺序也不一定100%就是先mod1再mod2，所以使用requireJS的时候模块与模块之间应当尽量没有业务或者逻辑的交叉&lt;/p&gt;
+
+&lt;p&gt;5.UMD规范&lt;/p&gt;
+
+&lt;p&gt;所谓UMD (Universal Module Definition)，就是一种javascript通用模块定义规范，让你的模块能在javascript所有运行环境中发挥作用。顾名思义，就是兼容上述所有规范，实现方式是通过判断当前脚本运行环境是否支持相应的关键字来实现的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;(function (root, factory) {
+  if (typeof module === &#39;object&#39; &amp;amp;&amp;amp; typeof module.exports === &#39;object&#39;) {
+    module.exports = factory();
+  } else if (typeof define === &#39;function&#39; &amp;amp;&amp;amp; define.amd) {
+    define(factory())
+  } else if (typeof define === &#39;function&#39; &amp;amp;&amp;amp; define.cmd) {
+    define(function (require, exports, module) {
+      module.exports = factory()
+    })
+  } else {
+    root.curModule = factory();
+  }
+}(this, function () {
+  return {
+    name: &#39;我是一个umd模块&#39;
+  }
+}))
+
+// 然后在使用的地方通过require或者根节点.curModule的形式引用
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;实际应用场景1：&lt;/p&gt;
+
+&lt;p&gt;在&lt;code&gt;Webpack -&amp;gt; Output&lt;/code&gt;选项中，可以配置library库，我们可以设置打包后的文件暴露出去的模块名，并且可以指定生成支持某个规范的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;output: {  library: &#39;MyLibrary&#39;, // 暴露出的模块名  libraryTarget: &#39;amd&#39;, // 指定的规范},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打包代码生成，即生成一个兼容的UMD模块&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;(function webpackUniversalModuleDefinition(root, factory) {
+  if (typeof exports === &#39;object&#39; &amp;amp;&amp;amp; typeof module === &#39;object&#39;)
+    module.exports = factory();
+  else if (typeof define === &#39;function&#39; &amp;amp;&amp;amp; define.amd)
+    define([], factory);
+  else if (typeof exports === &#39;object&#39;)
+    exports[&amp;quot;MyLibrary&amp;quot;] = factory();
+  else
+    root[&amp;quot;MyLibrary&amp;quot;] = factory();
+})(typeof self !== &#39;undefined&#39; ? self : this, function () {
+ 
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;实际应用场景2：&lt;/p&gt;
+
+&lt;p&gt;对于一个大型的应用来说，其复杂的应用以及功能用户只会用到一部分，所以，我们可以在适当的时候去请求相应的模块，这些模块的资源放在服务端，从而减轻项目的体量以及减少项目的开发编译时间。对于这些远程的模块，就可以使用UMD模块封装，兼容不同环境，然后本地去请求。&lt;/p&gt;
+
+&lt;p&gt;要做一个umd-loader，通过传入的url、name去加载第三方的模块，然后创建script标签插入到模板文件的head当中，再就是视图里面自己处理逻辑，首先我在本地定义好这个class，确定好相应的加载逻辑&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export class UMDLoader {
+  static isExist (name) {
+    return window.hasOwnProperty(name)
+  }
+  static getModule (name) {
+    return window[name]
+  }
+  static getRemoteModule ({ name, url }) {
+    if (UMDLoader.isExist(name)) {
+      return Promise.resolve(UMDLoader.getModule(name))
+    }
+    return new Promise((resolve, reject) =&amp;gt; {
+      const script = document.createElement(&#39;script&#39;)
+      script.type = &#39;module&#39;
+      script.url = url
+      script.onload = () =&amp;gt; {
+        return resolve(UMDLoader.getModule(name))
+      }
+      script.onerror = () =&amp;gt; {
+        return reject(new Error(&#39;加载失败&#39;))
+      }
+      document.head.appendChild(script)
+    })
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在视图代码中使用的时候&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;import React, { useEffect } from &#39;react
+import { UMDLoader } from &#39;路径&#39;
+
+const TestView = () =&amp;gt; {
+  useEffect(() =&amp;gt; {
+    UMDLoader.getRemoteModule({ url: &#39;js模块地址&#39;, name: &#39;名字&#39; })
+      .then((module) =&amp;gt; {
+        console.log(module)
+      }, (e) =&amp;gt; {
+        console.log(e)
+      })
+  }, [])
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Links</title>
@@ -4867,658 +5072,6 @@ protoAugment(value, arrayMethods)
 	......
 }
 
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Vue的初始化渲染过程简介</title>
-      <link>https://xtid.github.io/2020/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</link>
-      <pubDate>Mon, 27 Jul 2020 22:25:56 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</guid>
-      <description>&lt;p&gt;首先进入到&lt;code&gt;src/core/instance/index.js&lt;/code&gt;，可以看到定义了一个&lt;code&gt;Vue&lt;/code&gt;构造函数，内容很简单，如果不是生产环境并且不是通过&lt;code&gt;new&lt;/code&gt;关键字创建对象的话，就在控制台打印一个&lt;code&gt;warn&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Vue (options) {
-  if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp;
-    !(this instanceof Vue)
-  ) {
-    warn(&#39;Vue is a constructor and should be called with the `new` keyword&#39;)
-  }
-  this._init(options)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;后面调用了几个函数，用来在&lt;code&gt;Vue&lt;/code&gt;对象上创建各种属性或者方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;initMixin(Vue)
-stateMixin(Vue)
-eventsMixin(Vue)
-lifecycleMixin(Vue)
-renderMixin(Vue)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;1.initMixin&lt;/h2&gt;
-
-&lt;p&gt;初始化方法，首先为当前&lt;code&gt;vm&lt;/code&gt;设置一个&lt;code&gt;_uid&lt;/code&gt;，然后添加属性&lt;code&gt;_isVue&lt;/code&gt;，其目的在于监听数据变化时过滤&lt;code&gt;vm&lt;/code&gt;，&lt;code&gt;_isComponent&lt;/code&gt;是内部创建子组件时才会添加为&lt;code&gt;true&lt;/code&gt;的属性，然后走到&lt;code&gt;else&lt;/code&gt;分支，调用&lt;code&gt;resolveConstructorOptions&lt;/code&gt;会获取构造器父级的&lt;code&gt;options&lt;/code&gt;，然后调用&lt;code&gt;mergeOptions&lt;/code&gt;合并父级的&lt;code&gt;options&lt;/code&gt;以及本身传入的&lt;code&gt;options&lt;/code&gt;，最后生成的&lt;code&gt;options&lt;/code&gt;包含&lt;code&gt;components、directives&lt;/code&gt;等属性&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initMixin (Vue: Class&amp;lt;Component&amp;gt;) {
-  Vue.prototype._init = function (options?: Object) {
-    const vm: Component = this
-    // a uid
-    vm._uid = uid++
-
-    let startTag, endTag
-    /* istanbul ignore if */
-    if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; config.performance &amp;amp;&amp;amp; mark) {
-      startTag = `vue-perf-start:${vm._uid}`
-      endTag = `vue-perf-end:${vm._uid}`
-      mark(startTag)
-    }
-
-    // a flag to avoid this being observed
-    vm._isVue = true
-    // merge options
-    if (options &amp;amp;&amp;amp; options._isComponent) {
-      // optimize internal component instantiation
-      // since dynamic options merging is pretty slow, and none of the
-      // internal component options needs special treatment.
-      initInternalComponent(vm, options)
-    } else {
-      vm.$options = mergeOptions(
-        resolveConstructorOptions(vm.constructor),
-        options || {},
-        vm
-      )
-    }
-    /* istanbul ignore else */
-    if (process.env.NODE_ENV !== &#39;production&#39;) {
-      initProxy(vm)
-    } else {
-      vm._renderProxy = vm
-    }
-    // expose real self
-    vm._self = vm
-    initLifecycle(vm)
-    initEvents(vm)
-    initRender(vm)
-    callHook(vm, &#39;beforeCreate&#39;)
-    initInjections(vm) // resolve injections before data/props
-    initState(vm)
-    initProvide(vm) // resolve provide after data/props
-    callHook(vm, &#39;created&#39;)
-
-    /* istanbul ignore if */
-    if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; config.performance &amp;amp;&amp;amp; mark) {
-      vm._name = formatComponentName(vm, false)
-      mark(endTag)
-      measure(`vue ${vm._name} init`, startTag, endTag)
-    }
-
-    if (vm.$options.el) {
-      vm.$mount(vm.$options.el)
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt; 1.1initLifecycle &lt;/h3&gt;
-
-&lt;p&gt;这个方法首先会设置&lt;code&gt;vm&lt;/code&gt;的一个父子节点、根节点信息，然后会定义一些生命周期相关的属性，比如&lt;code&gt;_isMounted、_isDestroyed、_isBeingDestroyed&lt;/code&gt;等&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initLifecycle (vm: Component) {
-  const options = vm.$options
-
-  // locate first non-abstract parent
-  let parent = options.parent
-  if (parent &amp;amp;&amp;amp; !options.abstract) {
-    while (parent.$options.abstract &amp;amp;&amp;amp; parent.$parent) {
-      parent = parent.$parent
-    }
-    parent.$children.push(vm)
-  }
-
-  vm.$parent = parent
-  vm.$root = parent ? parent.$root : vm
-
-  vm.$children = []
-  vm.$refs = {}
-
-  vm._watcher = null
-  vm._inactive = null
-  vm._directInactive = false
-  vm._isMounted = false
-  vm._isDestroyed = false
-  vm._isBeingDestroyed = false
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt; 1.2initEvents &lt;/h3&gt;
-
-&lt;p&gt;通过名字可以看出是一个初始化事件相关的方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initEvents (vm: Component) {
-  // events表示父组件绑定在当前组件上的事件
-  vm._events = Object.create(null)
-  // 属性表示父组件是否通过&amp;quot;@hook:&amp;quot;把钩子函数绑定在当前组件上
-  vm._hasHookEvent = false
-  // init parent attached events
-  // 同样是来表示父组件绑定在当前组件上的事件
-  const listeners = vm.$options._parentListeners
-  if (listeners) {
-    updateComponentListeners(vm, listeners)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果&lt;code&gt;listeners&lt;/code&gt;有值，则调用&lt;code&gt;updateComponentListeners&lt;/code&gt;这个方法，其内部调用了&lt;code&gt;updateListeners&lt;/code&gt;，其中的&lt;code&gt;add&lt;/code&gt;方法会调用&lt;code&gt;vm.$on&lt;/code&gt;，&lt;code&gt;vm.$on&lt;/code&gt;会监听当前实例上的自定义事件，&lt;code&gt;remove&lt;/code&gt;会调用&lt;code&gt;vm.$off&lt;/code&gt;，移出这个事件监听&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function add (event, fn) {
-  target.$on(event, fn)
-}
-
-function remove (event, fn) {
-  target.$off(event, fn)
-}
-
-export function updateComponentListeners (
-  vm: Component,
-  listeners: Object,
-  oldListeners: ?Object
-) {
-  // 保存当前的vm引用
-  target = vm
-  // 传入listeners，父组件绑定在当前组件上的事件，oldListeners同理，不过在第一次初始化的时候为空
-  // 其内部会遍历listeners调用add方法添加监听事件，同时移出oldListeners
-  updateListeners(listeners, oldListeners || {}, add, remove, createOnceHandler, vm)
-  target = undefined
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt; 1.3initRender &lt;/h3&gt;
-
-&lt;p&gt;主要是添加了一些虚拟dom、&lt;code&gt;slot&lt;/code&gt;等相关的属性和方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initRender (vm: Component) {
-  // 表示虚拟dom节点
-  vm._vnode = null 
-  // 表示当前实例render得到的Vnode
-  vm._staticTrees = null 
-  const options = vm.$options
-  const parentVnode = vm.$vnode = options._parentVnode  tree
-  const renderContext = parentVnode &amp;amp;&amp;amp; parentVnode.context
-  // 生成插槽内容
-  vm.$slots = resolveSlots(options._renderChildren, renderContext)
-  // 作用域插槽，此时为空
-  vm.$scopedSlots = emptyObject
-  vm._c = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, false)
-  vm.$createElement = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, true)
-  const parentData = parentVnode &amp;amp;&amp;amp; parentVnode.data
-	......
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;resolveSlots&lt;/code&gt;方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function resolveSlots (
-  children: ?Array&amp;lt;VNode&amp;gt;,
-  context: ?Component
-): { [key: string]: Array&amp;lt;VNode&amp;gt; } {
-  if (!children || !children.length) {
-    return {}
-  }
-  const slots = {}
-  // 遍历当前节点chilren
-  for (let i = 0, l = children.length; i &amp;lt; l; i++) {
-    const child = children[i]
-    // 获取data
-    const data = child.data
-    if (data &amp;amp;&amp;amp; data.attrs &amp;amp;&amp;amp; data.attrs.slot) {
-      delete data.attrs.slot
-    }
-    if ((child.context === context || child.fnContext === context) &amp;amp;&amp;amp;
-      data &amp;amp;&amp;amp; data.slot != null
-    ) {
-      // 拿到插槽名称
-      const name = data.slot
-      const slot = (slots[name] || (slots[name] = []))
-      if (child.tag === &#39;template&#39;) {
-        slot.push.apply(slot, child.children || [])
-      } else {
-        slot.push(child)
-      }
-    } else {
-      // 如果 data.slot 不存在，则是默认插槽的内容，则把对应的 child 添加到 slots.defaults 中
-      (slots.default || (slots.default = [])).push(child)
-    }
-  }
-  // 最后过滤一些空内容
-  for (const name in slots) {
-    if (slots[name].every(isWhitespace)) {
-      delete slots[name]
-    }
-  }
-  return slots
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;调用钩子函数&lt;code&gt;beforeCreate&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3&gt; 1.4initProvide和initInjection &lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initProvide (vm) {
-  var provide = vm.$options.provide;
-  if (provide) {
-    vm._provided = typeof provide === &#39;function&#39;
-      ? provide.call(vm)
-    : provide;
-  }
-}
-function initInjections (vm) {
-  // 获取当前节点上的inject属性
-  var result = resolveInject(vm.$options.inject, vm);
-  if (result) {
-    toggleObserving(false);
-    // 遍历这些属性，defineReactive，将这些属性变成响应式的
-    Object.keys(result).forEach(function (key) {
-      /* istanbul ignore else */
-      {
-        defineReactive$$1(vm, key, result[key], function () {
-          warn(
-            &amp;quot;Avoid mutating an injected value directly since the changes will be &amp;quot; +
-            &amp;quot;overwritten whenever the provided component re-renders. &amp;quot; +
-            &amp;quot;injection being mutated: \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot;&amp;quot;,
-            vm
-          );
-        });
-      }
-    });
-    toggleObserving(true);
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt; 1.5initState &lt;/h3&gt;
-
-&lt;p&gt;主要是初始化一些数据和属性，比如&lt;code&gt;props&lt;/code&gt;、&lt;code&gt;methods&lt;/code&gt;、&lt;code&gt;data&lt;/code&gt;、&lt;code&gt;computed&lt;/code&gt;、&lt;code&gt;watch&lt;/code&gt;,&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initState (vm) {
-  vm._watchers = [];
-  var opts = vm.$options;
-  if (opts.props) { initProps(vm, opts.props); }
-  if (opts.methods) { initMethods(vm, opts.methods); }
-  if (opts.data) {
-    initData(vm);
-  } else {
-    observe(vm._data = {}, true /* asRootData */);
-  }
-  if (opts.computed) { initComputed(vm, opts.computed); }
-  if (opts.watch &amp;amp;&amp;amp; opts.watch !== nativeWatch) {
-    initWatch(vm, opts.watch);
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;初始化&lt;code&gt;props&lt;/code&gt;属性&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initProps (vm, propsOptions) {
-  // 获取当前节点的props属性值
-  var propsData = vm.$options.propsData || {};
-  var props = vm._props = {};
-  var isRoot = !vm.$parent;
-  // 用于保存当前组件的props里的key，以便之后在父组件更新props时可以直接使用数组迭代
-  var keys = vm.$options._propKeys = [];
-  var isRoot = !vm.$parent;
-  if (!isRoot) {
-    toggleObserving(false);
-  }
-  var loop = function ( key ) {
-    keys.push(key);
-    // validateProp验证当前prop[key]是否propsOptions定义的要求
-    var value = validateProp(key, propsOptions, propsData, vm);
-    {
-      var hyphenatedKey = hyphenate(key);
-      if (isReservedAttribute(hyphenatedKey) ||
-          config.isReservedAttr(hyphenatedKey)) {
-        warn(
-          (&amp;quot;\&amp;quot;&amp;quot; + hyphenatedKey + &amp;quot;\&amp;quot; is a reserved attribute and cannot be used as component prop.&amp;quot;),
-          vm
-        );
-      }
-      // 添加响应式属性，这样props里面的值改变之后，组件会自动更新视图
-      defineReactive$$1(props, key, value, function () {
-        if (!isRoot &amp;amp;&amp;amp; !isUpdatingChildComponent) {
-          warn(
-            &amp;quot;Avoid mutating a prop directly since the value will be &amp;quot; +
-            &amp;quot;overwritten whenever the parent component re-renders. &amp;quot; +
-            &amp;quot;Instead, use a data or computed property based on the prop&#39;s &amp;quot; +
-            &amp;quot;value. Prop being mutated: \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot;&amp;quot;,
-            vm
-          );
-        }
-      });
-    }
-    // static props are already proxied on the component&#39;s prototype
-    // during Vue.extend(). We only need to proxy props defined at
-    // instantiation here.
-    if (!(key in vm)) {
-      proxy(vm, &amp;quot;_props&amp;quot;, key);
-    }
-  };
-	// 循环遍历key
-  for (var key in propsOptions) loop( key );
-  toggleObserving(true);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;初始化&lt;code&gt;methods&lt;/code&gt;属性&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initMethods (vm, methods) {
-  // props属性用于判断methods中的方法名是否和props的属性重名
-  var props = vm.$options.props;
-  for (var key in methods) {
-    {
-      if (typeof methods[key] !== &#39;function&#39;) {
-        warn(
-          &amp;quot;Method \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; has type \&amp;quot;&amp;quot; + (typeof methods[key]) + &amp;quot;\&amp;quot; in the component definition. &amp;quot; +
-          &amp;quot;Did you reference the function correctly?&amp;quot;,
-          vm
-        );
-      }
-      // 如果props中有同名属性，则报错
-      if (props &amp;amp;&amp;amp; hasOwn(props, key)) {
-        warn(
-          (&amp;quot;Method \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; has already been defined as a prop.&amp;quot;),
-          vm
-        );
-      }
-      // 如果key是以$或_开头则，也报错
-      if ((key in vm) &amp;amp;&amp;amp; isReserved(key)) {
-        warn(
-          &amp;quot;Method \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; conflicts with an existing Vue instance method. &amp;quot; +
-          &amp;quot;Avoid defining component methods that start with _ or $.&amp;quot;
-        );
-      }
-    }
-    vm[key] = typeof methods[key] !== &#39;function&#39; ? noop : bind(methods[key], vm);
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;初始化&lt;code&gt;data&lt;/code&gt;属性&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initData (vm) {
-  // 获取data属性
-  var data = vm.$options.data;
-  // 如果data是一个function，则调用getData返回里面的值，否则直接将data属性赋给_data
-  data = vm._data = typeof data === &#39;function&#39;
-    ? getData(data, vm)
-  : data || {};
-  // 如果data属性不是一个对象，设置data为空对象，并打印一个warn
-  if (!isPlainObject(data)) {
-    data = {};
-    warn(
-      &#39;data functions should return an object:\n&#39; +
-      &#39;https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function&#39;,
-      vm
-    );
-  }
-  // 获取data keys，props属性，methods属性
-  var keys = Object.keys(data);
-  var props = vm.$options.props;
-  var methods = vm.$options.methods;
-  var i = keys.length;
-  while (i--) {
-    var key = keys[i];
-    {
-      // 当前data的key如果和methods中的方法重名，抛出警告
-      if (methods &amp;amp;&amp;amp; hasOwn(methods, key)) {
-        warn(
-          (&amp;quot;Method \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; has already been defined as a data property.&amp;quot;),
-          vm
-        );
-      }
-    }
-    // 当前data的key如果和props中的属性重名，抛出警告
-    if (props &amp;amp;&amp;amp; hasOwn(props, key)) {
-      warn(
-        &amp;quot;The data property \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; is already declared as a prop. &amp;quot; +
-        &amp;quot;Use prop default value instead.&amp;quot;,
-        vm
-      );
-    } else if (!isReserved(key)) {
-      proxy(vm, &amp;quot;_data&amp;quot;, key);
-    }
-  }
-  // 双向数据绑定data
-  observe(data, true /* asRootData */);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;初始化&lt;code&gt;computed&lt;/code&gt;属性&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initComputed (vm, computed) {
-  // $flow-disable-line
-  var watchers = vm._computedWatchers = Object.create(null);
-  // computed properties are just getters during SSR
-  var isSSR = isServerRendering();
-
-  for (var key in computed) {
-    // 每个computed key所定义的方法
-    var userDef = computed[key];
-    // 将该方法赋值给getter变量
-    var getter = typeof userDef === &#39;function&#39; ? userDef : userDef.get;
-    if (getter == null) {
-			// 如果为空，打印错误
-      warn(
-        (&amp;quot;Getter is missing for computed property \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot;.&amp;quot;),
-        vm
-      );
-    }
-
-    if (!isSSR) {
-      // create internal watcher for the computed property.
-      watchers[key] = new Watcher(
-        vm,
-        getter || noop,
-        noop,
-        computedWatcherOptions
-      );
-    }
-
-    // 如果当前节点computed上未有key这个方法
-    if (!(key in vm)) {
-      // defineComputed方法主要是为当前节点的computed属性添加响应式更新方法
-      // 可以在defineComputed定义最后看到 Object.defineProperty(target, key, sharedPropertyDefinition) 
-      defineComputed(vm, key, userDef);
-    } else {
-      if (key in vm.$data) {
-        warn((&amp;quot;The computed property \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; is already defined in data.&amp;quot;), vm);
-      } else if (vm.$options.props &amp;amp;&amp;amp; key in vm.$options.props) {
-        warn((&amp;quot;The computed property \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; is already defined as a prop.&amp;quot;), vm);
-      }
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;初始化&lt;code&gt;watch&lt;/code&gt;属性比较简单，在做了相应的判断后直接添加一个响应式更新属性，这里不多赘述，调用完&lt;code&gt;initState&lt;/code&gt;之后，会调用&lt;code&gt;created&lt;/code&gt;钩子函数，此时&lt;code&gt;vm&lt;/code&gt;上的属性&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// _init
-vm._uid = 0
-vm._isVue = true
-vm.$options = {
-  components: {
-    KeepAlive,
-    Transition,
-    TransitionGroup
-  },
-  directives: {
-    model,
-    show
-  },
-  methods: {},
-  computed: {},
-  watch: {},
-  filters: {},
-  _base: Vue,
-  el: &#39;#app&#39;,
-  data: function mergedInstanceDataFn(){}
-}
-vm._renderProxy = vm
-vm._self = vm
-
-// initLifecycle
-vm.$parent = parent
-vm.$root = parent ? parent.$root : vm
-
-vm.$children = []
-vm.$refs = {}
-
-vm._watcher = null
-vm._inactive = null
-vm._directInactive = false
-vm._isMounted = false
-vm._isDestroyed = false
-vm._isBeingDestroyed = false
-
-// initEvents	
-vm._events = Object.create(null)
-vm._hasHookEvent = false
-
-// initRender
-vm.$vnode = null  
-vm._vnode = null
-vm._staticTrees = null
-vm.$slots = resolveSlots(vm.$options._renderChildren, renderContext)
-vm.$scopedSlots = emptyObject
-
-vm._c = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, false)
-
-vm.$createElement = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, true)
-// 在 initState 中添加的属性
-vm._watchers = []
-vm._data
-vm.message
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;执行完上面步骤后，会调用&lt;code&gt;vm.$mount&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 保存之前定义的$mount方法，然后重写Vue.prototype.$mount
-const mount = Vue.prototype.$mount
-Vue.prototype.$mount = function (
-  el?: string | Element,
-  hydrating?: boolean
-): Component {
-  // 查找当前节点
-  el = el &amp;amp;&amp;amp; query(el)
-
- 	// 如果事body元素或者documentElement元素则抛错
-  if (el === document.body || el === document.documentElement) {
-    process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; warn(
-      `Do not mount Vue to &amp;lt;html&amp;gt; or &amp;lt;body&amp;gt; - mount to normal elements instead.`
-    )
-    return this
-  }
-	
-  // 拿到options
-  const options = this.$options
-  // 如果节点上没有render函数
-  if (!options.render) {
-    // 获取template，template可以是#id、模板字符串、dom元素
-    let template = options.template
-    if (template) {
-      if (typeof template === &#39;string&#39;) {
-        if (template.charAt(0) === &#39;#&#39;) {
-          // 获取templatge innerHTML
-          template = idToTemplate(template)
-          /* istanbul ignore if */
-          if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; !template) {
-            warn(
-              `Template element not found or is empty: ${options.template}`,
-              this
-            )
-          }
-        }
-      } else if (template.nodeType) {
-        // 如果不是#id、模板字符串，直接获取其innerHTML
-        template = template.innerHTML
-      } else {
-        if (process.env.NODE_ENV !== &#39;production&#39;) {
-          warn(&#39;invalid template option:&#39; + template, this)
-        }
-        return this
-      }
-    } else if (el) {
-      // 如果没有template，则获取el以及其子内容作为模板
-      template = getOuterHTML(el)
-    }
-    if (template) {
-      ......
-    }
-  }
-  // 有render函数，直接执行mount.call(this, el, hydrating)
-  return mount.call(this, el, hydrating)
-}
-
-function getOuterHTML (el: Element): string {
-  if (el.outerHTML) {
-    return el.outerHTML
-  } else {
-    const container = document.createElement(&#39;div&#39;)
-    container.appendChild(el.cloneNode(true))
-    return container.innerHTML
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上面最后调用了&lt;code&gt;mount.call(this, el, hydrating)&lt;/code&gt;，其方法对应于&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Vue.prototype.$mount = function (
-  el?: string | Element,
-  hydrating?: boolean
-): Component {
-  el = el &amp;amp;&amp;amp; inBrowser ? query(el) : undefined
-  return mountComponent(this, el, hydrating)
-}
-
-  vm: Component,
-  el: ?Element,
-  hydrating?: boolean
-): Component {
-  vm.$el = el
-	......
-  // 调用beforeMount钩子函数
-  callHook(vm, &#39;beforeMount&#39;)
-
-  let updateComponent
-	
-  ......
-  
-  // 更新当前节点的方法
-  updateComponent = () =&amp;gt; {
-    // vm._render会返回一个render字符串，_update其内部会调用patch方法来进行节点的增删改
-    vm._update(vm._render(), hydrating)
-  }
-
-	// 创建一个watch对象，在调用updateComponent之前会先调用before方法
-  new Watcher(vm, updateComponent, noop, {
-    before () {
-      if (vm._isMounted &amp;amp;&amp;amp; !vm._isDestroyed) {
-        // 如果是更新节点，调用beforeUpdate钩子函数
-        callHook(vm, &#39;beforeUpdate&#39;)
-      }
-    }
-  }, true /* isRenderWatcher */)
-  hydrating = false
-
-   // 当页面渲染完成后，调用钩子函数mounted
-  if (vm.$vnode == null) {
-    vm._isMounted = true
-    callHook(vm, &#39;mounted&#39;)
-  }
-  return vm
-}
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
