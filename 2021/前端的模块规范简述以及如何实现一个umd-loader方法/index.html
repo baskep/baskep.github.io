@@ -57,7 +57,7 @@
     "datePublished": "2021-07-10 16:51:03 \x2b0800 CST",
     "dateModified" : "2021-07-10 16:51:03 \x2b0800 CST",
     "url" : "https:\/\/xtid.github.io\/2021\/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95\/",
-    "wordCount" : "2299",
+    "wordCount" : "2305",
     "keywords" : [  "👨🏻‍💻"]
 }
 </script>
@@ -178,15 +178,15 @@ exports.xxx = 'xxx'
 
 <p>定义模块使用<code>define(id?, dependencies?, factory)</code>方法，id为你自定义模块的名称，dependencies为你当前模块所依赖的其他模块集合的路径数组，factory则是实际的定义模块的方法。也就是说一个简单AMD模块甚至直接传个factory函数就行了，这个回调函数里面的入参是dependencies数组里面加载成功的依赖</p>
 
-<pre><code class="language-javascript">define(function(){
-   return 
+<pre><code class="language-javascript">define(function () {
+  return
 })
 </code></pre>
 
 <p>2.2引入模块</p>
 
-<pre><code class="language-javascript">require(['module1', 'module2'], function(m1, m2){
-	// 使用module1、module2
+<pre><code class="language-javascript">require(['module1', 'module2'], function (m1, m2) {
+  // 使用module1、module2
 })
 </code></pre>
 
@@ -202,7 +202,7 @@ exports.xxx = 'xxx'
 
 <p>它和AMD规范最大的不同，就是定义模块时，AMD会先去加载<code>dependencies</code>的内容，然后加载模块本身的内容，CMD的话会加载就近的依赖，意思是遇到了require关键字的时候才会去加载模块。所以使用CMD规范的话，可以将require关键字写在模块的顶层，当然浏览器环境也要依赖与<code>sea.js</code></p>
 
-<pre><code class="language-javascript">define(function(require, exports, module){
+<pre><code class="language-javascript">define(function (require, exports, module) {
   // require对象可以在模块中引入其他模块
   exports.xxx = value
   module.exports = value

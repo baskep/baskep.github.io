@@ -46,15 +46,15 @@ exports.xxx = &#39;xxx&#39;
 
 &lt;p&gt;定义模块使用&lt;code&gt;define(id?, dependencies?, factory)&lt;/code&gt;方法，id为你自定义模块的名称，dependencies为你当前模块所依赖的其他模块集合的路径数组，factory则是实际的定义模块的方法。也就是说一个简单AMD模块甚至直接传个factory函数就行了，这个回调函数里面的入参是dependencies数组里面加载成功的依赖&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define(function(){
-   return 
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define(function () {
+  return
 })
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;2.2引入模块&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;require([&#39;module1&#39;, &#39;module2&#39;], function(m1, m2){
-	// 使用module1、module2
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;require([&#39;module1&#39;, &#39;module2&#39;], function (m1, m2) {
+  // 使用module1、module2
 })
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -70,7 +70,7 @@ exports.xxx = &#39;xxx&#39;
 
 &lt;p&gt;它和AMD规范最大的不同，就是定义模块时，AMD会先去加载&lt;code&gt;dependencies&lt;/code&gt;的内容，然后加载模块本身的内容，CMD的话会加载就近的依赖，意思是遇到了require关键字的时候才会去加载模块。所以使用CMD规范的话，可以将require关键字写在模块的顶层，当然浏览器环境也要依赖与&lt;code&gt;sea.js&lt;/code&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define(function(require, exports, module){
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define(function (require, exports, module) {
   // require对象可以在模块中引入其他模块
   exports.xxx = value
   module.exports = value
