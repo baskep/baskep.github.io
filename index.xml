@@ -142,7 +142,10 @@ import a from &#39;./module&#39;
 
 &lt;p&gt;在&lt;code&gt;Webpack -&amp;gt; Output&lt;/code&gt;选项中，可以配置library库，我们可以设置打包后的文件暴露出去的模块名，并且可以指定生成支持某个规范的&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;output: {  library: &#39;MyLibrary&#39;, // 暴露出的模块名  libraryTarget: &#39;amd&#39;, // 指定的规范},
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;output: {
+  library: &#39;MyLibrary&#39;, // 暴露出的模块名
+  libraryTarget: &#39;amd&#39;, // 指定的规范
+},
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;打包代码生成，即生成一个兼容的UMD模块&lt;/p&gt;
