@@ -57,7 +57,7 @@
     "datePublished": "2020-11-28 16:23:05 \x2b0800 CST",
     "dateModified" : "2020-11-28 16:23:05 \x2b0800 CST",
     "url" : "https:\/\/xtid.github.io\/2020\/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6\/",
-    "wordCount" : "2919",
+    "wordCount" : "2918",
     "keywords" : [  "👨🏻‍💻"]
 }
 </script>
@@ -154,7 +154,7 @@
 
 <h4 id="1-原理基本介绍">1.原理基本介绍</h4>
 
-<p><code>Flutter</code>引擎会将我们所写组件生成一个<code>Widget Tree</code>，而实际渲染出来的结果又有一个<code>RenderObject Tree</code>，<code>RenderObject</code>是继承<code>Widget</code>的。在项目运行中`<code>Widget Tree</code>是不断变化的，如果每次变化都要导致整个<code>RenderObject Tree</code>变化，这对性能来说是一个很大的消耗，于是就有了一个<code>Element Trre</code>，这就相当于一个中间层，由<code>Widget</code>→<code>Elment</code>→<code>RenderObject</code>。每次<code>Widget</code>变化时，与<code>Element</code>做对比，找出最小最优的变化，作用于<code>RenderObject</code>。我们创建的<code>Widget</code>基本继承于<code>StatelessWidget</code>、<code>StatefulWidget</code>，他们仅负责属性、生命周期等的管理，最终也还是会继承于<code>RenderObjectWidget</code></p>
+<p><code>Flutter</code>引擎会将我们所写组件生成一个<code>Widget Tree</code>，而实际渲染出来的结果又有一个<code>RenderObject Tree</code>，<code>RenderObject</code>是继承<code>Widget</code>的。在项目运行中<code>Widget Tree</code>是不断变化的，如果每次变化都要导致整个<code>RenderObject Tree</code>变化，这对性能来说是一个很大的消耗，于是就有了一个<code>Element Trre</code>，这就相当于一个中间层，由<code>Widget</code>→<code>Elment</code>→<code>RenderObject</code>。每次<code>Widget</code>变化时，与<code>Element</code>做对比，找出最小最优的变化，作用于<code>RenderObject</code>。我们创建的<code>Widget</code>基本继承于<code>StatelessWidget</code>、<code>StatefulWidget</code>，他们仅负责属性、生命周期等的管理，最终也还是会继承于<code>RenderObjectWidget</code></p>
 
 <p><code>RenderObjectWidget</code>下面又有三个子类</p>
 

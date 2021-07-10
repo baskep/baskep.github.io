@@ -385,7 +385,7 @@ class DashPathBorder extends Border {
 
 <h2 id="10-build配置">10.build配置</h2>
 
-<h4 id="1-安卓的sha1码获取方式">1.安卓的SHA1码获取方式</h4>
+<h3 id="1-安卓的sha1码获取方式">1.安卓的SHA1码获取方式</h3>
 
 <p>很多第三方应用都需要用到安卓的SHA1码，在<code>Flutter</code>应用中，首先用<code>Andriod Studio</code>打开项目，随意选择一个文件，点击右上角<code>Open for Editing in Android Studio</code></p>
 
@@ -399,7 +399,7 @@ class DashPathBorder extends Border {
 
 <p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg" alt="3.jpg" class="lazyload"><figcaption class="image-caption">3.jpg</figcaption></figure></p>
 
-<h4 id="2-安卓打包-release-配置">2.安卓打包<code>release</code>配置</h4>
+<h3 id="2-安卓打包-release-配置">2.安卓打包<code>release</code>配置</h3>
 
 <p>首先打开<code>/android/build.gradle</code>文件，在<code>buildscript</code>中指定<code>kotlin_version</code>，否则<code>debug</code>、<code>release</code>编译会不通过</p>
 
@@ -465,7 +465,7 @@ storeFile = // key文件的存储路径
 
 <p>然后进入项目根目录，执行<code>flutter build apk</code>，即可以打包一个安卓apk包</p>
 
-<h4 id="3-ios调试打包注意事项">3.iOS调试打包注意事项</h4>
+<h3 id="3-ios调试打包注意事项">3.iOS调试打包注意事项</h3>
 
 <p><code>iOS</code>模拟器调试体验比安卓好的多，但是真机调试，首先你得有个苹果ID，然后用<code>Xcode</code>打开项目，点击<code>Signing &amp; Capabilities</code>，找到<code>Team</code>设置，设置一个开发账号，可以是未付费注册的苹果ID，设置好开发者证书</p>
 
@@ -475,7 +475,7 @@ storeFile = // key文件的存储路径
 
 <p>未付费注册的账号也无法打包上传<code>App Store</code>，不过配置完了开发团队、账号后、开发证书后，可以直接<code>flutter build ios</code>，这样会生成一个文件。这时候创建一个名为<code>Payload</code>的文件夹，将打包生成的文件放进去、压缩，然后将压缩文件后缀改为<code>ipa</code>，即可以生成一个<code>ipa</code>文件了。然后借助第三方工具，如<code>itunes(貌似已经不能用)、xxx助手</code>即可将这个文件安装在终端上运行。</p>
 
-<h4 id="11-总结">11.总结</h4>
+<h2 id="11-总结">11.总结</h2>
 
 <p>断断续续做这个小项目已经有几个月了，因为平常很忙，所以拖了这么久。<code>Flutter</code>给我的感觉优点就是流程、动画较为细腻，相对于其它跨平台方案，使用<code>JsBrigde</code>与<code>native</code>端通信，有较大的优势，毕竟它是自己的引擎绘制的页面。但是它的官方组件太少，自定义组件所需精力较多(可能是我不熟悉)，<code>iOS</code>风格组件虽然样式和原生的差不多，但具体效果还是有差距。这种跨平台框架终于还是得要和原生开发人员一起操作才玩的溜。</p>
 

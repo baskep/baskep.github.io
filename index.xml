@@ -1416,7 +1416,7 @@ class DashPathBorder extends Border {
 
 &lt;h2 id=&#34;10-build配置&#34;&gt;10.build配置&lt;/h2&gt;
 
-&lt;h4 id=&#34;1-安卓的sha1码获取方式&#34;&gt;1.安卓的SHA1码获取方式&lt;/h4&gt;
+&lt;h3 id=&#34;1-安卓的sha1码获取方式&#34;&gt;1.安卓的SHA1码获取方式&lt;/h3&gt;
 
 &lt;p&gt;很多第三方应用都需要用到安卓的SHA1码，在&lt;code&gt;Flutter&lt;/code&gt;应用中，首先用&lt;code&gt;Andriod Studio&lt;/code&gt;打开项目，随意选择一个文件，点击右上角&lt;code&gt;Open for Editing in Android Studio&lt;/code&gt;&lt;/p&gt;
 
@@ -1430,7 +1430,7 @@ class DashPathBorder extends Border {
 
 &lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg&#34; alt=&#34;3.jpg&#34; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&#34;2-安卓打包-release-配置&#34;&gt;2.安卓打包&lt;code&gt;release&lt;/code&gt;配置&lt;/h4&gt;
+&lt;h3 id=&#34;2-安卓打包-release-配置&#34;&gt;2.安卓打包&lt;code&gt;release&lt;/code&gt;配置&lt;/h3&gt;
 
 &lt;p&gt;首先打开&lt;code&gt;/android/build.gradle&lt;/code&gt;文件，在&lt;code&gt;buildscript&lt;/code&gt;中指定&lt;code&gt;kotlin_version&lt;/code&gt;，否则&lt;code&gt;debug&lt;/code&gt;、&lt;code&gt;release&lt;/code&gt;编译会不通过&lt;/p&gt;
 
@@ -1496,7 +1496,7 @@ storeFile = // key文件的存储路径
 
 &lt;p&gt;然后进入项目根目录，执行&lt;code&gt;flutter build apk&lt;/code&gt;，即可以打包一个安卓apk包&lt;/p&gt;
 
-&lt;h4 id=&#34;3-ios调试打包注意事项&#34;&gt;3.iOS调试打包注意事项&lt;/h4&gt;
+&lt;h3 id=&#34;3-ios调试打包注意事项&#34;&gt;3.iOS调试打包注意事项&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;iOS&lt;/code&gt;模拟器调试体验比安卓好的多，但是真机调试，首先你得有个苹果ID，然后用&lt;code&gt;Xcode&lt;/code&gt;打开项目，点击&lt;code&gt;Signing &amp;amp; Capabilities&lt;/code&gt;，找到&lt;code&gt;Team&lt;/code&gt;设置，设置一个开发账号，可以是未付费注册的苹果ID，设置好开发者证书&lt;/p&gt;
 
@@ -1506,7 +1506,7 @@ storeFile = // key文件的存储路径
 
 &lt;p&gt;未付费注册的账号也无法打包上传&lt;code&gt;App Store&lt;/code&gt;，不过配置完了开发团队、账号后、开发证书后，可以直接&lt;code&gt;flutter build ios&lt;/code&gt;，这样会生成一个文件。这时候创建一个名为&lt;code&gt;Payload&lt;/code&gt;的文件夹，将打包生成的文件放进去、压缩，然后将压缩文件后缀改为&lt;code&gt;ipa&lt;/code&gt;，即可以生成一个&lt;code&gt;ipa&lt;/code&gt;文件了。然后借助第三方工具，如&lt;code&gt;itunes(貌似已经不能用)、xxx助手&lt;/code&gt;即可将这个文件安装在终端上运行。&lt;/p&gt;
 
-&lt;h4 id=&#34;11-总结&#34;&gt;11.总结&lt;/h4&gt;
+&lt;h2 id=&#34;11-总结&#34;&gt;11.总结&lt;/h2&gt;
 
 &lt;p&gt;断断续续做这个小项目已经有几个月了，因为平常很忙，所以拖了这么久。&lt;code&gt;Flutter&lt;/code&gt;给我的感觉优点就是流程、动画较为细腻，相对于其它跨平台方案，使用&lt;code&gt;JsBrigde&lt;/code&gt;与&lt;code&gt;native&lt;/code&gt;端通信，有较大的优势，毕竟它是自己的引擎绘制的页面。但是它的官方组件太少，自定义组件所需精力较多(可能是我不熟悉)，&lt;code&gt;iOS&lt;/code&gt;风格组件虽然样式和原生的差不多，但具体效果还是有差距。这种跨平台框架终于还是得要和原生开发人员一起操作才玩的溜。&lt;/p&gt;
 </description>
@@ -1526,7 +1526,7 @@ storeFile = // key文件的存储路径
 
 &lt;h4 id=&#34;1-原理基本介绍&#34;&gt;1.原理基本介绍&lt;/h4&gt;
 
-&lt;p&gt;&lt;code&gt;Flutter&lt;/code&gt;引擎会将我们所写组件生成一个&lt;code&gt;Widget Tree&lt;/code&gt;，而实际渲染出来的结果又有一个&lt;code&gt;RenderObject Tree&lt;/code&gt;，&lt;code&gt;RenderObject&lt;/code&gt;是继承&lt;code&gt;Widget&lt;/code&gt;的。在项目运行中`&lt;code&gt;Widget Tree&lt;/code&gt;是不断变化的，如果每次变化都要导致整个&lt;code&gt;RenderObject Tree&lt;/code&gt;变化，这对性能来说是一个很大的消耗，于是就有了一个&lt;code&gt;Element Trre&lt;/code&gt;，这就相当于一个中间层，由&lt;code&gt;Widget&lt;/code&gt;→&lt;code&gt;Elment&lt;/code&gt;→&lt;code&gt;RenderObject&lt;/code&gt;。每次&lt;code&gt;Widget&lt;/code&gt;变化时，与&lt;code&gt;Element&lt;/code&gt;做对比，找出最小最优的变化，作用于&lt;code&gt;RenderObject&lt;/code&gt;。我们创建的&lt;code&gt;Widget&lt;/code&gt;基本继承于&lt;code&gt;StatelessWidget&lt;/code&gt;、&lt;code&gt;StatefulWidget&lt;/code&gt;，他们仅负责属性、生命周期等的管理，最终也还是会继承于&lt;code&gt;RenderObjectWidget&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Flutter&lt;/code&gt;引擎会将我们所写组件生成一个&lt;code&gt;Widget Tree&lt;/code&gt;，而实际渲染出来的结果又有一个&lt;code&gt;RenderObject Tree&lt;/code&gt;，&lt;code&gt;RenderObject&lt;/code&gt;是继承&lt;code&gt;Widget&lt;/code&gt;的。在项目运行中&lt;code&gt;Widget Tree&lt;/code&gt;是不断变化的，如果每次变化都要导致整个&lt;code&gt;RenderObject Tree&lt;/code&gt;变化，这对性能来说是一个很大的消耗，于是就有了一个&lt;code&gt;Element Trre&lt;/code&gt;，这就相当于一个中间层，由&lt;code&gt;Widget&lt;/code&gt;→&lt;code&gt;Elment&lt;/code&gt;→&lt;code&gt;RenderObject&lt;/code&gt;。每次&lt;code&gt;Widget&lt;/code&gt;变化时，与&lt;code&gt;Element&lt;/code&gt;做对比，找出最小最优的变化，作用于&lt;code&gt;RenderObject&lt;/code&gt;。我们创建的&lt;code&gt;Widget&lt;/code&gt;基本继承于&lt;code&gt;StatelessWidget&lt;/code&gt;、&lt;code&gt;StatefulWidget&lt;/code&gt;，他们仅负责属性、生命周期等的管理，最终也还是会继承于&lt;code&gt;RenderObjectWidget&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;RenderObjectWidget&lt;/code&gt;下面又有三个子类&lt;/p&gt;
 
@@ -2325,9 +2325,9 @@ module.exports = {
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;{
   test: /\.jsx?$/,
     exclude: /node_modules/, // 过滤node_modules
-      use: {
-        loader: &#39;babel-loader&#39;
-      }
+    use: {
+    	loader: &#39;babel-loader&#39;
+    }
 }
 &lt;/code&gt;&lt;/pre&gt;
 
