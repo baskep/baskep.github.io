@@ -3360,1722 +3360,863 @@ class BasePlugin {
     </item>
     
     <item>
-      <title>Vue中的patch</title>
-      <link>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84patch/</link>
-      <pubDate>Thu, 13 Aug 2020 00:12:17 +0800</pubDate>
+      <title>Vue的初始化渲染过程简介</title>
+      <link>https://xtid.github.io/2020/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</link>
+      <pubDate>Mon, 27 Jul 2020 22:25:56 +0800</pubDate>
       
-      <guid>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84patch/</guid>
-      <description>&lt;p&gt;在生成&lt;code&gt;vnode&lt;/code&gt;之后，可以通过&lt;code&gt;patch&lt;/code&gt;方法创建&lt;code&gt;DOM&lt;/code&gt;元素、进行&lt;code&gt;diff&lt;/code&gt;更新&lt;code&gt;DOM&lt;/code&gt;元素、销毁&lt;code&gt;DOM&lt;/code&gt;元素&lt;/p&gt;
+      <guid>https://xtid.github.io/2020/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</guid>
+      <description>&lt;p&gt;首先进入到&lt;code&gt;src/core/instance/index.js&lt;/code&gt;，可以看到定义了一个&lt;code&gt;Vue&lt;/code&gt;构造函数，内容很简单，如果不是生产环境并且不是通过&lt;code&gt;new&lt;/code&gt;关键字创建对象的话，就在控制台打印一个&lt;code&gt;warn&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;1.首先是第一次初始化时，生成了&lt;code&gt;vnode&lt;/code&gt;后，在&lt;code&gt;_update&lt;/code&gt;方法中调用&lt;code&gt;patch&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;vm.$el = vm.__patch__(
-  vm.$el, vnode, hydrating, false
-  // undefined
-  vm.$options._parentElm,
-  // undefined
-  vm.$options._refElm
-);
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Vue (options) {
+  if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp;
+    !(this instanceof Vue)
+  ) {
+    warn(&#39;Vue is a constructor and should be called with the `new` keyword&#39;)
+  }
+  this._init(options)
+}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;此时&lt;code&gt;vm.$el&lt;/code&gt;是挂载的根元素，&lt;code&gt;vnode&lt;/code&gt;是根元素对应的虚拟&lt;code&gt;Dom&lt;/code&gt;元素&lt;/p&gt;
+&lt;p&gt;后面调用了几个函数，用来在&lt;code&gt;Vue&lt;/code&gt;对象上创建各种属性或者方法&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;patch&lt;/code&gt;方法&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;initMixin(Vue)
+stateMixin(Vue)
+eventsMixin(Vue)
+lifecycleMixin(Vue)
+renderMixin(Vue)
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;  return function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
-    // 如果更新后的VNode不存在
-    // 直接销毁旧的节点
-    if (isUndef(vnode)) {
-      if (isDef(oldVnode)) { invokeDestroyHook(oldVnode); }
-      return
+&lt;h2&gt;1.initMixin&lt;/h2&gt;
+
+&lt;p&gt;初始化方法，首先为当前&lt;code&gt;vm&lt;/code&gt;设置一个&lt;code&gt;_uid&lt;/code&gt;，然后添加属性&lt;code&gt;_isVue&lt;/code&gt;，其目的在于监听数据变化时过滤&lt;code&gt;vm&lt;/code&gt;，&lt;code&gt;_isComponent&lt;/code&gt;是内部创建子组件时才会添加为&lt;code&gt;true&lt;/code&gt;的属性，然后走到&lt;code&gt;else&lt;/code&gt;分支，调用&lt;code&gt;resolveConstructorOptions&lt;/code&gt;会获取构造器父级的&lt;code&gt;options&lt;/code&gt;，然后调用&lt;code&gt;mergeOptions&lt;/code&gt;合并父级的&lt;code&gt;options&lt;/code&gt;以及本身传入的&lt;code&gt;options&lt;/code&gt;，最后生成的&lt;code&gt;options&lt;/code&gt;包含&lt;code&gt;components、directives&lt;/code&gt;等属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initMixin (Vue: Class&amp;lt;Component&amp;gt;) {
+  Vue.prototype._init = function (options?: Object) {
+    const vm: Component = this
+    // a uid
+    vm._uid = uid++
+
+    let startTag, endTag
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; config.performance &amp;amp;&amp;amp; mark) {
+      startTag = `vue-perf-start:${vm._uid}`
+      endTag = `vue-perf-end:${vm._uid}`
+      mark(startTag)
     }
 
-    var isInitialPatch = false;
-    var insertedVnodeQueue = [];
-		
-    if (isUndef(oldVnode)) {
-      // 如果旧节点不存在
-      // 创建VNode对应的元素
-      isInitialPatch = true;
-      createElm(vnode, insertedVnodeQueue, parentElm, refElm);
+    // a flag to avoid this being observed
+    vm._isVue = true
+    // merge options
+    if (options &amp;amp;&amp;amp; options._isComponent) {
+      // optimize internal component instantiation
+      // since dynamic options merging is pretty slow, and none of the
+      // internal component options needs special treatment.
+      initInternalComponent(vm, options)
     } else {
-      // oldValue是否是真实的DOM元素
-      var isRealElement = isDef(oldVnode.nodeType);
-      // 新旧节点相同
-      if (!isRealElement &amp;amp;&amp;amp; sameVnode(oldVnode, vnode)) {
-        patchVnode(oldVnode, vnode, insertedVnodeQueue, removeOnly);
-      } else {
-        if (isRealElement) {
-          // oldVNode类型为元素类型
-          if (oldVnode.nodeType === 1 &amp;amp;&amp;amp; oldVnode.hasAttribute(SSR_ATTR)) {
-            oldVnode.removeAttribute(SSR_ATTR);
-            hydrating = true;
-          }
-      		......
-          // 创建一个div空元素
-          oldVnode = emptyNodeAt(oldVnode);
-        }
-				// oldElm代表真实的DOM元素
-        var oldElm = oldVnode.elm;
-        var parentElm$1 = nodeOps.parentNode(oldElm);
+      vm.$options = mergeOptions(
+        resolveConstructorOptions(vm.constructor),
+        options || {},
+        vm
+      )
+    }
+    /* istanbul ignore else */
+    if (process.env.NODE_ENV !== &#39;production&#39;) {
+      initProxy(vm)
+    } else {
+      vm._renderProxy = vm
+    }
+    // expose real self
+    vm._self = vm
+    initLifecycle(vm)
+    initEvents(vm)
+    initRender(vm)
+    callHook(vm, &#39;beforeCreate&#39;)
+    initInjections(vm) // resolve injections before data/props
+    initState(vm)
+    initProvide(vm) // resolve provide after data/props
+    callHook(vm, &#39;created&#39;)
 
-        createElm(
-          vnode,
-          insertedVnodeQueue,
-          oldElm._leaveCb ? null : parentElm$1,
-          nodeOps.nextSibling(oldElm)
-        );
-				......
-        if (isDef(parentElm$1)) {
-          removeVnodes(parentElm$1, [oldVnode], 0, 0);
-        } else if (isDef(oldVnode.tag)) {
-          invokeDestroyHook(oldVnode);
-        }
-      }
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; config.performance &amp;amp;&amp;amp; mark) {
+      vm._name = formatComponentName(vm, false)
+      mark(endTag)
+      measure(`vue ${vm._name} init`, startTag, endTag)
     }
 
-    invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch);
-    return vnode.elm
+    if (vm.$options.el) {
+      vm.$mount(vm.$options.el)
+    }
   }
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;其中调用了一个重要的方法&lt;code&gt;createElm&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt; 1.1initLifecycle &lt;/h3&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;  function createElm (
-    vnode,
-    insertedVnodeQueue,
-    parentElm,
-    refElm,
-    nested,
-    ownerArray,
-    index
-  ) {
-		......
-    // VNode如果是一个组件，调用createComponent
-    if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
-      return
+&lt;p&gt;这个方法首先会设置&lt;code&gt;vm&lt;/code&gt;的一个父子节点、根节点信息，然后会定义一些生命周期相关的属性，比如&lt;code&gt;_isMounted、_isDestroyed、_isBeingDestroyed&lt;/code&gt;等&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initLifecycle (vm: Component) {
+  const options = vm.$options
+
+  // locate first non-abstract parent
+  let parent = options.parent
+  if (parent &amp;amp;&amp;amp; !options.abstract) {
+    while (parent.$options.abstract &amp;amp;&amp;amp; parent.$parent) {
+      parent = parent.$parent
     }
-
-    var data = vnode.data;
-    var children = vnode.children;
-    var tag = vnode.tag;
-    // 如果tag是一个字符串，但非平台标签，也非自定义组件，抛错
-    if (isDef(tag)) {
-      if (process.env.NODE_ENV !== &#39;production&#39;) {
-        if (data &amp;amp;&amp;amp; data.pre) {
-          creatingElmInVPre++;
-        }
-        if (isUnknownElement$$1(vnode, creatingElmInVPre)) {
-          warn(
-            &#39;Unknown custom element: &amp;lt;&#39; + tag + &#39;&amp;gt; - did you &#39; +
-            &#39;register the component correctly? For recursive components, &#39; +
-            &#39;make sure to provide the &amp;quot;name&amp;quot; option.&#39;,
-            vnode.context
-          );
-        }
-      }
-			
-      // setScope用户设置scoped CSS
-      vnode.elm = vnode.ns
-        ? nodeOps.createElementNS(vnode.ns, tag)
-        : nodeOps.createElement(tag, vnode);
-      setScope(vnode);
-
-        var appendAsTree = isDef(data) &amp;amp;&amp;amp; isTrue(data.appendAsTree);
-        if (!appendAsTree) {
-          if (isDef(data)) {
-            // 调用invokeCreateHooks
-            // 此方法会处理directives、ref、attrs、class、domProps、on、style和show等一些属性
-            // 如果VNode上有对应的狗子函数则会直接执行
-            // 如果有insert方法，则把VNode添加到insertedVnodeQueue数组
-            invokeCreateHooks(vnode, insertedVnodeQueue);
-          }
-          insert(parentElm, vnode.elm, refElm);
-        }
-      	// 递归处理子节点
-        createChildren(vnode, children, insertedVnodeQueue);
-        if (appendAsTree) {
-          if (isDef(data)) {
-            invokeCreateHooks(vnode, insertedVnodeQueue);
-          }
-          insert(parentElm, vnode.elm, refElm);
-        }
-      }
-
-      if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; data &amp;amp;&amp;amp; data.pre) {
-        creatingElmInVPre--;
-      }
-    } else if (isTrue(vnode.isComment)) {
-      // 如果非保留标签，非自定义组件，并且是注释节点
-      vnode.elm = nodeOps.createComment(vnode.text);
-      insert(parentElm, vnode.elm, refElm);
-    } else {
-      // 创建文本节点
-      vnode.elm = nodeOps.createTextNode(vnode.text);
-      insert(parentElm, vnode.elm, refElm);
-    }
+    parent.$children.push(vm)
   }
+
+  vm.$parent = parent
+  vm.$root = parent ? parent.$root : vm
+
+  vm.$children = []
+  vm.$refs = {}
+
+  vm._watcher = null
+  vm._inactive = null
+  vm._directInactive = false
+  vm._isMounted = false
+  vm._isDestroyed = false
+  vm._isBeingDestroyed = false
+}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;在初始化时，&lt;code&gt;parentElm&lt;/code&gt;指的是&lt;code&gt;body&lt;/code&gt;，&lt;code&gt;refElm&lt;/code&gt;是当前节点的下一个兄弟元素&lt;/p&gt;
+&lt;h3&gt; 1.2initEvents &lt;/h3&gt;
 
-&lt;p&gt;2.上面说的是&lt;code&gt;Vue&lt;/code&gt;第一次加载页面时patch的操作，还有当页面绑定的数据修改后，&lt;code&gt;Vue&lt;/code&gt;对页面的更新，其核心也就是&lt;code&gt;diff&lt;/code&gt;算法了
-在页面绑定的数据发生改变时，&lt;code&gt;watcher&lt;/code&gt;会调用&lt;code&gt;updateComponent&lt;/code&gt;，然后调用&lt;code&gt;vm._render&lt;/code&gt;生成最新的&lt;code&gt;vnode&lt;/code&gt;，
-然后&lt;code&gt;vm._update&lt;/code&gt;会讲新旧&lt;code&gt;vnode&lt;/code&gt;传入&lt;code&gt;patch&lt;/code&gt;方法中进行diff处理，其实总体流程还是一样，只不过传入的参数不同&lt;/p&gt;
+&lt;p&gt;通过名字可以看出是一个初始化事件相关的方法&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;return function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
-  ......
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initEvents (vm: Component) {
+  // events表示父组件绑定在当前组件上的事件
+  vm._events = Object.create(null)
+  // 属性表示父组件是否通过&amp;quot;@hook:&amp;quot;把钩子函数绑定在当前组件上
+  vm._hasHookEvent = false
+  // init parent attached events
+  // 同样是来表示父组件绑定在当前组件上的事件
+  const listeners = vm.$options._parentListeners
+  if (listeners) {
+    updateComponentListeners(vm, listeners)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
 
-  let isInitialPatch = false;
-  const insertedVnodeQueue = [];
+&lt;p&gt;如果&lt;code&gt;listeners&lt;/code&gt;有值，则调用&lt;code&gt;updateComponentListeners&lt;/code&gt;这个方法，其内部调用了&lt;code&gt;updateListeners&lt;/code&gt;，其中的&lt;code&gt;add&lt;/code&gt;方法会调用&lt;code&gt;vm.$on&lt;/code&gt;，&lt;code&gt;vm.$on&lt;/code&gt;会监听当前实例上的自定义事件，&lt;code&gt;remove&lt;/code&gt;会调用&lt;code&gt;vm.$off&lt;/code&gt;，移出这个事件监听&lt;/p&gt;
 
-  if (isUndef(oldVnode)) {
-    isInitialPatch = true;
-    createElm(vnode, insertedVnodeQueue, parentElm, refElm);
-  } else {
-     // oldValue是不是vnode真实的dom元素
-    const isRealElement = isDef(oldVnode.nodeType);
-    // 判断是否为同一vnode
-    // 如果是统一vnode，调用patchVnode
-    // sameVnode判断依据为两个vnode的key相同，tag名相同，type，data，attrs如果有的话必须相同
-    // 如果可以复用，patchVnode
-    if (!isRealElement &amp;amp;&amp;amp; sameVnode(oldVnode, vnode)) {
-      patchVnode(oldVnode, vnode, insertedVnodeQueue, removeOnly);
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function add (event, fn) {
+  target.$on(event, fn)
+}
+
+function remove (event, fn) {
+  target.$off(event, fn)
+}
+
+export function updateComponentListeners (
+  vm: Component,
+  listeners: Object,
+  oldListeners: ?Object
+) {
+  // 保存当前的vm引用
+  target = vm
+  // 传入listeners，父组件绑定在当前组件上的事件，oldListeners同理，不过在第一次初始化的时候为空
+  // 其内部会遍历listeners调用add方法添加监听事件，同时移出oldListeners
+  updateListeners(listeners, oldListeners || {}, add, remove, createOnceHandler, vm)
+  target = undefined
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt; 1.3initRender &lt;/h3&gt;
+
+&lt;p&gt;主要是添加了一些虚拟dom、&lt;code&gt;slot&lt;/code&gt;等相关的属性和方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function initRender (vm: Component) {
+  // 表示虚拟dom节点
+  vm._vnode = null 
+  // 表示当前实例render得到的Vnode
+  vm._staticTrees = null 
+  const options = vm.$options
+  const parentVnode = vm.$vnode = options._parentVnode  tree
+  const renderContext = parentVnode &amp;amp;&amp;amp; parentVnode.context
+  // 生成插槽内容
+  vm.$slots = resolveSlots(options._renderChildren, renderContext)
+  // 作用域插槽，此时为空
+  vm.$scopedSlots = emptyObject
+  vm._c = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, false)
+  vm.$createElement = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, true)
+  const parentData = parentVnode &amp;amp;&amp;amp; parentVnode.data
+	......
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;resolveSlots&lt;/code&gt;方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function resolveSlots (
+  children: ?Array&amp;lt;VNode&amp;gt;,
+  context: ?Component
+): { [key: string]: Array&amp;lt;VNode&amp;gt; } {
+  if (!children || !children.length) {
+    return {}
+  }
+  const slots = {}
+  // 遍历当前节点chilren
+  for (let i = 0, l = children.length; i &amp;lt; l; i++) {
+    const child = children[i]
+    // 获取data
+    const data = child.data
+    if (data &amp;amp;&amp;amp; data.attrs &amp;amp;&amp;amp; data.attrs.slot) {
+      delete data.attrs.slot
+    }
+    if ((child.context === context || child.fnContext === context) &amp;amp;&amp;amp;
+      data &amp;amp;&amp;amp; data.slot != null
+    ) {
+      // 拿到插槽名称
+      const name = data.slot
+      const slot = (slots[name] || (slots[name] = []))
+      if (child.tag === &#39;template&#39;) {
+        slot.push.apply(slot, child.children || [])
+      } else {
+        slot.push(child)
+      }
     } else {
+      // 如果 data.slot 不存在，则是默认插槽的内容，则把对应的 child 添加到 slots.defaults 中
+      (slots.default || (slots.default = [])).push(child)
+    }
+  }
+  // 最后过滤一些空内容
+  for (const name in slots) {
+    if (slots[name].every(isWhitespace)) {
+      delete slots[name]
+    }
+  }
+  return slots
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用钩子函数&lt;code&gt;beforeCreate&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt; 1.4initProvide和initInjection &lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initProvide (vm) {
+  var provide = vm.$options.provide;
+  if (provide) {
+    vm._provided = typeof provide === &#39;function&#39;
+      ? provide.call(vm)
+    : provide;
+  }
+}
+function initInjections (vm) {
+  // 获取当前节点上的inject属性
+  var result = resolveInject(vm.$options.inject, vm);
+  if (result) {
+    toggleObserving(false);
+    // 遍历这些属性，defineReactive，将这些属性变成响应式的
+    Object.keys(result).forEach(function (key) {
+      /* istanbul ignore else */
+      {
+        defineReactive$$1(vm, key, result[key], function () {
+          warn(
+            &amp;quot;Avoid mutating an injected value directly since the changes will be &amp;quot; +
+            &amp;quot;overwritten whenever the provided component re-renders. &amp;quot; +
+            &amp;quot;injection being mutated: \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot;&amp;quot;,
+            vm
+          );
+        });
+      }
+    });
+    toggleObserving(true);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt; 1.5initState &lt;/h3&gt;
+
+&lt;p&gt;主要是初始化一些数据和属性，比如&lt;code&gt;props&lt;/code&gt;、&lt;code&gt;methods&lt;/code&gt;、&lt;code&gt;data&lt;/code&gt;、&lt;code&gt;computed&lt;/code&gt;、&lt;code&gt;watch&lt;/code&gt;,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initState (vm) {
+  vm._watchers = [];
+  var opts = vm.$options;
+  if (opts.props) { initProps(vm, opts.props); }
+  if (opts.methods) { initMethods(vm, opts.methods); }
+  if (opts.data) {
+    initData(vm);
+  } else {
+    observe(vm._data = {}, true /* asRootData */);
+  }
+  if (opts.computed) { initComputed(vm, opts.computed); }
+  if (opts.watch &amp;amp;&amp;amp; opts.watch !== nativeWatch) {
+    initWatch(vm, opts.watch);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;初始化&lt;code&gt;props&lt;/code&gt;属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initProps (vm, propsOptions) {
+  // 获取当前节点的props属性值
+  var propsData = vm.$options.propsData || {};
+  var props = vm._props = {};
+  var isRoot = !vm.$parent;
+  // 用于保存当前组件的props里的key，以便之后在父组件更新props时可以直接使用数组迭代
+  var keys = vm.$options._propKeys = [];
+  var isRoot = !vm.$parent;
+  if (!isRoot) {
+    toggleObserving(false);
+  }
+  var loop = function ( key ) {
+    keys.push(key);
+    // validateProp验证当前prop[key]是否propsOptions定义的要求
+    var value = validateProp(key, propsOptions, propsData, vm);
+    {
+      var hyphenatedKey = hyphenate(key);
+      if (isReservedAttribute(hyphenatedKey) ||
+          config.isReservedAttr(hyphenatedKey)) {
+        warn(
+          (&amp;quot;\&amp;quot;&amp;quot; + hyphenatedKey + &amp;quot;\&amp;quot; is a reserved attribute and cannot be used as component prop.&amp;quot;),
+          vm
+        );
+      }
+      // 添加响应式属性，这样props里面的值改变之后，组件会自动更新视图
+      defineReactive$$1(props, key, value, function () {
+        if (!isRoot &amp;amp;&amp;amp; !isUpdatingChildComponent) {
+          warn(
+            &amp;quot;Avoid mutating a prop directly since the value will be &amp;quot; +
+            &amp;quot;overwritten whenever the parent component re-renders. &amp;quot; +
+            &amp;quot;Instead, use a data or computed property based on the prop&#39;s &amp;quot; +
+            &amp;quot;value. Prop being mutated: \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot;&amp;quot;,
+            vm
+          );
+        }
+      });
+    }
+    // static props are already proxied on the component&#39;s prototype
+    // during Vue.extend(). We only need to proxy props defined at
+    // instantiation here.
+    if (!(key in vm)) {
+      proxy(vm, &amp;quot;_props&amp;quot;, key);
+    }
+  };
+	// 循环遍历key
+  for (var key in propsOptions) loop( key );
+  toggleObserving(true);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;初始化&lt;code&gt;methods&lt;/code&gt;属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initMethods (vm, methods) {
+  // props属性用于判断methods中的方法名是否和props的属性重名
+  var props = vm.$options.props;
+  for (var key in methods) {
+    {
+      if (typeof methods[key] !== &#39;function&#39;) {
+        warn(
+          &amp;quot;Method \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; has type \&amp;quot;&amp;quot; + (typeof methods[key]) + &amp;quot;\&amp;quot; in the component definition. &amp;quot; +
+          &amp;quot;Did you reference the function correctly?&amp;quot;,
+          vm
+        );
+      }
+      // 如果props中有同名属性，则报错
+      if (props &amp;amp;&amp;amp; hasOwn(props, key)) {
+        warn(
+          (&amp;quot;Method \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; has already been defined as a prop.&amp;quot;),
+          vm
+        );
+      }
+      // 如果key是以$或_开头则，也报错
+      if ((key in vm) &amp;amp;&amp;amp; isReserved(key)) {
+        warn(
+          &amp;quot;Method \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; conflicts with an existing Vue instance method. &amp;quot; +
+          &amp;quot;Avoid defining component methods that start with _ or $.&amp;quot;
+        );
+      }
+    }
+    vm[key] = typeof methods[key] !== &#39;function&#39; ? noop : bind(methods[key], vm);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;初始化&lt;code&gt;data&lt;/code&gt;属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initData (vm) {
+  // 获取data属性
+  var data = vm.$options.data;
+  // 如果data是一个function，则调用getData返回里面的值，否则直接将data属性赋给_data
+  data = vm._data = typeof data === &#39;function&#39;
+    ? getData(data, vm)
+  : data || {};
+  // 如果data属性不是一个对象，设置data为空对象，并打印一个warn
+  if (!isPlainObject(data)) {
+    data = {};
+    warn(
+      &#39;data functions should return an object:\n&#39; +
+      &#39;https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function&#39;,
+      vm
+    );
+  }
+  // 获取data keys，props属性，methods属性
+  var keys = Object.keys(data);
+  var props = vm.$options.props;
+  var methods = vm.$options.methods;
+  var i = keys.length;
+  while (i--) {
+    var key = keys[i];
+    {
+      // 当前data的key如果和methods中的方法重名，抛出警告
+      if (methods &amp;amp;&amp;amp; hasOwn(methods, key)) {
+        warn(
+          (&amp;quot;Method \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; has already been defined as a data property.&amp;quot;),
+          vm
+        );
+      }
+    }
+    // 当前data的key如果和props中的属性重名，抛出警告
+    if (props &amp;amp;&amp;amp; hasOwn(props, key)) {
+      warn(
+        &amp;quot;The data property \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; is already declared as a prop. &amp;quot; +
+        &amp;quot;Use prop default value instead.&amp;quot;,
+        vm
+      );
+    } else if (!isReserved(key)) {
+      proxy(vm, &amp;quot;_data&amp;quot;, key);
+    }
+  }
+  // 双向数据绑定data
+  observe(data, true /* asRootData */);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;初始化&lt;code&gt;computed&lt;/code&gt;属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function initComputed (vm, computed) {
+  // $flow-disable-line
+  var watchers = vm._computedWatchers = Object.create(null);
+  // computed properties are just getters during SSR
+  var isSSR = isServerRendering();
+
+  for (var key in computed) {
+    // 每个computed key所定义的方法
+    var userDef = computed[key];
+    // 将该方法赋值给getter变量
+    var getter = typeof userDef === &#39;function&#39; ? userDef : userDef.get;
+    if (getter == null) {
+			// 如果为空，打印错误
+      warn(
+        (&amp;quot;Getter is missing for computed property \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot;.&amp;quot;),
+        vm
+      );
+    }
+
+    if (!isSSR) {
+      // create internal watcher for the computed property.
+      watchers[key] = new Watcher(
+        vm,
+        getter || noop,
+        noop,
+        computedWatcherOptions
+      );
+    }
+
+    // 如果当前节点computed上未有key这个方法
+    if (!(key in vm)) {
+      // defineComputed方法主要是为当前节点的computed属性添加响应式更新方法
+      // 可以在defineComputed定义最后看到 Object.defineProperty(target, key, sharedPropertyDefinition) 
+      defineComputed(vm, key, userDef);
+    } else {
+      if (key in vm.$data) {
+        warn((&amp;quot;The computed property \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; is already defined in data.&amp;quot;), vm);
+      } else if (vm.$options.props &amp;amp;&amp;amp; key in vm.$options.props) {
+        warn((&amp;quot;The computed property \&amp;quot;&amp;quot; + key + &amp;quot;\&amp;quot; is already defined as a prop.&amp;quot;), vm);
+      }
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;初始化&lt;code&gt;watch&lt;/code&gt;属性比较简单，在做了相应的判断后直接添加一个响应式更新属性，这里不多赘述，调用完&lt;code&gt;initState&lt;/code&gt;之后，会调用&lt;code&gt;created&lt;/code&gt;钩子函数，此时&lt;code&gt;vm&lt;/code&gt;上的属性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// _init
+vm._uid = 0
+vm._isVue = true
+vm.$options = {
+  components: {
+    KeepAlive,
+    Transition,
+    TransitionGroup
+  },
+  directives: {
+    model,
+    show
+  },
+  methods: {},
+  computed: {},
+  watch: {},
+  filters: {},
+  _base: Vue,
+  el: &#39;#app&#39;,
+  data: function mergedInstanceDataFn(){}
+}
+vm._renderProxy = vm
+vm._self = vm
+
+// initLifecycle
+vm.$parent = parent
+vm.$root = parent ? parent.$root : vm
+
+vm.$children = []
+vm.$refs = {}
+
+vm._watcher = null
+vm._inactive = null
+vm._directInactive = false
+vm._isMounted = false
+vm._isDestroyed = false
+vm._isBeingDestroyed = false
+
+// initEvents	
+vm._events = Object.create(null)
+vm._hasHookEvent = false
+
+// initRender
+vm.$vnode = null  
+vm._vnode = null
+vm._staticTrees = null
+vm.$slots = resolveSlots(vm.$options._renderChildren, renderContext)
+vm.$scopedSlots = emptyObject
+
+vm._c = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, false)
+
+vm.$createElement = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, true)
+// 在 initState 中添加的属性
+vm._watchers = []
+vm._data
+vm.message
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行完上面步骤后，会调用&lt;code&gt;vm.$mount&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 保存之前定义的$mount方法，然后重写Vue.prototype.$mount
+const mount = Vue.prototype.$mount
+Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+  // 查找当前节点
+  el = el &amp;amp;&amp;amp; query(el)
+
+ 	// 如果事body元素或者documentElement元素则抛错
+  if (el === document.body || el === document.documentElement) {
+    process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; warn(
+      `Do not mount Vue to &amp;lt;html&amp;gt; or &amp;lt;body&amp;gt; - mount to normal elements instead.`
+    )
+    return this
+  }
+	
+  // 拿到options
+  const options = this.$options
+  // 如果节点上没有render函数
+  if (!options.render) {
+    // 获取template，template可以是#id、模板字符串、dom元素
+    let template = options.template
+    if (template) {
+      if (typeof template === &#39;string&#39;) {
+        if (template.charAt(0) === &#39;#&#39;) {
+          // 获取templatge innerHTML
+          template = idToTemplate(template)
+          /* istanbul ignore if */
+          if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; !template) {
+            warn(
+              `Template element not found or is empty: ${options.template}`,
+              this
+            )
+          }
+        }
+      } else if (template.nodeType) {
+        // 如果不是#id、模板字符串，直接获取其innerHTML
+        template = template.innerHTML
+      } else {
+        if (process.env.NODE_ENV !== &#39;production&#39;) {
+          warn(&#39;invalid template option:&#39; + template, this)
+        }
+        return this
+      }
+    } else if (el) {
+      // 如果没有template，则获取el以及其子内容作为模板
+      template = getOuterHTML(el)
+    }
+    if (template) {
       ......
     }
   }
-
-  invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch);
-  return vnode.elm
+  // 有render函数，直接执行mount.call(this, el, hydrating)
+  return mount.call(this, el, hydrating)
 }
-&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;patchVnode&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;
-function patchVnode (oldVnode, vnode, insertedVnodeQueue, removeOnly) {
-  // 如果新旧vnode相同，return
-  if (oldVnode === vnode) {
-    return
-  }                           
-  // vnode应的dom指向oldVnode的dom             
-  const elm = vnode.elm = oldVnode.elm;
-
-  ......
-
-  // 如果新旧节点都是静态根节点
-  // key也相同
-  // 如果renderStatic或者markOnce
-  if (isTrue(vnode.isStatic) &amp;amp;&amp;amp;
-    isTrue(oldVnode.isStatic) &amp;amp;&amp;amp;
-    vnode.key === oldVnode.key &amp;amp;&amp;amp;
-    (isTrue(vnode.isCloned) || isTrue(vnode.isOnce))
-  ) {
-    vnode.componentInstance = oldVnode.componentInstance;
-    return
-  }
-
-  let i;
-  const data = vnode.data;
-  // 调用prepatch钩子函数
-  if (isDef(data) &amp;amp;&amp;amp; isDef(i = data.hook) &amp;amp;&amp;amp; isDef(i = i.prepatch)) {
-    i(oldVnode, vnode);
-  }
-
-  // 新旧vnode children
-  const oldCh = oldVnode.children;
-  const ch = vnode.children;
-  // data不为空，即节点相关的属性不为空
-  // isPatchable用于判断vnode的tag是否为空
-  if (isDef(data) &amp;amp;&amp;amp; isPatchable(vnode)) {
-    // 更新元素上相关各种属性
-    for (i = 0; i &amp;lt; cbs.update.length; ++i) cbs.update[i](oldVnode, vnode);
-    // 调用update钩子函数
-    if (isDef(i = data.hook) &amp;amp;&amp;amp; isDef(i = i.update)) i(oldVnode, vnode);
-  }
-  // 判断vnode是否为文本节点
-  if (isUndef(vnode.text)) {
-    // 新旧节点都有子元素
-    if (isDef(oldCh) &amp;amp;&amp;amp; isDef(ch)) {
-      // 子元素不相同
-      // 调用updateChildren
-      if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly);
-      // 如果新的vnode有子元素，旧的没有
-    } else if (isDef(ch)) {
-      // 如果旧节点是文本节点，则置空
-      if (isDef(oldVnode.text)) nodeOps.setTextContent(elm, &#39;&#39;);
-      // addVnodes把ch中的元素依次添加到elm中
-      addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
-      // 如果新节点vnode没有子元素
-    } else if (isDef(oldCh)) {
-      // 删除旧节点的子元素
-      removeVnodes(elm, oldCh, 0, oldCh.length - 1);
-      // 以上如果都不满足，如果oldVnode是文本结点，则直接内容置空
-    } else if (isDef(oldVnode.text)) {
-      nodeOps.setTextContent(elm, &#39;&#39;);
-    }
-    // 如果vnode是文本结点，且text有变化，则修改elm的文本内容
-  } else if (oldVnode.text !== vnode.text) {
-    nodeOps.setTextContent(elm, vnode.text);
-  }
-  // 调用postpatch钩子函数
-  if (isDef(data)) {
-    if (isDef(i = data.hook) &amp;amp;&amp;amp; isDef(i = i.postpatch)) i(oldVnode, vnode);
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;接下来重点是&lt;code&gt;updateChildren&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function updateChildren(parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
-  // 定义了一些索引以及起始节点的信息
-  let oldStartIdx = 0
-  let newStartIdx = 0
-  let oldEndIdx = oldCh.length - 1
-  let oldStartVnode = oldCh[0]
-  let oldEndVnode = oldCh[oldEndIdx]
-  let newEndIdx = newCh.length - 1
-  let newStartVnode = newCh[0]
-  let newEndVnode = newCh[newEndIdx]
-  let oldKeyToIdx, idxInOld, vnodeToMove, refElm
-
-  // removeOnly为false，transition-group中为true
-  const canMove = !removeOnly
-
-  if (process.env.NODE_ENV !== &#39;production&#39;) {
-    checkDuplicateKeys(newCh)
-  }
-  // 新旧节点都未遍历完
-  while (oldStartIdx &amp;lt;= oldEndIdx &amp;amp;&amp;amp; newStartIdx &amp;lt;= newEndIdx) {
-    // 如果oldStartVnode未定义
-    if (isUndef(oldStartVnode)) {
-      // oldCh向后移一位
-      oldStartVnode = oldCh[++oldStartIdx]
-      // 如果oldEndVnode未定义
-    } else if (isUndef(oldEndVnode)) {
-      // oldCh尾索引向前移动一位
-      oldEndVnode = oldCh[--oldEndIdx]
-      // 首节点比较，如果能复用
-    } else if (sameVnode(oldStartVnode, newStartVnode)) {
-      // 调用patchVnode，更新oldStartVnode、newStartVnode，也会递归updateChildren
-      patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
-      // 更新节点位置
-      oldStartVnode = oldCh[++oldStartIdx]
-      newStartVnode = newCh[++newStartIdx]
-      // 尾节点比较
-    } else if (sameVnode(oldEndVnode, newEndVnode)) {
-      patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)
-      oldEndVnode = oldCh[--oldEndIdx]
-      newEndVnode = newCh[--newEndIdx]
-      // 首尾节点比较
-    } else if (sameVnode(oldStartVnode, newEndVnode)) {
-      patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx)
-      canMove &amp;amp;&amp;amp; nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm))
-      oldStartVnode = oldCh[++oldStartIdx]
-      newEndVnode = newCh[--newEndIdx]
-      // 尾首节点比较
-    } else if (sameVnode(oldEndVnode, newStartVnode)) {
-      patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
-      canMove &amp;amp;&amp;amp; nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm)
-      oldEndVnode = oldCh[--oldEndIdx]
-      newStartVnode = newCh[++newStartIdx]
-    } else {
-      // 以上条件都不满足，调用createKeyToOldIdx
-      // createKeyToOldIdx 方法的作用，遍历oldCh，找到里面设置key的对象
-      // 返回一个map，key为键，index为值
-      if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
-      // 查询新节点在oldCh中的索引
-      idxInOld = isDef(newStartVnode.key) ?
-        oldKeyToIdx[newStartVnode.key] :
-        findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
-      // 如果没找到，说明是新建的节点
-      if (isUndef(idxInOld)) {
-        // 创建新的DOM元素，插入到指定节点
-        createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx)
-      } else {
-        // 如果在oldCh中找到了索引
-        vnodeToMove = oldCh[idxInOld]
-        // 可复用
-        if (sameVnode(vnodeToMove, newStartVnode)) {
-          // patchVnode复用dom元素递归子元素
-          patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
-          // vnode处理完了之后清楚oldCh对应的节点
-          oldCh[idxInOld] = undefined
-          canMove &amp;amp;&amp;amp; nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm)
-          // 不可复用，直接创建新元素
-        } else {
-          createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx)
-        }
-      }
-      // newCh向后移一位
-      newStartVnode = newCh[++newStartIdx]
-    }
-  }
-  // 如果oldCh遍历完了
-  if (oldStartIdx &amp;gt; oldEndIdx) {
-    // 创建剩下的dom节点，添加到对应的位置
-    refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm
-    addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue)
-    // 如果newCh遍历完了，oldCh没有 
-    // 移出剩下的oldCh
-  } else if (newStartIdx &amp;gt; newEndIdx) {
-    removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这就是&lt;code&gt;diff&lt;/code&gt;处理&lt;code&gt;vnode children&lt;/code&gt;属性的过程&lt;/p&gt;
-
-&lt;p&gt;3.对于自定义组件，在&lt;code&gt;createElm&lt;/code&gt;方法中中，会调用一个方法&lt;code&gt;createComponent&lt;/code&gt;来判断是否是自定义组件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;...
-if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
-	return
-}
-...
-
-createComponent
-
-function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
-  let i = vnode.data
-  if (isDef(i)) {
-    const isReactivated = isDef(vnode.componentInstance) &amp;amp;&amp;amp; i.keepAlive
-    if (isDef(i = i.hook) &amp;amp;&amp;amp; isDef(i = i.init)) {
-      i(vnode, false /* hydrating */, parentElm, refElm)
-    }
-    ......
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;调用&lt;code&gt;init&lt;/code&gt;初始化，&lt;code&gt;init&lt;/code&gt;方法定义在&lt;code&gt;componentVNodeHooks&lt;/code&gt;中，&lt;code&gt;componentVNodeHooks&lt;/code&gt;中定义的钩子函数，会在&lt;code&gt;patch&lt;/code&gt;中调用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const componentVNodeHooks = {
-  init (
-    vnode,
-    hydrating,
-    parentElm,
-    refElm
-  ) {
-    // 如果当前vnode上没有组件实例或者已经销毁，则创建新的新的component实例
-    if (!vnode.componentInstance || vnode.componentInstance._isDestroyed) {
-      // 调用createComponentInstanceForVnode
-      // createComponentInstanceForVnode方法中会处理组件中的各种属性
-      // 比如 Ctor是自定义组件的构造函数，propsData是父组件通过props传递的数据
-      // listeners是添加在当前组件上的事件，tag是自定义的标签名，children即当前自定义组件的子元素
-      const child = vnode.componentInstance = createComponentInstanceForVnode(
-        vnode,
-        activeInstance,
-        parentElm,
-        refElm
-      );
-      // 调用$mount
-      // 其内部依旧调用__patch__
-      // 然后update
-      child.$mount(hydrating ? vnode.elm : undefined, hydrating);
-    } else if (vnode.data.keepAlive) {
-      const mountedNode = vnode;
-      componentVNodeHooks.prepatch(mountedNode, mountedNode);
-    }
-  },
-  // patchVNode中调用
-  // 组件diff之前的操作
-  prepatch (oldVnode: MountedComponentVNode, vnode: MountedComponentVNode) {
-    const options = vnode.componentOptions
-    const child = vnode.componentInstance = oldVnode.componentInstance
-    // 调用updateChildComponent，通过传入的属性，更新对应的模板，数据，事件
-    updateChildComponent(
-      child,
-      options.propsData, // updated props
-      options.listeners, // updated listeners
-      vnode, // new parent vnode
-      options.children // new children
-    )
-  },
-
-  // patch invokeInsertHook中调用
-  // 生成的dom元素插入页面后调用
-  insert (vnode: MountedComponentVNode) {
-    const { context, componentInstance } = vnode
-    // 设置_isMounted为true，调用mounted钩子函数
-    if (!componentInstance._isMounted) {
-      componentInstance._isMounted = true
-      callHook(componentInstance, &#39;mounted&#39;)
-    }
-    if (vnode.data.keepAlive) {
-      // keepAlive组件，如果已经加载好了的
-      // 调用queueActivatedComponent，放进activatedChildren
-      if (context._isMounted) {
-        queueActivatedComponent(componentInstance)
-      } else {
-        // 反之调用activateChildComponent，触发activated钩子函数
-        // 这又是keepAlive专有的生命周期
-        activateChildComponent(componentInstance, true /* direct */)
-      }
-    }
-  },
-
-  destroy (vnode: MountedComponentVNode) {
-    const { componentInstance } = vnode
-    if (!componentInstance._isDestroyed) {
-      if (!vnode.data.keepAlive) {
-        // 销毁组件
-        componentInstance.$destroy()
-      } else {
-        // 对于keepAlive组件，调用deactivateChildComponent，触发deactivated钩子函数
-        deactivateChildComponent(componentInstance, true /* direct */)
-      }
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;销毁组件&lt;code&gt;destroy&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Vue.prototype.$destroy = function () {
-  const vm: Component = this
-  if (vm._isBeingDestroyed) {
-    return
-  }
-  // 调用beforeDestroy钩子函数
-  callHook(vm, &#39;beforeDestroy&#39;)
-  vm._isBeingDestroyed = true
-  const parent = vm.$parent
-  // 从父元素中删除当前元素
-  if (parent &amp;amp;&amp;amp; !parent._isBeingDestroyed &amp;amp;&amp;amp; !vm.$options.abstract) {
-    remove(parent.$children, vm)
-  }
-  // 销毁watcher
-  if (vm._watcher) {
-    vm._watcher.teardown()
-  }
-  // _watchers减一
-  let i = vm._watchers.length
-  while (i--) {
-    vm._watchers[i].teardown()
-  }
-  // observe减一
-  if (vm._data.__ob__) {
-    vm._data.__ob__.vmCount--
-  }
-  vm._isDestroyed = true
-  // 传入null，销毁当前组件
-  vm.__patch__(vm._vnode, null)
-  // 调用destroyed钩子函数
-  callHook(vm, &#39;destroyed&#39;)
-  // 销毁事件
-  vm.$off()
-  // 消除各种属性
-  if (vm.$el) {
-    vm.$el.__vue__ = null
-  }
-  vm.$options._parentElm = vm.$options._refElm = null
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;以上就是&lt;code&gt;patch&lt;/code&gt;的内容，包括一次生成&lt;code&gt;dom&lt;/code&gt;元素，&lt;code&gt;diff&lt;/code&gt;更新操作，还有对于&lt;code&gt;component&lt;/code&gt;先转换为&lt;code&gt;vnode&lt;/code&gt;再进行&lt;code&gt;patch&lt;/code&gt;，另外还有一些生命周期函数&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Vue中的VNode</title>
-      <link>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84vnode/</link>
-      <pubDate>Tue, 04 Aug 2020 23:28:03 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84vnode/</guid>
-      <description>&lt;p&gt;经过&lt;code&gt;compile&lt;/code&gt;编译模板字符串变成了&lt;code&gt;render&lt;/code&gt;函数，在&lt;code&gt;src/core/instance/render.js&lt;/code&gt;中，通过&lt;code&gt;vnode = render.call(vm._renderProxy, vm.$createElement)&lt;/code&gt;调用了&lt;code&gt;render&lt;/code&gt;方法并最终返回了一个&lt;code&gt;VNode&lt;/code&gt;对象实例，即&lt;code&gt;Vue&lt;/code&gt;中的虚拟&lt;code&gt;Dom&lt;/code&gt;，基本定义如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export default class VNode {
-  constructor (
-    tag?: string,
-    data?: VNodeData,
-    children?: ?Array&amp;lt;VNode&amp;gt;,
-    text?: string,
-    elm?: Node,
-    context?: Component,
-    componentOptions?: VNodeComponentOptions,
-    asyncFactory?: Function
-  ) {
-    this.tag = tag v // 标签名
-    this.data = data // 结点相关属性数据
-    this.children = children // 子节点
-    this.text = text // 文本
-    this.elm = elm // dom元素 
-    this.ns = undefined // 命名空间
-    this.context = context // VNode上下文对象
-    ...... 
-    this.key = data &amp;amp;&amp;amp; data.key // key
-    this.componentOptions = componentOptions // VNode对象如果对应的是一个自定义组件，componentOptions保存组件相关事件、props数据等
-    this.componentInstance = undefined // VNode对象如果对应的是一个自定义组件，componentInstance保存相对应的vue实例
-    this.parent = undefined // 当前自定义组件在父组件中的vnode
-    this.raw = false
-    this.isStatic = false // 是否静态节点
-    .....
-    this.isOnce = false // 是否为v-once元素的VNode对象
-  }
-
-  get child (): Component | void {
-    return this.componentInstance
-  }
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;后面还定义了一些创建简单的VNode的方法，如&lt;code&gt;createEmptyVNode&lt;/code&gt;、&lt;code&gt;reateEmptyVNode&lt;/code&gt;、&lt;code&gt;createTextVNode&lt;/code&gt;、&lt;code&gt;cloneVNode&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;前面说过，调用_init方法的最后，会调用vm._render来生成VNode节点，在&lt;code&gt;src/core/instance/render.js&lt;/code&gt;可以找到这个方法，
-在这个方法里面，就会调用&lt;code&gt;vnode = render.call(vm._renderProxy, vm.$createElement)&lt;/code&gt;来生成&lt;code&gt;VNode&lt;/code&gt;，其中在这文件有两个&lt;code&gt;createElement&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;vm._c = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, false)
-vm.$createElement = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, true)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其中&lt;code&gt;vm._c = (a, b, c, d) =&amp;gt; createElement(vm, a, b, c, d, false)&lt;/code&gt;是编译模板生成的render函数执行时调用的，
-&lt;code&gt;vm.$createElement&lt;/code&gt;是自己添加&lt;code&gt;render&lt;/code&gt;函数时，作为参数传递给render函数&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;src/core/vdom/create-element.js&lt;/code&gt;中&lt;code&gt;createElement&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function createElement (
-  context: Component, // 当前的上下文对象，哪一个vm
-  tag: any, //  标签名
-  data: any, // 节点相关的属性，比如key，ref，attrs等等属性
-  children: any, // children
-  normalizationType: any, // 子元素扁平化处理的级别
-  alwaysNormalize: boolean // 总是扁平化处理
-): VNode | Array&amp;lt;VNode&amp;gt; {
-  // 如果判定为true，说明该元素没有相关属性
-  if (Array.isArray(data) || isPrimitive(data)) {
-    normalizationType = children
-    children = data
-    data = undefined
-  }
-  if (isTrue(alwaysNormalize)) {
-    // 最高级别的扁平化处理
-    normalizationType = ALWAYS_NORMALIZE
-  }
-  return _createElement(context, tag, data, children, normalizationType)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;调用&lt;code&gt;_createElement&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function _createElement (
-  context: Component,
-  tag?: string | Class&amp;lt;Component&amp;gt; | Function | Object,
-  data?: VNodeData,
-  children?: any,
-  normalizationType?: number
-): VNode | Array&amp;lt;VNode&amp;gt; {
-	......
-  if (!tag) {
-    // 如果tag为空，创建一个空的VNode
-    return createEmptyVNode()
-  }
-  // 在Vue中，如果设置对象或者数组为key的时候，会报错
-  if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp;
-    isDef(data) &amp;amp;&amp;amp; isDef(data.key) &amp;amp;&amp;amp; !isPrimitive(data.key)
-  ) {
-    if (!__WEEX__ || !(&#39;@binding&#39; in data.key)) {
-      warn(
-        &#39;Avoid using non-primitive value as key, &#39; +
-        &#39;use string/number value instead.&#39;,
-        context
-      )
-    }
-  }
-  // 如果只有一个children，则当成slot解析
-  if (Array.isArray(children) &amp;amp;&amp;amp;
-    typeof children[0] === &#39;function&#39;
-  ) {
-    data = data || {}
-    data.scopedSlots = { default: children[0] }
-    children.length = 0
-  }
-  // 扁平化处理
-  if (normalizationType === ALWAYS_NORMALIZE) {
-    children = normalizeChildren(children)
-  } else if (normalizationType === SIMPLE_NORMALIZE) {
-    children = simpleNormalizeChildren(children)
-  }
-  let vnode, ns
-  if (typeof tag === &#39;string&#39;) {
-    let Ctor
-    ns = (context.$vnode &amp;amp;&amp;amp; context.$vnode.ns) || config.getTagNamespace(tag)
-    if (config.isReservedTag(tag)) {
-      // 如果tag为String，且为平台保留的标签，直接创建VNode
-      vnode = new VNode(
-        config.parsePlatformTagName(tag), data, children,
-        undefined, undefined, context
-      )
-    } else if ((!data || !data.pre) &amp;amp;&amp;amp; isDef(Ctor = resolveAsset(context.$options, &#39;components&#39;, tag))) {
-      // 如果不是保留标签，并且有数据，没有设置跳过，且是自定义组件
-      vnode = createComponent(Ctor, data, context, children, tag)
-    } else {
-      // 否则，创建VNode对象
-      vnode = new VNode(
-        tag, data, children,
-        undefined, undefined, context
-      )
-    }
+function getOuterHTML (el: Element): string {
+  if (el.outerHTML) {
+    return el.outerHTML
   } else {
-    // 如果tab不是字符串，也是直接createComponent
-    vnode = createComponent(tag, data, context, children)
-  }
-  if (Array.isArray(vnode)) {
-    return vnode
-  } else if (isDef(vnode)) {
-    if (isDef(ns)) applyNS(vnode, ns)
-    if (isDef(data)) registerDeepBindings(data)
-    return vnode
-  } else {
-    return createEmptyVNode()
+    const container = document.createElement(&#39;div&#39;)
+    container.appendChild(el.cloneNode(true))
+    return container.innerHTML
   }
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;createComponent&lt;/code&gt;可以创建自定义组件&lt;/p&gt;
+&lt;p&gt;上面最后调用了&lt;code&gt;mount.call(this, el, hydrating)&lt;/code&gt;，其方法对应于&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function createComponent (
-  Ctor: Class&amp;lt;Component&amp;gt; | Function | Object | void,
-  data: ?VNodeData,
-  context: Component,
-  children: ?Array&amp;lt;VNode&amp;gt;,
-  tag?: string
-): VNode | Array&amp;lt;VNode&amp;gt; | void {
-  // 如果Ctor为空，跳过此步骤，对应的实际情况就是传入的参数并不是字符串或者自定义组件
-  if (isUndef(Ctor)) {
-    return
-  }
-	
-	// baseCtor其实就是指的Vue对象
-  const baseCtor = context.$options._base
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+  el = el &amp;amp;&amp;amp; inBrowser ? query(el) : undefined
+  return mountComponent(this, el, hydrating)
+}
 
-  if (isObject(Ctor)) {
-    Ctor = baseCtor.extend(Ctor)
-  }
+  vm: Component,
+  el: ?Element,
+  hydrating?: boolean
+): Component {
+  vm.$el = el
 	......
-  data = data || {}
-	
-	// 递归合并父对象上的options
-  resolveConstructorOptions(Ctor)
+  // 调用beforeMount钩子函数
+  callHook(vm, &#39;beforeMount&#39;)
 
-	// 处理v-model指令
-  if (isDef(data.model)) {
-    transformModel(Ctor.options, data)
-  }
-	
-	// 抽取props属性
-  const propsData = extractPropsFromVNodeData(data, Ctor, tag)
-
-  if (isTrue(Ctor.options.functional)) {
-    return createFunctionalComponent(Ctor, propsData, data, context, children)
-  }
-	
-	// 处理组件.native的事件，表示组件上的事件
-  const listeners = data.on
-  data.on = data.nativeOn
-		
-	// 处理抽象组件中的slot，如keep-alive
-  if (isTrue(Ctor.options.abstract)) {
-    const slot = data.slot
-    data = {}
-    if (slot) {
-      data.slot = slot
-    }
-  }
-	
-	// 合并一些钩子函数
-  installComponentHooks(data)
-
-  const name = Ctor.options.name || tag
-  
-  // 生成VNode
-  const vnode = new VNode(
-    `vue-component-${Ctor.cid}${name ? `-${name}` : &#39;&#39;}`,
-    data, undefined, undefined, undefined, context,
-    { Ctor, propsData, listeners, tag, children },
-    asyncFactory
-  )
+  let updateComponent
 	
   ......
-
-  return vnode
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;extractPropsFromVNodeData&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function extractProps (data: VNodeData, Ctor: Class&amp;lt;Component&amp;gt;, tag?: string): ?Object {
-  const propOptions = Ctor.options.props
-  // 组件没有props，return
-  if (!propOptions) {
-    return
+  
+  // 更新当前节点的方法
+  updateComponent = () =&amp;gt; {
+    // vm._render会返回一个render字符串，_update其内部会调用patch方法来进行节点的增删改
+    vm._update(vm._render(), hydrating)
   }
-  const res = {}
-  // domProps表示input的value、option的selected等属性
-  // attrs表父组件绑定在子元素上的属性值
-  const { attrs, props, domProps } = data
-  if (attrs || props || domProps) {
-    for (const key in propOptions) {
-      // 将驼峰命名转化为连线命名
-			// aB -&amp;gt; a-b
-      const altKey = hyphenate(key)
-      .....
-      
-      // 遍历找到props、attrs、domProps中的属性
-      // 如果没有传递preserve参数，则表示找到该key的值时删除对应的属性
-      // 最后返回res，并且只留下props上的属性
-      checkProp(res, props, key, altKey, true) ||
-      checkProp(res, attrs, key, altKey) ||
-      checkProp(res, domProps, key, altKey)
-    }
-  }
-  return res
-}
-&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;最后，对于自定义组件，会创建一个&lt;code&gt;vnode&lt;/code&gt;对象，并返回一个标签名为&lt;code&gt;vue-component-cid-name&lt;/code&gt;格式的&lt;code&gt;VNode&lt;/code&gt;对象。&lt;/p&gt;
-
-&lt;p&gt;上面说的扁平化处理其实就是将多维的数组，合并转换成一个一维的数组&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;simpleNormalizeChildren&lt;/code&gt;简单的扁平化处理&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function simpleNormalizeChildren (children: any) {
-  for (let i = 0; i &amp;lt; children.length; i++) {
-    if (Array.isArray(children[i])) {
-      return Array.prototype.concat.apply([], children)
-    }
-  }
-  return children
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;normalizeChildren&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function normalizeChildren (children: any): ?Array&amp;lt;VNode&amp;gt; {
-  return isPrimitive(children)
-  	// 如果传入的children是字符串或者数字，则直接返回文本结点数组
-    ? [createTextVNode(children)]
-    : Array.isArray(children)
-			// 如果传入的children是数组，调用normalizeArrayChildren
-      ? normalizeArrayChildren(children)
-      : undefined
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;normalizeArrayChildren&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function normalizeArrayChildren (children: any, nestedIndex?: string): Array&amp;lt;VNode&amp;gt; {
-  const res = []
-  let i, c, lastIndex, last
-  for (i = 0; i &amp;lt; children.length; i++) {
-    c = children[i]
-    // 如果该元素为undefined或null或Boolean类型的值,continue
-    if (isUndef(c) || typeof c === &#39;boolean&#39;) continue
-    lastIndex = res.length - 1
-    last = res[lastIndex]
-    if (Array.isArray(c)) {
-      if (c.length &amp;gt; 0) {
-        // c是一个数组，则递归的执行normalizeArrayChildren方法
-        c = normalizeArrayChildren(c, `${nestedIndex || &#39;&#39;}_${i}`)
-        if (isTextNode(c[0]) &amp;amp;&amp;amp; isTextNode(last)) {
-          res[lastIndex] = createTextVNode(last.text + (c[0]: any).text)
-          c.shift()
-        }
-        res.push.apply(res, c)
-      }
-    } else if (isPrimitive(c)) {
-      // 如果最后一个节点是文本节点
-      if (isTextNode(last)) {
-        // 合并last.text和c
-        res[lastIndex] = createTextVNode(last.text + c)
-      } else if (c !== &#39;&#39;) {
-        // 如果最后一个节点不是文本节点，且不为空
-        // 创建一个空文本节点
-        res.push(createTextVNode(c))
-      }
-    } else {
-      // 如果c是一个文本VNode对象，且res中最后一个元素也是文本结点
-      // 合并两个VNode为一个
-      if (isTextNode(c) &amp;amp;&amp;amp; isTextNode(last)) {
-        res[lastIndex] = createTextVNode(last.text + c.text)
-      } else {
-        // 设置VNode的key
-        if (isTrue(children._isVList) &amp;amp;&amp;amp;
-          isDef(c.tag) &amp;amp;&amp;amp;
-          isUndef(c.key) &amp;amp;&amp;amp;
-          isDef(nestedIndex)) {
-          c.key = `__vlist${nestedIndex}_${i}__`
-        }
-        res.push(c)
+	// 创建一个watch对象，在调用updateComponent之前会先调用before方法
+  new Watcher(vm, updateComponent, noop, {
+    before () {
+      if (vm._isMounted &amp;amp;&amp;amp; !vm._isDestroyed) {
+        // 如果是更新节点，调用beforeUpdate钩子函数
+        callHook(vm, &#39;beforeUpdate&#39;)
       }
     }
-  }
-  return res
-}
+  }, true /* isRenderWatcher */)
+  hydrating = false
 
+   // 当页面渲染完成后，调用钩子函数mounted
+  if (vm.$vnode == null) {
+    vm._isMounted = true
+    callHook(vm, &#39;mounted&#39;)
+  }
+  return vm
+}
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
     <item>
-      <title>Vue里面compile模板编译</title>
-      <link>https://xtid.github.io/2020/vue%E9%87%8C%E9%9D%A2compile%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91/</link>
-      <pubDate>Thu, 30 Jul 2020 22:16:42 +0800</pubDate>
+      <title>about</title>
+      <link>https://xtid.github.io/about/</link>
+      <pubDate>Wed, 24 Jun 2020 00:08:20 +0800</pubDate>
       
-      <guid>https://xtid.github.io/2020/vue%E9%87%8C%E9%9D%A2compile%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91/</guid>
-      <description>&lt;p&gt;1.complie简述&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;complie&lt;/code&gt;阶段主要是将&lt;code&gt;Vue&lt;/code&gt;代码通过一系列转换，最终生成对应的&lt;code&gt;render&lt;/code&gt;字符串，然后&lt;code&gt;Vue&lt;/code&gt;通过&lt;code&gt;render&lt;/code&gt;字符串里面的关键词或者说定义，对页面内容进行增删改，&lt;code&gt;Vue&lt;/code&gt;对象上有一个全局函数&lt;code&gt;compile&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import { compileToFunctions } from &#39;./compiler/index&#39;
-......
-Vue.compile = compileToFunctions
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以看出，他是引用的&lt;code&gt;./compiler/index&lt;/code&gt;模块导出的&lt;code&gt;compileToFunctions&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;import { baseOptions } from &#39;./options&#39;
-import { createCompiler } from &#39;compiler/index&#39;
-const { compile, compileToFunctions } = createCompiler(baseOptions)
-export { compile, compileToFunctions }
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;baseOptions&lt;/code&gt;，对解析模板的一些选项进行基本的定义，规定如果解析模板中的各种标签或代码&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export const baseOptions: CompilerOptions = {
-  expectHTML: true,
-  modules,
-  directives,
-  isPreTag,
-  isUnaryTag,
-  mustUseProp,
-  canBeLeftOpenTag,
-  isReservedTag,
-  getTagNamespace,
-  staticKeys: genStaticKeys(modules)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;expectHTML&lt;/code&gt;：为&lt;code&gt;true&lt;/code&gt;时，解析&lt;code&gt;HTML&lt;/code&gt;的结束标签&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;modules&lt;/code&gt;：包括&lt;code&gt;klass&lt;/code&gt;和&lt;code&gt;style&lt;/code&gt;，对模板中类和样式的解析。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;directives&lt;/code&gt;：这里包括&lt;code&gt;model&lt;/code&gt;（&lt;code&gt;v-model&lt;/code&gt;）、&lt;code&gt;html&lt;/code&gt;（&lt;code&gt;v-html&lt;/code&gt;）、&lt;code&gt;text&lt;/code&gt;(&lt;code&gt;v-text&lt;/code&gt;)三个指令&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;isPreTag&lt;/code&gt;：是否是&lt;code&gt;pre&lt;/code&gt;标签&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;isUnaryTag&lt;/code&gt;：是否是单标签，比如&lt;code&gt;img&lt;/code&gt;、&lt;code&gt;input&lt;/code&gt;、&lt;code&gt;iframe&lt;/code&gt;等&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;mustUseProp&lt;/code&gt;：需要使用&lt;code&gt;props&lt;/code&gt;绑定的属性，比如&lt;code&gt;value&lt;/code&gt;、&lt;code&gt;selected&lt;/code&gt;等&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;canBeLeftOpenTag&lt;/code&gt;：可以不闭合的标签，比如&lt;code&gt;tr&lt;/code&gt;、&lt;code&gt;td&lt;/code&gt;等&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;isReservedTag&lt;/code&gt;：是否是保留标签，&lt;code&gt;html&lt;/code&gt;标签和&lt;code&gt;SVG&lt;/code&gt;标签&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;getTagNamespace&lt;/code&gt;：获取命名空间，&lt;code&gt;svg&lt;/code&gt;和&lt;code&gt;math&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;staticKeys&lt;/code&gt;：静态关键词，包括&lt;code&gt;staticClass,staticStyle&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;然后是&lt;code&gt;createCompiler&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function createCompilerCreator (baseCompile: Function): Function {
-  // 接受一个基本的CompilerOptions
-  return function createCompiler (baseOptions: CompilerOptions) {
-    function compile (
-      template: string,
-      options?: CompilerOptions
-    ): CompiledResult {
-      // finalOptions继承自baseOptions
-      const finalOptions = Object.create(baseOptions)
-      const errors = []
-      const tips = []
-
-      let warn = (msg, range, tip) =&amp;gt; {
-        (tip ? tips : errors).push(msg)
-      }
-
-      if (options) {
-        if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; options.outputSourceRange) {
-          // $flow-disable-line
-          const leadingSpaceLength = template.match(/^\s*/)[0].length
-
-          warn = (msg, range, tip) =&amp;gt; {
-            const data: WarningMessage = { msg }
-            if (range) {
-              if (range.start != null) {
-                data.start = range.start + leadingSpaceLength
-              }
-              if (range.end != null) {
-                data.end = range.end + leadingSpaceLength
-              }
-            }
-            (tip ? tips : errors).push(data)
-          }
-        }
-        // 合并modules
-        if (options.modules) {
-          finalOptions.modules =
-            (baseOptions.modules || []).concat(options.modules)
-        }
-        // 合并directives
-        if (options.directives) {
-          finalOptions.directives = extend(
-            Object.create(baseOptions.directives || null),
-            options.directives
-          )
-        }
-        
-        // 额外传入的options，合并
-        for (const key in options) {
-          if (key !== &#39;modules&#39; &amp;amp;&amp;amp; key !== &#39;directives&#39;) {
-            finalOptions[key] = options[key]
-          }
-        }
-      }
-	
-      // 收集到的错误日志
-      finalOptions.warn = warn
-
-      const compiled = baseCompile(template.trim(), finalOptions)
-      if (process.env.NODE_ENV !== &#39;production&#39;) {
-        detectErrors(compiled.ast, warn)
-      }
-      compiled.errors = errors
-      compiled.tips = tips
-      // 返回render字符串
-      return compiled
-    }
-
-    return {
-      compile,
-      compileToFunctions: createCompileToFunctionFn(compile)
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;导出的模块&lt;code&gt;compileToFunctions&lt;/code&gt;为&lt;code&gt;createCompileToFunctionFn&lt;/code&gt;执行返回的结果&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;createCompileToFunctionFn&lt;/code&gt;代码&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function createCompileToFunctionFn (compile: Function): Function {
-  const cache = Object.create(null)
-
-  return function compileToFunctions (
-    template: string,
-    options?: CompilerOptions,
-    vm?: Component
-  ): CompiledFunctionResult {
-    // 拿到options，并且删除错误日志等数据
-    options = extend({}, options)
-    const warn = options.warn || baseWarn
-    delete options.warn
-		
-    ......
-
-		// 如果有缓存，拿到缓存中的编译结果
-    const key = options.delimiters
-      ? String(options.delimiters) + template
-      : template
-    if (cache[key]) {
-      return cache[key]
-    }
-
-    // 编译的结果
-    const compiled = compile(template, options)
-
- 		......
-
-    const res = {}
-    const fnGenErrors = []
-    // render字符串
-    res.render = createFunction(compiled.render, fnGenErrors)
-    // 将render字符串中的标识符转为函数，如_c、_m
-    res.staticRenderFns = compiled.staticRenderFns.map(code =&amp;gt; {
-      return createFunction(code, fnGenErrors)
-    })
-
-		......
-
-    return (cache[key] = res)
-  }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;2.生成ast&lt;/p&gt;
-
-&lt;p&gt;在&lt;code&gt;src/compiler/parser/index.js&lt;/code&gt;中，首先定义了各种&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 匹配@或v-on开头的属性
-export const onRE = /^@|^v-on:/
-// 是匹配v-或@或:开头的属性
-export const dirRE = /^v-|^@|^:|^\./ 
-// 匹配v-for中的属性值，比如item in items、(item, index) of items
-export const forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/ 
-// 是对forAliasRE中捕获的第一部分内容，进行拆解，v-for中in|of前最后可以有三个逗号分隔的参数
-export const forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/
-// 去掉字符串 &#39;(item, index)&#39; 中的左右括号
-const stripParensRE = /^\(|\)$/g
-// 用来匹配指令编写中的参数
-const argRE = /:(.*)$/
-// 匹配以字符:或字符串 v-bind: 开头的字符串
-export const bindRE = /^:|^\.|^v-bind:/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;parse&lt;/code&gt;，里面解析的方法主要是&lt;code&gt;parseHTML&lt;/code&gt;，&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function parse (
-	template: string,
-	options: CompilerOptions
-  ): ASTElement | void {
-	warn = options.warn || baseWarn
-  
-	......
-	parseHTML()
-  return root
-}
-
-// src/compiler/parser/html-parser.js
-
-export function parseHTML (html, options) {
-  const stack = []
-  const expectHTML = options.expectHTML
-  const isUnaryTag = options.isUnaryTag || no
-  const canBeLeftOpenTag = options.canBeLeftOpenTag || no
-  let index = 0
-  let last, lastTag
-  while (html) {}
-
-  function advance (n) {
-    ...
-  }
-
-  function parseStartTag () {
-    ...
-  }
-
-  function handleStartTag (match) {
-    ...
-  }
-
-	function parseEndTag (tagName, start, end) {
-  	...
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在&lt;code&gt;parseHTML&lt;/code&gt;的&lt;code&gt;while&lt;/code&gt;循环里&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// advance这个方法，用于截取传入的字符串
-// 过滤掉注释，doctype等
-if (comment.test(html)) {
-  const commentEnd = html.indexOf(&#39;--&amp;gt;&#39;)
-
-  if (commentEnd &amp;gt;= 0) {
-    advance(commentEnd + 3)
-    continue
-  }
-}
-
-// 过滤文档类型标示的字符串
-const doctypeMatch = html.match(doctype)
-if (doctypeMatch) {
-  advance(doctypeMatch[0].length)
-  continue
-}
-
-// 匹配结束的标签
-const endTagMatch = html.match(endTag)
-if (endTagMatch) {
-  const curIndex = index
-  advance(endTagMatch[0].length)
-  parseEndTag(endTagMatch[1], curIndex, index)
-  continue
-}
-
-// 匹配开始标签
-// 传入handleStartTag处理完后，会生成一个包含标签各种属性的对象
-const startTagMatch = parseStartTag()
-if (startTagMatch) {
-  handleStartTag(startTagMatch)
-  continue
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;后续会调用&lt;code&gt;parse&lt;/code&gt;里调用&lt;code&gt;parseHTML&lt;/code&gt;传入的&lt;code&gt;start&lt;/code&gt;的方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;start () {
-  // 定义基本的ast结构
-  createASTElement()
-  // 解析v-pre、v-if、v-for、v-once、slot、key、ref等指令
-  processPre()
-  processFor()
-  ......
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;处理完后会调用&lt;code&gt;parse&lt;/code&gt;里调用&lt;code&gt;parseHTML&lt;/code&gt;传入的&lt;code&gt;end&lt;/code&gt;的方法&lt;/p&gt;
-
-&lt;p&gt;1、取出&lt;code&gt;stack&lt;/code&gt;中的最后一个元素。&lt;/p&gt;
-
-&lt;p&gt;2、取出该元素的最后一个子元素。&lt;/p&gt;
-
-&lt;p&gt;3、如果最后一个子元素是纯文本&lt;code&gt;&#39; &#39;&lt;/code&gt;则删除，这是因为我们的模板一般都会缩进，都会有换行，所以这里是清除换行等添加的内容。&lt;/p&gt;
-
-&lt;p&gt;4、&lt;code&gt;stack&lt;/code&gt;长度减一&lt;/p&gt;
-
-&lt;p&gt;5、&lt;code&gt;currentParent&lt;/code&gt;变为栈中最后一个元素&lt;/p&gt;
-
-&lt;p&gt;6、 处理&lt;code&gt;v-pre&lt;/code&gt;或&lt;code&gt;pre&lt;/code&gt;的结束标签&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;end (tag, start, end) {
-  const element = stack[stack.length - 1]
-  if (!inPre) {
-    const lastNode = element.children[element.children.length - 1]
-    if (lastNode &amp;amp;&amp;amp; lastNode.type === 3 &amp;amp;&amp;amp; lastNode.text === &#39; &#39;) {
-      element.children.pop()
-    }
-  }
-  stack.length -= 1
-  currentParent = stack[stack.length - 1]
-  if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; options.outputSourceRange) {
-    element.end = end
-  }
-  closeElement(element)
-},
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;最后，得到一个包含名称、类型、属性、父子节点信息的一个&lt;code&gt;ast&lt;/code&gt;语法树，如&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const element = {
-  type: 1,
-  tag: &#39;&#39;,
-  attrsList: [],
-  attrsMap: {},
-  parent: {},
-  children: []
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;3.优化静态内容，打开&lt;code&gt;src/compiler/index&lt;/code&gt;，看到调用&lt;code&gt;const ast = parse(template.trim(), options)&lt;/code&gt;生成&lt;code&gt;ast&lt;/code&gt;后，调用&lt;code&gt;optimize&lt;/code&gt;，传入&lt;code&gt;ast&lt;/code&gt; ，打开&lt;code&gt;optimisze&lt;/code&gt;源码&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 获取基本静态key的一个集合
-const genStaticKeysCached = cached(genStaticKeys)
-export function optimize (root: ?ASTElement, options: CompilerOptions) {
-  if (!root) return
-  // 如果ast上有staticKeys选项
-  isStaticKey = genStaticKeysCached(options.staticKeys || &#39;&#39;)
-  // 是不是平台保留tag，如HTML 标签
-  isPlatformReservedTag = options.isReservedTag || no
-  // 标记所有静态和非静态节点
-  markStatic(root)
-  // 标记静态根节点
-  markStaticRoots(root, false)
-}
-
-function genStaticKeys (keys: string): Function {
-  return makeMap(
-    &#39;type,tag,attrsList,attrsMap,plain,parent,children,attrs,start,end,rawAttrsMap,has$Slot&#39; +
-    (keys ? &#39;,&#39; + keys : &#39;&#39;)
-  )
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;markStatic&lt;/code&gt;标记所有静态和非静态节点&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function markStatic (node: ASTNode) {
-  // 判断当前节点是否为静态节点
-  // 静态节点包括普通元素、纯文本元素、v-pre、v-once
-  node.static = isStatic(node)
- 	// 如果type为1，代表当前节点为元素节点
-  if (node.type === 1) {
-    if (
-      // 如果不是保留标签，即自定义标签时
-      !isPlatformReservedTag(node.tag) &amp;amp;&amp;amp;
-      // 如果不是component标签
-      !node.component &amp;amp;&amp;amp;
-      // 如果标签不是slot
-      node.tag !== &#39;slot&#39; &amp;amp;&amp;amp;
-      // 不是一个内联模板容器？？
-      node.attrsMap[&#39;inline-template&#39;] == null
-    ) {
-      // 直接return，不对子节点做处理，反之，递归对子节点做标记
-      return
-    }
-  	......
-  }
-}
-  
-function isStatic (node: ASTNode): boolean {
-  // 表达式
-  if (node.type === 2) {
-    return false
-  }
-  // text
-  if (node.type === 3) { 
-    return true
-  }
-  return !!(node.pre || (
-    // 没有任何指令或事件绑定
-    !node.hasBindings &amp;amp;&amp;amp; 
-    // 没有if 和 for 指令
-    !node.if &amp;amp;&amp;amp; !node.for &amp;amp;&amp;amp; 
-    // 不是内置标签，如slot
-    !isBuiltInTag(node.tag) &amp;amp;&amp;amp;
-    // 平台保留标签，如HTML
-    isPlatformReservedTag(node.tag) &amp;amp;&amp;amp; 
-    // 不是template标签的直接子元素且没有包含在for循环中
-    !isDirectChildOfTemplateFor(node) &amp;amp;&amp;amp;
-    // 结点包含的属性只能有isStaticKey中指定的几个
-    Object.keys(node).every(isStaticKey)
-  ))
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;markStaticRoots&lt;/code&gt;标记静态根节点&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function markStaticRoots (node: ASTNode, isInFor: boolean) {
-  // 只处理元素节点类型
-  if (node.type === 1) {
-    if (node.static || node.once) {
-      node.staticInFor = isInFor
-    }
-    // 标记静态根节点的条件为本身static标记为true
-    // 并且该结点不是只有一个静态文本子节点
-    if (node.static &amp;amp;&amp;amp; node.children.length &amp;amp;&amp;amp; !(
-      node.children.length === 1 &amp;amp;&amp;amp;
-      node.children[0].type === 3
-    )) {
-      node.staticRoot = true
-      return
-    } else {
-      node.staticRoot = false
-    }
-		......
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;4.生成render字符串&lt;/p&gt;
-
-&lt;p&gt;在标记完静态节点之后，会调用&lt;code&gt;generate&lt;/code&gt;方法来生成render字符串，生成的字符串中&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;_c&lt;/code&gt; 该方法对应的是&lt;code&gt;createElement&lt;/code&gt;方法，顾名思义，它的含义是创建一个元素，它的第一个参数是要定义的元素标签名、第二个参数是元素上添加的属性，第三个参数是子元素数组，第四个参数是子元素数组进行归一化处理的级别。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;_v&lt;/code&gt; 该方法是创建一个文本结点。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;_s&lt;/code&gt; 是把一个值转换为字符串。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;_m&lt;/code&gt; 是渲染静态内容，它接收的第一个参数是一个索引值，指向最终生成的&lt;code&gt;staticRenderFns&lt;/code&gt;数组中对应的内容，第二个参数是标识元素是否包裹在&lt;code&gt;for&lt;/code&gt;循环内。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function generate (
-  ast: ASTElement | void,
-  options: CompilerOptions
-): CodegenResult {
-  const state = new CodegenState(options)
-  // 如果ast为空，直接返回一个空的div节点
-  // 有过有值，调用genElement
-  const code = ast ? genElement(ast, state) : &#39;_c(&amp;quot;div&amp;quot;)&#39;
-  // 返回render字符串
-  return {
-    render: `with(this){return ${code}}`,
-    staticRenderFns: state.staticRenderFns
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;genElement&lt;/code&gt;会通过节点上的标志来判断使用什么方法来生成render字符串，这里说一下&lt;code&gt;genStatic&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function genElement (el: ASTElement, state: CodegenState): string {
-  // pre的状态用来判断是否跳过当前解析
-  if (el.parent) {
-    el.pre = el.pre || el.parent.pre
-  }
-	
-  if (el.staticRoot &amp;amp;&amp;amp; !el.staticProcessed) {
-    return genStatic(el, state)
-  } 
-  ...... 
-		else {
-      let data
-      // 如果节点没其他属性或者跳过解析，直接genData
-      // genData这个方法会给节点添加各种属性
-      if (!el.plain || (el.pre &amp;amp;&amp;amp; state.maybeComponent(el))) {
-        data = genData(el, state)
-      }
-			
-      // 如果不是内部模板，调用genChildren，返回对应的字符串
-      const children = el.inlineTemplate ? null : genChildren(el, state, true)
-      code = `_c(&#39;${el.tag}&#39;${
-        data ? `,${data}` : &#39;&#39; 
-      }${
-        children ? `,${children}` : &#39;&#39; 
-      })`
-    }
-    for (let i = 0; i &amp;lt; state.transforms.length; i++) {
-      code = state.transforms[i](el, code)
-    }
-    return code
-  }
-}
-
-function genStatic (el: ASTElement, state: CodegenState): string {
-  el.staticProcessed = true
-  // 暂存pre
-  const originalPreState = state.pre
-  // 如果当前节点pre为true，更改pre的状态
-  if (el.pre) {
-    state.pre = el.pre
-  }
-  // 通过递归处理静态根节点及其子内容，添加到staticRenderFns
-  state.staticRenderFns.push(`with(this){return ${genElement(el, state)}}`)
-  // 恢复pre状态
-  state.pre = originalPreState
-  return `_m(${
-    state.staticRenderFns.length - 1
-  }${
-    el.staticInFor ? &#39;,true&#39; : &#39;&#39;
-  })`
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;最后返回的结果就包含&lt;code&gt;render&lt;/code&gt;字符串以及&lt;code&gt;staticRenderFns&lt;/code&gt;静态节点&lt;/p&gt;
+      <guid>https://xtid.github.io/about/</guid>
+      <description>&lt;p&gt;小小码农可笑可笑&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>Vue2.x里面的双向数据绑定</title>
-      <link>https://xtid.github.io/2020/vue2.x%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/</link>
-      <pubDate>Wed, 29 Jul 2020 22:13:21 +0800</pubDate>
+      <title>使用Canvas实现一个红包雨的效果</title>
+      <link>https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Mon, 15 Jun 2020 18:12:19 +0700</pubDate>
       
-      <guid>https://xtid.github.io/2020/vue2.x%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/</guid>
-      <description>&lt;p&gt;Vue2.x的数据绑定是通过数据劫持的方式来实现的，其中最核心的便是&lt;code&gt;Object.defineProperty()&lt;/code&gt;，而Vue3.0里面数据绑定是通过&lt;code&gt;Proxy&lt;/code&gt;实现的&lt;/p&gt;
+      <guid>https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
+      <description>
 
-&lt;p&gt;Vue2.x的双向数据绑定，有三个比较核心的部分&lt;/p&gt;
+&lt;p&gt;之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做一个红包雨的效果&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;Observer&lt;/code&gt;：通过&lt;code&gt;Object.defineProperty&lt;/code&gt;来做数据劫持，递归地监听对象上的所有属性，在属性值改变的时候，触发相应的&lt;code&gt;Watcher&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-核心原理&#34;&gt;1.核心原理&lt;/h3&gt;
 
-&lt;p&gt;&lt;code&gt;Watcher&lt;/code&gt;：订阅者，当监听的数据值修改时，执行通知&lt;code&gt;Dep&lt;/code&gt;执行对应的响应的回调函数&lt;/p&gt;
+&lt;p&gt;1.生成红包，设置好默认的背景图像，传入页面上所需的红包数量&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;Dep&lt;/code&gt;：将&lt;code&gt;Observer&lt;/code&gt;和&lt;code&gt;Watcher&lt;/code&gt;关联起来，这个双向数据绑定实现的设计模式为发布订阅模式，&lt;code&gt;Dep&lt;/code&gt;就相当于发布订阅模式的中间对象&lt;/p&gt;
+&lt;p&gt;2.保存状态，利用Canvas的原生API实现页面的渲染，每次移动各个红包到不同位置，利用&lt;code&gt;window.requestAnimationFrame&lt;/code&gt;实现每一帧的动画绘制，使整个页面不会卡顿&lt;/p&gt;
 
-&lt;p&gt;Observer&lt;/p&gt;
+&lt;p&gt;3.点击红包，计算是否点中红包，如果点中，则进行相应的事件处理&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export class Observer {
-  value: any;
-  dep: Dep;
-  vmCount: number; // number of vms that have this object as root $data
+&lt;h3 id=&#34;2-具体实现&#34;&gt;2.具体实现&lt;/h3&gt;
 
-  constructor (value: any) {
-    this.value = value
-    this.dep = new Dep()
-    this.vmCount = 0
-    // 通过Object.defineProperty设置_ob_值，使用_ob_可以直接拿到Observer对象
-    def(value, &#39;__ob__&#39;, this)
-    if (Array.isArray(value)) {
-      if (hasProto) {
-        protoAugment(value, arrayMethods)
-      } else {
-        copyAugment(value, arrayMethods, arrayKeys)
-      }
-      // 如果是数组，调用observeArray处理
-      this.observeArray(value)
-    } else {
-      // 如果是其他对象调用walk处理
-      this.walk(value)
-    }
-  }
+&lt;p&gt;2.1定义一些基本变量&lt;/p&gt;
 
-  walk (obj: Object) {
-    const keys = Object.keys(obj)
-    // 遍历对象属性，对每个属性添加数据邦数据绑定
-    for (let i = 0; i &amp;lt; keys.length; i++) {
-      defineReactive(obj, keys[i])
-    }
-  }
-
-  observeArray (items: Array&amp;lt;any&amp;gt;) {
-    // 如果是数组，则循环遍历数组，调用observe
-    for (let i = 0, l = items.length; i &amp;lt; l; i++) {
-      observe(items[i])
-    }
-  }
-}
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;redEnvelopeArr: [], // 当前整个红包对象数组
+itemSpeed: [], // 每个红包对象对应的一些属性，如下落速度，页面上所在的位置
+count: 0, // 加载好的红包图片的数量
+ctx: null, // Canvas context对象
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;defineReactive&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2.2加载红包图片&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export function defineReactive (
-  obj: Object,
-  key: string,
-  val: any,
-  customSetter?: ?Function,
-  shallow?: boolean
-) {
-  const dep = new Dep()
-	
-  // 获取obj上对应属性key的描述符，如果configurable为false，属性不能改变，return
-  const property = Object.getOwnPropertyDescriptor(obj, key)
-  if (property &amp;amp;&amp;amp; property.configurable === false) {
-    return
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;loadImgs(totalCount) {
+  const self = this
+  const canvas = document.getElementById(&#39;canvas&#39;)
+  if (canvas.width &amp;lt; window.innerWidth) {
+    canvas.width = window.innerWidth
   }
-
-  const getter = property &amp;amp;&amp;amp; property.get
-  const setter = property &amp;amp;&amp;amp; property.set
-  if ((!getter || setter) &amp;amp;&amp;amp; arguments.length === 2) {
-    val = obj[key]
+  if (canvas.height &amp;lt; window.innerHeight) {
+    canvas.height = window.innerHeight
   }
-
-  let childOb = !shallow &amp;amp;&amp;amp; observe(val)
-  Object.defineProperty(obj, key, {
-    enumerable: true,
-    configurable: true,
-    get: function reactiveGetter () {
-      // 获取这个值
-      const value = getter ? getter.call(obj) : val
-      if (Dep.target) {
-        // 将当前dep添加到target中，然后将dep添加到subs中	
-        dep.depend()
-        if (childOb) 
-          childOb.dep.depend()
-          if (Array.isArray(value)) {
-						// 如果传入的值为数组，遍历这个数组，对每一个元素depend
-            dependArray(value)
-          }
-        }
+  return new Promise(resolve =&amp;gt; {
+    for (let index = 0; index &amp;lt; totalCount; index++) {
+      const image = new Image()
+      image.src = &#39;&#39; // 图片地址
+      image.onload = () =&amp;gt; {
+        self.count++
+        self.itemSpeed.push({
+          speed: 0, // 开始下落的位置
+          step: self.randomFloat(2, 6) // 每个红包下落的速度
+        })
+        self.redEnvelopeArr.push({
+          x: self.randomFloat(0, window.innerWidth - 100),
+          y: 0,
+          img: image
+        })
+        if (self.count === totalCount) resolve() // 所有图片加载完成跳出
       }
-      return value
-    },
-    set: function reactiveSetter (newVal) {
-    	// 获取对象原来的值
-      const value = getter ? getter.call(obj) : val
-      // 如果新设置的值和原来的值一样，直接return
-      if (newVal === value || (newVal !== newVal &amp;amp;&amp;amp; value !== value)) {
-        return
-      }
-    	// 打印错误
-      if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; customSetter) {
-        customSetter()
-      }
-    	// 若属性上设置了getter没设置setter，return
-      if (getter &amp;amp;&amp;amp; !setter) return
-      if (setter) {
-        setter.call(obj, newVal)
-      } else {
-        // 设置新的值
-        val = newVal
-      }
-    	// 创建一个新的observe，并触发对应的更新事件
-      childOb = !shallow &amp;amp;&amp;amp; observe(newVal)
-      dep.notify()
     }
   })
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;observe&lt;/code&gt;这个方法主要是返回与对象相关的&lt;code&gt;Observer&lt;/code&gt;对象，如果没有，则新创建一个&lt;code&gt;Observer&lt;/code&gt;对象并返回&lt;/p&gt;
+&lt;p&gt;2.2生成随机数的一个方法&lt;/p&gt;
 
-&lt;p&gt;defineReactive中还有几个方法，&lt;code&gt;protoAugment&lt;/code&gt;和&lt;code&gt;copyAugment&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var arrayProto = Array.prototype
-var arrayMethods = Object.create(arrayProto)
-function protoAugment (target, src) {
-  target.__proto__ = src;
-}
-protoAugment(value, arrayMethods)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;对于数组对象来说在当前环境如果能使用&lt;code&gt;__proto__&lt;/code&gt;对象(&lt;code&gt;__proto__ in {}&lt;/code&gt;)，则调用&lt;code&gt;protoAugment&lt;/code&gt;，其实就是将当前的数组对象&lt;code&gt;__proto__&lt;/code&gt;指向数组原型对象，然后对于&lt;code&gt;push&lt;/code&gt;、&lt;code&gt;pop&lt;/code&gt;、&lt;code&gt;shift&lt;/code&gt;、&lt;code&gt;unshift&lt;/code&gt;、&lt;code&gt;splice&lt;/code&gt;、&lt;code&gt;sort&lt;/code&gt;、&lt;code&gt;reverse&lt;/code&gt;这些操作数组的方法，遍历，添加到&lt;code&gt;arrayMethods&lt;/code&gt;上，操作之后，调用&lt;code&gt;ob.dep.notify()&lt;/code&gt;触发更新&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;copyAugment&lt;/code&gt;则是在循环中把&lt;code&gt;arrayMethods&lt;/code&gt;上的&lt;code&gt;arrayKeys&lt;/code&gt;方法添加到&lt;code&gt;value&lt;/code&gt;上&lt;/p&gt;
-
-&lt;p&gt;Dep&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Dep&lt;/code&gt;的定义比较简单，就是简单的保存了一个&lt;code&gt;Wacher&lt;/code&gt;数组，有一些增删的方法，最后&lt;code&gt;notify&lt;/code&gt;调用对应&lt;code&gt;Wacher&lt;/code&gt;更新的方法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export default class Dep {
-  static target: ?Watcher;
-  id: number;
-  subs: Array&amp;lt;Watcher&amp;gt;;
-
-  constructor () {
-    this.id = uid++
-    this.subs = []
-  }
-
-  addSub (sub: Watcher) {
-    this.subs.push(sub)
-  }
-
-  removeSub (sub: Watcher) {
-    remove(this.subs, sub)
-  }
-
-  depend () {
-    if (Dep.target) {
-      Dep.target.addDep(this)
-    }
-  }
-
-  notify () {
-    const subs = this.subs.slice()
-    if (process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; !config.async) {
-      subs.sort((a, b) =&amp;gt; a.id - b.id)
-    }
-    for (let i = 0, l = subs.length; i &amp;lt; l; i++) {
-      subs[i].update()
-    }
-  }
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;randomFloat(low, high) {
+  return low + Math.random() * (high - low)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Watcher&lt;/p&gt;
+&lt;p&gt;2.3绘制红包图片下落，这里做了一个旋转下落的效果，主要原理是利用&lt;code&gt;translate&lt;/code&gt;移动context位置，旋转一定角度后，将原点移动到之前位置，做一个旋转的效果，每次操作的时候记得&lt;code&gt;sava&lt;/code&gt;、&lt;code&gt;restore&lt;/code&gt;。当然如果不想做旋转效果，那直接用&lt;code&gt;drawImage&lt;/code&gt;每次画不同位置的红包就行了&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;export default class Watcher {
-	......
-  constructor (
-    vm: Component,
-    expOrFn: string | Function,
-    cb: Function,
-    options?: ?Object,
-    isRenderWatcher?: boolean
-  ) {
-    this.vm = vm
-    if (isRenderWatcher) {
-      vm._watcher = this
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;drawRedEnvelope() {
+  const self = this
+  self.ctx.width = 100 // 红包的宽度
+  self.ctx.height = 120 // 红包的高度
+  self.redEnvelopeArr.forEach((item, index) =&amp;gt; {
+    const newRedEnvelope = {
+      x: item.x, // 红包所在的x轴位置
+      y: item.y + self.itemSpeed[index].step, // 红包所在的y轴位置，主要由下落速度决定
+      img: item.img,
+      speed: item.speed
     }
-    vm._watchers.push(this)
-    // 创建Watcher时传的options
-    // 如之前调用updateComponet方法时，传入before来调用beforeUpdate钩子函数
-    if (options) {
-      this.deep = !!options.deep
-      this.user = !!options.user
-      this.lazy = !!options.lazy
-      this.sync = !!options.sync
-      this.before = options.before
-    } else {
-      this.deep = this.user = this.lazy = this.sync = false
-    }
-    this.cb = cb
-    this.id = ++uid 
-    this.active = true
-    this.dirty = this.lazy 
-    this.deps = []
-    this.newDeps = []
-    this.depIds = new Set()
-    this.newDepIds = new Set()
-    this.expression = process.env.NODE_ENV !== &#39;production&#39;
-      ? expOrFn.toString()
-      : &#39;&#39;
+    self.ctx.save()
+    self.redEnvelopeArr.splice(index, 1, newRedEnvelope)
+    self.ctx.translate(item.x + 50, 60 + self.itemSpeed[index].speed)
+    self.ctx.rotate(self.itemSpeed[index].speed * Math.PI / 180)
+    self.ctx.translate(-item.x - 50, -60 - self.itemSpeed[index].speed)
+    self.ctx.drawImage(item.img, item.x, self.itemSpeed[index].speed)
+    self.ctx.restore()
+    self.itemSpeed[index].speed += self.itemSpeed[index].step
+    // self.ctx.drawImage(item.img, item.x, item.y, self.ctx.width, self.ctx.height)
+  })
+},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.4使用&lt;code&gt;clearRect&lt;/code&gt;清除上一帧的效果，在调用&lt;code&gt;drawRedEnvelope&lt;/code&gt;绘制新一帧的效果，使用&lt;code&gt;requestAnimationFrame&lt;/code&gt;重复执行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;moveRedEnvelope() {
+  const self = this
+  self.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+  self.drawRedEnvelope()
+  window.requestAnimationFrame(self.moveRedEnvelope.bind(this))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.5点击红包时，循环遍历判断当前点击位置是否在某个红包内，如果遇到多个红包重叠的情况，只需取最上面一个就行了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;redEnvelopeClick() {
+  const self = this
+  const canvas = document.getElementById(&#39;canvas&#39;)
+  canvas.addEventListener(&#39;click&#39;, e =&amp;gt; {
+    let result = {}
+    this.redEnvelopeArr.forEach((item, index) =&amp;gt; {
+      const distanceX = e.clientX - item.x
+      const distanceY = e.clientY - item.y
+      const withinX = distanceX &amp;gt; 0
+      const withinY = distanceY &amp;gt; 0
+      if (withinX &amp;amp;&amp;amp; withinY) {
+        result = item // 最后的result返回，然后做一些处理
+      }
+    })
+  })
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;后言&#34;&gt;后言&lt;/h3&gt;
+
+&lt;p&gt;以上就是主要内容，需要特别注意的是，点击完了某个红包需要找个时间点清空整个页面上的动画，还有就是具体的点击实现的业务逻辑需自己去处理&lt;/p&gt;
+</description>
+    </item>
     
-    // 设置getter
-    // 如果传入expOrFn是一个函数
-    if (typeof expOrFn === &#39;function&#39;) {
-      this.getter = expOrFn
-    } else {
-      // 如果传入的不是一个函数，通过parsePath解析，赋值给getter
-      this.getter = parsePath(expOrFn)
-      if (!this.getter) {
-        // 如果解析出来的getter不是一个函数，设置为空 noop，并打印错误
-        this.getter = noop
-        process.env.NODE_ENV !== &#39;production&#39; &amp;amp;&amp;amp; warn(
-          `Failed watching path: &amp;quot;${expOrFn}&amp;quot; ` +
-          &#39;Watcher only accepts simple dot-delimited paths. &#39; +
-          &#39;For full control, use a function instead.&#39;,
-          vm
-        )
-      }
-    }
-    this.value = this.lazy
-      ? undefined
-      : this.get()
-  }
+    <item>
+      <title>nodejs实现excel导出数据的功能</title>
+      <link>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Sun, 10 Nov 2019 22:42:19 +0915</pubDate>
+      
+      <guid>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
+      <description>&lt;p&gt;1.对于一些业务系统，很常见的一个功能就是将数据生成excel导出，其实在&lt;code&gt;nodejs&lt;/code&gt;中已经很多优秀的第三方库可以实现这个功能，我这里选择的是&lt;code&gt;node-xlsx&lt;/code&gt;这个模块，其实它的本质也是依赖的&lt;code&gt;xlsx&lt;/code&gt;这个模块。&lt;/p&gt;
 
-  /**
-   * Evaluate the getter, and re-collect dependencies.
-   */
-  get () {
-    // 设置Dep.tartget为当前watcher，这样它就有addSub、removeSub等方法
-    pushTarget(this)
-    let value
-    const vm = this.vm
-    try {
-      // 得到调用getter的value
-      value = this.getter.call(vm, vm)
-    } catch (e) {
-      if (this.user) {
-        handleError(e, vm, `getter for watcher &amp;quot;${this.expression}&amp;quot;`)
-      } else {
-        throw e
-      }
-    } finally {
-      if (this.deep) {
-        traverse(value)
-      }
-      // 清楚Dep，移出target队列，重新设置Dep.target值
-      popTarget()
-      this.cleanupDeps()
-    }
-    
-    // 在进行模板渲染的时候，value为undefined
-    return value
-  }
-	
-	......
-	
-  // 在更新数据时，调用dep.notify，会触发update方法
-  update () {
-    if (this.lazy) {
-      this.dirty = true
-    } else if (this.sync) {
-      // 若生成Watcher传入配置sync
-      // 在更新的时候直接调用run方法，调用回掉方法
-      this.run()
-    } else {
-      // 如果不是sync配置，处理Watcher队列
-      // queueWatcher方法里会使用一个id来表示Watcher的优先级，依次执行上面的run方法
-      // 更新的时候如果watcher列表正在更新，则把新的watcher添加到对应的位置，并更新
-      // 否则，在下一个nextTick中执行flushSchedulerQueue
-      queueWatcher(this)
-    }
-  }
+&lt;p&gt;2.首先得将你需要的导出的数据组装好，并且设置好没一个列表的宽度，如：&lt;/p&gt;
 
-  run () {
-    if (this.active) {
-      const value = this.get()
-      if (
-        value !== this.value ||
-        isObject(value) ||
-        this.deep
-      ) {
-        const oldValue = this.value
-        this.value = value
-        if (this.user) {
-          try {
-            this.cb.call(this.vm, value, oldValue)
-          } catch (e) {
-            handleError(e, this.vm, `callback for watcher &amp;quot;${this.expression}&amp;quot;`)
-          }
-        } else {
-          // 回调
-          this.cb.call(this.vm, value, oldValue)
-        }
-      }
-    }
-  }
-	
-	......
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 后台所返回的数据
+let result = data || [];
+// 遍历组装数据
+result.map(item =&amp;gt; {
+    xlsxData.push([1, 2, 3]);
+});
+// 设置每一列的宽度
+let option = { 
+    &#39;!cols&#39;: [{
+        wch: 30
+    }, {
+        wch: 20
+    }, {
+        wch: 20
+    }]
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.调用&lt;code&gt;node-xlsx&lt;/code&gt;模块的&lt;code&gt;build&lt;/code&gt;方法，将数据转换为字节流数据，并设置请求的响应头，下载保存，大致代码如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 后台所返回的数据
+let result = data || [];
+
+// 遍历组装数据
+result.map(item =&amp;gt; {
+    xlsxData.push([1, 2, 3]);
+});
+
+// 设置每一列的宽度
+let option = { 
+    &#39;!cols&#39;: [{
+        wch: 30
+    }, {
+        wch: 20
+    }, {
+        wch: 20
+    }]
+};
+
+// res为express或koa2请求的相应结果，此方法需在express或koa2框架下运行
+getXlsxInfo(xlsxData, &#39;渠道粉丝统计数据&#39;, option, res);
+
+// 生成Excel表格并下载
+function getXlsxInfo(xlsxData, name, option, res) {
+    const buffer = xlsx.build([{
+        name: &#39;sheet&#39;,
+        data: xlsxData
+    }], option);
+    res.setHeader(&#39;Content-Type&#39;, &#39;application/vnd.openxmlformats&#39;);
+    res.setHeader(&#39;Content-Disposition&#39;, &#39;attachment; filename=&#39; + encodeURIComponent(name) + &#39;.xlsx&#39;);
+    res.end(buffer, &#39;binary&#39;);
 }
 
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4.有个坑就是使用这种方式下载，必须是直接访问你所写的&lt;code&gt;nodejs接口地址&lt;/code&gt;才能打开下载功能，若使用&lt;code&gt;ajax&lt;/code&gt;或&lt;code&gt;fetch&lt;/code&gt;等方式返回的会是乱码的形式。其原因在于，这两种方式的请求发送的数据不一样，后端解析返回头也不一样，异步请求是不能触发下载返回头的。&lt;/p&gt;
 </description>
     </item>
     

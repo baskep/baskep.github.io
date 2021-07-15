@@ -102,57 +102,12 @@
     </item>
     
     <item>
-      <title>Vue中的patch</title>
-      <link>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84patch/</link>
-      <pubDate>Thu, 13 Aug 2020 00:12:17 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84patch/</guid>
-      <description>在生成vnode之后，可以通过patch方法创建DOM元素、进行diff更新DOM元素、销毁DOM元素 1.首先是第一次初始化时，生成了vno</description>
-    </item>
-    
-    <item>
-      <title>Vue中的VNode</title>
-      <link>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84vnode/</link>
-      <pubDate>Tue, 04 Aug 2020 23:28:03 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue%E4%B8%AD%E7%9A%84vnode/</guid>
-      <description>经过compile编译模板字符串变成了render函数，在src/core/instance/render.js中，通过vnode = render.call(vm._renderProxy, vm.</description>
-    </item>
-    
-    <item>
-      <title>Vue里面compile模板编译</title>
-      <link>https://xtid.github.io/2020/vue%E9%87%8C%E9%9D%A2compile%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91/</link>
-      <pubDate>Thu, 30 Jul 2020 22:16:42 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue%E9%87%8C%E9%9D%A2compile%E6%A8%A1%E6%9D%BF%E7%BC%96%E8%AF%91/</guid>
-      <description>1.complie简述 complie阶段主要是将Vue代码通过一系列转换，最终生成对应的render字符串，然后Vue通过render字符串</description>
-    </item>
-    
-    <item>
-      <title>Vue2.x里面的双向数据绑定</title>
-      <link>https://xtid.github.io/2020/vue2.x%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/</link>
-      <pubDate>Wed, 29 Jul 2020 22:13:21 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue2.x%E9%87%8C%E9%9D%A2%E7%9A%84%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A/</guid>
-      <description>Vue2.x的数据绑定是通过数据劫持的方式来实现的，其中最核心的便是Object.defineProperty()，而Vue3.0里面数据绑</description>
-    </item>
-    
-    <item>
       <title>Vue的初始化渲染过程简介</title>
-      <link>https://xtid.github.io/2020/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</link>
+      <link>https://xtid.github.io/2020/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</link>
       <pubDate>Mon, 27 Jul 2020 22:25:56 +0800</pubDate>
       
-      <guid>https://xtid.github.io/2020/vue%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</guid>
+      <guid>https://xtid.github.io/2020/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</guid>
       <description>首先进入到src/core/instance/index.js，可以看到定义了一个Vue构造函数，内容很简单，如果不是生产环境并且不是通过n</description>
-    </item>
-    
-    <item>
-      <title>Vue自定义指令</title>
-      <link>https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/</link>
-      <pubDate>Sun, 26 Jul 2020 22:35:47 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/vue%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/</guid>
-      <description>Vue自定义指令也分全局指令和局部指令两种，全局指令和局部指令的使用方法分别为： // 全局指令使用方法 Vue.directive(&#39;test&#39;, { bind: function(){ ... } }) // 局部指令使用方法 Vue({ directives: { test: {</description>
     </item>
     
     <item>
