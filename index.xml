@@ -5,8 +5,301 @@
     <description>Recent content in 👨🏻‍💻 on 👨🏻‍💻</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 10 Jul 2021 16:51:03 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 03 Aug 2021 22:34:03 +0800</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Webpack5的新特性以及项目实战配置</title>
+      <link>https://xtid.github.io/2021/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 03 Aug 2021 22:34:03 +0800</pubDate>
+      
+      <guid>https://xtid.github.io/2021/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</guid>
+      <description>
+
+&lt;h3 id=&#34;前言&#34;&gt;前言&lt;/h3&gt;
+
+&lt;p&gt;webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了，我也实际在项目中运用了下，所以现在做个总结&lt;/p&gt;
+
+&lt;h3 id=&#34;新特性&#34;&gt;新特性&lt;/h3&gt;
+
+&lt;h4 id=&#34;1-用持久性缓存来提高构建性能&#34;&gt;1.用持久性缓存来提高构建性能&lt;/h4&gt;
+
+&lt;p&gt;在webpack4中，我们可以通过cache-loader等手段来将编译的结果写入到磁盘中，现在可以直接通过设置将编译结果缓存到文件系统中&lt;/p&gt;
+
+&lt;p&gt;type：&lt;code&gt;string: &#39;memory&#39; | &#39;filesystem&#39;&lt;/code&gt; ，将 &lt;code&gt;cache&lt;/code&gt; 类型设置为内存或者文件系统&lt;/p&gt;
+
+&lt;p&gt;buildDependencies：&lt;code&gt;object&lt;/code&gt;，针对构建的额外代码依赖的数组对象。webpack 将使用这些项和所有依赖项的哈希值来使文件系统缓存失效&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;cache: {
+  type: &#39;filesystem&#39;, // 将缓存类型设置为文件系统，默认为memory
+  buildDependencies: {
+    config: [__filename], // 这样设置后webpack能获取最新的配置以及依赖项来重新缓存
+  },
+},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;2-对资源实现了内部支持而不需要额外的loader&#34;&gt;2.对资源实现了内部支持而不需要额外的loader&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;asset/resource&lt;/code&gt; 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;asset/inline&lt;/code&gt; 导出一个资源的 data URI。之前通过使用 url-loader 实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;asset/source&lt;/code&gt; 导出资源的源代码。之前通过使用 raw-loader 实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;asset&lt;/code&gt; 在导出一个 data URI 和发送一个单独的文件之间自动选择。之前通过使用 url-loader，并且配置资源体积限制实现&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;module.export = {
+  module: {
+    rules: [{
+      test: /\.png$/,
+      type: &amp;quot;asset/resource&amp;quot;, //对应file-loader
+    },
+    {
+      test: /\.svg$/,
+      type: &amp;quot;asset/inline&amp;quot;, //对应url-loader 大小&amp;lt;limt 转化为base64
+    },
+    {
+      test: /\.txt$/,
+      type: &amp;quot;asset/source&amp;quot;, //对应raw-loader
+    },
+    {
+      test: /\.gif$/,
+      type: &amp;quot;asset&amp;quot;, //自动选择
+      parser: {
+        dataUrlCondition: {
+          maxSize: 4 * 1024,
+        },
+      },
+    }],
+  },
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;3-用更好的-tree-shaking-和代码生成来改善包大小&#34;&gt;3.用更好的 Tree Shaking 和代码生成来改善包大小&lt;/h4&gt;
+
+&lt;p&gt;现在的Tree Shaking 能够完全剔除未使用的代码，同样使用ES6模块，并开起production mode；并且现在能处理对 Commonjs 的 tree shaking，&lt;strong&gt;允许消除未使用的CommonJs导出并跟踪require()调用中引用的导出名称&lt;/strong&gt;，在打包出的文件中可以看到最终的代码。&lt;/p&gt;
+
+&lt;h4 id=&#34;4-moduleids-chunkids-content-hash-的优化&#34;&gt;4.moduleIds &amp;amp; chunkIds &amp;amp; content hash 的优化&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;moduleIds &amp;amp; chunkIds的优化&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在webpack5以前，没有从entry打包的chunk文件，都会以1，2，3&amp;hellip;的文件命名方式输出，文件名称后的hash值是用chunkhash生成的。这样会造成当删除或者暂时不用1.js这个文件后，那么重新打包时2.js-&amp;gt;1.js,3.js-&amp;gt;2.js，这样会造成原来线上的2.js和3.js缓存失效。&lt;/p&gt;
+
+&lt;p&gt;webpack5为了确保moduleId，chunkId 的确定性， 增加了如下配置：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;optimization.moduleIds&lt;/code&gt;&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;选荐值&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;code&gt;natural&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;按使用顺序的数字 id。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;code&gt;named&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;对调试更友好的可读的 id。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;code&gt;deterministic&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;被哈希转化成的小位数值模块名。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;code&gt;size&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;专注于让初始下载包大小更小的数字 id。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;code&gt;deterministic&lt;/code&gt; 选项有益于长期缓存，但对比于 &lt;code&gt;hashed&lt;/code&gt; 来说，它会导致更小的文件 bundles。数字值的长度会被选作用于填满最多 80%的 id 空间。 当 &lt;code&gt;optimization.moduleIds&lt;/code&gt; 被设置成 &lt;code&gt;deterministic&lt;/code&gt;，默认最小 3 位数字会被使用。deterministic配置在生产模式下是默认开启）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;optimization.moduleIds = &#39;deterministic&#39;
+optimization.chunkIds = &#39;deterministic&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然在开发模式下，可以设置成&lt;code&gt;natural&lt;/code&gt;以保持以前的老模式&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;content hash的优化&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;之前使用content hash的时候，当改动文件内容的时候content hash会重新生成；而现在Webpack 5 将使用真正的文件内容哈希值，也就是说当进行了修改注释或者修改变量名等代码逻辑是没有影响的操作时，文件内容的变更不会导致 contenthash 变化。&lt;/p&gt;
+
+&lt;h4 id=&#34;5-支持生成es6-es2015的代码&#34;&gt;5.支持生成ES6/ES2015的代码&lt;/h4&gt;
+
+&lt;p&gt;webpack 4 默认只能输出 ES5 代码，现在支持指定环境，然后生成该环境的一个代码&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;target&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;string&lt;/code&gt; &lt;code&gt;[string]&lt;/code&gt; &lt;code&gt;false&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;告知 webpack 为目标(target)指定一个环境。默认值为 &lt;code&gt;&amp;quot;browserslist&amp;quot;&lt;/code&gt;，如果没有找到 browserslist 的配置，则默认为 &lt;code&gt;&amp;quot;web&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;然后我们设置&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;target: [&#39;web&#39;, &#39;es5&#39;]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;webpack 将生成 web 平台的运行时代码，并且只使用 ES5 相关的特性&lt;/p&gt;
+
+&lt;h4 id=&#34;6-移除了-node-js-polyfills&#34;&gt;6.移除了 Node.js Polyfills&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;在早期，webpack 的目的是为了让大多数的 Node.js 模块运行在浏览器中，但如今模块的格局已经发生了变化，现在许多模块主要是为前端而编写。webpack &amp;lt;= 4 的版本中提供了许多 Node.js 核心模块的 polyfills，一旦某个模块引用了任何一个核心模块（如 &lt;code&gt;cypto&lt;/code&gt; 模块），webpack 就会自动引用这些 polyfills。&lt;/p&gt;
+
+&lt;p&gt;尽管这会使得使用为 Node.js 编写模块变得容易，但它在构建时给 bundle 附加了庞大的 polyfills。在大部分情况下，这些 polyfills 并非必须。&lt;/p&gt;
+
+&lt;p&gt;从 webpack 5 开始不再自动填充这些 polyfills，而会专注于前端模块兼容。我们的目标是提高 web 平台的兼容性。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;迁移&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;尽量使用前端兼容的模块。&lt;/li&gt;
+&lt;li&gt;可以手动为 Node.js 核心模块添加 polyfill。错误提示会告诉你如何实现。&lt;/li&gt;
+&lt;li&gt;Package 作者：在 &lt;code&gt;package.json&lt;/code&gt; 中添加 &lt;code&gt;browser&lt;/code&gt; 字段，使 package 与前端兼容。为浏览器提供其他的实现/dependencies。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;7-module-federation&#34;&gt;7.Module Federation&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;多个独立的构建可以组成一个应用程序，这些独立的构建之间不应该存在依赖关系，因此可以单独开发和部&amp;gt;署它们。&lt;/p&gt;
+
+&lt;p&gt;这通常被称作微前端，但并不仅限于此。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;简单来说就是允许一个应用中动态地去加载和引入另一个应用的代码，就好像本地起一个应用作CDN库，其它地方去引用，具体可以看&lt;a href=&#34;https://webpack.docschina.org/concepts/module-federation/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;官方配置&lt;/a&gt;，个人感觉并不是特别的实用&lt;/p&gt;
+
+&lt;h3 id=&#34;项目实战&#34;&gt;项目实战&lt;/h3&gt;
+
+&lt;p&gt;首先定义一个webpack.config.base.js，即开发环境以及生产环境都需要的配置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const path = require(&#39;path&#39;)
+const { CleanWebpackPlugin } = require(&#39;clean-webpack-plugin&#39;)
+const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;)
+const MiniCssExtractPlugin = require(&amp;quot;mini-css-extract-plugin&amp;quot;)
+
+module.exports = {
+  entry: &#39;./src/index.js&#39;, 
+  output: {
+    filename: &#39;[name].[chunkhash].bundle.js&#39;,
+    path: path.resolve(__dirname, &#39;dist&#39;) 
+  },
+  module: {
+    rules: [{
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: &#39;babel-loader&#39;, 
+        }
+      },
+      {
+        test: /\.s[ac]ss$/, 
+        use: [MiniCssExtractPlugin.loader, &#39;css-loader&#39;, &#39;sass-loader&#39;]
+      },
+      {
+        test: /\.(png|svg|jpg|gif|webp|jfif)$/,
+        use: [{
+          loader: &#39;url-loader&#39;,
+          options: {
+            limit: 1024 * 100,
+            name: &#39;assets/[name]_[hash:10].[ext]&#39;
+          }
+        }]
+      }
+    ]
+  },
+  plugins: [
+    new CleanWebpackPlugin({ // 每次打包前删除dist文件夹中的文件
+      cleanOnceBeforeBuildPatterns: [&#39;**/*&#39;, &#39;!favicon.ico&#39;, &#39;!lib/**&#39;], // dist文件夹下的favicon.ico文件和lib文件夹下的东西都忽略不进行删除
+    }),
+    new HtmlWebpackPlugin({
+      template: &#39;index.html&#39;, 
+      favicon: &#39;favicon.ico&#39;, 
+      inject: &#39;head&#39; 
+    }),
+    new MiniCssExtractPlugin({
+      filename: &#39;[name]-[contenthash].css&#39;
+    }),
+  ],
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后配置webpack.config.dev.js，开发环境主要配置代理服务器，代码热更新，以及使用最新的缓存特性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const { merge } = require(&#39;webpack-merge&#39;)
+const path = require(&#39;path&#39;)
+const baseConfig = require(&#39;./webpack.base.js&#39;)
+const ReactRefreshPlugin = require(&#39;@pmmmwh/react-refresh-webpack-plugin&#39;)
+const webpack = require(&#39;webpack&#39;)
+
+module.exports = merge(baseConfig, {
+  mode: &#39;development&#39;,
+  devtool: &#39;eval-cheap-module-source-map&#39;,
+  devServer: { 
+    contentBase: path.resolve(__dirname, &#39;dist&#39;),
+    port: &#39;8090&#39;,
+    proxy: { 
+      &#39;/api&#39;: {
+        target: &#39;http://127.0.0.1:3001&#39;,
+        pathRewrite: {
+          &#39;^/api&#39;: &#39;
+        }
+      },
+    },
+    hot: true,
+    open: true,
+  },
+  // 热更新
+  plugins: [
+    new ReactRefreshPlugin({
+      overlay: false,
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  // 缓存
+  cache: {
+    type: &#39;filesystem&#39;,
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后是生产环境的配置，生产环境的配置主要是对代码进行一个压缩&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const { merge } = require(&#39;webpack-merge&#39;) 
+const OptimizeCSSAssetsPlugin = require(&amp;quot;optimize-css-assets-webpack-plugin&amp;quot;)
+const TerserJSPlugin = require(&amp;quot;terser-webpack-plugin&amp;quot;)
+const baseConfig = require(&#39;./webpack.base.js&#39;)
+
+module.exports = merge(baseConfig, {
+  mode: &amp;quot;production&amp;quot;,
+  optimization: {
+    minimizer: [new OptimizeCSSAssetsPlugin({})],
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})] 
+  }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上就是一个webpack5的基本配置，可以看到除了其内部更新的特性意外，其它的还是可以用原来的loader去配置，主要用到的还是它的缓存的一个功能，当然其它的你也可以按照官方文档进行一个配置&lt;/p&gt;
+
+&lt;h3 id=&#34;参考链接&#34;&gt;参考链接&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://webpack.docschina.org/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;webpack官方网站&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://juejin.cn/post/6983985071699001357&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;webpack新特性&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>前端的模块规范简述以及如何实现一个UMD-Loader方法</title>
@@ -4148,75 +4441,6 @@ ctx: null, // Canvas context对象
 &lt;h3 id=&#34;后言&#34;&gt;后言&lt;/h3&gt;
 
 &lt;p&gt;以上就是主要内容，需要特别注意的是，点击完了某个红包需要找个时间点清空整个页面上的动画，还有就是具体的点击实现的业务逻辑需自己去处理&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>nodejs实现excel导出数据的功能</title>
-      <link>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
-      <pubDate>Sun, 10 Nov 2019 22:42:19 +0915</pubDate>
-      
-      <guid>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
-      <description>&lt;p&gt;1.对于一些业务系统，很常见的一个功能就是将数据生成excel导出，其实在&lt;code&gt;nodejs&lt;/code&gt;中已经很多优秀的第三方库可以实现这个功能，我这里选择的是&lt;code&gt;node-xlsx&lt;/code&gt;这个模块，其实它的本质也是依赖的&lt;code&gt;xlsx&lt;/code&gt;这个模块。&lt;/p&gt;
-
-&lt;p&gt;2.首先得将你需要的导出的数据组装好，并且设置好没一个列表的宽度，如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 后台所返回的数据
-let result = data || [];
-// 遍历组装数据
-result.map(item =&amp;gt; {
-    xlsxData.push([1, 2, 3]);
-});
-// 设置每一列的宽度
-let option = { 
-    &#39;!cols&#39;: [{
-        wch: 30
-    }, {
-        wch: 20
-    }, {
-        wch: 20
-    }]
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;3.调用&lt;code&gt;node-xlsx&lt;/code&gt;模块的&lt;code&gt;build&lt;/code&gt;方法，将数据转换为字节流数据，并设置请求的响应头，下载保存，大致代码如下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 后台所返回的数据
-let result = data || [];
-
-// 遍历组装数据
-result.map(item =&amp;gt; {
-    xlsxData.push([1, 2, 3]);
-});
-
-// 设置每一列的宽度
-let option = { 
-    &#39;!cols&#39;: [{
-        wch: 30
-    }, {
-        wch: 20
-    }, {
-        wch: 20
-    }]
-};
-
-// res为express或koa2请求的相应结果，此方法需在express或koa2框架下运行
-getXlsxInfo(xlsxData, &#39;渠道粉丝统计数据&#39;, option, res);
-
-// 生成Excel表格并下载
-function getXlsxInfo(xlsxData, name, option, res) {
-    const buffer = xlsx.build([{
-        name: &#39;sheet&#39;,
-        data: xlsxData
-    }], option);
-    res.setHeader(&#39;Content-Type&#39;, &#39;application/vnd.openxmlformats&#39;);
-    res.setHeader(&#39;Content-Disposition&#39;, &#39;attachment; filename=&#39; + encodeURIComponent(name) + &#39;.xlsx&#39;);
-    res.end(buffer, &#39;binary&#39;);
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;4.有个坑就是使用这种方式下载，必须是直接访问你所写的&lt;code&gt;nodejs接口地址&lt;/code&gt;才能打开下载功能，若使用&lt;code&gt;ajax&lt;/code&gt;或&lt;code&gt;fetch&lt;/code&gt;等方式返回的会是乱码的形式。其原因在于，这两种方式的请求发送的数据不一样，后端解析返回头也不一样，异步请求是不能触发下载返回头的。&lt;/p&gt;
 </description>
     </item>
     
