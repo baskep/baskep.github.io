@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Vue的初始化渲染过程简介 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="Vue的初始化渲染过程简介" />
+<meta property="og:description" content="首先进入到src/core/instance/index.js，可以看到定义了一个Vue构造函数，内容很简单，如果不是生产环境并且不是通过n" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luckly.work/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" />
+<meta property="og:image" content="https://luckly.work/logo.png"/>
+<meta property="article:published_time" content="2020-07-27T22:25:56+08:00" />
+<meta property="article:modified_time" content="2020-07-27T22:25:56+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luckly.work/logo.png"/>
+
+<meta name="twitter:title" content="Vue的初始化渲染过程简介"/>
+<meta name="twitter:description" content="首先进入到src/core/instance/index.js，可以看到定义了一个Vue构造函数，内容很简单，如果不是生产环境并且不是通过n"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" /><link rel="prev" href="https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" /><link rel="next" href="https://luckly.work/babel%E7%AE%80%E4%BB%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vue的初始化渲染过程简介",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luckly.work\/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B\/"
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  4541 ,
+        "url": "https:\/\/luckly.work\/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B\/","datePublished": "2020-07-27T22:25:56+08:00","dateModified": "2020-07-27T22:25:56+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Vue的初始化渲染过程简介</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/"><i class="far fa-folder fa-fw"></i>源码理解</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-07-27">2020-07-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4541 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>首先进入到<code>src/core/instance/index.js</code>，可以看到定义了一个<code>Vue</code>构造函数，内容很简单，如果不是生产环境并且不是通过<code>new</code>关键字创建对象的话，就在控制台打印一个<code>warn</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Vue</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span> <span class="o">&amp;&amp;</span>
+    <span class="o">!</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">Vue</span><span class="p">)</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;Vue is a constructor and should be called with the `new` keyword&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_init</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>后面调用了几个函数，用来在<code>Vue</code>对象上创建各种属性或者方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">initMixin</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span>
+<span class="nx">stateMixin</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span>
+<span class="nx">eventsMixin</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span>
+<span class="nx">lifecycleMixin</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span>
+<span class="nx">renderMixin</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2>1.initMixin</h2>
+<p>初始化方法，首先为当前<code>vm</code>设置一个<code>_uid</code>，然后添加属性<code>_isVue</code>，其目的在于监听数据变化时过滤<code>vm</code>，<code>_isComponent</code>是内部创建子组件时才会添加为<code>true</code>的属性，然后走到<code>else</code>分支，调用<code>resolveConstructorOptions</code>会获取构造器父级的<code>options</code>，然后调用<code>mergeOptions</code>合并父级的<code>options</code>以及本身传入的<code>options</code>，最后生成的<code>options</code>包含<code>components、directives</code>等属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">initMixin</span> <span class="p">(</span><span class="nx">Vue</span><span class="o">:</span> <span class="nx">Class</span><span class="o">&lt;</span><span class="nx">Component</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_init</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="o">?:</span> <span class="nb">Object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">vm</span><span class="o">:</span> <span class="nx">Component</span> <span class="o">=</span> <span class="k">this</span>
+    <span class="c1">// a uid
+</span><span class="c1"></span>    <span class="nx">vm</span><span class="p">.</span><span class="nx">_uid</span> <span class="o">=</span> <span class="nx">uid</span><span class="o">++</span>
+
+    <span class="kd">let</span> <span class="nx">startTag</span><span class="p">,</span> <span class="nx">endTag</span>
+    <span class="cm">/* istanbul ignore if */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">config</span><span class="p">.</span><span class="nx">performance</span> <span class="o">&amp;&amp;</span> <span class="nx">mark</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">startTag</span> <span class="o">=</span> <span class="sb">`vue-perf-start:</span><span class="si">${</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_uid</span><span class="si">}</span><span class="sb">`</span>
+      <span class="nx">endTag</span> <span class="o">=</span> <span class="sb">`vue-perf-end:</span><span class="si">${</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_uid</span><span class="si">}</span><span class="sb">`</span>
+      <span class="nx">mark</span><span class="p">(</span><span class="nx">startTag</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// a flag to avoid this being observed
+</span><span class="c1"></span>    <span class="nx">vm</span><span class="p">.</span><span class="nx">_isVue</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="c1">// merge options
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">_isComponent</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// optimize internal component instantiation
+</span><span class="c1"></span>      <span class="c1">// since dynamic options merging is pretty slow, and none of the
+</span><span class="c1"></span>      <span class="c1">// internal component options needs special treatment.
+</span><span class="c1"></span>      <span class="nx">initInternalComponent</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span> <span class="o">=</span> <span class="nx">mergeOptions</span><span class="p">(</span>
+        <span class="nx">resolveConstructorOptions</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">constructor</span><span class="p">),</span>
+        <span class="nx">options</span> <span class="o">||</span> <span class="p">{},</span>
+        <span class="nx">vm</span>
+      <span class="p">)</span>
+    <span class="p">}</span>
+    <span class="cm">/* istanbul ignore else */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">initProxy</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">_renderProxy</span> <span class="o">=</span> <span class="nx">vm</span>
+    <span class="p">}</span>
+    <span class="c1">// expose real self
+</span><span class="c1"></span>    <span class="nx">vm</span><span class="p">.</span><span class="nx">_self</span> <span class="o">=</span> <span class="nx">vm</span>
+    <span class="nx">initLifecycle</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span>
+    <span class="nx">initEvents</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span>
+    <span class="nx">initRender</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span>
+    <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">&#39;beforeCreate&#39;</span><span class="p">)</span>
+    <span class="nx">initInjections</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="c1">// resolve injections before data/props
+</span><span class="c1"></span>    <span class="nx">initState</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span>
+    <span class="nx">initProvide</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="c1">// resolve provide after data/props
+</span><span class="c1"></span>    <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">&#39;created&#39;</span><span class="p">)</span>
+
+    <span class="cm">/* istanbul ignore if */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">config</span><span class="p">.</span><span class="nx">performance</span> <span class="o">&amp;&amp;</span> <span class="nx">mark</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">_name</span> <span class="o">=</span> <span class="nx">formatComponentName</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+      <span class="nx">mark</span><span class="p">(</span><span class="nx">endTag</span><span class="p">)</span>
+      <span class="nx">measure</span><span class="p">(</span><span class="sb">`vue </span><span class="si">${</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_name</span><span class="si">}</span><span class="sb"> init`</span><span class="p">,</span> <span class="nx">startTag</span><span class="p">,</span> <span class="nx">endTag</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">$mount</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">el</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3> 1.1initLifecycle </h3>
+<p>这个方法首先会设置<code>vm</code>的一个父子节点、根节点信息，然后会定义一些生命周期相关的属性，比如<code>_isMounted、_isDestroyed、_isBeingDestroyed</code>等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">initLifecycle</span> <span class="p">(</span><span class="nx">vm</span><span class="o">:</span> <span class="nx">Component</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span>
+
+  <span class="c1">// locate first non-abstract parent
+</span><span class="c1"></span>  <span class="kd">let</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">parent</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">parent</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="kr">abstract</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">parent</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="kr">abstract</span> <span class="o">&amp;&amp;</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">$parent</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">parent</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">$parent</span>
+    <span class="p">}</span>
+    <span class="nx">parent</span><span class="p">.</span><span class="nx">$children</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">$parent</span> <span class="o">=</span> <span class="nx">parent</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">$root</span> <span class="o">=</span> <span class="nx">parent</span> <span class="o">?</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">$root</span> <span class="o">:</span> <span class="nx">vm</span>
+
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">$children</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">$refs</span> <span class="o">=</span> <span class="p">{}</span>
+
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">_watcher</span> <span class="o">=</span> <span class="kc">null</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">_inactive</span> <span class="o">=</span> <span class="kc">null</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">_directInactive</span> <span class="o">=</span> <span class="kc">false</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">_isMounted</span> <span class="o">=</span> <span class="kc">false</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">_isDestroyed</span> <span class="o">=</span> <span class="kc">false</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">_isBeingDestroyed</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3> 1.2initEvents </h3>
+<p>通过名字可以看出是一个初始化事件相关的方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">initEvents</span> <span class="p">(</span><span class="nx">vm</span><span class="o">:</span> <span class="nx">Component</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// events表示父组件绑定在当前组件上的事件
+</span><span class="c1"></span>  <span class="nx">vm</span><span class="p">.</span><span class="nx">_events</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+  <span class="c1">// 属性表示父组件是否通过&#34;@hook:&#34;把钩子函数绑定在当前组件上
+</span><span class="c1"></span>  <span class="nx">vm</span><span class="p">.</span><span class="nx">_hasHookEvent</span> <span class="o">=</span> <span class="kc">false</span>
+  <span class="c1">// init parent attached events
+</span><span class="c1"></span>  <span class="c1">// 同样是来表示父组件绑定在当前组件上的事件
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">listeners</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">_parentListeners</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">listeners</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">updateComponentListeners</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">listeners</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果<code>listeners</code>有值，则调用<code>updateComponentListeners</code>这个方法，其内部调用了<code>updateListeners</code>，其中的<code>add</code>方法会调用<code>vm.$on</code>，<code>vm.$on</code>会监听当前实例上的自定义事件，<code>remove</code>会调用<code>vm.$off</code>，移出这个事件监听</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">add</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">target</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">remove</span> <span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">target</span><span class="p">.</span><span class="nx">$off</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">updateComponentListeners</span> <span class="p">(</span>
+  <span class="nx">vm</span><span class="o">:</span> <span class="nx">Component</span><span class="p">,</span>
+  <span class="nx">listeners</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span>
+  <span class="nx">oldListeners</span><span class="o">:</span> <span class="o">?</span><span class="nb">Object</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 保存当前的vm引用
+</span><span class="c1"></span>  <span class="nx">target</span> <span class="o">=</span> <span class="nx">vm</span>
+  <span class="c1">// 传入listeners，父组件绑定在当前组件上的事件，oldListeners同理，不过在第一次初始化的时候为空
+</span><span class="c1"></span>  <span class="c1">// 其内部会遍历listeners调用add方法添加监听事件，同时移出oldListeners
+</span><span class="c1"></span>  <span class="nx">updateListeners</span><span class="p">(</span><span class="nx">listeners</span><span class="p">,</span> <span class="nx">oldListeners</span> <span class="o">||</span> <span class="p">{},</span> <span class="nx">add</span><span class="p">,</span> <span class="nx">remove</span><span class="p">,</span> <span class="nx">createOnceHandler</span><span class="p">,</span> <span class="nx">vm</span><span class="p">)</span>
+  <span class="nx">target</span> <span class="o">=</span> <span class="kc">undefined</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3> 1.3initRender </h3>
+<p>主要是添加了一些虚拟dom、<code>slot</code>等相关的属性和方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">initRender</span> <span class="p">(</span><span class="nx">vm</span><span class="o">:</span> <span class="nx">Component</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 表示虚拟dom节点
+</span><span class="c1"></span>  <span class="nx">vm</span><span class="p">.</span><span class="nx">_vnode</span> <span class="o">=</span> <span class="kc">null</span> 
+  <span class="c1">// 表示当前实例render得到的Vnode
+</span><span class="c1"></span>  <span class="nx">vm</span><span class="p">.</span><span class="nx">_staticTrees</span> <span class="o">=</span> <span class="kc">null</span> 
+  <span class="kr">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span>
+  <span class="kr">const</span> <span class="nx">parentVnode</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$vnode</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">_parentVnode</span>  <span class="nx">tree</span>
+  <span class="kr">const</span> <span class="nx">renderContext</span> <span class="o">=</span> <span class="nx">parentVnode</span> <span class="o">&amp;&amp;</span> <span class="nx">parentVnode</span><span class="p">.</span><span class="nx">context</span>
+  <span class="c1">// 生成插槽内容
+</span><span class="c1"></span>  <span class="nx">vm</span><span class="p">.</span><span class="nx">$slots</span> <span class="o">=</span> <span class="nx">resolveSlots</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">_renderChildren</span><span class="p">,</span> <span class="nx">renderContext</span><span class="p">)</span>
+  <span class="c1">// 作用域插槽，此时为空
+</span><span class="c1"></span>  <span class="nx">vm</span><span class="p">.</span><span class="nx">$scopedSlots</span> <span class="o">=</span> <span class="nx">emptyObject</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">_c</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">createElement</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">$createElement</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">createElement</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="nx">parentData</span> <span class="o">=</span> <span class="nx">parentVnode</span> <span class="o">&amp;&amp;</span> <span class="nx">parentVnode</span><span class="p">.</span><span class="nx">data</span>
+	<span class="p">......</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>resolveSlots</code>方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">resolveSlots</span> <span class="p">(</span>
+  <span class="nx">children</span><span class="o">:</span> <span class="o">?</span><span class="nb">Array</span><span class="o">&lt;</span><span class="nx">VNode</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nx">context</span><span class="o">:</span> <span class="o">?</span><span class="nx">Component</span>
+<span class="p">)</span><span class="o">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">key</span><span class="o">:</span> <span class="nx">string</span><span class="p">]</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">VNode</span><span class="o">&gt;</span> <span class="p">}</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">children</span> <span class="o">||</span> <span class="o">!</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{}</span>
+  <span class="p">}</span>
+  <span class="kr">const</span> <span class="nx">slots</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="c1">// 遍历当前节点chilren
+</span><span class="c1"></span>  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="c1">// 获取data
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">child</span><span class="p">.</span><span class="nx">data</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">data</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">attrs</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">slot</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">delete</span> <span class="nx">data</span><span class="p">.</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">slot</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">((</span><span class="nx">child</span><span class="p">.</span><span class="nx">context</span> <span class="o">===</span> <span class="nx">context</span> <span class="o">||</span> <span class="nx">child</span><span class="p">.</span><span class="nx">fnContext</span> <span class="o">===</span> <span class="nx">context</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+      <span class="nx">data</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">slot</span> <span class="o">!=</span> <span class="kc">null</span>
+    <span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 拿到插槽名称
+</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">slot</span>
+      <span class="kr">const</span> <span class="nx">slot</span> <span class="o">=</span> <span class="p">(</span><span class="nx">slots</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="nx">slots</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]))</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">tag</span> <span class="o">===</span> <span class="s1">&#39;template&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">slot</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">slot</span><span class="p">,</span> <span class="nx">child</span><span class="p">.</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[])</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">slot</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">child</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// 如果 data.slot 不存在，则是默认插槽的内容，则把对应的 child 添加到 slots.defaults 中
+</span><span class="c1"></span>      <span class="p">(</span><span class="nx">slots</span><span class="p">.</span><span class="k">default</span> <span class="o">||</span> <span class="p">(</span><span class="nx">slots</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="p">[])).</span><span class="nx">push</span><span class="p">(</span><span class="nx">child</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// 最后过滤一些空内容
+</span><span class="c1"></span>  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">name</span> <span class="k">in</span> <span class="nx">slots</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">slots</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">every</span><span class="p">(</span><span class="nx">isWhitespace</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">delete</span> <span class="nx">slots</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">slots</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>调用钩子函数<code>beforeCreate</code></p>
+<h3> 1.4initProvide和initInjection </h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">initProvide</span> <span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">provide</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">provide</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">provide</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">vm</span><span class="p">.</span><span class="nx">_provided</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">provide</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span>
+      <span class="o">?</span> <span class="nx">provide</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span>
+    <span class="o">:</span> <span class="nx">provide</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">initInjections</span> <span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 获取当前节点上的inject属性
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">resolveInject</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">inject</span><span class="p">,</span> <span class="nx">vm</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">toggleObserving</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+    <span class="c1">// 遍历这些属性，defineReactive，将这些属性变成响应式的
+</span><span class="c1"></span>    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+      <span class="cm">/* istanbul ignore else */</span>
+      <span class="p">{</span>
+        <span class="nx">defineReactive$$1</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="nx">warn</span><span class="p">(</span>
+            <span class="s2">&#34;Avoid mutating an injected value directly since the changes will be &#34;</span> <span class="o">+</span>
+            <span class="s2">&#34;overwritten whenever the provided component re-renders. &#34;</span> <span class="o">+</span>
+            <span class="s2">&#34;injection being mutated: \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34;&#34;</span><span class="p">,</span>
+            <span class="nx">vm</span>
+          <span class="p">);</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">toggleObserving</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3> 1.5initState </h3>
+<p>主要是初始化一些数据和属性，比如<code>props</code>、<code>methods</code>、<code>data</code>、<code>computed</code>、<code>watch</code>,</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">initState</span> <span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">_watchers</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span> <span class="nx">initProps</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">props</span><span class="p">);</span> <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">methods</span><span class="p">)</span> <span class="p">{</span> <span class="nx">initMethods</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">methods</span><span class="p">);</span> <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">initData</span><span class="p">(</span><span class="nx">vm</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">observe</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_data</span> <span class="o">=</span> <span class="p">{},</span> <span class="kc">true</span> <span class="cm">/* asRootData */</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">computed</span><span class="p">)</span> <span class="p">{</span> <span class="nx">initComputed</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">computed</span><span class="p">);</span> <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">opts</span><span class="p">.</span><span class="nx">watch</span> <span class="o">&amp;&amp;</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">watch</span> <span class="o">!==</span> <span class="nx">nativeWatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">initWatch</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">watch</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>初始化<code>props</code>属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">initProps</span> <span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">propsOptions</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 获取当前节点的props属性值
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">propsData</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">propsData</span> <span class="o">||</span> <span class="p">{};</span>
+  <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">_props</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="kd">var</span> <span class="nx">isRoot</span> <span class="o">=</span> <span class="o">!</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$parent</span><span class="p">;</span>
+  <span class="c1">// 用于保存当前组件的props里的key，以便之后在父组件更新props时可以直接使用数组迭代
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">_propKeys</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">var</span> <span class="nx">isRoot</span> <span class="o">=</span> <span class="o">!</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$parent</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isRoot</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">toggleObserving</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">loop</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">key</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">keys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+    <span class="c1">// validateProp验证当前prop[key]是否propsOptions定义的要求
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">validateProp</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">propsOptions</span><span class="p">,</span> <span class="nx">propsData</span><span class="p">,</span> <span class="nx">vm</span><span class="p">);</span>
+    <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">hyphenatedKey</span> <span class="o">=</span> <span class="nx">hyphenate</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">isReservedAttribute</span><span class="p">(</span><span class="nx">hyphenatedKey</span><span class="p">)</span> <span class="o">||</span>
+          <span class="nx">config</span><span class="p">.</span><span class="nx">isReservedAttr</span><span class="p">(</span><span class="nx">hyphenatedKey</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">warn</span><span class="p">(</span>
+          <span class="p">(</span><span class="s2">&#34;\&#34;&#34;</span> <span class="o">+</span> <span class="nx">hyphenatedKey</span> <span class="o">+</span> <span class="s2">&#34;\&#34; is a reserved attribute and cannot be used as component prop.&#34;</span><span class="p">),</span>
+          <span class="nx">vm</span>
+        <span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// 添加响应式属性，这样props里面的值改变之后，组件会自动更新视图
+</span><span class="c1"></span>      <span class="nx">defineReactive$$1</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isRoot</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">isUpdatingChildComponent</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">warn</span><span class="p">(</span>
+            <span class="s2">&#34;Avoid mutating a prop directly since the value will be &#34;</span> <span class="o">+</span>
+            <span class="s2">&#34;overwritten whenever the parent component re-renders. &#34;</span> <span class="o">+</span>
+            <span class="s2">&#34;Instead, use a data or computed property based on the prop&#39;s &#34;</span> <span class="o">+</span>
+            <span class="s2">&#34;value. Prop being mutated: \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34;&#34;</span><span class="p">,</span>
+            <span class="nx">vm</span>
+          <span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="c1">// static props are already proxied on the component&#39;s prototype
+</span><span class="c1"></span>    <span class="c1">// during Vue.extend(). We only need to proxy props defined at
+</span><span class="c1"></span>    <span class="c1">// instantiation here.
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">vm</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">proxy</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s2">&#34;_props&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+	<span class="c1">// 循环遍历key
+</span><span class="c1"></span>  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">propsOptions</span><span class="p">)</span> <span class="nx">loop</span><span class="p">(</span> <span class="nx">key</span> <span class="p">);</span>
+  <span class="nx">toggleObserving</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>初始化<code>methods</code>属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">initMethods</span> <span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">methods</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// props属性用于判断methods中的方法名是否和props的属性重名
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">methods</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">methods</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">warn</span><span class="p">(</span>
+          <span class="s2">&#34;Method \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34; has type \&#34;&#34;</span> <span class="o">+</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">methods</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&#34;\&#34; in the component definition. &#34;</span> <span class="o">+</span>
+          <span class="s2">&#34;Did you reference the function correctly?&#34;</span><span class="p">,</span>
+          <span class="nx">vm</span>
+        <span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// 如果props中有同名属性，则报错
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">props</span> <span class="o">&amp;&amp;</span> <span class="nx">hasOwn</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">warn</span><span class="p">(</span>
+          <span class="p">(</span><span class="s2">&#34;Method \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34; has already been defined as a prop.&#34;</span><span class="p">),</span>
+          <span class="nx">vm</span>
+        <span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// 如果key是以$或_开头则，也报错
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">((</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">vm</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">isReserved</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">warn</span><span class="p">(</span>
+          <span class="s2">&#34;Method \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34; conflicts with an existing Vue instance method. &#34;</span> <span class="o">+</span>
+          <span class="s2">&#34;Avoid defining component methods that start with _ or $.&#34;</span>
+        <span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">vm</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">methods</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span> <span class="o">?</span> <span class="nx">noop</span> <span class="o">:</span> <span class="nx">bind</span><span class="p">(</span><span class="nx">methods</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">vm</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>初始化<code>data</code>属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">initData</span> <span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 获取data属性
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+  <span class="c1">// 如果data是一个function，则调用getData返回里面的值，否则直接将data属性赋给_data
+</span><span class="c1"></span>  <span class="nx">data</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">_data</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">data</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span>
+    <span class="o">?</span> <span class="nx">getData</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">vm</span><span class="p">)</span>
+  <span class="o">:</span> <span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+  <span class="c1">// 如果data属性不是一个对象，设置data为空对象，并打印一个warn
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">warn</span><span class="p">(</span>
+      <span class="s1">&#39;data functions should return an object:\n&#39;</span> <span class="o">+</span>
+      <span class="s1">&#39;https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function&#39;</span><span class="p">,</span>
+      <span class="nx">vm</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// 获取data keys，props属性，methods属性
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">methods</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">methods</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">keys</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">{</span>
+      <span class="c1">// 当前data的key如果和methods中的方法重名，抛出警告
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">methods</span> <span class="o">&amp;&amp;</span> <span class="nx">hasOwn</span><span class="p">(</span><span class="nx">methods</span><span class="p">,</span> <span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">warn</span><span class="p">(</span>
+          <span class="p">(</span><span class="s2">&#34;Method \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34; has already been defined as a data property.&#34;</span><span class="p">),</span>
+          <span class="nx">vm</span>
+        <span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// 当前data的key如果和props中的属性重名，抛出警告
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">props</span> <span class="o">&amp;&amp;</span> <span class="nx">hasOwn</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">warn</span><span class="p">(</span>
+        <span class="s2">&#34;The data property \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34; is already declared as a prop. &#34;</span> <span class="o">+</span>
+        <span class="s2">&#34;Use prop default value instead.&#34;</span><span class="p">,</span>
+        <span class="nx">vm</span>
+      <span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isReserved</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">proxy</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s2">&#34;_data&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// 双向数据绑定data
+</span><span class="c1"></span>  <span class="nx">observe</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="kc">true</span> <span class="cm">/* asRootData */</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>初始化<code>computed</code>属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">initComputed</span> <span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">computed</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// $flow-disable-line
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">watchers</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">_computedWatchers</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="c1">// computed properties are just getters during SSR
+</span><span class="c1"></span>  <span class="kd">var</span> <span class="nx">isSSR</span> <span class="o">=</span> <span class="nx">isServerRendering</span><span class="p">();</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">computed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 每个computed key所定义的方法
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">userDef</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="c1">// 将该方法赋值给getter变量
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">getter</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">userDef</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="o">?</span> <span class="nx">userDef</span> <span class="o">:</span> <span class="nx">userDef</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">getter</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+			<span class="c1">// 如果为空，打印错误
+</span><span class="c1"></span>      <span class="nx">warn</span><span class="p">(</span>
+        <span class="p">(</span><span class="s2">&#34;Getter is missing for computed property \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34;.&#34;</span><span class="p">),</span>
+        <span class="nx">vm</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isSSR</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// create internal watcher for the computed property.
+</span><span class="c1"></span>      <span class="nx">watchers</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Watcher</span><span class="p">(</span>
+        <span class="nx">vm</span><span class="p">,</span>
+        <span class="nx">getter</span> <span class="o">||</span> <span class="nx">noop</span><span class="p">,</span>
+        <span class="nx">noop</span><span class="p">,</span>
+        <span class="nx">computedWatcherOptions</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 如果当前节点computed上未有key这个方法
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">vm</span><span class="p">))</span> <span class="p">{</span>
+      <span class="c1">// defineComputed方法主要是为当前节点的computed属性添加响应式更新方法
+</span><span class="c1"></span>      <span class="c1">// 可以在defineComputed定义最后看到 Object.defineProperty(target, key, sharedPropertyDefinition) 
+</span><span class="c1"></span>      <span class="nx">defineComputed</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">userDef</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">warn</span><span class="p">((</span><span class="s2">&#34;The computed property \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34; is already defined in data.&#34;</span><span class="p">),</span> <span class="nx">vm</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">props</span> <span class="o">&amp;&amp;</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">warn</span><span class="p">((</span><span class="s2">&#34;The computed property \&#34;&#34;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&#34;\&#34; is already defined as a prop.&#34;</span><span class="p">),</span> <span class="nx">vm</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>初始化<code>watch</code>属性比较简单，在做了相应的判断后直接添加一个响应式更新属性，这里不多赘述，调用完<code>initState</code>之后，会调用<code>created</code>钩子函数，此时<code>vm</code>上的属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// _init
+</span><span class="c1"></span><span class="nx">vm</span><span class="p">.</span><span class="nx">_uid</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_isVue</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">KeepAlive</span><span class="p">,</span>
+    <span class="nx">Transition</span><span class="p">,</span>
+    <span class="nx">TransitionGroup</span>
+  <span class="p">},</span>
+  <span class="nx">directives</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">model</span><span class="p">,</span>
+    <span class="nx">show</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="nx">computed</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="nx">watch</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="nx">filters</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="nx">_base</span><span class="o">:</span> <span class="nx">Vue</span><span class="p">,</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">mergedInstanceDataFn</span><span class="p">(){}</span>
+<span class="p">}</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_renderProxy</span> <span class="o">=</span> <span class="nx">vm</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_self</span> <span class="o">=</span> <span class="nx">vm</span>
+
+<span class="c1">// initLifecycle
+</span><span class="c1"></span><span class="nx">vm</span><span class="p">.</span><span class="nx">$parent</span> <span class="o">=</span> <span class="nx">parent</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">$root</span> <span class="o">=</span> <span class="nx">parent</span> <span class="o">?</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">$root</span> <span class="o">:</span> <span class="nx">vm</span>
+
+<span class="nx">vm</span><span class="p">.</span><span class="nx">$children</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">$refs</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_watcher</span> <span class="o">=</span> <span class="kc">null</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_inactive</span> <span class="o">=</span> <span class="kc">null</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_directInactive</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_isMounted</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_isDestroyed</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_isBeingDestroyed</span> <span class="o">=</span> <span class="kc">false</span>
+
+<span class="c1">// initEvents	
+</span><span class="c1"></span><span class="nx">vm</span><span class="p">.</span><span class="nx">_events</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_hasHookEvent</span> <span class="o">=</span> <span class="kc">false</span>
+
+<span class="c1">// initRender
+</span><span class="c1"></span><span class="nx">vm</span><span class="p">.</span><span class="nx">$vnode</span> <span class="o">=</span> <span class="kc">null</span>  
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_vnode</span> <span class="o">=</span> <span class="kc">null</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_staticTrees</span> <span class="o">=</span> <span class="kc">null</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">$slots</span> <span class="o">=</span> <span class="nx">resolveSlots</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">_renderChildren</span><span class="p">,</span> <span class="nx">renderContext</span><span class="p">)</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">$scopedSlots</span> <span class="o">=</span> <span class="nx">emptyObject</span>
+
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_c</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">createElement</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+
+<span class="nx">vm</span><span class="p">.</span><span class="nx">$createElement</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">createElement</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+<span class="c1">// 在 initState 中添加的属性
+</span><span class="c1"></span><span class="nx">vm</span><span class="p">.</span><span class="nx">_watchers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_data</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">message</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>执行完上面步骤后，会调用<code>vm.$mount</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 保存之前定义的$mount方法，然后重写Vue.prototype.$mount
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">mount</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$mount</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$mount</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span>
+  <span class="nx">el</span><span class="o">?:</span> <span class="nx">string</span> <span class="o">|</span> <span class="nx">Element</span><span class="p">,</span>
+  <span class="nx">hydrating</span><span class="o">?:</span> <span class="kr">boolean</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="c1">// 查找当前节点
+</span><span class="c1"></span>  <span class="nx">el</span> <span class="o">=</span> <span class="nx">el</span> <span class="o">&amp;&amp;</span> <span class="nx">query</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+
+ 	<span class="c1">// 如果事body元素或者documentElement元素则抛错
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">el</span> <span class="o">===</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span> <span class="o">||</span> <span class="nx">el</span> <span class="o">===</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">warn</span><span class="p">(</span>
+      <span class="sb">`Do not mount Vue to &lt;html&gt; or &lt;body&gt; - mount to normal elements instead.`</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="k">this</span>
+  <span class="p">}</span>
+	
+  <span class="c1">// 拿到options
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$options</span>
+  <span class="c1">// 如果节点上没有render函数
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">render</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 获取template，template可以是#id、模板字符串、dom元素
+</span><span class="c1"></span>    <span class="kd">let</span> <span class="nx">template</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">template</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">template</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">template</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="c1">// 获取templatge innerHTML
+</span><span class="c1"></span>          <span class="nx">template</span> <span class="o">=</span> <span class="nx">idToTemplate</span><span class="p">(</span><span class="nx">template</span><span class="p">)</span>
+          <span class="cm">/* istanbul ignore if */</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">template</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">warn</span><span class="p">(</span>
+              <span class="sb">`Template element not found or is empty: </span><span class="si">${</span><span class="nx">options</span><span class="p">.</span><span class="nx">template</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+              <span class="k">this</span>
+            <span class="p">)</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 如果不是#id、模板字符串，直接获取其innerHTML
+</span><span class="c1"></span>        <span class="nx">template</span> <span class="o">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">innerHTML</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;invalid template option:&#39;</span> <span class="o">+</span> <span class="nx">template</span><span class="p">,</span> <span class="k">this</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">this</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 如果没有template，则获取el以及其子内容作为模板
+</span><span class="c1"></span>      <span class="nx">template</span> <span class="o">=</span> <span class="nx">getOuterHTML</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">template</span><span class="p">)</span> <span class="p">{</span>
+      <span class="p">......</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// 有render函数，直接执行mount.call(this, el, hydrating)
+</span><span class="c1"></span>  <span class="k">return</span> <span class="nx">mount</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">hydrating</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getOuterHTML</span> <span class="p">(</span><span class="nx">el</span><span class="o">:</span> <span class="nx">Element</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">outerHTML</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">el</span><span class="p">.</span><span class="nx">outerHTML</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nx">container</span><span class="p">.</span><span class="nx">innerHTML</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面最后调用了<code>mount.call(this, el, hydrating)</code>，其方法对应于</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$mount</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span>
+  <span class="nx">el</span><span class="o">?:</span> <span class="nx">string</span> <span class="o">|</span> <span class="nx">Element</span><span class="p">,</span>
+  <span class="nx">hydrating</span><span class="o">?:</span> <span class="kr">boolean</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">el</span> <span class="o">=</span> <span class="nx">el</span> <span class="o">&amp;&amp;</span> <span class="nx">inBrowser</span> <span class="o">?</span> <span class="nx">query</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="o">:</span> <span class="kc">undefined</span>
+  <span class="k">return</span> <span class="nx">mountComponent</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">hydrating</span><span class="p">)</span>
+<span class="p">}</span>
+
+  <span class="nx">vm</span><span class="o">:</span> <span class="nx">Component</span><span class="p">,</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="o">?</span><span class="nx">Element</span><span class="p">,</span>
+  <span class="nx">hydrating</span><span class="o">?:</span> <span class="kr">boolean</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">vm</span><span class="p">.</span><span class="nx">$el</span> <span class="o">=</span> <span class="nx">el</span>
+	<span class="p">......</span>
+  <span class="c1">// 调用beforeMount钩子函数
+</span><span class="c1"></span>  <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">&#39;beforeMount&#39;</span><span class="p">)</span>
+
+  <span class="kd">let</span> <span class="nx">updateComponent</span>
+	
+  <span class="p">......</span>
+  
+  <span class="c1">// 更新当前节点的方法
+</span><span class="c1"></span>  <span class="nx">updateComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// vm._render会返回一个render字符串，_update其内部会调用patch方法来进行节点的增删改
+</span><span class="c1"></span>    <span class="nx">vm</span><span class="p">.</span><span class="nx">_update</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_render</span><span class="p">(),</span> <span class="nx">hydrating</span><span class="p">)</span>
+  <span class="p">}</span>
+
+	<span class="c1">// 创建一个watch对象，在调用updateComponent之前会先调用before方法
+</span><span class="c1"></span>  <span class="k">new</span> <span class="nx">Watcher</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">updateComponent</span><span class="p">,</span> <span class="nx">noop</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">before</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_isMounted</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_isDestroyed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 如果是更新节点，调用beforeUpdate钩子函数
+</span><span class="c1"></span>        <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">&#39;beforeUpdate&#39;</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="kc">true</span> <span class="cm">/* isRenderWatcher */</span><span class="p">)</span>
+  <span class="nx">hydrating</span> <span class="o">=</span> <span class="kc">false</span>
+
+   <span class="c1">// 当页面渲染完成后，调用钩子函数mounted
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$vnode</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">vm</span><span class="p">.</span><span class="nx">_isMounted</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">&#39;mounted&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">vm</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-07-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" data-title="Vue的初始化渲染过程简介"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" data-title="Vue的初始化渲染过程简介"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" data-title="Vue的初始化渲染过程简介"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" data-title="Vue的初始化渲染过程简介"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" class="prev" rel="prev" title="使用Canvas实现一个红包雨的效果"><i class="fas fa-angle-left fa-fw"></i>使用Canvas实现一个红包雨的效果</a>
+            <a href="/babel%E7%AE%80%E4%BB%8B/" class="next" rel="next" title="Babel简介">Babel简介<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

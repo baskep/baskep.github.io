@@ -1,87 +1,63 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>实际应用 on 👨🏻‍💻</title>
-    <link>https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
-    <description>Recent content in 实际应用 on 👨🏻‍💻</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sat, 28 Nov 2020 16:23:05 +0800</lastBuildDate>
-    
-	<atom:link href="https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Flutter自定义组件</title>
-      <link>https://xtid.github.io/2020/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</link>
-      <pubDate>Sat, 28 Nov 2020 16:23:05 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</guid>
-      <description>简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T</description>
-    </item>
-    
-    <item>
-      <title>使用Canvas实现一个红包雨的效果</title>
-      <link>https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
-      <pubDate>Mon, 15 Jun 2020 18:12:19 +0700</pubDate>
-      
-      <guid>https://xtid.github.io/2020/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
-      <description>之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做</description>
-    </item>
-    
-    <item>
-      <title>nodejs实现excel导出数据的功能</title>
-      <link>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
-      <pubDate>Sun, 10 Nov 2019 22:42:19 +0915</pubDate>
-      
-      <guid>https://xtid.github.io/2019/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
-      <description>1.对于一些业务系统，很常见的一个功能就是将数据生成excel导出，其实在nodejs中已经很多优秀的第三方库可以实现这个功能，我这里选择的</description>
-    </item>
-    
-    <item>
-      <title>d3.js绘制中国地图</title>
-      <link>https://xtid.github.io/2019/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</link>
-      <pubDate>Tue, 13 Aug 2019 22:42:19 +0915</pubDate>
-      
-      <guid>https://xtid.github.io/2019/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</guid>
-      <description>d3.js是一个JavaScript库，用于根据数据操作文档。d3可以使用HTML、SVG和CSS将数据变为现实。d3对网络标准的强调让你拥</description>
-    </item>
-    
-    <item>
-      <title>最近一些效果的实现</title>
-      <link>https://xtid.github.io/2019/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
-      <pubDate>Wed, 07 Aug 2019 21:42:19 +0623</pubDate>
-      
-      <guid>https://xtid.github.io/2019/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
-      <description>楼层定位效果 const leftNav = { $newLeftNav: $(&#39;.left-nav&#39;), $leftNav: $(&#39;.left-nav-item&#39;), init: function () { this.bind(); }, bind: function () { const self = this; self.$leftNav.on(&#39;click&#39;, function () { const _this = this; const area = &#39;.&#39; + $(_this).attr(&#39;data-area&#39;); const distance = $(_this).attr(&#39;data-area&#39;) ? $(area).offset().top : 0; $(&#39;html, body&#39;).animate({ &#39;scrollTop&#39;: distance + &#39;px&#39; }, 1000); }); self.handlePageScroll(); $(document).scroll(function () { self.debounce(self.handlePageScroll, 200); }); }, // 页面</description>
-    </item>
-    
-    <item>
-      <title>使用文本过滤的方式防御XSS</title>
-      <link>https://xtid.github.io/2019/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</link>
-      <pubDate>Mon, 15 Jul 2019 19:12:19 +0700</pubDate>
-      
-      <guid>https://xtid.github.io/2019/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</guid>
-      <description>​ 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其</description>
-    </item>
-    
-    <item>
-      <title>实现一个红包雨的效果</title>
-      <link>https://xtid.github.io/2019/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
-      <pubDate>Tue, 28 May 2019 19:23:19 +0700</pubDate>
-      
-      <guid>https://xtid.github.io/2019/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
-      <description>在很多活动页面我们经常会看到这种效果，屏幕上下着红包雨，点开有有各种礼品或者是优惠券什么的。之前项目要求做一个这样的效果，于是尝试着写了下 1</description>
-    </item>
-    
-    <item>
-      <title>简单实现一个单屏滚动效果</title>
-      <link>https://xtid.github.io/2019/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/</link>
-      <pubDate>Mon, 22 Apr 2019 20:23:19 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2019/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/</guid>
-      <description>单屏滚动效果这里指的是滑动鼠标滚落，每次只滚动一个整屏，这种效果多用于一些展示性的网站首页以及一些活动页，这里就用使用jQuery实现这种效</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>实际应用 - 分类 - 👨🏻‍💻</title>
+        <link>https://luckly.work/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
+        <description>实际应用 - 分类 - 👨🏻‍💻</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Nov 2020 16:23:05 &#43;0800</lastBuildDate><atom:link href="https://luckly.work/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>Flutter自定义组件</title>
+    <link>https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</link>
+    <pubDate>Sat, 28 Nov 2020 16:23:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</guid>
+    <description><![CDATA[简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T]]></description>
+</item><item>
+    <title>使用Canvas实现一个红包雨的效果</title>
+    <link>https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
+    <pubDate>Mon, 15 Jun 2020 18:12:19 &#43;0700</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
+    <description><![CDATA[之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做]]></description>
+</item><item>
+    <title>nodejs实现excel导出数据的功能</title>
+    <link>https://luckly.work/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
+    <pubDate>Sun, 10 Nov 2019 22:42:19 &#43;0915</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
+    <description><![CDATA[1.对于一些业务系统，很常见的一个功能就是将数据生成excel导出，其实在nodejs中已经很多优秀的第三方库可以实现这个功能，我这里选择的]]></description>
+</item><item>
+    <title>d3.js绘制中国地图</title>
+    <link>https://luckly.work/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</link>
+    <pubDate>Tue, 13 Aug 2019 22:42:19 &#43;0915</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</guid>
+    <description><![CDATA[d3.js是一个JavaScript库，用于根据数据操作文档。d3可以使用HTML、SVG和CSS将数据变为现实。d3对网络标准的强调让你拥]]></description>
+</item><item>
+    <title>最近一些效果的实现</title>
+    <link>https://luckly.work/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Wed, 07 Aug 2019 21:42:19 &#43;0623</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[楼层定位效果 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 const leftNav]]></description>
+</item><item>
+    <title>使用文本过滤的方式防御XSS</title>
+    <link>https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</link>
+    <pubDate>Mon, 15 Jul 2019 19:12:19 &#43;0700</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</guid>
+    <description><![CDATA[​ 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其]]></description>
+</item><item>
+    <title>实现一个红包雨的效果</title>
+    <link>https://luckly.work/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
+    <pubDate>Tue, 28 May 2019 19:23:19 &#43;0700</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
+    <description><![CDATA[在很多活动页面我们经常会看到这种效果，屏幕上下着红包雨，点开有有各种礼品或者是优惠券什么的。之前项目要求做一个这样的效果，于是尝试着写了下 1]]></description>
+</item><item>
+    <title>简单实现一个单屏滚动效果</title>
+    <link>https://luckly.work/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/</link>
+    <pubDate>Mon, 22 Apr 2019 20:23:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/</guid>
+    <description><![CDATA[单屏滚动效果这里指的是滑动鼠标滚落，每次只滚动一个整屏，这种效果多用于一些展示性的网站首页以及一些活动页，这里就用使用jQuery实现这种效]]></description>
+</item></channel>
 </rss>

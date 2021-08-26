@@ -1,105 +1,77 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>日常学习 on 👨🏻‍💻</title>
-    <link>https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
-    <description>Recent content in 日常学习 on 👨🏻‍💻</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 03 Aug 2021 22:34:03 +0800</lastBuildDate>
-    
-	<atom:link href="https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Webpack5的新特性以及项目实战配置</title>
-      <link>https://xtid.github.io/2021/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Tue, 03 Aug 2021 22:34:03 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2021/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</guid>
-      <description>前言 webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不</description>
-    </item>
-    
-    <item>
-      <title>前端的模块规范简述以及如何实现一个UMD-Loader方法</title>
-      <link>https://xtid.github.io/2021/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</link>
-      <pubDate>Sat, 10 Jul 2021 16:51:03 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2021/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</guid>
-      <description>现在的前端开发中根本离不开组件化、模块化的开发方式，这些模块有各种各样的规范，比如： 1.CommonJS规范 主要用在与Nodejs服务端，在</description>
-    </item>
-    
-    <item>
-      <title>Flutter各种踩坑心得</title>
-      <link>https://xtid.github.io/2020/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/</link>
-      <pubDate>Sat, 05 Dec 2020 16:06:56 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/</guid>
-      <description>1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro</description>
-    </item>
-    
-    <item>
-      <title>输入一个URL到页面呈现的过程</title>
-      <link>https://xtid.github.io/2020/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</link>
-      <pubDate>Sun, 15 Nov 2020 15:21:34 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</guid>
-      <description>1.DNS解析 平时在浏览器中输入的域名并非是网址或资源真实所在的服务器地址或资源，域名只是与ip地址的一个映射。在进行正式的请求之前，就会先</description>
-    </item>
-    
-    <item>
-      <title>浅谈前端统计</title>
-      <link>https://xtid.github.io/2020/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</link>
-      <pubDate>Wed, 28 Oct 2020 21:45:40 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</guid>
-      <description>监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案</description>
-    </item>
-    
-    <item>
-      <title>白屏时间</title>
-      <link>https://xtid.github.io/2020/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</link>
-      <pubDate>Sat, 24 Oct 2020 23:45:12 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</guid>
-      <description>白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连接、发送</description>
-    </item>
-    
-    <item>
-      <title>Webpack打包优化</title>
-      <link>https://xtid.github.io/2020/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</link>
-      <pubDate>Mon, 07 Sep 2020 22:03:34 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</guid>
-      <description>之前了解了webpack的基本打包流程或者说原理，如果只是配置一个基本的webpack打包配置， 打包后的文件会变得很大，当你项目部署后，用户</description>
-    </item>
-    
-    <item>
-      <title>Webpack理解</title>
-      <link>https://xtid.github.io/2020/webpack%E7%90%86%E8%A7%A3/</link>
-      <pubDate>Sun, 23 Aug 2020 21:36:20 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/webpack%E7%90%86%E8%A7%A3/</guid>
-      <description>webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加</description>
-    </item>
-    
-    <item>
-      <title>Babel简介</title>
-      <link>https://xtid.github.io/2020/babel%E7%AE%80%E4%BB%8B/</link>
-      <pubDate>Sun, 23 Aug 2020 21:32:52 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/2020/babel%E7%AE%80%E4%BB%8B/</guid>
-      <description>1.babel 简介 Babel是现代JavaScript语法转换器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其</description>
-    </item>
-    
-    <item>
-      <title>nginx学习总结</title>
-      <link>https://xtid.github.io/2019/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Fri, 25 Oct 2019 22:42:19 +0915</pubDate>
-      
-      <guid>https://xtid.github.io/2019/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</guid>
-      <description>1.nginx简介 &amp;ldquo;nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>日常学习 - 分类 - 👨🏻‍💻</title>
+        <link>https://luckly.work/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
+        <description>日常学习 - 分类 - 👨🏻‍💻</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</lastBuildDate><atom:link href="https://luckly.work/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>Webpack5的新特性以及项目实战配置</title>
+    <link>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</link>
+    <pubDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</guid>
+    <description><![CDATA[前言 webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不]]></description>
+</item><item>
+    <title>前端的模块规范简述以及如何实现一个UMD-Loader方法</title>
+    <link>https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Sat, 10 Jul 2021 16:51:03 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</guid>
+    <description><![CDATA[现在的前端开发中根本离不开组件化、模块化的开发方式，这些模块有各种各样的规范，比如： 1.CommonJS 规范 主要用在与 Nodejs 服务端，在服务器端，模块的加载是运行时]]></description>
+</item><item>
+    <title>Flutter各种踩坑心得</title>
+    <link>https://luckly.work/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/</link>
+    <pubDate>Sat, 05 Dec 2020 16:06:56 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/</guid>
+    <description><![CDATA[1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro]]></description>
+</item><item>
+    <title>输入一个URL到页面呈现的过程</title>
+    <link>https://luckly.work/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</link>
+    <pubDate>Sun, 15 Nov 2020 15:21:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</guid>
+    <description><![CDATA[1.DNS解析 平时在浏览器中输入的域名并非是网址或资源真实所在的服务器地址或资源，域名只是与ip地址的一个映射。在进行正式的请求之前，就会先]]></description>
+</item><item>
+    <title>浅谈前端统计</title>
+    <link>https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</link>
+    <pubDate>Wed, 28 Oct 2020 21:45:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</guid>
+    <description><![CDATA[监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案]]></description>
+</item><item>
+    <title>白屏时间</title>
+    <link>https://luckly.work/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</link>
+    <pubDate>Sat, 24 Oct 2020 23:45:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</guid>
+    <description><![CDATA[白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连接、发送]]></description>
+</item><item>
+    <title>Webpack打包优化</title>
+    <link>https://luckly.work/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Mon, 07 Sep 2020 22:03:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[之前了解了webpack的基本打包流程或者说原理，如果只是配置一个基本的webpack打包配置， 打包后的文件会变得很大，当你项目部署后，用户]]></description>
+</item><item>
+    <title>Webpack理解</title>
+    <link>https://luckly.work/webpack%E7%90%86%E8%A7%A3/</link>
+    <pubDate>Sun, 23 Aug 2020 21:36:20 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/webpack%E7%90%86%E8%A7%A3/</guid>
+    <description><![CDATA[webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加]]></description>
+</item><item>
+    <title>Babel简介</title>
+    <link>https://luckly.work/babel%E7%AE%80%E4%BB%8B/</link>
+    <pubDate>Sun, 23 Aug 2020 21:32:52 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/babel%E7%AE%80%E4%BB%8B/</guid>
+    <description><![CDATA[1.babel 简介 Babel是现代JavaScript语法转换器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其]]></description>
+</item><item>
+    <title>nginx学习总结</title>
+    <link>https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</link>
+    <pubDate>Fri, 25 Oct 2019 22:42:19 &#43;0915</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</guid>
+    <description><![CDATA[1.nginx简介 &ldquo;nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常]]></description>
+</item></channel>
 </rss>

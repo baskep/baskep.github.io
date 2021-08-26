@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>使用文本过滤的方式防御XSS - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="使用文本过滤的方式防御XSS" />
+<meta property="og:description" content="​ 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/" />
+<meta property="og:image" content="https://luckly.work/logo.png"/>
+<meta property="article:published_time" content="2019-07-15T19:12:19+07:00" />
+<meta property="article:modified_time" content="2019-07-15T19:12:19+07:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luckly.work/logo.png"/>
+
+<meta name="twitter:title" content="使用文本过滤的方式防御XSS"/>
+<meta name="twitter:description" content="​ 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/" /><link rel="prev" href="https://luckly.work/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" /><link rel="next" href="https://luckly.work/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "使用文本过滤的方式防御XSS",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luckly.work\/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss\/"
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1254 ,
+        "url": "https:\/\/luckly.work\/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss\/","datePublished": "2019-07-15T19:12:19+07:00","dateModified": "2019-07-15T19:12:19+07:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">使用文本过滤的方式防御XSS</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-07-15">2019-07-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1254 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#2-xss的原理">2. XSS的原理</a></li>
+                <li><a href="#3防御方式">3.防御方式</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>​	跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。</p>
+<h4 id="2-xss的原理">2. XSS的原理</h4>
+<p>​	者对含有漏洞的服务器发起XSS攻击（注入JS代码）。</p>
+<p>​	诱使受害者打开受到攻击的服务器URL。</p>
+<p>​	受害者在Web浏览器中打开URL，恶意脚本执行。</p>
+<h4 id="3防御方式">3.防御方式</h4>
+<p>​	这里采用的是文本过滤的一种方式来防御XSS，这也是现在我比较常用的。</p>
+<p>​	3.1首先定义一个配置文件，规定哪些请求需要进行文本过滤，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+    <span class="s2">&#34;xss&#34;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&#34;post:/api/test/&#34;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&#34;content&#34;</span><span class="o">:</span> <span class="s2">&#34;close&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>​	3.2引入此配置文件，请求时，查看当前请求是否在进行文本过滤的列表里，如果是，将当前参数里面的敏感字符、带有html字符的进行转义，并重新生成参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * XSS过滤方法
+</span><span class="cm"> */</span>
+
+<span class="kr">const</span> <span class="nx">xss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;xss&#39;</span><span class="p">);</span> <span class="c1">// xss模块
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">);</span> <span class="c1">// url模块
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">safeConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config&#39;</span><span class="p">);</span> <span class="c1">// 上面的需要过滤的配置文件
+</span><span class="c1"></span>
+<span class="c1">//默认配置，删除不在白名单中的标签和属性
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">DEFAULT_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">stripIgnoreTag</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">stripIgnoreTagBody</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 用js-xss 对html过滤
+</span><span class="cm"> *
+</span><span class="cm"> * @param  {String} str  过滤前字符串
+</span><span class="cm"> * @return {String} str  过滤后字符串
+</span><span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">filterHtml</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">xssObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">xss</span><span class="p">.</span><span class="nx">FilterXSS</span><span class="p">(</span><span class="nx">DEFAULT_CONFIG</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">xssObj</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">filterHtml</span> <span class="o">=</span> <span class="nx">filterHtml</span><span class="p">;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 参数过滤，对敏感字符进行转义
+</span><span class="cm"> *
+</span><span class="cm"> * @param {String} str        过滤前字符串
+</span><span class="cm"> * @return {object}
+</span><span class="cm"> *   - {Boolean} isMatched    是否匹配到敏感字符
+</span><span class="cm"> *   - {String}  value        过滤后的字符串
+</span><span class="cm"> *   - {String}  matchedChar  敏感字符
+</span><span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">escapeParams</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">isMatched</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">matchedChar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">replacedStr</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">trim</span><span class="p">();</span> <span class="c1">// 去除前后空格
+</span><span class="c1"></span>  <span class="nx">replacedStr</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[&lt;&gt;&#39;&#34;\\]/g</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">isMatched</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">matchedChar</span> <span class="o">=</span> <span class="nx">e</span><span class="p">;</span>
+    <span class="k">return</span> <span class="s1">&#39;&amp;#&#39;</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;;&#39;</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">isMatched</span><span class="o">:</span> <span class="nx">isMatched</span><span class="p">,</span>
+    <span class="nx">value</span><span class="o">:</span> <span class="nx">replacedStr</span><span class="p">,</span>
+    <span class="nx">matchedChar</span><span class="o">:</span> <span class="nx">matchedChar</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">escapeParams</span> <span class="o">=</span> <span class="nx">escapeParams</span><span class="p">;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 判断是否是html结尾的参数名
+</span><span class="cm"> *
+</span><span class="cm"> * @param {String} param
+</span><span class="cm"> * @return         {Boolean}
+</span><span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">isHtmlParam</span><span class="p">(</span><span class="nx">param</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">REGEXP_HTML</span> <span class="o">=</span> <span class="sr">/(HTML)$/i</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">REGEXP_HTML</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">param</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 重置路由参数
+</span><span class="cm"> * @param  {Object} req     请求对象
+</span><span class="cm"> * @param  {Object} ruleMap 规则索引
+</span><span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">rebuildReq</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">rule</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 过滤query
+</span><span class="c1"></span>  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">rebuildParam</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">rule</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">||</span> <span class="nx">isHtmlParam</span><span class="p">(</span><span class="nx">key</span><span class="p">));</span>
+  <span class="p">});</span>
+  <span class="c1">// 过滤body
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">item</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">[</span><span class="nx">index</span><span class="p">][</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">rebuildParam</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">[</span><span class="nx">index</span><span class="p">][</span><span class="nx">key</span><span class="p">],</span> <span class="nx">rule</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">||</span> <span class="nx">isHtmlParam</span><span class="p">(</span><span class="nx">key</span><span class="p">));</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">rebuildParam</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">rule</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">||</span> <span class="nx">isHtmlParam</span><span class="p">(</span><span class="nx">key</span><span class="p">));</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 重置参数
+</span><span class="cm"> * @param  {String} data [description]
+</span><span class="cm"> * @param  {String} rule [description]
+</span><span class="cm"> * @return {String}      [description]
+</span><span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">rebuildParam</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">rule</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">data</span><span class="p">)</span> <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+  <span class="c1">// Check array
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">rebuildParam</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s1">&#39;object&#39;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">data</span><span class="p">).</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">key</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">data</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">rebuildParam</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="k">case</span> <span class="s1">&#39;string&#39;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">// 重设规则匹配
+</span><span class="c1"></span>    <span class="kd">let</span> <span class="nx">ruleMatch</span> <span class="o">=</span> <span class="s1">&#39;normal&#39;</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">rule</span> <span class="o">===</span> <span class="s1">&#39;close&#39;</span><span class="p">)</span> <span class="nx">ruleMatch</span> <span class="o">=</span> <span class="s1">&#39;close&#39;</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">rule</span><span class="p">)</span> <span class="nx">ruleMatch</span> <span class="o">=</span> <span class="s1">&#39;xss&#39;</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">ruleMatch</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="s1">&#39;xss&#39;</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">filterHtml</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+      <span class="k">case</span> <span class="s1">&#39;close&#39;</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">escapeParams</span><span class="p">(</span><span class="nx">data</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * XSS过滤
+</span><span class="cm"> * @param  {Object}   req  请求对象
+</span><span class="cm"> * @param  {Object}   res  返回对象
+</span><span class="cm"> * @param  {Function} next 下一步
+</span><span class="cm"> */</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//过滤路由参数params
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">pathname</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">).</span><span class="nx">pathname</span><span class="p">;</span> <span class="c1">//获取req.url的路径，不包含query
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">decodePathname</span> <span class="o">=</span> <span class="nb">decodeURI</span><span class="p">(</span><span class="nx">pathname</span><span class="p">);</span> <span class="c1">//解码pathname
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">escapedParams</span> <span class="o">=</span> <span class="nx">escapeParams</span><span class="p">(</span><span class="nx">decodePathname</span><span class="p">);</span> <span class="c1">//转义字符
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">escapedParams</span><span class="p">.</span><span class="nx">isMatched</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">securityError</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;验证错误&#39;</span><span class="p">);</span>
+      <span class="nx">securityError</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">110</span><span class="p">;</span>
+      <span class="nx">next</span><span class="p">(</span><span class="nx">securityError</span><span class="p">);</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="nb">encodeURI</span><span class="p">(</span><span class="nx">escapedParams</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// 获取当前请求地址
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">curPath</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">originalUrl</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\/$/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+  <span class="kd">let</span> <span class="nx">xssRule</span><span class="p">;</span>
+  <span class="c1">// 检测在xss配置中是否有特例method
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">xssConfig</span><span class="p">[</span><span class="nx">method</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">curPath</span><span class="p">])</span> <span class="p">{</span>
+    <span class="nx">xssRule</span> <span class="o">=</span> <span class="nx">xssConfig</span><span class="p">[</span><span class="nx">method</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">curPath</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="c1">// 检测是否有通用配置
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">xssRule</span> <span class="o">&amp;&amp;</span> <span class="nx">xssConfig</span><span class="p">[</span><span class="nx">curPath</span><span class="p">])</span> <span class="p">{</span>
+    <span class="nx">xssRule</span> <span class="o">=</span> <span class="nx">xssConfig</span><span class="p">[</span><span class="nx">curPath</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="c1">// 如果检测到关闭规则,则直接关闭检测
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">xssRule</span> <span class="o">===</span> <span class="s1">&#39;close&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+  <span class="c1">// 重设请求对象
+</span><span class="c1"></span>  <span class="nx">rebuildReq</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">xssRule</span> <span class="o">||</span> <span class="p">{});</span>
+  <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-07-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/" data-title="使用文本过滤的方式防御XSS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/" data-title="使用文本过滤的方式防御XSS"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/" data-title="使用文本过滤的方式防御XSS"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/" data-title="使用文本过滤的方式防御XSS"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" class="prev" rel="prev" title="实现一个红包雨的效果"><i class="fas fa-angle-left fa-fw"></i>实现一个红包雨的效果</a>
+            <a href="/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="next" rel="next" title="最近一些效果的实现">最近一些效果的实现<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

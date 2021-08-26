@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>使用Canvas实现一个红包雨的效果 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="使用Canvas实现一个红包雨的效果" />
+<meta property="og:description" content="之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" />
+<meta property="og:image" content="https://luckly.work/logo.png"/>
+<meta property="article:published_time" content="2020-06-15T18:12:19+07:00" />
+<meta property="article:modified_time" content="2020-06-15T18:12:19+07:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luckly.work/logo.png"/>
+
+<meta name="twitter:title" content="使用Canvas实现一个红包雨的效果"/>
+<meta name="twitter:description" content="之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" /><link rel="prev" href="https://luckly.work/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" /><link rel="next" href="https://luckly.work/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "使用Canvas实现一个红包雨的效果",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luckly.work\/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C\/"
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1100 ,
+        "url": "https:\/\/luckly.work\/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C\/","datePublished": "2020-06-15T18:12:19+07:00","dateModified": "2020-06-15T18:12:19+07:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">使用Canvas实现一个红包雨的效果</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-06-15">2020-06-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1100 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1核心原理">1.核心原理</a></li>
+            <li><a href="#2具体实现">2.具体实现</a></li>
+            <li><a href="#后言">后言</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做一个红包雨的效果</p>
+<h3 id="1核心原理">1.核心原理</h3>
+<p>1.生成红包，设置好默认的背景图像，传入页面上所需的红包数量</p>
+<p>2.保存状态，利用Canvas的原生API实现页面的渲染，每次移动各个红包到不同位置，利用<code>window.requestAnimationFrame</code>实现每一帧的动画绘制，使整个页面不会卡顿</p>
+<p>3.点击红包，计算是否点中红包，如果点中，则进行相应的事件处理</p>
+<h3 id="2具体实现">2.具体实现</h3>
+<p>2.1定义一些基本变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">redEnvelopeArr</span><span class="o">:</span> <span class="p">[],</span> <span class="c1">// 当前整个红包对象数组
+</span><span class="c1"></span><span class="nx">itemSpeed</span><span class="o">:</span> <span class="p">[],</span> <span class="c1">// 每个红包对象对应的一些属性，如下落速度，页面上所在的位置
+</span><span class="c1"></span><span class="nx">count</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// 加载好的红包图片的数量
+</span><span class="c1"></span><span class="nx">ctx</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span> <span class="c1">// Canvas context对象
+</span></code></pre></td></tr></table>
+</div>
+</div><p>2.2加载红包图片</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">loadImgs</span><span class="p">(</span><span class="nx">totalCount</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span>
+  <span class="kr">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;canvas&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">&lt;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">&lt;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">index</span> <span class="o">&lt;</span> <span class="nx">totalCount</span><span class="p">;</span> <span class="nx">index</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">()</span>
+      <span class="nx">image</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1">// 图片地址
+</span><span class="c1"></span>      <span class="nx">image</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemSpeed</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+          <span class="nx">speed</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1">// 开始下落的位置
+</span><span class="c1"></span>          <span class="nx">step</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">randomFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1">// 每个红包下落的速度
+</span><span class="c1"></span>        <span class="p">})</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">redEnvelopeArr</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+          <span class="nx">x</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">randomFloat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">-</span> <span class="mi">100</span><span class="p">),</span>
+          <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nx">img</span><span class="o">:</span> <span class="nx">image</span>
+        <span class="p">})</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">count</span> <span class="o">===</span> <span class="nx">totalCount</span><span class="p">)</span> <span class="nx">resolve</span><span class="p">()</span> <span class="c1">// 所有图片加载完成跳出
+</span><span class="c1"></span>      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>2.2生成随机数的一个方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">randomFloat</span><span class="p">(</span><span class="nx">low</span><span class="p">,</span> <span class="nx">high</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">low</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">high</span> <span class="o">-</span> <span class="nx">low</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>2.3绘制红包图片下落，这里做了一个旋转下落的效果，主要原理是利用<code>translate</code>移动context位置，旋转一定角度后，将原点移动到之前位置，做一个旋转的效果，每次操作的时候记得<code>sava</code>、<code>restore</code>。当然如果不想做旋转效果，那直接用<code>drawImage</code>每次画不同位置的红包就行了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">drawRedEnvelope</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span>
+  <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1">// 红包的宽度
+</span><span class="c1"></span>  <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="mi">120</span> <span class="c1">// 红包的高度
+</span><span class="c1"></span>  <span class="nx">self</span><span class="p">.</span><span class="nx">redEnvelopeArr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">newRedEnvelope</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">x</span><span class="o">:</span> <span class="nx">item</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="c1">// 红包所在的x轴位置
+</span><span class="c1"></span>      <span class="nx">y</span><span class="o">:</span> <span class="nx">item</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">itemSpeed</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">step</span><span class="p">,</span> <span class="c1">// 红包所在的y轴位置，主要由下落速度决定
+</span><span class="c1"></span>      <span class="nx">img</span><span class="o">:</span> <span class="nx">item</span><span class="p">.</span><span class="nx">img</span><span class="p">,</span>
+      <span class="nx">speed</span><span class="o">:</span> <span class="nx">item</span><span class="p">.</span><span class="nx">speed</span>
+    <span class="p">}</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">redEnvelopeArr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">newRedEnvelope</span><span class="p">)</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">itemSpeed</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">speed</span><span class="p">)</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">itemSpeed</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">speed</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">translate</span><span class="p">(</span><span class="o">-</span><span class="nx">item</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span> <span class="o">-</span> <span class="nx">self</span><span class="p">.</span><span class="nx">itemSpeed</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">speed</span><span class="p">)</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">img</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">itemSpeed</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">speed</span><span class="p">)</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">restore</span><span class="p">()</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">itemSpeed</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">speed</span> <span class="o">+=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">itemSpeed</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nx">step</span>
+    <span class="c1">// self.ctx.drawImage(item.img, item.x, item.y, self.ctx.width, self.ctx.height)
+</span><span class="c1"></span>  <span class="p">})</span>
+<span class="p">},</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>2.4使用<code>clearRect</code>清除上一帧的效果，在调用<code>drawRedEnvelope</code>绘制新一帧的效果，使用<code>requestAnimationFrame</code>重复执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">moveRedEnvelope</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span>
+  <span class="nx">self</span><span class="p">.</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span><span class="p">)</span>
+  <span class="nx">self</span><span class="p">.</span><span class="nx">drawRedEnvelope</span><span class="p">()</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">moveRedEnvelope</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>2.5点击红包时，循环遍历判断当前点击位置是否在某个红包内，如果遇到多个红包重叠的情况，只需取最上面一个就行了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">redEnvelopeClick</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span>
+  <span class="kr">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;canvas&#39;</span><span class="p">)</span>
+  <span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">redEnvelopeArr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">distanceX</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">item</span><span class="p">.</span><span class="nx">x</span>
+      <span class="kr">const</span> <span class="nx">distanceY</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">item</span><span class="p">.</span><span class="nx">y</span>
+      <span class="kr">const</span> <span class="nx">withinX</span> <span class="o">=</span> <span class="nx">distanceX</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="kr">const</span> <span class="nx">withinY</span> <span class="o">=</span> <span class="nx">distanceY</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">withinX</span> <span class="o">&amp;&amp;</span> <span class="nx">withinY</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">result</span> <span class="o">=</span> <span class="nx">item</span> <span class="c1">// 最后的result返回，然后做一些处理
+</span><span class="c1"></span>      <span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="后言">后言</h3>
+<p>以上就是主要内容，需要特别注意的是，点击完了某个红包需要找个时间点清空整个页面上的动画，还有就是具体的点击实现的业务逻辑需自己去处理</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-06-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" data-title="使用Canvas实现一个红包雨的效果"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" data-title="使用Canvas实现一个红包雨的效果"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" data-title="使用Canvas实现一个红包雨的效果"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" data-title="使用Canvas实现一个红包雨的效果"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" class="prev" rel="prev" title="nodejs实现excel导出数据的功能"><i class="fas fa-angle-left fa-fw"></i>nodejs实现excel导出数据的功能</a>
+            <a href="/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="next" rel="next" title="Vue的初始化渲染过程简介">Vue的初始化渲染过程简介<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

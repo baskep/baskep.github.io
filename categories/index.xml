@@ -1,42 +1,28 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Categories on 👨🏻‍💻</title>
-    <link>https://xtid.github.io/categories/</link>
-    <description>Recent content in Categories on 👨🏻‍💻</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 03 Aug 2021 22:34:03 +0800</lastBuildDate>
-    
-	<atom:link href="https://xtid.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>日常学习</title>
-      <link>https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
-      <pubDate>Tue, 03 Aug 2021 22:34:03 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>源码理解</title>
-      <link>https://xtid.github.io/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</link>
-      <pubDate>Tue, 05 Jan 2021 23:02:17 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>实际应用</title>
-      <link>https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
-      <pubDate>Sat, 28 Nov 2020 16:23:05 +0800</pubDate>
-      
-      <guid>https://xtid.github.io/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - 分类 - 👨🏻‍💻</title>
+        <link>https://luckly.work/categories/</link>
+        <description>Categories - 分类 - 👨🏻‍💻</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</lastBuildDate><atom:link href="https://luckly.work/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>日常学习</title>
+    <link>https://luckly.work/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>源码理解</title>
+    <link>https://luckly.work/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</link>
+    <pubDate>Tue, 05 Jan 2021 23:02:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>实际应用</title>
+    <link>https://luckly.work/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
+    <pubDate>Sat, 28 Nov 2020 16:23:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
 </rss>

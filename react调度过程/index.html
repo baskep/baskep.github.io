@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>React调度过程 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="React调度过程" />
+<meta property="og:description" content="1.forwardRef 用来解决高阶组件传递ref的问题。它的用法就像是使用redux的时候，在外面包裹一层，通过...props的方式把外部的props传入到实" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luckly.work/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" />
+<meta property="og:image" content="https://luckly.work/logo.png"/>
+<meta property="article:published_time" content="2021-01-05T23:02:17+08:00" />
+<meta property="article:modified_time" content="2021-01-05T23:02:17+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luckly.work/logo.png"/>
+
+<meta name="twitter:title" content="React调度过程"/>
+<meta name="twitter:description" content="1.forwardRef 用来解决高阶组件传递ref的问题。它的用法就像是使用redux的时候，在外面包裹一层，通过...props的方式把外部的props传入到实"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" /><link rel="prev" href="https://luckly.work/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" /><link rel="next" href="https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "React调度过程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luckly.work\/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B\/"
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  8558 ,
+        "url": "https:\/\/luckly.work\/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B\/","datePublished": "2021-01-05T23:02:17+08:00","dateModified": "2021-01-05T23:02:17+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">React调度过程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/"><i class="far fa-folder fa-fw"></i>源码理解</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-05">2021-01-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8558 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1forwardref">1.forwardRef</a></li>
+        <li><a href="#2reactelement">2.ReactElement</a></li>
+        <li><a href="#3react-children">3.React Children</a></li>
+        <li><a href="#4react中的数据结构">4.React中的数据结构</a></li>
+        <li><a href="#5初次reactdomreander过程">5.初次ReactDOM.reander过程</a></li>
+        <li><a href="#6expirationtime">6.expirationTime</a></li>
+        <li><a href="#7各种expirationtime">7.各种expirationTime</a></li>
+        <li><a href="#8schedulework">8.scheduleWork</a></li>
+        <li><a href="#9performwork">9.performWork</a></li>
+        <li><a href="#10performworkonroot">10.performWorkOnRoot</a></li>
+        <li><a href="#11renderroot">11.renderRoot</a></li>
+        <li><a href="#12updateclasscomponent">12.updateClassComponent</a></li>
+        <li><a href="#13commitroot">13.commitRoot</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#参考链接">参考链接</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1forwardref">1.forwardRef</h2>
+<p>用来解决高阶组件传递<code>ref</code>的问题。它的用法就像是使用<code>redux</code>的时候，在外面包裹一层，通过<code>...props</code>的方式把外部的<code>props</code>传入到实际组件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kr">const</span> <span class="nx">TargetComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">forwardRef</span><span class="p">((</span><span class="nx">props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">TargetComponent</span> <span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}</span> <span class="p">/&gt;</span>
+<span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2reactelement">2.ReactElement</h2>
+<p><code>ReactElement</code>通过<code>createElement</code>创建，调用该方法需要传入三个参数：</p>
+<ul>
+<li>type</li>
+<li>config</li>
+<li>children</li>
+</ul>
+<p><code>type</code>指代这个<code>ReactElement</code>的类型</p>
+<ul>
+<li>字符串比如<code>div</code>，<code>p</code>代表原生DOM，称为<code>HostComponent</code></li>
+<li>Class类型是我们继承自<code>Component</code>或者<code>PureComponent</code>的组件，称为<code>ClassComponent</code></li>
+<li>方法就是<code>functional Component</code></li>
+<li>原生提供的<code>Fragment</code>、<code>AsyncMode</code>等是Symbol，会被特殊处理</li>
+<li>TODO: 是否有其他的</li>
+</ul>
+<p>从源码可以看出虽然创建的时候都是通过<code>config</code>传入的，但是<code>key</code>和<code>ref</code>不会跟其他<code>config</code>中的变量一起被处理，而是单独作为变量出现在<code>ReactElement</code>上。</p>
+<p>从源码可以看出虽然创建的时候都是通过<code>config</code>传入的，但是<code>key</code>和<code>ref</code>不会跟其他<code>config</code>中的变量一起被处理，而是单独作为变量出现在<code>ReactElement</code>上。在最后创建<code>ReactElement</code>我们看到了这么一个变量<code>$$typeof</code>，在这里他是一个常量：<code>REACT_ELEMENT_TYPE</code></p>
+<h2 id="3react-children">3.React Children</h2>
+<p><code>React</code>上面有有一个<code>Children</code>对象，上面有着<code>Children</code>定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kr">const</span> <span class="nx">React</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">Children</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">map</span><span class="p">,</span>
+    <span class="nx">forEach</span><span class="p">,</span>
+    <span class="nx">count</span><span class="p">,</span>
+    <span class="nx">toArray</span><span class="p">,</span>
+    <span class="nx">only</span><span class="p">,</span>
+  <span class="p">},</span>
+	<span class="p">......</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>找到定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">mapChildren</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">children</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">children</span>
+  <span class="p">}</span>
+  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="nx">mapIntoWithKeyPrefixInternal</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">result</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">mapIntoWithKeyPrefixInternal</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">array</span><span class="p">,</span> <span class="nx">prefix</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">escapedPrefix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">prefix</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">escapedPrefix</span> <span class="o">=</span> <span class="nx">escapeUserProvidedKey</span><span class="p">(</span><span class="nx">prefix</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+  <span class="p">}</span>
+  <span class="kr">const</span> <span class="nx">traverseContext</span> <span class="o">=</span> <span class="nx">getPooledTraverseContext</span><span class="p">(</span>
+    <span class="nx">array</span><span class="p">,</span>
+    <span class="nx">escapedPrefix</span><span class="p">,</span>
+    <span class="nx">func</span><span class="p">,</span>
+    <span class="nx">context</span><span class="p">,</span>
+  <span class="p">)</span>
+  <span class="nx">traverseAllChildren</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">mapSingleChildIntoContext</span><span class="p">,</span> <span class="nx">traverseContext</span><span class="p">)</span>
+  <span class="nx">releaseTraverseContext</span><span class="p">(</span><span class="nx">traverseContext</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到后面调用了<code>getPooledTraverseContext</code>，这是从内容池中找到当前的<code>contex</code>t对象，操作完了之后<code>releaseTraverseContext</code>会把当前的<code>context</code>对象清空然后放回到<code>pool</code>中。然后调用<code>traverseAllChildren</code>，这个方法的作用就是递归调用<code>mapChildren</code>将所有<code>Children</code>铺平，直到当前元素是一个有效的<code>ReactElement</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">mapSingleChildIntoContext</span><span class="p">(</span><span class="nx">bookKeeping</span><span class="p">,</span> <span class="nx">child</span><span class="p">,</span> <span class="nx">childKey</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">keyPrefix</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">context</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bookKeeping</span>
+
+  <span class="kd">let</span> <span class="nx">mappedChild</span> <span class="o">=</span> <span class="nx">func</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">child</span><span class="p">,</span> <span class="nx">bookKeeping</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">mappedChild</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">mapIntoWithKeyPrefixInternal</span><span class="p">(</span><span class="nx">mappedChild</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">childKey</span><span class="p">,</span> <span class="nx">c</span> <span class="p">=&gt;</span> <span class="nx">c</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">mappedChild</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isValidElement</span><span class="p">(</span><span class="nx">mappedChild</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">mappedChild</span> <span class="o">=</span> <span class="nx">cloneAndReplaceKey</span><span class="p">(</span>
+        <span class="nx">mappedChild</span><span class="p">,</span>
+        <span class="nx">keyPrefix</span> <span class="o">+</span>
+          <span class="p">(</span><span class="nx">mappedChild</span><span class="p">.</span><span class="nx">key</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">!</span><span class="nx">child</span> <span class="o">||</span> <span class="nx">child</span><span class="p">.</span><span class="nx">key</span> <span class="o">!==</span> <span class="nx">mappedChild</span><span class="p">.</span><span class="nx">key</span><span class="p">)</span>
+            <span class="o">?</span> <span class="nx">escapeUserProvidedKey</span><span class="p">(</span><span class="nx">mappedChild</span><span class="p">.</span><span class="nx">key</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+            <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span>
+          <span class="nx">childKey</span><span class="p">,</span>
+      <span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">mappedChild</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;{</span><span class="nx">child</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;;</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4react中的数据结构">4.React中的数据结构</h2>
+<p><code>Update</code> &amp;<code> UpdateQueue</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kr">export</span> <span class="nx">type</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// 更新的过期时间
+</span><span class="c1"></span>  <span class="nx">expirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+
+  <span class="c1">// export const UpdateState = 0;
+</span><span class="c1"></span>  <span class="c1">// export const ReplaceState = 1;
+</span><span class="c1"></span>  <span class="c1">// export const ForceUpdate = 2;
+</span><span class="c1"></span>  <span class="c1">// export const CaptureUpdate = 3;
+</span><span class="c1"></span>  <span class="c1">// 指定更新的类型，值为以上几种
+</span><span class="c1"></span>  <span class="nx">tag</span><span class="o">:</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="c1">// 更新内容，比如`setState`接收的第一个参数
+</span><span class="c1"></span>  <span class="nx">payload</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span> <span class="c1">// 当前DOM元素？
+</span><span class="c1"></span>  <span class="c1">// 对应的回调，`setState`，`render`都有
+</span><span class="c1"></span>  <span class="nx">callback</span><span class="o">:</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">mixed</span><span class="p">)</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+
+  <span class="c1">// 指向下一个更新
+</span><span class="c1"></span>  <span class="nx">next</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="c1">// 指向下一个`side effect`
+</span><span class="c1"></span>  <span class="nx">nextEffect</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">UpdateQueue</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// 每次操作完更新之后的`state`
+</span><span class="c1"></span>  <span class="nx">baseState</span><span class="o">:</span> <span class="nx">State</span><span class="p">,</span>
+
+  <span class="c1">// 队列中的第一个`Update`
+</span><span class="c1"></span>  <span class="nx">firstUpdate</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="c1">// 队列中的最后一个`Update`
+</span><span class="c1"></span>  <span class="nx">lastUpdate</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+
+  <span class="c1">// 第一个捕获类型的`Update`
+</span><span class="c1"></span>  <span class="nx">firstCapturedUpdate</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="c1">// 最后一个捕获类型的`Update`
+</span><span class="c1"></span>  <span class="nx">lastCapturedUpdate</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+
+  <span class="c1">// 第一个`side effect`
+</span><span class="c1"></span>  <span class="nx">firstEffect</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="c1">// 最后一个`side effect`
+</span><span class="c1"></span>  <span class="nx">lastEffect</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+
+  <span class="c1">// 第一个和最后一个捕获产生的`side effect`
+</span><span class="c1"></span>  <span class="nx">firstCapturedEffect</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">lastCapturedEffect</span><span class="o">:</span> <span class="nx">Update</span><span class="p">&lt;</span><span class="nt">State</span><span class="p">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5初次reactdomreander过程">5.初次ReactDOM.reander过程</h2>
+<p>首先调用<code>legacyRenderSubtreeIntoContainer</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="nx">ReactDOM</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">(</span>
+    <span class="nx">element</span><span class="o">:</span> <span class="nx">React$Element</span><span class="p">&lt;</span><span class="nt">any</span><span class="p">&gt;,</span>
+    <span class="nx">container</span><span class="o">:</span> <span class="nx">DOMContainer</span><span class="p">,</span>
+    <span class="nx">callback</span><span class="o">:</span> <span class="o">?</span><span class="nb">Function</span><span class="p">,</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">legacyRenderSubtreeIntoContainer</span><span class="p">(</span>
+      <span class="kc">null</span><span class="p">,</span>
+      <span class="nx">element</span><span class="p">,</span>
+      <span class="nx">container</span><span class="p">,</span>
+      <span class="kc">false</span><span class="p">,</span>
+      <span class="nx">callback</span><span class="p">,</span>
+    <span class="p">)</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">legacyRenderSubtreeIntoContainer</span><span class="p">(</span>
+  <span class="nx">parentComponent</span><span class="o">:</span> <span class="o">?</span><span class="nx">React$Component</span><span class="p">&lt;</span><span class="nt">any</span><span class="err">,</span> <span class="na">any</span><span class="p">&gt;,</span>
+  <span class="nx">children</span><span class="o">:</span> <span class="nx">ReactNodeList</span><span class="p">,</span>
+  <span class="nx">container</span><span class="o">:</span> <span class="nx">DOMContainer</span><span class="p">,</span>
+  <span class="nx">forceHydrate</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">,</span>
+  <span class="nx">callback</span><span class="o">:</span> <span class="o">?</span><span class="nb">Function</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">root</span><span class="o">:</span> <span class="nx">Root</span> <span class="o">=</span> <span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">_reactRootContainer</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">root</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 生成root，当前传入的根container的_reactRootContainer指向生成的root
+</span><span class="c1"></span>    <span class="nx">root</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">_reactRootContainer</span> <span class="o">=</span> <span class="nx">legacyCreateRootFromDOMContainer</span><span class="p">(</span>
+      <span class="nx">container</span><span class="p">,</span>
+      <span class="nx">forceHydrate</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">callback</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">originalCallback</span> <span class="o">=</span> <span class="nx">callback</span>
+      <span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nx">DOMRenderer</span><span class="p">.</span><span class="nx">getPublicRootInstance</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">_internalRoot</span><span class="p">)</span>
+        <span class="nx">originalCallback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">instance</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// 首次render不比unbatchedUpdates
+</span><span class="c1"></span>    <span class="nx">DOMRenderer</span><span class="p">.</span><span class="nx">unbatchedUpdates</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">parentComponent</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 一般不会出现
+</span><span class="c1"></span>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">root</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 有root的情况
+</span><span class="c1"></span>  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">DOMRenderer</span><span class="p">.</span><span class="nx">getPublicRootInstance</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">_internalRoot</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>legacyCreateRootFromDOMContainer</code>方法生成<code>root</code>，返回的结果上的<code>_internalRoot</code>指向这个<code>root</code>。同时会调用<code>DOMRenderer.createContainer</code>创建<code>FiberRoot</code>，然后生成的<code>root</code>的<code>current</code>属性指向这个<code>FiberRoot</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">legacyCreateRootFromDOMContainer</span><span class="p">(</span>
+  <span class="nx">container</span><span class="o">:</span> <span class="nx">DOMContainer</span><span class="p">,</span>
+  <span class="nx">forceHydrate</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">Root</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">shouldHydrate</span> <span class="o">=</span>
+    <span class="nx">forceHydrate</span> <span class="o">||</span> <span class="nx">shouldHydrateDueToLegacyHeuristic</span><span class="p">(</span><span class="nx">container</span><span class="p">)</span>
+  <span class="c1">// First clear any existing content.
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shouldHydrate</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">warned</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="kd">let</span> <span class="nx">rootSibling</span>
+    <span class="k">while</span> <span class="p">((</span><span class="nx">rootSibling</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">container</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">rootSibling</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// Legacy roots are not async by default.
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">isConcurrent</span> <span class="o">=</span> <span class="kc">false</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">ReactRoot</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="nx">isConcurrent</span><span class="p">,</span> <span class="nx">shouldHydrate</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">ReactRoot</span><span class="p">(</span>
+  <span class="nx">container</span><span class="o">:</span> <span class="nx">Container</span><span class="p">,</span>
+  <span class="nx">isConcurrent</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">,</span>
+  <span class="nx">hydrate</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">DOMRenderer</span><span class="p">.</span><span class="nx">createContainer</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="nx">isConcurrent</span><span class="p">,</span> <span class="nx">hydrate</span><span class="p">)</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_internalRoot</span> <span class="o">=</span> <span class="nx">root</span>
+<span class="p">}</span>
+
+<span class="nx">ReactRoot</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span>
+  <span class="nx">children</span><span class="o">:</span> <span class="nx">ReactNodeList</span><span class="p">,</span>
+  <span class="nx">callback</span><span class="o">:</span> <span class="o">?</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">mixed</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">Work</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_internalRoot</span>
+  <span class="kr">const</span> <span class="nx">work</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReactWork</span><span class="p">()</span>
+  <span class="nx">callback</span> <span class="o">=</span> <span class="nx">callback</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">callback</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">__DEV__</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">warnOnInvalidCallback</span><span class="p">(</span><span class="nx">callback</span><span class="p">,</span> <span class="s1">&#39;render&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">callback</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">work</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="nx">DOMRenderer</span><span class="p">.</span><span class="nx">updateContainer</span><span class="p">(</span><span class="nx">children</span><span class="p">,</span> <span class="nx">root</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">_onCommit</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">work</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到还有个<code>updateContainer</code>方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">updateContainer</span><span class="p">(</span>
+  <span class="nx">element</span><span class="o">:</span> <span class="nx">ReactNodeList</span><span class="p">,</span>
+  <span class="nx">container</span><span class="o">:</span> <span class="nx">OpaqueRoot</span><span class="p">,</span>
+  <span class="nx">parentComponent</span><span class="o">:</span> <span class="o">?</span><span class="nx">React$Component</span><span class="p">&lt;</span><span class="nt">any</span><span class="err">,</span> <span class="na">any</span><span class="p">&gt;,</span>
+  <span class="nx">callback</span><span class="o">:</span> <span class="o">?</span><span class="nb">Function</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">ExpirationTime</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">current</span>
+  <span class="kr">const</span> <span class="nx">currentTime</span> <span class="o">=</span> <span class="nx">requestCurrentTime</span><span class="p">()</span>
+  <span class="kr">const</span> <span class="nx">expirationTime</span> <span class="o">=</span> <span class="nx">computeExpirationForFiber</span><span class="p">(</span><span class="nx">currentTime</span><span class="p">,</span> <span class="nx">current</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">updateContainerAtExpirationTime</span><span class="p">(</span>
+    <span class="nx">element</span><span class="p">,</span>
+    <span class="nx">container</span><span class="p">,</span>
+    <span class="nx">parentComponent</span><span class="p">,</span>
+    <span class="nx">expirationTime</span><span class="p">,</span>
+    <span class="nx">callback</span><span class="p">,</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">updateContainerAtExpirationTime</span><span class="p">(</span>
+  <span class="nx">element</span><span class="o">:</span> <span class="nx">ReactNodeList</span><span class="p">,</span>
+  <span class="nx">container</span><span class="o">:</span> <span class="nx">OpaqueRoot</span><span class="p">,</span>
+  <span class="nx">parentComponent</span><span class="o">:</span> <span class="o">?</span><span class="nx">React$Component</span><span class="p">&lt;</span><span class="nt">any</span><span class="err">,</span> <span class="na">any</span><span class="p">&gt;,</span>
+  <span class="nx">expirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+  <span class="nx">callback</span><span class="o">:</span> <span class="o">?</span><span class="nb">Function</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// TODO: If this is a nested container, this won&#39;t be the root.
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">current</span>
+  <span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">getContextForSubtree</span><span class="p">(</span><span class="nx">parentComponent</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">context</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">context</span> <span class="o">=</span> <span class="nx">context</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">pendingContext</span> <span class="o">=</span> <span class="nx">context</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">scheduleRootUpdate</span><span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到先生成一个时间<code>const expirationTime</code>，也就是这次更新的超时时间，然后调用<code>updateContainerAtExpirationTime</code>，然后调用<code>scheduleRootUpdate</code>进行调度</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">scheduleRootUpdate</span><span class="p">(</span>
+  <span class="nx">current</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">,</span>
+  <span class="nx">element</span><span class="o">:</span> <span class="nx">ReactNodeList</span><span class="p">,</span>
+  <span class="nx">expirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+  <span class="nx">callback</span><span class="o">:</span> <span class="o">?</span><span class="nb">Function</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">update</span> <span class="o">=</span> <span class="nx">createUpdate</span><span class="p">(</span><span class="nx">expirationTime</span><span class="p">)</span>
+
+  <span class="nx">update</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">element</span> <span class="p">}</span>
+
+  <span class="nx">callback</span> <span class="o">=</span> <span class="nx">callback</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">callback</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">callback</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">warningWithoutStack</span><span class="p">(</span>
+      <span class="k">typeof</span> <span class="nx">callback</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;render(...): Expected the last optional `callback` argument to be a &#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;function. Instead received: %s.&#39;</span><span class="p">,</span>
+      <span class="nx">callback</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">callback</span> <span class="o">=</span> <span class="nx">callback</span>
+  <span class="p">}</span>
+  <span class="nx">enqueueUpdate</span><span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">update</span><span class="p">)</span>
+
+  <span class="nx">scheduleWork</span><span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">expirationTime</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>scheduleRootUpdate</code>会调用<code>createUpdate</code>创建<code>Update</code>对象，其<code>playload</code>为<code>container</code>上面的<code>ReactNodeList</code>，然后调用<code>enqueueUpdate</code>生成一个双向列表队列，然后调用<code>scheduleWork</code>开始调用。上面的过程都是依赖的<code>FiberRoot</code></p>
+<h2 id="6expirationtime">6.expirationTime</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kr">import</span> <span class="nx">MAX_SIGNED_31_BIT_INT</span> <span class="nx">from</span> <span class="s1">&#39;./maxSigned31BitInt&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">ExpirationTime</span> <span class="o">=</span> <span class="nx">number</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">NoWork</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">Never</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">Sync</span> <span class="o">=</span> <span class="nx">MAX_SIGNED_31_BIT_INT</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">UNIT_SIZE</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">MAGIC_NUMBER_OFFSET</span> <span class="o">=</span> <span class="nx">MAX_SIGNED_31_BIT_INT</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">// 1 unit of expiration time represents 10ms.
+</span><span class="c1"></span><span class="kr">export</span> <span class="kd">function</span> <span class="nx">msToExpirationTime</span><span class="p">(</span><span class="nx">ms</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nx">ExpirationTime</span> <span class="p">{</span>
+  <span class="c1">// Always add an offset so that we don&#39;t clash with the magic number for NoWork.
+</span><span class="c1"></span>  <span class="k">return</span> <span class="nx">MAGIC_NUMBER_OFFSET</span> <span class="o">-</span> <span class="p">((</span><span class="nx">ms</span> <span class="o">/</span> <span class="nx">UNIT_SIZE</span><span class="p">)</span> <span class="o">|</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">expirationTimeToMs</span><span class="p">(</span><span class="nx">expirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">)</span><span class="o">:</span> <span class="nx">number</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">MAGIC_NUMBER_OFFSET</span> <span class="o">-</span> <span class="nx">expirationTime</span><span class="p">)</span> <span class="o">*</span> <span class="nx">UNIT_SIZE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">ceiling</span><span class="p">(</span><span class="nx">num</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">precision</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nx">number</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(((</span><span class="nx">num</span> <span class="o">/</span> <span class="nx">precision</span><span class="p">)</span> <span class="o">|</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">precision</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">computeExpirationBucket</span><span class="p">(</span>
+  <span class="nx">currentTime</span><span class="p">,</span>
+  <span class="nx">expirationInMs</span><span class="p">,</span>
+  <span class="nx">bucketSizeMs</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">ExpirationTime</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="nx">MAGIC_NUMBER_OFFSET</span> <span class="o">-</span>
+    <span class="nx">ceiling</span><span class="p">(</span>
+      <span class="nx">MAGIC_NUMBER_OFFSET</span> <span class="o">-</span> <span class="nx">currentTime</span> <span class="o">+</span> <span class="nx">expirationInMs</span> <span class="o">/</span> <span class="nx">UNIT_SIZE</span><span class="p">,</span>
+      <span class="nx">bucketSizeMs</span> <span class="o">/</span> <span class="nx">UNIT_SIZE</span><span class="p">,</span>
+    <span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">LOW_PRIORITY_EXPIRATION</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">LOW_PRIORITY_BATCH_SIZE</span> <span class="o">=</span> <span class="mi">250</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">computeAsyncExpiration</span><span class="p">(</span>
+  <span class="nx">currentTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">ExpirationTime</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">computeExpirationBucket</span><span class="p">(</span>
+    <span class="nx">currentTime</span><span class="p">,</span>
+    <span class="nx">LOW_PRIORITY_EXPIRATION</span><span class="p">,</span>
+    <span class="nx">LOW_PRIORITY_BATCH_SIZE</span><span class="p">,</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">HIGH_PRIORITY_EXPIRATION</span> <span class="o">=</span> <span class="nx">__DEV__</span> <span class="o">?</span> <span class="mi">500</span> <span class="o">:</span> <span class="mi">150</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">HIGH_PRIORITY_BATCH_SIZE</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">computeInteractiveExpiration</span><span class="p">(</span><span class="nx">currentTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">computeExpirationBucket</span><span class="p">(</span>
+    <span class="nx">currentTime</span><span class="p">,</span>
+    <span class="nx">HIGH_PRIORITY_EXPIRATION</span><span class="p">,</span>
+    <span class="nx">HIGH_PRIORITY_BATCH_SIZE</span><span class="p">,</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>最后的计算公式为<code>((((currentTime - 2 + 5000 / 10) / 25) | 0) + 1) * 25</code>（公式存疑），也就是说最后的结果是以<code>25ms</code>为单位向上增加的，在<code>25ms</code>内，<code>react</code>这样做为的是让两次时间非常想尽的更新得到同样的<code>expirationTime</code>，然后他们的优先级就会判定一样，就会再一次更新中完成，也就是一个<code>batchedUpdates</code></p>
+<p>计算当前<code>currentTime</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">requestCurrentTime</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isRendering</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">currentSchedulerTime</span>
+  <span class="p">}</span>
+  <span class="nx">findHighestPriorityRoot</span><span class="p">()</span>
+  <span class="k">if</span> <span class="p">(</span>
+    <span class="nx">nextFlushedExpirationTime</span> <span class="o">===</span> <span class="nx">NoWork</span> <span class="o">||</span>
+    <span class="nx">nextFlushedExpirationTime</span> <span class="o">===</span> <span class="nx">Never</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">recomputeCurrentRendererTime</span><span class="p">()</span>
+    <span class="nx">currentSchedulerTime</span> <span class="o">=</span> <span class="nx">currentRendererTime</span>
+    <span class="k">return</span> <span class="nx">currentSchedulerTime</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">currentSchedulerTime</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>react</code>为了避免每次计算<code>expirationTime</code>都要<code>Date now</code>，所以用<code>currentRendererTime</code>来保存了这个值，上面的<code>currentSchedulerTime</code>也是记录这个值的</p>
+<p>首先</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="k">if</span> <span class="p">(</span><span class="nx">isRendering</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">currentSchedulerTime</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个<code>isRendering</code>只有在<code>performWorkOnRoot</code>的时候才会被设置为<code>true</code>，而其本身是一个同步的方法，不存在他执行到一半没有设置<code>isRendering</code>为<code>false</code>的时候就跳出，那么什么情况下会在这里出现新的<code>requestCurrentTime</code>呢？</p>
+<ul>
+<li>在生命周期方法中调用了<code>setState</code></li>
+<li>需要挂起任务的时候</li>
+</ul>
+<p>也就是说 React 要求<strong>在一次<code>rendering</code>过程中，新产生的<code>update</code>用于计算过期时间的<code>current</code>必须跟目前的<code>renderTime</code>保持一致，同理在这个周期中所有产生的新的更新的过期时间都会保持一致！</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react">  <span class="nx">findHighestPriorityRoot</span><span class="p">()</span>
+  <span class="k">if</span> <span class="p">(</span>
+    <span class="nx">nextFlushedExpirationTime</span> <span class="o">===</span> <span class="nx">NoWork</span> <span class="o">||</span>
+    <span class="nx">nextFlushedExpirationTime</span> <span class="o">===</span> <span class="nx">Never</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">recomputeCurrentRendererTime</span><span class="p">()</span>
+    <span class="nx">currentSchedulerTime</span> <span class="o">=</span> <span class="nx">currentRendererTime</span>
+    <span class="k">return</span> <span class="nx">currentSchedulerTime</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>findHighestPriorityRoot</code>找到优先级最高的节点，同时设置<code>nextFlushedExpirationTime</code>，然后if判断当前队列中没有更新的任务，就会重新计算当前时间，否则，还是返回最初的<code>currentSchedulerTime</code></p>
+<h2 id="7各种expirationtime">7.各种expirationTime</h2>
+<ul>
+<li><code>root.expirationTime</code></li>
+<li><code>root.nextExpirationTimeToWorkOn</code></li>
+<li><code>root.childExpirationTime</code></li>
+<li><code>root.earliestPendingTime &amp; root.lastestPendingTime</code></li>
+<li><code>root.earliestSuspendedTime &amp; root.lastestSuspendedTime</code></li>
+<li><code>root.lastestPingedTime</code></li>
+<li><code>nextFlushedExpirationTime</code></li>
+<li><code>nextLatestAbsoluteTimeoutMs</code></li>
+<li><code>currentRendererTime</code></li>
+<li><code>currentSchedulerTime</code></li>
+</ul>
+<p><code>React</code>更新是从<code>FilberRoot</code>开始的，所以每次更新时都会遍历向上查找<code>FiberRoot</code>，而这个<code>childExpirationTime</code>会设置到每个父节点，代表其子节点<code>expirationTime</code></p>
+<p><code>pendingTime</code>，在<code>FiberRoot</code>上有两个值<code>earliestPendingTime</code>和<code>lastestPedingTime</code>，他们是一对值，<strong>用来记录所有子树中需要进行渲染的更新的<code>expirationTime</code>的区间</strong></p>
+<p><code>suspendedTime</code>，同样的在<code>ReactFiber</code>上有两个值<code>earliestSuspendedTime</code>和<code>lastestSuspendedTime</code>，<strong>这两个值是用来记录被挂起的任务的过期时间的</strong></p>
+<p>首先我们定义一下什么情况下任务是被挂起的：</p>
+<ul>
+<li>出现可捕获的错误并且还有优先级更低的任务的情况下</li>
+<li>当捕获到<code>thenable</code>，并且需要设置<code>onTimeout</code>的时候</li>
+</ul>
+<p><code>root.expirationTime</code>是用来标志当前渲染的过期时间的，请注意他只管本渲染周期，他并不管你现在的渲染目标是哪个，渲染目标是由<code>root.nextExpirationTimeToWorkOn</code>来决定的。</p>
+<p>那么他们有什么区别呢？主要区别在于发挥作用的阶段</p>
+<p><code>expirationTime</code>作用于调度阶段，主要指责是：</p>
+<ul>
+<li>决定是异步执行渲染还是同步执行渲染</li>
+<li>作为<code>react-scheduler</code>的<code>timeout</code>标准，决定是否要优先渲染</li>
+</ul>
+<p><code>nextExpirationTimeToWorkOn</code>主要作用于渲染阶段：</p>
+<ul>
+<li>决定那些更新要在当前周期中被执行</li>
+<li>通过跟每个节点的<code>expirationTime</code>比较决定该节点是否可以直接<code>bailout</code>（跳过）</li>
+</ul>
+<p>他们都是通过<code>pendingTime</code>、<code>suspenededTime</code>和<code>pingedTime</code>中删选出来的，唯一的不同是，<code>nextExpirationTimeToWorkOn</code>在没有<code>pending</code>或者<code>pinged</code>的任务的时候会选择最晚的<code>suspendedTime</code>，而<code>expirationTime</code>会选择最早的</p>
+<p><code>expirationTime</code>的变化：</p>
+<ul>
+<li>在<code>scheduleWork</code>的时候通过<code>markPendingExpirationTime</code>设置</li>
+<li>在<code>beginWork</code>的时候被设置为<code>NoWork</code></li>
+<li>在<code>onUncaughtError</code>的时候设置为<code>NoWork</code></li>
+<li><code>onSuspend</code>的时候又会设置回当次更新的<code>expirationTime</code></li>
+</ul>
+<h2 id="8schedulework">8.scheduleWork</h2>
+<p>上面说的在创建完更新队列后，就会调用<code>scheduleWork</code>调度了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">scheduleWork</span><span class="p">(</span><span class="nx">fiber</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">scheduleWorkToRoot</span><span class="p">(</span><span class="nx">fiber</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">root</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">__DEV__</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">switch</span> <span class="p">(</span><span class="nx">fiber</span><span class="p">.</span><span class="nx">tag</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nx">ClassComponent</span><span class="o">:</span>
+          <span class="nx">warnAboutUpdateOnUnmounted</span><span class="p">(</span><span class="nx">fiber</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nx">FunctionComponent</span><span class="o">:</span>
+        <span class="k">case</span> <span class="nx">ForwardRef</span><span class="o">:</span>
+        <span class="k">case</span> <span class="nx">MemoComponent</span><span class="o">:</span>
+        <span class="k">case</span> <span class="nx">SimpleMemoComponent</span><span class="o">:</span>
+          <span class="nx">warnAboutUpdateOnUnmounted</span><span class="p">(</span><span class="nx">fiber</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+	
+  <span class="c1">// 此条件的意思是当前处理空闲阶段，没有render或者commit，并且下一次任务不为空，还有当前过期时间(优先级)高于下次的过期时间
+</span><span class="c1"></span>  <span class="c1">// 则清空队列
+</span><span class="c1"></span>  <span class="c1">// 例如上一个任务是异步任务（优先级很低，超时时间是 502ms），并且在上一个时间片（初始是 33ms）任务没有执行完，而且等待下一次requestIdleCallback的时候新的任务进来了，并且超时时间很短（52ms 或者 22ms 甚至是 Sync），那么优先级就变成了先执行当前任务，也就意味着上一个任务被打断了（interrupted）
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span>
+    <span class="o">!</span><span class="nx">isWorking</span> <span class="o">&amp;&amp;</span>
+    <span class="nx">nextRenderExpirationTime</span> <span class="o">!==</span> <span class="nx">NoWork</span> <span class="o">&amp;&amp;</span>
+    <span class="nx">expirationTime</span> <span class="o">&gt;</span> <span class="nx">nextRenderExpirationTime</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">interruptedBy</span> <span class="o">=</span> <span class="nx">fiber</span><span class="p">;</span>
+    <span class="nx">resetStack</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="c1">// 记录所有子节点的任务时间区间
+</span><span class="c1"></span>  <span class="nx">markPendingPriorityLevel</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">);</span>
+  <span class="c1">// 要么处于没有 work 的状态，要么只能在 render 阶段，要么有两个不同的root
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span>
+    <span class="o">!</span><span class="nx">isWorking</span> <span class="o">||</span>
+    <span class="nx">isCommitting</span> <span class="o">||</span>
+    <span class="nx">nextRoot</span> <span class="o">!==</span> <span class="nx">root</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">rootExpirationTime</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">expirationTime</span><span class="p">;</span>
+    <span class="nx">requestWork</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">rootExpirationTime</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">nestedUpdateCount</span> <span class="o">&gt;</span> <span class="nx">NESTED_UPDATE_LIMIT</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Reset this back to zero so subsequent updates don&#39;t throw.
+</span><span class="c1"></span>    <span class="nx">nestedUpdateCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">invariant</span><span class="p">(</span>
+      <span class="kc">false</span><span class="p">,</span>
+      <span class="s1">&#39;Maximum update depth exceeded. This can happen when a &#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;component repeatedly calls setState inside &#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;componentWillUpdate or componentDidUpdate. React limits &#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;the number of nested updates to prevent infinite loops.&#39;</span><span class="p">,</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>首先是调用<code>scheduleWorkToRoot</code>，这个方法的主要是更新当前任务对应<code>Filber</code>的到期时间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">scheduleWorkToRoot</span><span class="p">(</span><span class="nx">fiber</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">)</span><span class="o">:</span> <span class="nx">FiberRoot</span> <span class="o">|</span> <span class="kc">null</span> <span class="p">{</span>
+  <span class="nx">recordScheduleUpdate</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">__DEV__</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">fiber</span><span class="p">.</span><span class="nx">tag</span> <span class="o">===</span> <span class="nx">ClassComponent</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nx">fiber</span><span class="p">.</span><span class="nx">stateNode</span><span class="p">;</span>
+      <span class="nx">warnAboutInvalidUpdates</span><span class="p">(</span><span class="nx">instance</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 如果filber上的过期时间小于当前的过期时间，更新
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">fiber</span><span class="p">.</span><span class="nx">expirationTime</span> <span class="o">&lt;</span> <span class="nx">expirationTime</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fiber</span><span class="p">.</span><span class="nx">expirationTime</span> <span class="o">=</span> <span class="nx">expirationTime</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">alternate</span> <span class="o">=</span> <span class="nx">fiber</span><span class="p">.</span><span class="nx">alternate</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">alternate</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">alternate</span><span class="p">.</span><span class="nx">expirationTime</span> <span class="o">&lt;</span> <span class="nx">expirationTime</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alternate</span><span class="p">.</span><span class="nx">expirationTime</span> <span class="o">=</span> <span class="nx">expirationTime</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// fiber.return 返回当前fiber的父节点
+</span><span class="c1"></span>  <span class="kd">let</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">fiber</span><span class="p">.</span><span class="k">return</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">root</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">node</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">fiber</span><span class="p">.</span><span class="nx">tag</span> <span class="o">===</span> <span class="nx">HostRoot</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 如果filber.return的值为null，设置root的值为根节点(fiber.stateNode)
+</span><span class="c1"></span>    <span class="nx">root</span> <span class="o">=</span> <span class="nx">fiber</span><span class="p">.</span><span class="nx">stateNode</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 循环向上遍历，更新每个子节点的过期时间
+</span><span class="c1"></span>    <span class="c1">// 如果子节点的过期时间小于当前过期时间，则更新
+</span><span class="c1"></span>    <span class="k">while</span> <span class="p">(</span><span class="nx">node</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">alternate</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">alternate</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">childExpirationTime</span> <span class="o">&lt;</span> <span class="nx">expirationTime</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">node</span><span class="p">.</span><span class="nx">childExpirationTime</span> <span class="o">=</span> <span class="nx">expirationTime</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span>
+          <span class="nx">alternate</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+          <span class="nx">alternate</span><span class="p">.</span><span class="nx">childExpirationTime</span> <span class="o">&lt;</span> <span class="nx">expirationTime</span>
+        <span class="p">)</span> <span class="p">{</span>
+          <span class="nx">alternate</span><span class="p">.</span><span class="nx">childExpirationTime</span> <span class="o">=</span> <span class="nx">expirationTime</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span>
+        <span class="nx">alternate</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+        <span class="nx">alternate</span><span class="p">.</span><span class="nx">childExpirationTime</span> <span class="o">&lt;</span> <span class="nx">expirationTime</span>
+      <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">alternate</span><span class="p">.</span><span class="nx">childExpirationTime</span> <span class="o">=</span> <span class="nx">expirationTime</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="k">return</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">node</span><span class="p">.</span><span class="nx">tag</span> <span class="o">===</span> <span class="nx">HostRoot</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">root</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">stateNode</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">node</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="p">......</span>
+  <span class="k">return</span> <span class="nx">root</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>requestWork</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">requestWork</span><span class="p">(</span><span class="nx">root</span><span class="o">:</span> <span class="nx">FiberRoot</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 将root加入调度队列中，不会存在两个相同的 root 前后出现在队列中
+</span><span class="c1"></span>  <span class="nx">addRootToSchedule</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isRendering</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isBatchingUpdates</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isUnbatchingUpdates</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">nextFlushedRoot</span> <span class="o">=</span> <span class="nx">root</span>
+      <span class="nx">nextFlushedExpirationTime</span> <span class="o">=</span> <span class="nx">Sync</span>
+      <span class="nx">performWorkOnRoot</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">Sync</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 根据expirationTime调用performSyncWork还是scheduleCallbackWithExpirationTime
+</span><span class="c1"></span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">expirationTime</span> <span class="o">===</span> <span class="nx">Sync</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">performSyncWork</span><span class="p">()</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 异步调度，并且当前已经有异步任务，如果当前传入的任务优先级高，取消之前的调度，异步调度当前任务
+</span><span class="c1"></span>    <span class="c1">// 无异步任务，生成一个到期时间，调度
+</span><span class="c1"></span>    <span class="nx">scheduleCallbackWithExpirationTime</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="9performwork">9.performWork</h2>
+<p><code>performAsyncWork</code> 为异步调用，一开始的<code>shouldYieldToRenderer</code>代表是否当前调度中有没有时间执行异步任务，若<code>shouldYieldToRenderer</code>返回<code>false</code>，则代表有，那么重新计算当前的<code>expirationTime</code>，更新所有的已过期的<code>root</code>任务的<code>nextExpirationTimeToWorkOn</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">let</span> <span class="nx">didYield</span><span class="o">:</span> <span class="kr">boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">shouldYieldToRenderer</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">didYield</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">shouldYield</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nx">didYield</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">performAsyncWork</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shouldYieldToRenderer</span><span class="p">())</span> <span class="p">{</span>
+      <span class="c1">// 如果当前还有调度的链表
+</span><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="nx">firstScheduledRoot</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 重新计算当前的一个expirationTime
+</span><span class="c1"></span>        <span class="nx">recomputeCurrentRendererTime</span><span class="p">();</span>
+        <span class="kd">let</span> <span class="nx">root</span><span class="o">:</span> <span class="nx">FiberRoot</span> <span class="o">=</span> <span class="nx">firstScheduledRoot</span><span class="p">;</span>
+        <span class="k">do</span> <span class="p">{</span>
+          <span class="c1">// 设置所有的已过期的root任务的nextExpirationTimeToWorkOn为当前计算出的expirationTime
+</span><span class="c1"></span>          <span class="nx">didExpireAtExpirationTime</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">currentRendererTime</span><span class="p">);</span>
+          <span class="nx">root</span> <span class="o">=</span> <span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">nextScheduledRoot</span><span class="o">:</span> <span class="nx">any</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">root</span> <span class="o">!==</span> <span class="nx">firstScheduledRoot</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">performWork</span><span class="p">(</span><span class="nx">NoWork</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+    <span class="nx">didYield</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>performSyncWork</code></p>
+<p>同步调度任务，方法很简单，直接调用<code>performWork</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">performSyncWork</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">performWork</span><span class="p">(</span><span class="nx">Sync</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>performWork</code></p>
+<p>此方法为真正的调度方法，首先会调用<code>findHighestPriorityRoot</code>，找到当前队列优先级最高的<code>root</code>任务，命名为<code>nextFlushedRoot</code>，已经其对应的<code>expirationTime</code>，命名为<code>nextFlushedExpirationTime</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">performWork</span><span class="p">(</span><span class="nx">minExpirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span> <span class="nx">isYieldy</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">findHighestPriorityRoot</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isYieldy</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">recomputeCurrentRendererTime</span><span class="p">();</span>
+    <span class="nx">currentSchedulerTime</span> <span class="o">=</span> <span class="nx">currentRendererTime</span><span class="p">;</span>
+		
+    <span class="k">if</span> <span class="p">(</span><span class="nx">enableUserTimingAPI</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">didExpire</span> <span class="o">=</span> <span class="nx">nextFlushedExpirationTime</span> <span class="o">&gt;</span> <span class="nx">currentRendererTime</span><span class="p">;</span>
+      <span class="kr">const</span> <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">expirationTimeToMs</span><span class="p">(</span><span class="nx">nextFlushedExpirationTime</span><span class="p">);</span>
+      <span class="nx">stopRequestCallbackTimer</span><span class="p">(</span><span class="nx">didExpire</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">while</span> <span class="p">(</span>
+      <span class="nx">nextFlushedRoot</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+      <span class="nx">nextFlushedExpirationTime</span> <span class="o">!==</span> <span class="nx">NoWork</span> <span class="o">&amp;&amp;</span>
+      <span class="nx">minExpirationTime</span> <span class="o">&lt;=</span> <span class="nx">nextFlushedExpirationTime</span> <span class="o">&amp;&amp;</span>
+      <span class="o">!</span><span class="p">(</span><span class="nx">didYield</span> <span class="o">&amp;&amp;</span> <span class="nx">currentRendererTime</span> <span class="o">&gt;</span> <span class="nx">nextFlushedExpirationTime</span><span class="p">)</span>
+    <span class="p">)</span> <span class="p">{</span>
+      <span class="nx">performWorkOnRoot</span><span class="p">(</span>
+        <span class="nx">nextFlushedRoot</span><span class="p">,</span>
+        <span class="nx">nextFlushedExpirationTime</span><span class="p">,</span>
+        <span class="nx">currentRendererTime</span> <span class="o">&gt;</span> <span class="nx">nextFlushedExpirationTime</span><span class="p">,</span>
+      <span class="p">);</span>
+      <span class="nx">findHighestPriorityRoot</span><span class="p">();</span>
+      <span class="nx">recomputeCurrentRendererTime</span><span class="p">();</span>
+      <span class="nx">currentSchedulerTime</span> <span class="o">=</span> <span class="nx">currentRendererTime</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span>
+      <span class="nx">nextFlushedRoot</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+      <span class="nx">nextFlushedExpirationTime</span> <span class="o">!==</span> <span class="nx">NoWork</span> <span class="o">&amp;&amp;</span>
+      <span class="nx">minExpirationTime</span> <span class="o">&lt;=</span> <span class="nx">nextFlushedExpirationTime</span>
+    <span class="p">)</span> <span class="p">{</span>
+      <span class="nx">performWorkOnRoot</span><span class="p">(</span><span class="nx">nextFlushedRoot</span><span class="p">,</span> <span class="nx">nextFlushedExpirationTime</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+      <span class="nx">findHighestPriorityRoot</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isYieldy</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">callbackExpirationTime</span> <span class="o">=</span> <span class="nx">NoWork</span><span class="p">;</span>
+    <span class="nx">callbackID</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">nextFlushedExpirationTime</span> <span class="o">!==</span> <span class="nx">NoWork</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">scheduleCallbackWithExpirationTime</span><span class="p">(</span>
+      <span class="p">((</span><span class="nx">nextFlushedRoot</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">FiberRoot</span><span class="p">),</span>
+      <span class="nx">nextFlushedExpirationTime</span><span class="p">,</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">finishRendering</span><span class="p">();</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，不管同步异步，都有</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="k">while</span><span class="p">(</span>
+ <span class="nx">nextFlushedRoot</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+ <span class="nx">nextFlushedExpirationTime</span> <span class="o">!==</span> <span class="nx">NoWork</span> <span class="o">&amp;&amp;</span>
+ <span class="nx">minExpirationTime</span> <span class="o">&lt;=</span> <span class="nx">nextFlushedExpirationTime</span>
+<span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是一个循环调度<code>root</code>任务的过程，判断条件为调度队列不为空，并且当前传入的任务优先级小于优先级最高的任务。异步调用时还有个额外的条件<code> !(didYield &amp;&amp; currentRendererTime &gt; nextFlushedExpirationTime)</code>，翻译过来就是当前传入的异步任务没过期，并且当前的渲染时间也没超过优先级最高的任务。然后这个循环就会在每次循环中调用<code>performWorkOnRoot</code></p>
+<h2 id="10performworkonroot">10.performWorkOnRoot</h2>
+<p>这里是整个调度过程的提交、render过程。不同的是，在异步任务中有个判断</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shouldYieldToRenderer</span><span class="p">())</span> <span class="p">{</span>
+  <span class="nx">completeRoot</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">finishedWork</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">root</span><span class="p">.</span><span class="nx">finishedWork</span> <span class="o">=</span> <span class="nx">finishedWork</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>意思就是说如果当前没有时间处理异步任务，直接<code>completeRoot</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">performWorkOnRoot</span><span class="p">(</span>
+  <span class="nx">root</span><span class="o">:</span> <span class="nx">FiberRoot</span><span class="p">,</span>
+  <span class="nx">expirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+  <span class="nx">isYieldy</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="nx">invariant</span><span class="p">(</span>
+    <span class="o">!</span><span class="nx">isRendering</span><span class="p">,</span>
+    <span class="s1">&#39;performWorkOnRoot was called recursively. This error is likely caused &#39;</span> <span class="o">+</span>
+      <span class="s1">&#39;by a bug in React. Please file an issue.&#39;</span><span class="p">,</span>
+  <span class="p">);</span>
+
+  <span class="nx">isRendering</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isYieldy</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">let</span> <span class="nx">finishedWork</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">finishedWork</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">finishedWork</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">completeRoot</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">finishedWork</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">root</span><span class="p">.</span><span class="nx">finishedWork</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="kr">const</span> <span class="nx">timeoutHandle</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">timeoutHandle</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">timeoutHandle</span> <span class="o">!==</span> <span class="nx">noTimeout</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">root</span><span class="p">.</span><span class="nx">timeoutHandle</span> <span class="o">=</span> <span class="nx">noTimeout</span><span class="p">;</span>
+        <span class="nx">cancelTimeout</span><span class="p">(</span><span class="nx">timeoutHandle</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="nx">renderRoot</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">isYieldy</span><span class="p">);</span>
+      <span class="nx">finishedWork</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">finishedWork</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">finishedWork</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">completeRoot</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">finishedWork</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">finishedWork</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">finishedWork</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">finishedWork</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">completeRoot</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">finishedWork</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">root</span><span class="p">.</span><span class="nx">finishedWork</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="kr">const</span> <span class="nx">timeoutHandle</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">timeoutHandle</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">timeoutHandle</span> <span class="o">!==</span> <span class="nx">noTimeout</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">root</span><span class="p">.</span><span class="nx">timeoutHandle</span> <span class="o">=</span> <span class="nx">noTimeout</span><span class="p">;</span>
+        <span class="nx">cancelTimeout</span><span class="p">(</span><span class="nx">timeoutHandle</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="nx">renderRoot</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">isYieldy</span><span class="p">);</span>
+      <span class="nx">finishedWork</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">finishedWork</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">finishedWork</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">shouldYieldToRenderer</span><span class="p">())</span> <span class="p">{</span>
+          <span class="nx">completeRoot</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">finishedWork</span><span class="p">,</span> <span class="nx">expirationTime</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">root</span><span class="p">.</span><span class="nx">finishedWork</span> <span class="o">=</span> <span class="nx">finishedWork</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nx">isRendering</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="11renderroot">11.renderRoot</h2>
+<p>这个判断的意思就是如果当前没有其他的任务，那么就进行一些初始化的工作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="k">if</span> <span class="p">(</span>
+    <span class="nx">expirationTime</span> <span class="o">!==</span> <span class="nx">nextRenderExpirationTime</span> <span class="o">||</span>
+    <span class="nx">root</span> <span class="o">!==</span> <span class="nx">nextRoot</span> <span class="o">||</span>
+    <span class="nx">nextUnitOfWork</span> <span class="o">===</span> <span class="kc">null</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">resetStack</span><span class="p">();</span>
+    <span class="nx">nextRoot</span> <span class="o">=</span> <span class="nx">root</span><span class="p">;</span>
+    <span class="nx">nextRenderExpirationTime</span> <span class="o">=</span> <span class="nx">expirationTime</span><span class="p">;</span>
+    <span class="nx">nextUnitOfWork</span> <span class="o">=</span> <span class="nx">createWorkInProgress</span><span class="p">(</span>
+      <span class="nx">nextRoot</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span>
+      <span class="kc">null</span><span class="p">,</span>
+      <span class="nx">nextRenderExpirationTime</span><span class="p">,</span>
+    <span class="p">);</span>
+		<span class="nx">root</span><span class="p">.</span><span class="nx">pendingCommitExpirationTime</span> <span class="o">=</span> <span class="nx">NoWork</span><span class="p">;</span>
+		<span class="p">......</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后调用<code>workLoop</code>，对于异步任务，仍要判断是否有剩余时间处理此任务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react">  <span class="k">do</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="nx">workLoop</span><span class="p">(</span><span class="nx">isYieldy</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">thrownValue</span><span class="p">)</span> <span class="p">{</span>
+      
+    <span class="p">}</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">workLoop</span><span class="p">(</span><span class="nx">isYieldy</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isYieldy</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">nextUnitOfWork</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">nextUnitOfWork</span> <span class="o">=</span> <span class="nx">performUnitOfWork</span><span class="p">(</span><span class="nx">nextUnitOfWork</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">nextUnitOfWork</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">shouldYieldToRenderer</span><span class="p">())</span> <span class="p">{</span>
+      <span class="nx">nextUnitOfWork</span> <span class="o">=</span> <span class="nx">performUnitOfWork</span><span class="p">(</span><span class="nx">nextUnitOfWork</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果在这过程中会有报错，则停止调度，会在上面的<code>catch中</code>处理，并且设置<code>finishedWork</code>为<code>null</code>，从而结束这一次的<code>render</code></p>
+<p><code>performUnitOfWork</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">performUnitOfWork</span><span class="p">(</span><span class="nx">workInProgress</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">)</span><span class="o">:</span> <span class="nx">Fiber</span> <span class="o">|</span> <span class="kc">null</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">alternate</span><span class="p">;</span>
+
+  <span class="nx">startWorkTimer</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">next</span><span class="p">;</span>
+  <span class="p">......</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">enableProfilerTimer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">workInProgress</span><span class="p">.</span><span class="nx">mode</span> <span class="o">&amp;</span> <span class="nx">ProfileMode</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">startProfilerTimer</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">next</span> <span class="o">=</span> <span class="nx">beginWork</span><span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">nextRenderExpirationTime</span><span class="p">);</span>
+    <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">memoizedProps</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">pendingProps</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">workInProgress</span><span class="p">.</span><span class="nx">mode</span> <span class="o">&amp;</span> <span class="nx">ProfileMode</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">stopProfilerTimerIfRunningAndRecordDelta</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">next</span> <span class="o">=</span> <span class="nx">beginWork</span><span class="p">(</span><span class="nx">current</span><span class="p">,</span> <span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">nextRenderExpirationTime</span><span class="p">);</span>
+    <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">memoizedProps</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">pendingProps</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">next</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">next</span> <span class="o">=</span> <span class="nx">completeUnitOfWork</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">);</span>
+  <span class="p">}</span>
+	
+  <span class="p">......</span>
+  <span class="nx">ReactCurrentOwner</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">next</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>首先执行<code>    next = beginWork(current, workInProgress, nextRenderExpirationTime)</code>对节点进行操作，其内部会针对不同类型的节点进行创建，返回的结果即会赋值给<code>next</code>，<code>return next</code>。 如果<code>next === null</code>，说明子节点已经处理完，调用<code>    next = completeUnitOfWork(workInProgress)</code>。</p>
+<p><code>completeUnitOfWork</code>会从下往上遍历，处理<code>effact tag</code>，如果到<code>root</code>节点返回的是<code>null</code>，代表整棵树的遍历已经结束了，如果找到了其他兄弟节点，就返回这个节点，重新走一遍<code>workLoop</code></p>
+<h2 id="12updateclasscomponent">12.updateClassComponent</h2>
+<p>在<code>beginWork</code>中，会针对不同的节点类型来调用不同的方法处理，这里以<code>ClassComponent</code>为例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">updateClassComponent</span><span class="p">(</span>
+  <span class="nx">current</span><span class="o">:</span> <span class="nx">Fiber</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">workInProgress</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">,</span>
+  <span class="nx">Component</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
+  <span class="nx">nextProps</span><span class="p">,</span>
+  <span class="nx">renderExpirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+	<span class="p">......</span>
+  <span class="c1">// 对context进行处理
+</span><span class="c1"></span>  <span class="kd">let</span> <span class="nx">hasContext</span><span class="p">;</span>
+  <span class="c1">// 如果当前组件是context provider
+</span><span class="c1"></span>  <span class="c1">// 设置hasContext标记
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">isLegacyContextProvider</span><span class="p">(</span><span class="nx">Component</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">hasContext</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">pushLegacyContextProvider</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">hasContext</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">prepareToReadContext</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">renderExpirationTime</span><span class="p">);</span>
+
+  <span class="kr">const</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">stateNode</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">shouldUpdate</span><span class="p">;</span>
+  <span class="c1">// 如果实例为空
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">instance</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">current</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">current</span><span class="p">.</span><span class="nx">alternate</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">alternate</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">effectTag</span> <span class="o">|=</span> <span class="nx">Placement</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">constructClassInstance</span><span class="p">(</span>
+      <span class="nx">workInProgress</span><span class="p">,</span>
+      <span class="nx">Component</span><span class="p">,</span>
+      <span class="nx">nextProps</span><span class="p">,</span>
+      <span class="nx">renderExpirationTime</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="c1">// 挂载这个实例
+</span><span class="c1"></span>    <span class="nx">mountClassInstance</span><span class="p">(</span>
+      <span class="nx">workInProgress</span><span class="p">,</span>
+      <span class="nx">Component</span><span class="p">,</span>
+      <span class="nx">nextProps</span><span class="p">,</span>
+      <span class="nx">renderExpirationTime</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nx">shouldUpdate</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">current</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 第一次渲染时，current为null
+</span><span class="c1"></span>    <span class="c1">// 重新挂载实例
+</span><span class="c1"></span>    <span class="nx">shouldUpdate</span> <span class="o">=</span> <span class="nx">resumeMountClassInstance</span><span class="p">(</span>
+      <span class="nx">workInProgress</span><span class="p">,</span>
+      <span class="nx">Component</span><span class="p">,</span>
+      <span class="nx">nextProps</span><span class="p">,</span>
+      <span class="nx">renderExpirationTime</span><span class="p">,</span>
+    <span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// 更新类组件的时候
+</span><span class="c1"></span>    <span class="c1">// 调用updateClassInstance
+</span><span class="c1"></span>    <span class="nx">shouldUpdate</span> <span class="o">=</span> <span class="nx">updateClassInstance</span><span class="p">(</span>
+      <span class="nx">current</span><span class="p">,</span>
+      <span class="nx">workInProgress</span><span class="p">,</span>
+      <span class="nx">Component</span><span class="p">,</span>
+      <span class="nx">nextProps</span><span class="p">,</span>
+      <span class="nx">renderExpirationTime</span><span class="p">,</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="p">......</span>
+  <span class="c1">// 调用finishClassComponent
+</span><span class="c1"></span>  <span class="c1">// 如果需要更新，调用reconcileChildren，返回更新后的workInProgress
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">nextUnitOfWork</span> <span class="o">=</span> <span class="nx">finishClassComponent</span><span class="p">(</span>
+    <span class="nx">current</span><span class="p">,</span>
+    <span class="nx">workInProgress</span><span class="p">,</span>
+    <span class="nx">Component</span><span class="p">,</span>
+    <span class="nx">shouldUpdate</span><span class="p">,</span>
+    <span class="nx">hasContext</span><span class="p">,</span>
+    <span class="nx">renderExpirationTime</span><span class="p">,</span>
+  <span class="p">);</span>
+  <span class="k">return</span> <span class="nx">nextUnitOfWork</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>constructClassInstance</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">constructClassInstance</span><span class="p">(</span>
+  <span class="nx">workInProgress</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">,</span>
+  <span class="nx">ctor</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
+  <span class="nx">renderExpirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">any</span> <span class="p">{</span>
+  <span class="p">.......</span>
+  <span class="nx">adoptClassInstance</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">instance</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>adoptClassInstance</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">adoptClassInstance</span><span class="p">(</span><span class="nx">workInProgress</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">,</span> <span class="nx">instance</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="nx">instance</span><span class="p">.</span><span class="nx">updater</span> <span class="o">=</span> <span class="nx">classComponentUpdater</span><span class="p">;</span>
+  <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">stateNode</span> <span class="o">=</span> <span class="nx">instance</span><span class="p">;</span>
+  <span class="nx">setInstance</span><span class="p">(</span><span class="nx">instance</span><span class="p">,</span> <span class="nx">workInProgress</span><span class="p">);</span>
+	<span class="p">......</span>
+<span class="p">}</span>
+  
+<span class="kr">const</span> <span class="nx">classComponentUpdater</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">isMounted</span><span class="p">,</span>
+  <span class="nx">enqueueSetState</span><span class="p">(</span><span class="nx">inst</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">},</span>
+  <span class="nx">enqueueReplaceState</span><span class="p">(</span><span class="nx">inst</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">},</span>
+  <span class="nx">enqueueForceUpdate</span><span class="p">(</span><span class="nx">inst</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>classComponentUpdater</code>里面几个方法，即对应着<code>setState</code>、<code>replaceState</code>、<code>forceUpdate</code></p>
+<p><code>mountClassInstance</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-react" data-lang="react"><span class="kd">function</span> <span class="nx">mountClassInstance</span><span class="p">(</span>
+  <span class="nx">workInProgress</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">,</span>
+  <span class="nx">ctor</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
+  <span class="nx">newProps</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
+  <span class="nx">renderExpirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">__DEV__</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">checkClassInstance</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">ctor</span><span class="p">,</span> <span class="nx">newProps</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kr">const</span> <span class="nx">instance</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">stateNode</span><span class="p">;</span>
+  <span class="c1">// 初始化 props、state 等实例属性
+</span><span class="c1"></span>  <span class="nx">instance</span><span class="p">.</span><span class="nx">props</span> <span class="o">=</span> <span class="nx">newProps</span><span class="p">;</span>
+  <span class="nx">instance</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">;</span>
+  <span class="nx">instance</span><span class="p">.</span><span class="nx">refs</span> <span class="o">=</span> <span class="nx">emptyRefsObject</span><span class="p">;</span>
+
+  <span class="kr">const</span> <span class="nx">contextType</span> <span class="o">=</span> <span class="nx">ctor</span><span class="p">.</span><span class="nx">contextType</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">contextType</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">contextType</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">context</span> <span class="o">=</span> <span class="nx">readContext</span><span class="p">(</span><span class="nx">contextType</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">unmaskedContext</span> <span class="o">=</span> <span class="nx">getUnmaskedContext</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">ctor</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">context</span> <span class="o">=</span> <span class="nx">getMaskedContext</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">unmaskedContext</span><span class="p">);</span>
+  <span class="p">}</span>
+	<span class="p">.......</span>
+	<span class="c1">// 如果有updateQueue就更新
+</span><span class="c1"></span>  <span class="kd">let</span> <span class="nx">updateQueue</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">updateQueue</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">updateQueue</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">processUpdateQueue</span><span class="p">(</span>
+      <span class="nx">workInProgress</span><span class="p">,</span>
+      <span class="nx">updateQueue</span><span class="p">,</span>
+      <span class="nx">newProps</span><span class="p">,</span>
+      <span class="nx">instance</span><span class="p">,</span>
+      <span class="nx">renderExpirationTime</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">;</span>
+  <span class="p">}</span>
+	
+	<span class="c1">// 如果定义了getDerivedStateFromProps周期函数，则调用
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">getDerivedStateFromProps</span> <span class="o">=</span> <span class="nx">ctor</span><span class="p">.</span><span class="nx">getDerivedStateFromProps</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">getDerivedStateFromProps</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">applyDerivedStateFromProps</span><span class="p">(</span>
+      <span class="nx">workInProgress</span><span class="p">,</span>
+      <span class="nx">ctor</span><span class="p">,</span>
+      <span class="nx">getDerivedStateFromProps</span><span class="p">,</span>
+      <span class="nx">newProps</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nx">instance</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span>
+    <span class="k">typeof</span> <span class="nx">ctor</span><span class="p">.</span><span class="nx">getDerivedStateFromProps</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span> <span class="o">&amp;&amp;</span>
+    <span class="k">typeof</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">getSnapshotBeforeUpdate</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span> <span class="o">&amp;&amp;</span>
+    <span class="p">(</span><span class="k">typeof</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">UNSAFE_componentWillMount</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="o">||</span>
+      <span class="k">typeof</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">componentWillMount</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">callComponentWillMount</span><span class="p">(</span><span class="nx">workInProgress</span><span class="p">,</span> <span class="nx">instance</span><span class="p">);</span>
+    <span class="nx">updateQueue</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">updateQueue</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">updateQueue</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">processUpdateQueue</span><span class="p">(</span>
+        <span class="nx">workInProgress</span><span class="p">,</span>
+        <span class="nx">updateQueue</span><span class="p">,</span>
+        <span class="nx">newProps</span><span class="p">,</span>
+        <span class="nx">instance</span><span class="p">,</span>
+        <span class="nx">renderExpirationTime</span><span class="p">,</span>
+      <span class="p">);</span>
+      <span class="nx">instance</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 判断是否有componentDidMount，
+</span><span class="c1"></span>	<span class="c1">// componentDidMount要在真正渲染进DOM之后才调用，也就是commit之后
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">componentDidMount</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">workInProgress</span><span class="p">.</span><span class="nx">effectTag</span> <span class="o">|=</span> <span class="nx">Update</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="13commitroot">13.commitRoot</h2>
+<p>调用完<code>renderRoot</code>之后，<code>fiber</code>中对应的每个节点都执行了<code>render</code>之前所有的生命周期函数，并创建了对应的DOM元素，放在<code>workInProgress.stateNode</code>中。然后调用<code>commitRoot</code>，提交子树中优先级最高的任务，更新DOM元素的属性后，挂载组件，调用<code>componentDidMount</code></p>
+<h4 id="参考链接">参考链接</h4>
+<p><a href="https://react.jokcy.me/" target="_blank" rel="noopener noreffer">react源码解析</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" data-title="React调度过程"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" data-title="React调度过程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" data-title="React调度过程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" data-title="React调度过程"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" class="prev" rel="prev" title="Flutter各种踩坑心得"><i class="fas fa-angle-left fa-fw"></i>Flutter各种踩坑心得</a>
+            <a href="/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" class="next" rel="next" title="前端的模块规范简述以及如何实现一个UMD-Loader方法">前端的模块规范简述以及如何实现一个UMD-Loader方法<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

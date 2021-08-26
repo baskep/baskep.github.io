@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Flutter自定义组件 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="Flutter自定义组件" />
+<meta property="og:description" content="简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" />
+<meta property="og:image" content="https://luckly.work/logo.png"/>
+<meta property="article:published_time" content="2020-11-28T16:23:05+08:00" />
+<meta property="article:modified_time" content="2020-11-28T16:23:05+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luckly.work/logo.png"/>
+
+<meta name="twitter:title" content="Flutter自定义组件"/>
+<meta name="twitter:description" content="简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" /><link rel="prev" href="https://luckly.work/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/" /><link rel="next" href="https://luckly.work/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Flutter自定义组件",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luckly.work\/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6\/"
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3117 ,
+        "url": "https:\/\/luckly.work\/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6\/","datePublished": "2020-11-28T16:23:05+08:00","dateModified": "2020-11-28T16:23:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Flutter自定义组件</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-28">2020-11-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3117 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#简言">简言</a>
+              <ul>
+                <li><a href="#1原理基本介绍">1.原理基本介绍</a></li>
+                <li><a href="#2组合其它组件">2..组合其它组件</a></li>
+                <li><a href="#4自绘组件">4.自绘组件</a></li>
+                <li><a href="#5实现renderobject">5.实现RenderObject</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="简言">简言</h3>
+<p>在使用<code>Flutter</code>开发app的时候，是使用各种各样的<code>Widget</code> 组合绘制出的页面，一些最基础的如<code>Container</code>、<code>Padding</code>、<code>Text</code> 等等，由官方封装好的比较复杂的组件如<code>AppBar</code>、<code>日历选择器</code>等等。仅仅使用这些组件也确实能写出一些app，但是官方封装好的拓展性我觉得不太好，有些属性根本无法改变；另外一旦和设计稿出入比较大，那根不就玩不了了，所以这就涉及到自定义组件。<code>Flutter</code>自定义组件的方式我了解到有三种，一是通过组合其它组件来达到你想要的效果；二是自绘，这块牵扯到<code>Canvas</code>；三是实现<code>RenderObject</code>。</p>
+<h4 id="1原理基本介绍">1.原理基本介绍</h4>
+<p><code>Flutter</code>引擎会将我们所写组件生成一个<code>Widget Tree</code>，而实际渲染出来的结果又有一个<code>RenderObject Tree</code>，<code>RenderObject</code>是继承<code>Widget</code>的。在项目运行中<code>Widget Tree</code>是不断变化的，如果每次变化都要导致整个<code>RenderObject Tree</code>变化，这对性能来说是一个很大的消耗，于是就有了一个<code>Element Trre</code>，这就相当于一个中间层，由<code>Widget</code>→<code>Elment</code>→<code>RenderObject</code>。每次<code>Widget</code>变化时，与<code>Element</code>做对比，找出最小最优的变化，作用于<code>RenderObject</code>。我们创建的<code>Widget</code>基本继承于<code>StatelessWidget</code>、<code>StatefulWidget</code>，他们仅负责属性、生命周期等的管理，最终也还是会继承于<code>RenderObjectWidget</code></p>
+<p><code>RenderObjectWidget</code>下面又有三个子类</p>
+<p><code>SngleChildRenderObjectWidget</code>：<code>RenderObject</code>只有一个 <code>child</code></p>
+<p><code>MultiChildRenderObjectWidget</code>：可以有多个 <code>child</code></p>
+<p><code>LeafRenderObjectWidget</code> ：<code>RenderObject</code>是一个叶子节点，没有<code>child</code></p>
+<p>官方所提供的组件很多都是继承<code>singleChildRenderObjectWidget</code>，所以我们通常只能传一个<code>child</code>，找到<code>singleChildRenderObjectWidget</code>定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SingleChildRenderObjectWidget</span> <span class="kd">extends</span> <span class="n">RenderObjectWidget</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="n">SingleChildRenderObjectWidget</span><span class="p">({</span> <span class="n">Key</span> <span class="n">key</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">child</span> <span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
+  <span class="kd">final</span> <span class="n">Widget</span> <span class="n">child</span><span class="p">;</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">SingleChildRenderObjectElement</span> <span class="n">createElement</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">SingleChildRenderObjectElement</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到每次创建一个<code>SingleChildRenderObjectWidget</code>就会调用``CreateElement<code>生成一个对应的</code>Elment<code>，当然</code>MultiChildRenderObjectWidget<code>也是类似，这也就说明了他们一对一的关系。所以我们实现自定义组件必须得继承</code>SingleChildRenderObjectWidget<code>或者</code>MultiChildRenderObjectWidget<code>或者调用官方实现好的自绘类，这也是</code>Flutter`引擎渲染的基本结构。</p>
+<h4 id="2组合其它组件">2..组合其它组件</h4>
+<p>这种方式是最基本最简单的方式，说白了就是将一些原有的、封装好的组件合并再封装一次。<code>Flutter</code>本身就有很多组合组件，比如常用的<code>Container</code>，查看它的源码就知道，它是由<code>DecoratedBox</code>、<code>ConstrainedBox</code>、<code>Transform</code>、<code>Padding</code>、<code>Align</code>等组件组成，其内部做了很多判断处理。这里实现一个自定义宽度的<code>drawer</code>组件，创建一个类<code>SmartDrawer</code>继承<code>StatelessWidget</code>，并实现其具体方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">SmartDrawer</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+  <span class="kd">final</span> <span class="kt">double</span> <span class="n">elevation</span><span class="p">;</span>
+  <span class="kd">final</span> <span class="n">Widget</span> <span class="n">child</span><span class="p">;</span>
+  <span class="kd">final</span> <span class="kt">String</span> <span class="n">semanticLabel</span><span class="p">;</span>
+  <span class="kd">final</span> <span class="kt">double</span> <span class="n">widthPercent</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="n">SmartDrawer</span><span class="p">({</span>
+    <span class="n">Key</span> <span class="n">key</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">elevation</span> <span class="o">=</span> <span class="m">16.0</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">child</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">semanticLabel</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">widthPercent</span> <span class="o">=</span> <span class="m">0.7</span><span class="p">,</span>
+  <span class="p">})</span> <span class="o">:</span> 
+   <span class="k">assert</span><span class="p">(</span><span class="n">widthPercent</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">widthPercent</span> <span class="o">&lt;</span> <span class="m">1.0</span> <span class="o">&amp;&amp;</span> <span class="n">widthPercent</span><span class="o">&gt;</span> <span class="m">0.0</span><span class="p">)</span>
+   <span class="p">,</span><span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">debugCheckHasMaterialLocalizations</span><span class="p">(</span><span class="n">context</span><span class="p">));</span>
+    <span class="kt">String</span> <span class="n">label</span> <span class="o">=</span> <span class="n">semanticLabel</span><span class="p">;</span>
+    <span class="kd">final</span> <span class="kt">double</span> <span class="n">_width</span> <span class="o">=</span> <span class="n">MediaQuery</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">widthPercent</span><span class="p">;</span>
+    
+    <span class="k">return</span> <span class="n">Semantics</span><span class="p">(</span>
+      <span class="nl">scopesRoute:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nl">namesRoute:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nl">explicitChildNodes:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nl">label:</span> <span class="n">label</span><span class="p">,</span>
+      <span class="nl">child:</span> <span class="n">ConstrainedBox</span><span class="p">(</span>
+        <span class="nl">constraints:</span> <span class="n">BoxConstraints</span><span class="p">.</span><span class="n">expand</span><span class="p">(</span><span class="nl">width:</span> <span class="n">_width</span><span class="p">),</span>
+        <span class="nl">child:</span> <span class="n">Material</span><span class="p">(</span>
+          <span class="nl">elevation:</span> <span class="n">elevation</span><span class="p">,</span>
+          <span class="nl">child:</span> <span class="n">child</span><span class="p">,</span>
+        <span class="p">),</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，上述组件就是将<code>ConstrainedBox</code>以及传入的<code>child</code>组合成一个新的组件，其他属性则是来控制样式的。这里需要特别说明的，最后返回的<code>Semantics</code>，它继承<code>SingleChildRenderObjectWidget</code>，它上面定义的属性有点带有语义化的意思，而它上面定义的<code>child</code>属性则是返回的组件，这样<code>return Semantices{}</code>实际就表示返回了带有一些语义的组件。</p>
+<h4 id="4自绘组件">4.自绘组件</h4>
+<p><code>Flutter</code>跨平台的实现方式就是在不同操作系统的上层绘制一个中间的UI系统，对不同的操作系统的<code>API</code>进行适配，风格统一，这样就能实现一个跨平台应用了，这也是和<code>React Native</code>的最大的差异以及优于<code>React Native</code>的地方。当你无法用现有的组件来描绘你所需要UI时，可以考虑使用自绘组件来实现。下面是一个自绘的验证码组件示例</p>
+<p>首先创建一个名为<code>CodeReview</code>的<code>StatefulWidget</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">CodeReview</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+
+  <span class="kd">final</span> <span class="kt">String</span> <span class="n">text</span><span class="p">;</span>
+  <span class="kd">final</span> <span class="n">callback</span><span class="p">;</span>
+
+  <span class="n">CodeReview</span><span class="p">({</span><span class="n">Key</span> <span class="n">key</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">callback</span><span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
+
+  <span class="n">_CodeReviewState</span> <span class="n">createState</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">_CodeReviewState</span><span class="p">();</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后实现具体代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span><span class="lnt">98
+</span><span class="lnt">99
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">_CodeReviewState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">CodeReview</span><span class="o">&gt;</span> <span class="p">{</span>
+	
+  <span class="c1">// 存放每个验证码字符上的横线的位置
+</span><span class="c1"></span>  <span class="n">List</span><span class="o">&lt;</span><span class="n">Offset</span><span class="o">&gt;</span> <span class="n">_lineOffsets</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Offset</span><span class="o">&gt;</span><span class="p">[];</span>
+
+  <span class="c1">// 验证码的长度，由外部传入
+</span><span class="c1"></span>  <span class="kt">int</span> <span class="n">_textLength</span><span class="p">;</span>
+  <span class="c1">// 验证码宽度
+</span><span class="c1"></span>  <span class="kt">double</span> <span class="n">_width</span><span class="p">;</span>
+  <span class="c1">// 验证码高度
+</span><span class="c1"></span>  <span class="kt">double</span> <span class="n">_height</span><span class="p">;</span>
+
+  <span class="c1">// 生成验证码上的横线遮挡物的位置
+</span><span class="c1"></span>  <span class="kt">void</span> <span class="n">_randLines</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">_lineOffsets</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">i</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_textLength</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kt">double</span> <span class="n">fromX</span> <span class="o">=</span> <span class="n">randomBetween</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">20</span><span class="p">).</span><span class="n">toDouble</span><span class="p">();</span>
+      <span class="kt">double</span> <span class="n">fromY</span> <span class="o">=</span> <span class="n">randomBetween</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">33</span><span class="p">).</span><span class="n">toDouble</span><span class="p">();</span>
+      <span class="n">Offset</span> <span class="n">from</span> <span class="o">=</span> <span class="n">Offset</span><span class="p">(</span><span class="n">fromX</span><span class="p">,</span> <span class="n">fromY</span><span class="p">);</span>
+      <span class="n">_lineOffsets</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">from</span><span class="p">);</span>
+
+      <span class="kt">double</span> <span class="n">endX</span> <span class="o">=</span> <span class="n">randomBetween</span><span class="p">(</span><span class="m">60</span><span class="p">,</span> <span class="n">_width</span><span class="p">.</span><span class="n">toInt</span><span class="p">()</span> <span class="o">-</span> <span class="m">10</span><span class="p">).</span><span class="n">toDouble</span><span class="p">();</span>
+      <span class="kt">double</span> <span class="n">endY</span> <span class="o">=</span> <span class="n">randomBetween</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">33</span><span class="p">).</span><span class="n">toDouble</span><span class="p">();</span>
+      <span class="n">Offset</span> <span class="n">end</span> <span class="o">=</span> <span class="n">Offset</span><span class="p">(</span><span class="n">endX</span><span class="p">,</span> <span class="n">endY</span><span class="p">);</span>
+      <span class="n">_lineOffsets</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">end</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">void</span> <span class="n">initState</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">.</span><span class="n">initState</span><span class="p">();</span>
+    <span class="n">_textLength</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">text</span><span class="p">.</span><span class="n">length</span> <span class="o">??</span> <span class="m">4</span><span class="p">;</span>
+    <span class="n">_width</span> <span class="o">=</span> <span class="n">_textLength</span><span class="p">.</span><span class="n">toDouble</span><span class="p">()</span> <span class="o">*</span> <span class="m">22</span><span class="p">;</span>
+    <span class="n">_height</span> <span class="o">=</span> <span class="m">36</span><span class="p">;</span>
+    <span class="n">_randLines</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">_changeCode</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+      <span class="n">_randLines</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+	
+  <span class="c1">// 对每个字符进行随机rotate操作
+</span><span class="c1"></span>  <span class="n">Container</span> <span class="n">_subString</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Container</span><span class="p">(</span>
+      <span class="nl">padding:</span> <span class="n">EdgeInsets</span><span class="p">.</span><span class="n">only</span><span class="p">(</span><span class="nl">left:</span> <span class="m">2</span><span class="p">,</span> <span class="nl">right:</span> <span class="m">2</span><span class="p">,</span> <span class="nl">top:</span> <span class="n">randomBetween</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">14</span><span class="p">).</span><span class="n">toDouble</span><span class="p">()),</span>
+      <span class="nl">child:</span> <span class="n">Transform</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span>
+        <span class="nl">angle:</span> <span class="n">pi</span> <span class="o">/</span> <span class="n">randomBetween</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">30</span><span class="p">)</span> <span class="o">*</span> <span class="n">randomBetween</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span>
+        <span class="nl">child:</span> <span class="n">Text</span><span class="p">(</span><span class="n">widget</span><span class="p">.</span><span class="n">text</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="nl">style:</span> <span class="n">TextStyle</span><span class="p">(</span><span class="nl">fontSize:</span> <span class="n">randomBetween</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="m">22</span><span class="p">).</span><span class="n">toDouble</span><span class="p">(),</span> <span class="nl">color:</span> <span class="n">Color</span><span class="p">(</span><span class="mh">0xFF4abdcc</span><span class="p">))),</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+	
+ 	<span class="c1">// 描绘验证码上横线遮挡物
+</span><span class="c1"></span>  <span class="n">Container</span> <span class="n">_backLines</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Container</span><span class="p">(</span>
+      <span class="nl">width:</span> <span class="n">_width</span><span class="p">,</span>
+      <span class="nl">height:</span> <span class="n">_height</span><span class="p">,</span>
+      <span class="nl">child:</span> <span class="n">CustomPaint</span><span class="p">(</span>
+        <span class="nl">painter:</span> <span class="n">CodePaint</span><span class="p">(</span><span class="n">_lineOffsets</span><span class="p">,</span> <span class="n">Tool</span><span class="p">.</span><span class="n">randomColor</span><span class="p">()),</span>
+        <span class="nl">foregroundPainter:</span> <span class="n">CodePaint</span><span class="p">(</span><span class="n">_lineOffsets</span><span class="p">,</span> <span class="n">Tool</span><span class="p">.</span><span class="n">randomColor</span><span class="p">()),</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Container</span><span class="p">(</span>
+      <span class="nl">width:</span> <span class="n">_width</span><span class="p">,</span>
+      <span class="nl">height:</span> <span class="n">_height</span><span class="p">,</span>
+      <span class="nl">color:</span> <span class="n">Colors</span><span class="p">.</span><span class="n">grey</span><span class="p">[</span><span class="m">200</span><span class="p">],</span>
+      <span class="nl">child:</span> <span class="n">Stack</span><span class="p">(</span>
+        <span class="nl">alignment:</span> <span class="n">Alignment</span><span class="p">.</span><span class="n">center</span><span class="p">,</span>
+        <span class="nl">children:</span> <span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="p">[</span>
+          <span class="n">_backLines</span><span class="p">(),</span>
+          <span class="n">_backLines</span><span class="p">(),</span>
+          <span class="n">GestureDetector</span><span class="p">(</span>
+            <span class="nl">behavior:</span> <span class="n">HitTestBehavior</span><span class="p">.</span><span class="n">opaque</span><span class="p">,</span>
+            <span class="nl">onTap:</span> <span class="p">()</span> <span class="p">{</span>
+              <span class="n">_changeCode</span><span class="p">();</span>
+              <span class="n">widget</span><span class="p">.</span><span class="n">callback</span><span class="p">();</span>
+            <span class="p">},</span>
+            <span class="nl">child:</span> <span class="n">Container</span><span class="p">(</span>
+              <span class="nl">width:</span> <span class="n">_width</span><span class="p">,</span>
+              <span class="nl">height:</span> <span class="n">_height</span><span class="p">,</span>
+              <span class="nl">child:</span> <span class="n">Row</span><span class="p">(</span>
+                <span class="nl">mainAxisAlignment:</span> <span class="n">MainAxisAlignment</span><span class="p">.</span><span class="n">center</span><span class="p">,</span>
+                <span class="nl">children:</span> <span class="n">List</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="n">_textLength</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+                  <span class="k">return</span> <span class="n">_subString</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+                <span class="p">}),</span>
+              <span class="p">),</span>
+            <span class="p">),</span>
+          <span class="p">),</span>
+        <span class="p">],</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到上面用到了<code>CustomPaint</code>，这个类继承<code>SingleChildRenderObjectWidget</code>，这让我们直接能使用<code>Canvas</code>来绘制你所需要的UI</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">CustomPaint</span> <span class="kd">extends</span> <span class="n">SingleChildRenderObjectWidget</span> <span class="p">{</span>
+  <span class="c1">/// Creates a widget that delegates its painting.
+</span><span class="c1"></span>  <span class="kd">const</span> <span class="n">CustomPaint</span><span class="p">({</span>
+    <span class="n">Key</span> <span class="n">key</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">painter</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">foregroundPainter</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">Size</span><span class="p">.</span><span class="n">zero</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">isComplex</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">willChange</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">Widget</span> <span class="n">child</span><span class="p">,</span>
+  <span class="p">})......</span>
+    <span class="p">......</span>
+    <span class="p">......</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>传入<code>painter</code> 、<code>foregroundPainter</code>对应类，在上述代码中，是创建一个类的<code>CodePaint</code>继承<code>CustomPainer</code>，重写<code>paint</code>方法，然后设置画笔的属性，最后调用对应的<code>Canvas</code>api即可，这里使用的是<code>drawPoints</code>，还有其他的，如<code>drawCircle</code>、<code>drawLine</code>等等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">CodePaint</span> <span class="kd">extends</span> <span class="n">CustomPainter</span> <span class="p">{</span>
+  <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Offset</span><span class="o">&gt;</span> <span class="n">lineOffsets</span><span class="p">;</span>
+  <span class="kd">final</span> <span class="n">Color</span> <span class="n">ranColor</span><span class="p">;</span>
+  <span class="n">CodePaint</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">lineOffsets</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">ranColor</span><span class="p">);</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">void</span> <span class="n">paint</span><span class="p">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">Size</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// debugPrint(canvas.runtimeType.toString());
+</span><span class="c1"></span>    <span class="n">canvas</span><span class="p">.</span><span class="n">save</span><span class="p">();</span>
+    <span class="n">Paint</span> <span class="n">_paint</span> <span class="o">=</span> <span class="n">Paint</span><span class="p">()</span>
+      <span class="p">..</span><span class="n">color</span> <span class="o">=</span> <span class="n">ranColor</span> <span class="c1">// 画笔颜色
+</span><span class="c1"></span>      <span class="p">..</span><span class="n">strokeCap</span> <span class="o">=</span> <span class="n">StrokeCap</span><span class="p">.</span><span class="n">round</span> <span class="c1">// 画笔笔触类型
+</span><span class="c1"></span>      <span class="p">..</span><span class="n">isAntiAlias</span> <span class="o">=</span> <span class="kc">true</span> <span class="c1">// 是否启动抗锯齿
+</span><span class="c1"></span>      <span class="p">..</span><span class="n">blendMode</span> <span class="o">=</span> <span class="n">BlendMode</span><span class="p">.</span><span class="n">exclusion</span> <span class="c1">// 颜色混合模式
+</span><span class="c1"></span>      <span class="p">..</span><span class="n">style</span> <span class="o">=</span> <span class="n">PaintingStyle</span><span class="p">.</span><span class="n">fill</span> <span class="c1">// 绘画风格，默认为填充
+</span><span class="c1"></span>      <span class="p">..</span><span class="n">colorFilter</span> <span class="o">=</span> <span class="n">ColorFilter</span><span class="p">.</span><span class="n">mode</span><span class="p">(</span><span class="n">ranColor</span><span class="p">,</span> <span class="n">BlendMode</span><span class="p">.</span><span class="n">exclusion</span><span class="p">)</span> <span class="c1">// 颜色渲染模式，一般是矩阵效果来改变的,但是flutter中只能使用颜色混合模式
+</span><span class="c1"></span>      <span class="p">..</span><span class="n">maskFilter</span> <span class="o">=</span> <span class="n">MaskFilter</span><span class="p">.</span><span class="n">blur</span><span class="p">(</span><span class="n">BlurStyle</span><span class="p">.</span><span class="n">inner</span><span class="p">,</span> <span class="m">1.0</span><span class="p">)</span> <span class="c1">// 模糊遮罩效果
+</span><span class="c1"></span>      <span class="p">..</span><span class="n">filterQuality</span> <span class="o">=</span> <span class="n">FilterQuality</span><span class="p">.</span><span class="n">high</span> <span class="c1">// 颜色渲染模式的质量
+</span><span class="c1"></span>      <span class="c1">// ..strokeWidth = randomBetween(1, 3).toDouble(); // 暂时固定
+</span><span class="c1"></span>      <span class="p">..</span><span class="n">strokeWidth</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span>
+
+    <span class="kd">final</span> <span class="n">pointMode</span> <span class="o">=</span> <span class="n">PointMode</span><span class="p">.</span><span class="n">lines</span><span class="p">;</span>
+    <span class="n">canvas</span><span class="p">.</span><span class="n">drawPoints</span><span class="p">(</span><span class="n">pointMode</span><span class="p">,</span> <span class="n">lineOffsets</span><span class="p">,</span> <span class="n">_paint</span><span class="p">);</span>
+    <span class="n">canvas</span><span class="p">.</span><span class="n">restore</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">bool</span> <span class="n">shouldRepaint</span><span class="p">(</span><span class="n">CustomPainter</span> <span class="n">oldDelegate</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>综上，自绘逐渐的核心是继承<code>CustomPaint</code>，然后使用<code>Canvas</code>实现UI的绘制</p>
+<h4 id="5实现renderobject">5.实现RenderObject</h4>
+<p>实现<code>RenderObject</code>即是自己重写一整套渲染树，首先得继承一个<code>RenderObject</code>，实现其内置仿佛，还得继承<code>Element</code>，实现其内置方法，复杂的自定义组件最终也是通过<code>Canvas</code> API来绘制的，而上面说的<code>CustomPaint</code>只是为了方便开发者封装的一个代理类，它直接继承自<code>SingleChildRenderObjectWidget</code>，通过<code>RenderCustomPaint</code>的<code>paint</code>方法将<code>Canvas</code>和画笔<code>Painter</code>连接起来实现自绘组件。这种方式操作起来实在比较麻烦，我也没怎么用过，所以就不提供示例展示了。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-11-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" data-title="Flutter自定义组件"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" data-title="Flutter自定义组件"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" data-title="Flutter自定义组件"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" data-title="Flutter自定义组件"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/" class="prev" rel="prev" title="输入一个URL到页面呈现的过程"><i class="fas fa-angle-left fa-fw"></i>输入一个URL到页面呈现的过程</a>
+            <a href="/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" class="next" rel="next" title="Flutter各种踩坑心得">Flutter各种踩坑心得<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

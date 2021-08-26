@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Webpack5的新特性以及项目实战配置 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="Webpack5的新特性以及项目实战配置" />
+<meta property="og:description" content="前言 webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" />
+<meta property="og:image" content="https://luckly.work/logo.png"/>
+<meta property="article:published_time" content="2021-08-03T22:34:03+08:00" />
+<meta property="article:modified_time" content="2021-08-03T22:34:03+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luckly.work/logo.png"/>
+
+<meta name="twitter:title" content="Webpack5的新特性以及项目实战配置"/>
+<meta name="twitter:description" content="前言 webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Webpack5的新特性以及项目实战配置",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luckly.work\/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE\/"
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2673 ,
+        "url": "https:\/\/luckly.work\/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE\/","datePublished": "2021-08-03T22:34:03+08:00","dateModified": "2021-08-03T22:34:03+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Webpack5的新特性以及项目实战配置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-03">2021-08-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2673 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#前言">前言</a></li>
+            <li><a href="#新特性">新特性</a>
+              <ul>
+                <li><a href="#1用持久性缓存来提高构建性能">1.用持久性缓存来提高构建性能</a></li>
+                <li><a href="#2对资源实现了内部支持而不需要额外的loader">2.对资源实现了内部支持而不需要额外的loader</a></li>
+                <li><a href="#3用更好的-tree-shaking-和代码生成来改善包大小">3.用更好的 Tree Shaking 和代码生成来改善包大小</a></li>
+                <li><a href="#4moduleids--chunkids--content-hash-的优化">4.moduleIds &amp; chunkIds &amp; content hash 的优化</a></li>
+                <li><a href="#5支持生成es6es2015的代码">5.支持生成ES6/ES2015的代码</a></li>
+                <li><a href="#6移除了-nodejs-polyfills">6.移除了 Node.js Polyfills</a></li>
+                <li><a href="#7module-federation">7.Module Federation</a></li>
+              </ul>
+            </li>
+            <li><a href="#项目实战">项目实战</a></li>
+            <li><a href="#参考链接">参考链接</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="前言">前言</h3>
+<p>webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了，我也实际在项目中运用了下，所以现在做个总结</p>
+<h3 id="新特性">新特性</h3>
+<h4 id="1用持久性缓存来提高构建性能">1.用持久性缓存来提高构建性能</h4>
+<p>在webpack4中，我们可以通过cache-loader等手段来将编译的结果写入到磁盘中，现在可以直接通过设置将编译结果缓存到文件系统中</p>
+<p>type：<code>string: 'memory' | 'filesystem'</code> ，将 <code>cache</code> 类型设置为内存或者文件系统</p>
+<p>buildDependencies：<code>object</code>，针对构建的额外代码依赖的数组对象。webpack 将使用这些项和所有依赖项的哈希值来使文件系统缓存失效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">cache</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;filesystem&#39;</span><span class="p">,</span> <span class="c1">// 将缓存类型设置为文件系统，默认为memory
+</span><span class="c1"></span>  <span class="nx">buildDependencies</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">config</span><span class="o">:</span> <span class="p">[</span><span class="nx">__filename</span><span class="p">],</span> <span class="c1">// 这样设置后webpack能获取最新的配置以及依赖项来重新缓存
+</span><span class="c1"></span>  <span class="p">},</span>
+<span class="p">},</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2对资源实现了内部支持而不需要额外的loader">2.对资源实现了内部支持而不需要额外的loader</h4>
+<p><code>asset/resource</code> 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。</p>
+<p><code>asset/inline</code> 导出一个资源的 data URI。之前通过使用 url-loader 实现。</p>
+<p><code>asset/source</code> 导出资源的源代码。之前通过使用 raw-loader 实现。</p>
+<p><code>asset</code> 在导出一个 data URI 和发送一个单独的文件之间自动选择。之前通过使用 url-loader，并且配置资源体积限制实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="kr">export</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">rules</span><span class="o">:</span> <span class="p">[{</span>
+      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.png$/</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/resource&#34;</span><span class="p">,</span> <span class="c1">//对应file-loader
+</span><span class="c1"></span>    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.svg$/</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/inline&#34;</span><span class="p">,</span> <span class="c1">//对应url-loader 大小&lt;limt 转化为base64
+</span><span class="c1"></span>    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.txt$/</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/source&#34;</span><span class="p">,</span> <span class="c1">//对应raw-loader
+</span><span class="c1"></span>    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.gif$/</span><span class="p">,</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset&#34;</span><span class="p">,</span> <span class="c1">//自动选择
+</span><span class="c1"></span>      <span class="nx">parser</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">dataUrlCondition</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
+        <span class="p">},</span>
+      <span class="p">},</span>
+    <span class="p">}],</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3用更好的-tree-shaking-和代码生成来改善包大小">3.用更好的 Tree Shaking 和代码生成来改善包大小</h4>
+<p>现在的Tree Shaking 能够完全剔除未使用的代码，同样使用ES6模块，并开起production mode；并且现在能处理对 Commonjs 的 tree shaking，<strong>允许消除未使用的CommonJs导出并跟踪require()调用中引用的导出名称</strong>，在打包出的文件中可以看到最终的代码。</p>
+<h4 id="4moduleids--chunkids--content-hash-的优化">4.moduleIds &amp; chunkIds &amp; content hash 的优化</h4>
+<p><strong>moduleIds &amp; chunkIds的优化</strong></p>
+<p>在webpack5以前，没有从entry打包的chunk文件，都会以1，2，3&hellip;的文件命名方式输出，文件名称后的hash值是用chunkhash生成的。这样会造成当删除或者暂时不用1.js这个文件后，那么重新打包时2.js-&gt;1.js,3.js-&gt;2.js，这样会造成原来线上的2.js和3.js缓存失效。</p>
+<p>webpack5为了确保moduleId，chunkId 的确定性， 增加了如下配置：</p>
+<p><code>optimization.moduleIds</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">选荐值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>natural</code></td>
+<td align="center">按使用顺序的数字 id。</td>
+</tr>
+<tr>
+<td align="left"><code>named</code></td>
+<td align="center">对调试更友好的可读的 id。</td>
+</tr>
+<tr>
+<td align="left"><code>deterministic</code></td>
+<td align="center">被哈希转化成的小位数值模块名。</td>
+</tr>
+<tr>
+<td align="left"><code>size</code></td>
+<td align="center">专注于让初始下载包大小更小的数字 id。</td>
+</tr>
+</tbody>
+</table>
+<p><code>deterministic</code> 选项有益于长期缓存，但对比于 <code>hashed</code> 来说，它会导致更小的文件 bundles。数字值的长度会被选作用于填满最多 80%的 id 空间。 当 <code>optimization.moduleIds</code> 被设置成 <code>deterministic</code>，默认最小 3 位数字会被使用。deterministic配置在生产模式下是默认开启）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">optimization</span><span class="p">.</span><span class="nx">moduleIds</span> <span class="o">=</span> <span class="s1">&#39;deterministic&#39;</span>
+<span class="nx">optimization</span><span class="p">.</span><span class="nx">chunkIds</span> <span class="o">=</span> <span class="s1">&#39;deterministic&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当然在开发模式下，可以设置成<code>natural</code>以保持以前的老模式</p>
+<p><strong>content hash的优化</strong></p>
+<p>之前使用content hash的时候，当改动文件内容的时候content hash会重新生成；而现在Webpack 5 将使用真正的文件内容哈希值，也就是说当进行了修改注释或者修改变量名等代码逻辑是没有影响的操作时，文件内容的变更不会导致 contenthash 变化。</p>
+<h4 id="5支持生成es6es2015的代码">5.支持生成ES6/ES2015的代码</h4>
+<p>webpack 4 默认只能输出 ES5 代码，现在支持指定环境，然后生成该环境的一个代码</p>
+<blockquote>
+<p><code>target</code></p>
+<p><code>string</code> <code>[string]</code> <code>false</code></p>
+<p>告知 webpack 为目标(target)指定一个环境。默认值为 <code>&quot;browserslist&quot;</code>，如果没有找到 browserslist 的配置，则默认为 <code>&quot;web&quot;</code></p>
+</blockquote>
+<p>然后我们设置</p>
+<p><code> target: ['web', 'es5']</code></p>
+<p>webpack 将生成 web 平台的运行时代码，并且只使用 ES5 相关的特性</p>
+<h4 id="6移除了-nodejs-polyfills">6.移除了 Node.js Polyfills</h4>
+<blockquote>
+<p>在早期，webpack 的目的是为了让大多数的 Node.js 模块运行在浏览器中，但如今模块的格局已经发生了变化，现在许多模块主要是为前端而编写。webpack &lt;= 4 的版本中提供了许多 Node.js 核心模块的 polyfills，一旦某个模块引用了任何一个核心模块（如 <code>cypto</code> 模块），webpack 就会自动引用这些 polyfills。</p>
+<p>尽管这会使得使用为 Node.js 编写模块变得容易，但它在构建时给 bundle 附加了庞大的 polyfills。在大部分情况下，这些 polyfills 并非必须。</p>
+<p>从 webpack 5 开始不再自动填充这些 polyfills，而会专注于前端模块兼容。我们的目标是提高 web 平台的兼容性。</p>
+<p><strong>迁移</strong>：</p>
+<ul>
+<li>尽量使用前端兼容的模块。</li>
+<li>可以手动为 Node.js 核心模块添加 polyfill。错误提示会告诉你如何实现。</li>
+<li>Package 作者：在 <code>package.json</code> 中添加 <code>browser</code> 字段，使 package 与前端兼容。为浏览器提供其他的实现/dependencies。</li>
+</ul>
+</blockquote>
+<h4 id="7module-federation">7.Module Federation</h4>
+<blockquote>
+<p>多个独立的构建可以组成一个应用程序，这些独立的构建之间不应该存在依赖关系，因此可以单独开发和部&gt;署它们。</p>
+<p>这通常被称作微前端，但并不仅限于此。</p>
+</blockquote>
+<p>简单来说就是允许一个应用中动态地去加载和引入另一个应用的代码，就好像本地起一个应用作CDN库，其它地方去引用，具体可以看<a href="https://webpack.docschina.org/concepts/module-federation/" target="_blank" rel="noopener noreffer">官方配置</a>，个人感觉并不是特别的实用</p>
+<h3 id="项目实战">项目实战</h3>
+<p>首先定义一个webpack.config.base.js，即开发环境以及生产环境都需要的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">CleanWebpackPlugin</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;clean-webpack-plugin&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">HtmlWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;html-webpack-plugin&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">MiniCssExtractPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;mini-css-extract-plugin&#34;</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span> 
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].[chunkhash].bundle.js&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span> 
+  <span class="p">},</span>
+  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">rules</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.m?js$/</span><span class="p">,</span>
+        <span class="nx">exclude</span><span class="o">:</span> <span class="sr">/node_modules/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;babel-loader&#39;</span><span class="p">,</span> 
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.s[ac]ss$/</span><span class="p">,</span> 
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span><span class="nx">MiniCssExtractPlugin</span><span class="p">.</span><span class="nx">loader</span><span class="p">,</span> <span class="s1">&#39;css-loader&#39;</span><span class="p">,</span> <span class="s1">&#39;sass-loader&#39;</span><span class="p">]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(png|svg|jpg|gif|webp|jfif)$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="p">[{</span>
+          <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;url-loader&#39;</span><span class="p">,</span>
+          <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">limit</span><span class="o">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;assets/[name]_[hash:10].[ext]&#39;</span>
+          <span class="p">}</span>
+        <span class="p">}]</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">CleanWebpackPlugin</span><span class="p">({</span> <span class="c1">// 每次打包前删除dist文件夹中的文件
+</span><span class="c1"></span>      <span class="nx">cleanOnceBeforeBuildPatterns</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;**/*&#39;</span><span class="p">,</span> <span class="s1">&#39;!favicon.ico&#39;</span><span class="p">,</span> <span class="s1">&#39;!lib/**&#39;</span><span class="p">],</span> <span class="c1">// dist文件夹下的favicon.ico文件和lib文件夹下的东西都忽略不进行删除
+</span><span class="c1"></span>    <span class="p">}),</span>
+    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+      <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;index.html&#39;</span><span class="p">,</span> 
+      <span class="nx">favicon</span><span class="o">:</span> <span class="s1">&#39;favicon.ico&#39;</span><span class="p">,</span> 
+      <span class="nx">inject</span><span class="o">:</span> <span class="s1">&#39;head&#39;</span> 
+    <span class="p">}),</span>
+    <span class="k">new</span> <span class="nx">MiniCssExtractPlugin</span><span class="p">({</span>
+      <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name]-[contenthash].css&#39;</span>
+    <span class="p">}),</span>
+  <span class="p">],</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后配置webpack.config.dev.js，开发环境主要配置代理服务器，代码热更新，以及使用最新的缓存特性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">baseConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.base.js&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">ReactRefreshPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@pmmmwh/react-refresh-webpack-plugin&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseConfig</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;development&#39;</span><span class="p">,</span>
+  <span class="nx">devtool</span><span class="o">:</span> <span class="s1">&#39;eval-cheap-module-source-map&#39;</span><span class="p">,</span>
+  <span class="nx">devServer</span><span class="o">:</span> <span class="p">{</span> 
+    <span class="nx">contentBase</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">),</span>
+    <span class="nx">port</span><span class="o">:</span> <span class="s1">&#39;8090&#39;</span><span class="p">,</span>
+    <span class="nx">proxy</span><span class="o">:</span> <span class="p">{</span> 
+      <span class="s1">&#39;/api&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;http://127.0.0.1:3001&#39;</span><span class="p">,</span>
+        <span class="nx">pathRewrite</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s1">&#39;^/api&#39;</span><span class="o">:</span> <span class="s1">&#39;
+</span><span class="s1">        }
+</span><span class="s1">      },
+</span><span class="s1">    },
+</span><span class="s1">    hot: true,
+</span><span class="s1">    open: true,
+</span><span class="s1">  },
+</span><span class="s1">  // 热更新
+</span><span class="s1">  plugins: [
+</span><span class="s1">    new ReactRefreshPlugin({
+</span><span class="s1">      overlay: false,
+</span><span class="s1">    }),
+</span><span class="s1">    new webpack.HotModuleReplacementPlugin()
+</span><span class="s1">  ],
+</span><span class="s1">  // 缓存
+</span><span class="s1">  cache: {
+</span><span class="s1">    type: &#39;</span><span class="nx">filesystem</span><span class="err">&#39;</span><span class="p">,</span>
+    <span class="nx">buildDependencies</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">config</span><span class="o">:</span> <span class="p">[</span><span class="nx">__filename</span><span class="p">],</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后是生产环境的配置，生产环境的配置主要是对代码进行一个压缩</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">)</span> 
+<span class="kr">const</span> <span class="nx">OptimizeCSSAssetsPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;optimize-css-assets-webpack-plugin&#34;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">TerserJSPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;terser-webpack-plugin&#34;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">baseConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.base.js&#39;</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseConfig</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">mode</span><span class="o">:</span> <span class="s2">&#34;production&#34;</span><span class="p">,</span>
+  <span class="nx">optimization</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">minimizer</span><span class="o">:</span> <span class="p">[</span><span class="k">new</span> <span class="nx">OptimizeCSSAssetsPlugin</span><span class="p">({})],</span>
+    <span class="nx">minimizer</span><span class="o">:</span> <span class="p">[</span><span class="k">new</span> <span class="nx">TerserJSPlugin</span><span class="p">({}),</span> <span class="k">new</span> <span class="nx">OptimizeCSSAssetsPlugin</span><span class="p">({})]</span> 
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>以上就是一个webpack5的基本配置，可以看到除了其内部更新的特性意外，其它的还是可以用原来的loader去配置，主要用到的还是它的缓存的一个功能，当然其它的你也可以按照官方文档进行一个配置</p>
+<h3 id="参考链接">参考链接</h3>
+<p><a href="https://webpack.docschina.org/" target="_blank" rel="noopener noreffer">webpack官方网站</a></p>
+<p><a href="https://juejin.cn/post/6983985071699001357" target="_blank" rel="noopener noreffer">webpack新特性</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-08-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" class="prev" rel="prev" title="前端的模块规范简述以及如何实现一个UMD-Loader方法"><i class="fas fa-angle-left fa-fw"></i>前端的模块规范简述以及如何实现一个UMD-Loader方法</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

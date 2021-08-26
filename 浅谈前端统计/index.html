@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>浅谈前端统计 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="浅谈前端统计" />
+<meta property="og:description" content="监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/" />
+<meta property="og:image" content="https://luckly.work/logo.png"/>
+<meta property="article:published_time" content="2020-10-28T21:45:40+08:00" />
+<meta property="article:modified_time" content="2020-10-28T21:45:40+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luckly.work/logo.png"/>
+
+<meta name="twitter:title" content="浅谈前端统计"/>
+<meta name="twitter:description" content="监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/" /><link rel="prev" href="https://luckly.work/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/" /><link rel="next" href="https://luckly.work/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "浅谈前端统计",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luckly.work\/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1\/"
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2081 ,
+        "url": "https:\/\/luckly.work\/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1\/","datePublished": "2020-10-28T21:45:40+08:00","dateModified": "2020-10-28T21:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">浅谈前端统计</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-28">2020-10-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2081 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案、营销策略以及项目的迭代。 试想，如果没有这些监控系统，那么线上的运行的项目出问题了，定位是比较困难的，这时候修复起来就比较劳神了。我记录下我所了解的，常见的方式。</p>
+<p>1.错误监控</p>
+<p>我们对于错误的处理，在<code>js</code>中很常见的错误捕获<code>try catch</code>、<code>promise中的catch</code>等等。在window对象上有一个方法<code>onerror</code>，可以拿到当前报错的信息，我们就可以将这个信息拿到然后提交到我们自己的监控系统，还有个很重要的原因，不处理这些错误，导致页面挂了停止加载，那损失可就大了。对于抛出的错误，它有几个属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 定义一个错误对象
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">msg</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// 错误的具体信息
+</span><span class="c1"></span>  <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// 错误所在的url
+</span><span class="c1"></span>  <span class="nx">line</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// 错误所在的行
+</span><span class="c1"></span>  <span class="nx">col</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// 错误所在的列
+</span><span class="c1"></span>  <span class="nx">nowTime</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="c1">// 时间
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后实现<code>window.onerror</code>方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">line</span><span class="p">,</span> <span class="nx">col</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">col</span> <span class="o">=</span> <span class="nx">col</span> <span class="o">||</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">errorCharacter</span><span class="p">)</span> <span class="o">||</span> <span class="mi">0</span>
+
+  <span class="nx">defaults</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="nx">url</span>
+  <span class="nx">defaults</span><span class="p">.</span><span class="nx">line</span> <span class="o">=</span> <span class="nx">line</span>
+  <span class="nx">defaults</span><span class="p">.</span><span class="nx">col</span> <span class="o">=</span> <span class="nx">col</span>
+  <span class="nx">defaults</span><span class="p">.</span><span class="nx">nowTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">error</span> <span class="o">&amp;&amp;</span> <span class="nx">error</span><span class="p">.</span><span class="nx">stack</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 如果浏览器有错误堆栈信息，直接使用
+</span><span class="c1"></span>    <span class="nx">defaults</span><span class="p">.</span><span class="nx">msg</span> <span class="o">=</span> <span class="nx">error</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 通过callee拿堆栈信息
+</span><span class="c1"></span>    <span class="kd">let</span> <span class="nx">ext</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="kd">let</span> <span class="nx">fn</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span><span class="p">.</span><span class="nx">caller</span>
+    <span class="c1">// 最多拿到三层
+</span><span class="c1"></span>    <span class="kd">let</span> <span class="nx">floor</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">fn</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">--</span><span class="nx">floor</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">ext</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">fn</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">fn</span> <span class="o">===</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">caller</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">break</span>
+      <span class="p">}</span>
+      <span class="nx">fn</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">caller</span>
+    <span class="p">}</span>
+    <span class="nx">ext</span> <span class="o">=</span> <span class="nx">ext</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="nx">defaults</span><span class="p">.</span><span class="nx">msg</span> <span class="o">=</span> <span class="nx">error</span> <span class="o">&amp;&amp;</span> <span class="nx">error</span><span class="p">.</span><span class="nx">stack</span> <span class="o">&amp;&amp;</span> <span class="nx">error</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="c1">// 格式化这些错误信息
+</span><span class="c1"></span>  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">defaults</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defaults</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">defaults</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;null&#39;</span>
+    <span class="p">}</span>
+    <span class="nx">str</span> <span class="o">+=</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nx">defaults</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">toString</span><span class="p">()</span>
+  <span class="p">}</span>
+  <span class="c1">// 确定错误是由哪位用户引起的，这一步有些时候可以不用
+</span><span class="c1"></span>  <span class="kd">let</span> <span class="nx">userinfo</span> <span class="o">=</span> <span class="c1">// 拿到用户信息
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">userinfo</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">userinfo</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">userinfo</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">userinfo</span><span class="p">)</span> <span class="nx">userinfo</span> <span class="o">=</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">userinfo</span><span class="p">)</span>
+  <span class="nx">str</span> <span class="o">=</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\s/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+	
+  <span class="c1">// 避免出现跨域错误
+</span><span class="c1"></span>  <span class="k">new</span> <span class="nx">Image</span><span class="p">().</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;api地址?msg=&#39;</span> <span class="o">+</span> <span class="nx">str</span> <span class="o">+</span> <span class="s1">&#39;&amp;userinfo=&#39;</span> <span class="o">+</span> <span class="nx">userinfo</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这种方式的缺陷在于，没办法处理<code>promise</code>中未处理的错误，对于<code>promise</code>，推荐使用<code>unhandledrejection</code>事情处理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;unhandledrejection&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">reason</span> <span class="o">&amp;&amp;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">reason</span><span class="p">.</span><span class="nx">message</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">error</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">event</span><span class="p">.</span><span class="nx">reason</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">?</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">reason</span><span class="p">)</span> <span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">reason</span>
+  <span class="p">}</span>
+
+  <span class="p">(</span><span class="k">new</span> <span class="nx">Image</span><span class="p">()).</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;api地址?msg=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+<span class="p">})</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>2.埋点</p>
+<p>埋点是一种常见的统计用户行为的方式或工具。通过在页面设置埋点，来统计用户对于某个页面、广告、功能的使用频率、喜好，然后通过对埋点的数据统计，确定好页面或功能的迭代。简单的做法，设置一个全局方法用来提交埋点点击的行为，在需要的地方调用这个方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 定义一个全局方法
+</span><span class="c1">// 传入的point为埋点数据
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">clickPoint</span><span class="p">(</span><span class="nx">point</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">name</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">point</span>
+  <span class="nx">cosnt</span> <span class="nx">userInfo</span> <span class="o">=</span> <span class="c1">// 通过对应的操作拿到用户信息
+</span><span class="c1"></span>  <span class="c1">// 基础参数
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">basicParams</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="nx">id</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span>
+  <span class="p">}</span>
+  <span class="c1">// 用户信息
+</span><span class="c1"></span> 	<span class="kr">const</span> <span class="nx">userParams</span> <span class="o">=</span> <span class="p">{</span>
+  	<span class="nx">name</span><span class="o">:</span> <span class="nx">userInfo</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span>
+    <span class="p">......</span>
+ 	<span class="p">}</span>
+  <span class="c1">// 合并参数
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">...</span><span class="nx">basicParams</span><span class="p">,</span>
+    <span class="p">...</span><span class="nx">userParams</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;null&#39;</span>
+    <span class="p">}</span>
+    <span class="nx">str</span> <span class="o">+=</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nx">params</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">toString</span><span class="p">()</span>
+  <span class="p">}</span>
+  <span class="k">new</span> <span class="nx">Image</span><span class="p">().</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;api地址?msg=&#39;</span> <span class="o">+</span> <span class="nx">str</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>通常这样来统计页面上某个功能、某个广告的点击量，获取对应的统计数据。还有一种比较常见的方式，为需要添加埋点的<code>html</code>标签上加上某个约定好的自定义属性，如<code>&lt;div data-link=&quot;111&quot;&gt;&lt;/div&gt;</code>，这个<code>111</code>就是就是实现生成好或者规划好的埋点。然后给这种属性添加全局的点击事件，点击后同样的将对应的数据提交到自己的后台系统去。有些时候为了方便查阅或者直观的观看统计数据，还可以在页面渲染的时候，为含有<code>data-link</code>属性的标签生成对应的一些图标或者文字标签，使用<code>absolute</code>定位显示在对应的元素上，当然这种方式在你添加买点埋点属性的时候，需要给这个元素设置相应的<code>position css</code>属性；当然也可能设置一些热力图啊等其它形式，反正都是实现同一个效果的。</p>
+<p>3.白屏时间</p>
+<p>这个之前说过，就不说废话了，白屏时间的统计是非常重要的。比如有些时候，只有某个用户的某个设备出现了页面加载过长，页面没内容，发现这个问题后，通过判断错误日志和白屏时间才能更快的定位问题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">openTime</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">timing</span><span class="p">.</span><span class="nx">navigationStart</span> <span class="o">||</span> <span class="mi">0</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">whiteScreenTime</span> <span class="o">=</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">-</span> <span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">openTime</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">mobile</span> <span class="o">=</span> <span class="nx">mobileType</span><span class="p">()</span>
+
+<span class="c1">// 使用 DOMContentLoaded 统计页面有内容的时间
+</span><span class="c1"></span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMContentLoaded&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">readyTime</span> <span class="o">=</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">-</span> <span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">openTime</span>
+<span class="p">})</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">allloadTime</span> <span class="o">=</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">-</span> <span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">openTime</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">.</span><span class="nx">nowTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span>
+  <span class="kd">let</span> <span class="nx">timname</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">whiteScreenTime</span><span class="o">:</span> <span class="s1">&#39;白屏时间&#39;</span><span class="p">,</span>
+    <span class="nx">readyTime</span><span class="o">:</span> <span class="s1">&#39;用户可操作时间&#39;</span><span class="p">,</span>
+    <span class="nx">allloadTime</span><span class="o">:</span> <span class="s1">&#39;总下载时间&#39;</span><span class="p">,</span>
+    <span class="nx">mobile</span><span class="o">:</span> <span class="s1">&#39;使用设备&#39;</span><span class="p">,</span>
+    <span class="nx">nowTime</span><span class="o">:</span> <span class="s1">&#39;时间&#39;</span><span class="p">,</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">logStr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">timname</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">===</span> <span class="s1">&#39;mobile&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">logStr</span> <span class="o">+=</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">logStr</span> <span class="o">+=</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">logInfo</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// 这里如果需要的话，还可以把用户的一些信息收集出来
+</span><span class="c1"></span>  <span class="p">(</span><span class="k">new</span> <span class="nx">Image</span><span class="p">()).</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;api地址?msg=&#39;</span> <span class="o">+</span> <span class="nx">logStr</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">mobileType</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">u</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span>
+  <span class="c1">// 移动终端浏览器版本信息
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">type</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">ios</span><span class="o">:</span> <span class="o">!!</span><span class="nx">u</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span><span class="p">),</span> <span class="c1">// ios终端
+</span><span class="c1"></span>    <span class="nx">iPad</span><span class="o">:</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;iPad&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// 是否iPad
+</span><span class="c1"></span>    <span class="nx">android</span><span class="o">:</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Android&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Linux&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// android终端或者uc浏览器
+</span><span class="c1"></span>    <span class="nx">iPhone</span><span class="o">:</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;iPhone&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Mac&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// 是否为iPhone或者QQHD浏览器
+</span><span class="c1"></span>    <span class="nx">trident</span><span class="o">:</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Trident&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// IE内核
+</span><span class="c1"></span>    <span class="nx">presto</span><span class="o">:</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Presto&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// opera内核
+</span><span class="c1"></span>    <span class="nx">webKit</span><span class="o">:</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;AppleWebKit&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// 苹果、谷歌内核
+</span><span class="c1"></span>    <span class="nx">gecko</span><span class="o">:</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Gecko&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;KHTML&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// 火狐内核
+</span><span class="c1"></span>    <span class="nx">mobile</span><span class="o">:</span> <span class="o">!!</span><span class="nx">u</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/AppleWebKit.*Mobile/i</span><span class="p">)</span> <span class="o">||</span> <span class="o">!!</span><span class="nx">u</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/</span><span class="p">),</span> <span class="c1">// 是否为移动终端
+</span><span class="c1"></span>    <span class="nx">webApp</span><span class="o">:</span> <span class="nx">u</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;Safari&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="c1">// 是否web应该程序，没有头部与底部
+</span><span class="c1"></span>  <span class="p">}</span>
+  <span class="kr">const</span> <span class="nx">lists</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lists</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span><span class="p">[</span><span class="nx">lists</span><span class="p">[</span><span class="nx">i</span><span class="p">]])</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">lists</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-10-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/" data-title="浅谈前端统计"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/" data-title="浅谈前端统计"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/" data-title="浅谈前端统计"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/" data-title="浅谈前端统计"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/" class="prev" rel="prev" title="白屏时间"><i class="fas fa-angle-left fa-fw"></i>白屏时间</a>
+            <a href="/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/" class="next" rel="next" title="输入一个URL到页面呈现的过程">输入一个URL到页面呈现的过程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
