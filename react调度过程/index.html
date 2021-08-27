@@ -86,34 +86,26 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1forwardref">1.forwardRef</a></li>
+    <li><a href="#2reactelement">2.ReactElement</a></li>
+    <li><a href="#3react-children">3.React Children</a></li>
+    <li><a href="#4react中的数据结构">4.React中的数据结构</a></li>
+    <li><a href="#5初次reactdomreander过程">5.初次ReactDOM.reander过程</a></li>
+    <li><a href="#6expirationtime">6.expirationTime</a></li>
+    <li><a href="#7各种expirationtime">7.各种expirationTime</a></li>
+    <li><a href="#8schedulework">8.scheduleWork</a></li>
+    <li><a href="#9performwork">9.performWork</a></li>
+    <li><a href="#10performworkonroot">10.performWorkOnRoot</a></li>
+    <li><a href="#11renderroot">11.renderRoot</a></li>
+    <li><a href="#12updateclasscomponent">12.updateClassComponent</a></li>
+    <li><a href="#13commitroot">13.commitRoot</a>
       <ul>
-        <li><a href="#1forwardref">1.forwardRef</a></li>
-        <li><a href="#2reactelement">2.ReactElement</a></li>
-        <li><a href="#3react-children">3.React Children</a></li>
-        <li><a href="#4react中的数据结构">4.React中的数据结构</a></li>
-        <li><a href="#5初次reactdomreander过程">5.初次ReactDOM.reander过程</a></li>
-        <li><a href="#6expirationtime">6.expirationTime</a></li>
-        <li><a href="#7各种expirationtime">7.各种expirationTime</a></li>
-        <li><a href="#8schedulework">8.scheduleWork</a></li>
-        <li><a href="#9performwork">9.performWork</a></li>
-        <li><a href="#10performworkonroot">10.performWorkOnRoot</a></li>
-        <li><a href="#11renderroot">11.renderRoot</a></li>
-        <li><a href="#12updateclasscomponent">12.updateClassComponent</a></li>
-        <li><a href="#13commitroot">13.commitRoot</a>
-          <ul>
-            <li>
-              <ul>
-                <li><a href="#参考链接">参考链接</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <li><a href="#参考链接">参考链接</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="1forwardref">1.forwardRef</h2>
+            </div><div class="content" id="content"><h1 id="1forwardref">1.forwardRef</h1>
 <p>用来解决高阶组件传递<code>ref</code>的问题。它的用法就像是使用<code>redux</code>的时候，在外面包裹一层，通过<code>...props</code>的方式把外部的<code>props</code>传入到实际组件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -127,7 +119,7 @@
 <span class="p">))</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="2reactelement">2.ReactElement</h2>
+</div><h1 id="2reactelement">2.ReactElement</h1>
 <p><code>ReactElement</code>通过<code>createElement</code>创建，调用该方法需要传入三个参数：</p>
 <ul>
 <li>type</li>
@@ -144,7 +136,7 @@
 </ul>
 <p>从源码可以看出虽然创建的时候都是通过<code>config</code>传入的，但是<code>key</code>和<code>ref</code>不会跟其他<code>config</code>中的变量一起被处理，而是单独作为变量出现在<code>ReactElement</code>上。</p>
 <p>从源码可以看出虽然创建的时候都是通过<code>config</code>传入的，但是<code>key</code>和<code>ref</code>不会跟其他<code>config</code>中的变量一起被处理，而是单独作为变量出现在<code>ReactElement</code>上。在最后创建<code>ReactElement</code>我们看到了这么一个变量<code>$$typeof</code>，在这里他是一个常量：<code>REACT_ELEMENT_TYPE</code></p>
-<h2 id="3react-children">3.React Children</h2>
+<h1 id="3react-children">3.React Children</h1>
 <p><code>React</code>上面有有一个<code>Children</code>对象，上面有着<code>Children</code>定义</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -285,7 +277,7 @@
 <span class="p">})</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="4react中的数据结构">4.React中的数据结构</h2>
+</div><h1 id="4react中的数据结构">4.React中的数据结构</h1>
 <p><code>Update</code> &amp;<code> UpdateQueue</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -381,7 +373,7 @@
 <span class="p">};</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="5初次reactdomreander过程">5.初次ReactDOM.reander过程</h2>
+</div><h1 id="5初次reactdomreander过程">5.初次ReactDOM.reander过程</h1>
 <p>首先调用<code>legacyRenderSubtreeIntoContainer</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -725,7 +717,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p><code>scheduleRootUpdate</code>会调用<code>createUpdate</code>创建<code>Update</code>对象，其<code>playload</code>为<code>container</code>上面的<code>ReactNodeList</code>，然后调用<code>enqueueUpdate</code>生成一个双向列表队列，然后调用<code>scheduleWork</code>开始调用。上面的过程都是依赖的<code>FiberRoot</code></p>
-<h2 id="6expirationtime">6.expirationTime</h2>
+<h1 id="6expirationtime">6.expirationTime</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -941,7 +933,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p><code>findHighestPriorityRoot</code>找到优先级最高的节点，同时设置<code>nextFlushedExpirationTime</code>，然后if判断当前队列中没有更新的任务，就会重新计算当前时间，否则，还是返回最初的<code>currentSchedulerTime</code></p>
-<h2 id="7各种expirationtime">7.各种expirationTime</h2>
+<h1 id="7各种expirationtime">7.各种expirationTime</h1>
 <ul>
 <li><code>root.expirationTime</code></li>
 <li><code>root.nextExpirationTimeToWorkOn</code></li>
@@ -982,7 +974,7 @@
 <li>在<code>onUncaughtError</code>的时候设置为<code>NoWork</code></li>
 <li><code>onSuspend</code>的时候又会设置回当次更新的<code>expirationTime</code></li>
 </ul>
-<h2 id="8schedulework">8.scheduleWork</h2>
+<h1 id="8schedulework">8.scheduleWork</h1>
 <p>上面说的在创建完更新队列后，就会调用<code>scheduleWork</code>调度了</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1268,7 +1260,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="9performwork">9.performWork</h2>
+</div><h1 id="9performwork">9.performWork</h1>
 <p><code>performAsyncWork</code> 为异步调用，一开始的<code>shouldYieldToRenderer</code>代表是否当前调度中有没有时间执行异步任务，若<code>shouldYieldToRenderer</code>返回<code>false</code>，则代表有，那么重新计算当前的<code>expirationTime</code>，更新所有的已过期的<code>root</code>任务的<code>nextExpirationTimeToWorkOn</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1482,7 +1474,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>这是一个循环调度<code>root</code>任务的过程，判断条件为调度队列不为空，并且当前传入的任务优先级小于优先级最高的任务。异步调用时还有个额外的条件<code> !(didYield &amp;&amp; currentRendererTime &gt; nextFlushedExpirationTime)</code>，翻译过来就是当前传入的异步任务没过期，并且当前的渲染时间也没超过优先级最高的任务。然后这个循环就会在每次循环中调用<code>performWorkOnRoot</code></p>
-<h2 id="10performworkonroot">10.performWorkOnRoot</h2>
+<h1 id="10performworkonroot">10.performWorkOnRoot</h1>
 <p>这里是整个调度过程的提交、render过程。不同的是，在异步任务中有个判断</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1617,7 +1609,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="11renderroot">11.renderRoot</h2>
+</div><h1 id="11renderroot">11.renderRoot</h1>
 <p>这个判断的意思就是如果当前没有其他的任务，那么就进行一些初始化的工作</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1778,7 +1770,7 @@
 </div>
 </div><p>首先执行<code>    next = beginWork(current, workInProgress, nextRenderExpirationTime)</code>对节点进行操作，其内部会针对不同类型的节点进行创建，返回的结果即会赋值给<code>next</code>，<code>return next</code>。 如果<code>next === null</code>，说明子节点已经处理完，调用<code>    next = completeUnitOfWork(workInProgress)</code>。</p>
 <p><code>completeUnitOfWork</code>会从下往上遍历，处理<code>effact tag</code>，如果到<code>root</code>节点返回的是<code>null</code>，代表整棵树的遍历已经结束了，如果找到了其他兄弟节点，就返回这个节点，重新走一遍<code>workLoop</code></p>
-<h2 id="12updateclasscomponent">12.updateClassComponent</h2>
+<h1 id="12updateclasscomponent">12.updateClassComponent</h1>
 <p>在<code>beginWork</code>中，会针对不同的节点类型来调用不同的方法处理，这里以<code>ClassComponent</code>为例</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2158,9 +2150,9 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="13commitroot">13.commitRoot</h2>
+</div><h1 id="13commitroot">13.commitRoot</h1>
 <p>调用完<code>renderRoot</code>之后，<code>fiber</code>中对应的每个节点都执行了<code>render</code>之前所有的生命周期函数，并创建了对应的DOM元素，放在<code>workInProgress.stateNode</code>中。然后调用<code>commitRoot</code>，提交子树中优先级最高的任务，更新DOM元素的属性后，挂载组件，调用<code>componentDidMount</code></p>
-<h4 id="参考链接">参考链接</h4>
+<h2 id="参考链接">参考链接</h2>
 <p><a href="https://react.jokcy.me/" target="_blank" rel="noopener noreffer">react源码解析</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luckly.work\/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss\/"
-        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1254 ,
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1230 ,
         "url": "https:\/\/luckly.work\/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss\/","datePublished": "2019-07-15T19:12:19+07:00","dateModified": "2019-07-15T19:12:19+07:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
@@ -74,10 +74,10 @@
 <main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">使用文本过滤的方式防御XSS</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-07-15">2019-07-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1254 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-07-15">2019-07-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1230 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -86,30 +86,16 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li>
-              <ul>
-                <li><a href="#2-xss的原理">2. XSS的原理</a></li>
-                <li><a href="#3防御方式">3.防御方式</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#1xss的原理">1.XSS的原理</a></li>
+    <li><a href="#2防御方式">2.防御方式</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>​	跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。</p>
-<h4 id="2-xss的原理">2. XSS的原理</h4>
-<p>​	者对含有漏洞的服务器发起XSS攻击（注入JS代码）。</p>
-<p>​	诱使受害者打开受到攻击的服务器URL。</p>
-<p>​	受害者在Web浏览器中打开URL，恶意脚本执行。</p>
-<h4 id="3防御方式">3.防御方式</h4>
-<p>​	这里采用的是文本过滤的一种方式来防御XSS，这也是现在我比较常用的。</p>
-<p>​	3.1首先定义一个配置文件，规定哪些请求需要进行文本过滤，如：</p>
+            </div><div class="content" id="content"><p>​	跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的</p>
+<h1 id="1xss的原理">1.XSS的原理</h1>
+<p>攻击者对含有漏洞的服务器发起XSS攻击（注入JS代码)，诱使受害者打开受到攻击的服务器URL，受害者在Web浏览器中打开URL，恶意脚本执行</p>
+<h1 id="2防御方式">2.防御方式</h1>
+<p>这里介绍的是文本过滤的一种方式来防御XSS</p>
+<p>首先定义一个配置文件，规定哪些请求需要进行文本过滤，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -130,7 +116,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>​	3.2引入此配置文件，请求时，查看当前请求是否在进行文本过滤的列表里，如果是，将当前参数里面的敏感字符、带有html字符的进行转义，并重新生成参数。</p>
+</div><p>引入此配置文件，请求时，查看当前请求是否在进行文本过滤的列表里，如果是，将当前参数里面的敏感字符、带有html字符的进行转义，并重新生成参数。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">  1

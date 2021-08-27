@@ -86,27 +86,15 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li>
-              <ul>
-                <li><a href="#1commonjs-规范">1.CommonJS 规范</a></li>
-                <li><a href="#2amd-规范">2.AMD 规范</a></li>
-                <li><a href="#3cmd-规范">3.CMD 规范</a></li>
-                <li><a href="#4es6-的模块规范">4.ES6 的模块规范</a></li>
-                <li><a href="#5umd-规范">5.UMD 规范</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#1commonjs-规范">1.CommonJS 规范</a></li>
+    <li><a href="#2amd-规范">2.AMD 规范</a></li>
+    <li><a href="#3cmd-规范">3.CMD 规范</a></li>
+    <li><a href="#4es6-的模块规范">4.ES6 的模块规范</a></li>
+    <li><a href="#5umd-规范">5.UMD 规范</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>现在的前端开发中根本离不开组件化、模块化的开发方式，这些模块有各种各样的规范，比如：</p>
-<h4 id="1commonjs-规范">1.CommonJS 规范</h4>
+<h1 id="1commonjs-规范">1.CommonJS 规范</h1>
 <p>主要用在与 Nodejs 服务端，在服务器端，模块的加载是<strong>运行时</strong>同步加载的；在浏览器端，模块需要提前编译打包处理。模块本身是<strong>输出的是一个值的拷贝</strong>，意思就是说拿到模块后，对其中 exports 的变量进行修改的时候，是不会影响到原来的模块的</p>
 <p>1.1.导出模块</p>
 <p>导出模块的方式有两种，两种写法都可以，<code>module.exports</code>是对<code>exports</code>的一个引用</p>
@@ -132,7 +120,7 @@
 <pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">requore</span><span class="p">(</span><span class="s2">&#34;路径&#34;</span><span class="p">);</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="2amd-规范">2.AMD 规范</h4>
+</div><h1 id="2amd-规范">2.AMD 规范</h1>
 <p>出现 AMD 规范的原因是因为 CommonJS 以服务端同步的方式加载本地的模块(文件)，服务器端所有的模块都存放在本地硬盘中，可以同步加载完成，等待时间就是硬盘的读取时间；而如果在客户端使用这个规范的去请求服务器上的模块资源的时候，请求的时间就取决于当前的网络状态了，加上 CommonJS 是一个同步的加载，那页面就会阻塞、卡顿，所以也就有了 AMD(Asynchronous Module Definition)规范，主要用在客户端</p>
 <p>2.1 定义(导出模块)</p>
 <p>定义模块使用<code>define(id?, dependencies?, factory)</code>方法，id 为你自定义模块的名称，dependencies 为你当前模块所依赖的其他模块集合的路径数组，factory 则是实际的定义模块的方法。也就是说一个简单 AMD 模块甚至直接传个 factory 函数就行了，这个回调函数里面的入参是 dependencies 数组里面加载成功的依赖</p>
@@ -162,7 +150,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>需要注意的地方浏览器本身是不支持这个规范的，要使用的话必须依赖于 require.js</p>
-<h4 id="3cmd-规范">3.CMD 规范</h4>
+<h1 id="3cmd-规范">3.CMD 规范</h1>
 <p>CMD 规范与 AMD 规范很相似，都用于浏览器编程，依赖就近执行，延迟执行</p>
 <p>3.1 定义(导出模块)</p>
 <p><code>define(id?, dependencies?, factory)</code>，关于定义它和 AMD 规范很像，包括入参，不同地方在于<code>factory</code>回调函数的入参不同<code>require, exports, module</code>，可以通过这些关键字再导出或者引入相关依赖，然后<code>dependencies</code>一般不会去使用，通常会在<code>factory</code>的回调函数中用<code>require</code>关键字去加载其他的依赖。</p>
@@ -183,7 +171,7 @@
 <span class="p">});</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="4es6-的模块规范">4.ES6 的模块规范</h4>
+</div><h1 id="4es6-的模块规范">4.ES6 的模块规范</h1>
 <p>1.导出：ES6 模块有两种模块导出方式：命名式导出(名称导出)、默认导出(自定义导出)</p>
 <p>命名式导出：</p>
 <div class="highlight"><div class="chroma">
@@ -237,7 +225,7 @@
 </div><p>上述的<code>Commone.js</code>、<code>CMD</code>、<code>AMD</code>规范的特点就是运行时加载、模块值的拷贝</p>
 <p>而<code>ES6</code>模块的特点则是静态编译时加载、按需加载、模块值的引用，每个模块都有自己的上下文，每一个模块内声明的变量都是局部变量，不会污染全局作用域</p>
 <p>requireJS 会先尽早地执行(依赖)模块, 相当于所有的 require 都被提前了, 而且模块执行的顺序也不一定 100%就是先 mod1 再 mod2，所以使用 requireJS 的时候模块与模块之间应当尽量没有业务或者逻辑的交叉</p>
-<h4 id="5umd-规范">5.UMD 规范</h4>
+<h1 id="5umd-规范">5.UMD 规范</h1>
 <p>所谓 UMD (Universal Module Definition)，就是一种 javascript 通用模块定义规范，让你的模块能在 javascript 所有运行环境中发挥作用。顾名思义，就是兼容上述所有规范，实现方式是通过判断当前脚本运行环境是否支持相应的关键字来实现的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

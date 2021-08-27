@@ -86,30 +86,26 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1安卓开发环境的基本配置">1.安卓开发环境的基本配置</a></li>
+    <li><a href="#2signlechildscrollview页面不满一屏无法撑满全屏">2.SignleChildScrollView页面不满一屏无法撑满全屏</a></li>
+    <li><a href="#3自定义appbar">3.自定义AppBar</a></li>
+    <li><a href="#4push页面返回保持上一次的页面位置状态">4.push页面返回，保持上一次的页面位置状态</a></li>
+    <li><a href="#5路由跳转方式的选择">5.路由跳转方式的选择</a></li>
+    <li><a href="#6页面初始化时拿到context">6.页面初始化时拿到context</a></li>
+    <li><a href="#7键盘弹出时将布局打乱或者说将元素顶起来了">7.键盘弹出时将布局打乱，或者说将元素顶起来了</a></li>
+    <li><a href="#8无法设置虚线边框">8.无法设置虚线边框</a></li>
+    <li><a href="#9使用dio时设置相应数据的媒体类型">9.使用Dio时，设置相应数据的媒体类型</a></li>
+    <li><a href="#10build配置">10.build配置</a>
       <ul>
-        <li><a href="#1安卓开发环境的基本配置">1.安卓开发环境的基本配置</a></li>
-        <li><a href="#2signlechildscrollview页面不满一屏无法撑满全屏">2.SignleChildScrollView页面不满一屏无法撑满全屏</a></li>
-        <li><a href="#3自定义appbar">3.自定义AppBar</a></li>
-        <li><a href="#4push页面返回保持上一次的页面位置状态">4.push页面返回，保持上一次的页面位置状态</a></li>
-        <li><a href="#5路由跳转方式的选择">5.路由跳转方式的选择</a></li>
-        <li><a href="#6页面初始化时拿到context">6.页面初始化时拿到context</a></li>
-        <li><a href="#7键盘弹出时将布局打乱或者说将元素顶起来了">7.键盘弹出时将布局打乱，或者说将元素顶起来了</a></li>
-        <li><a href="#8无法设置虚线边框">8.无法设置虚线边框</a></li>
-        <li><a href="#9使用dio时设置相应数据的媒体类型">9.使用Dio时，设置相应数据的媒体类型</a></li>
-        <li><a href="#10build配置">10.build配置</a>
-          <ul>
-            <li><a href="#1安卓的sha1码获取方式">1.安卓的SHA1码获取方式</a></li>
-            <li><a href="#2安卓打包release配置">2.安卓打包<code>release</code>配置</a></li>
-            <li><a href="#3ios调试打包注意事项">3.iOS调试打包注意事项</a></li>
-          </ul>
-        </li>
-        <li><a href="#11总结">11.总结</a></li>
+        <li><a href="#1安卓的sha1码获取方式">1.安卓的SHA1码获取方式</a></li>
+        <li><a href="#2安卓打包release配置">2.安卓打包<code>release</code>配置</a></li>
+        <li><a href="#3ios调试打包注意事项">3.iOS调试打包注意事项</a></li>
       </ul>
     </li>
+    <li><a href="#11总结">11.总结</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="1安卓开发环境的基本配置">1.安卓开发环境的基本配置</h2>
+            </div><div class="content" id="content"><h1 id="1安卓开发环境的基本配置">1.安卓开发环境的基本配置</h1>
 <p>首先修改你创建的项目中的<code>/android/build.gradle</code>文件，修改<code>buildscript</code>以及<code>allprojects</code>的仓库地址，否则编译打包会卡住不动，其次就是<code>package get</code>会卡住，原因是因为连接不上谷歌的服务，有点蛋疼</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -155,7 +151,7 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="2signlechildscrollview页面不满一屏无法撑满全屏">2.SignleChildScrollView页面不满一屏无法撑满全屏</h2>
+</div><h1 id="2signlechildscrollview页面不满一屏无法撑满全屏">2.SignleChildScrollView页面不满一屏无法撑满全屏</h1>
 <p>可以换个布局组件或者将其设置为<code>Container</code>子组件，设置<code>alignment</code>，如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -171,9 +167,9 @@
 <span class="p">),</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="3自定义appbar">3.自定义AppBar</h2>
+</div><h1 id="3自定义appbar">3.自定义AppBar</h1>
 <p><code>AppBar</code>这个组件可拓展性还是比较低的，尤其是它的高度都是写死的，这种情况可以换<code>SliverAppBar</code>或者自定义<code>AppBar</code>，换句话说自定义组件，这里就不详诉</p>
-<h2 id="4push页面返回保持上一次的页面位置状态">4.push页面返回，保持上一次的页面位置状态</h2>
+<h1 id="4push页面返回保持上一次的页面位置状态">4.push页面返回，保持上一次的页面位置状态</h1>
 <p>使用 <code>StatefulWidget</code> 混入 <code>AutomaticKeepAliveClientMixin</code>，覆盖<code>wantKeepAlive</code>属性</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -203,18 +199,18 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="5路由跳转方式的选择">5.路由跳转方式的选择</h2>
+</div><h1 id="5路由跳转方式的选择">5.路由跳转方式的选择</h1>
 <p>通常路由跳转会用到<code>Navigator.push</code>推入路由栈，<code>Navigator.pop</code>就移出、返回上一个的状态。如果在页面上全部用这两个方法，你会发现你的页面间的跳转仿佛乱了一样，原因就是<code>Navigator.push</code>是每次将你的路由推入栈，也就是你可以一直做返回操作、手势来获取之前的页面状态。这个时候就要考虑用其他方式，如</p>
 <p><code>pushAndRemoveUntil</code>：跳转到指定路由，删除先前的路由栈
 <code>pushNamed</code>：跳转到指定命名路由，路由栈不会删除。这种方式需要配合命名路由使用，即在入口文件<code>MaterialApp</code>配置好<code>routes</code>
 <code>pushNamedAndRemoveUntil</code>：跳转到指定路由，删除先前的路由栈
 <code>pushReplacement</code>：路由替换
 <code>pushReplacementNamed</code>：跳转到指定命名路由，并删除最后的路由</p>
-<h2 id="6页面初始化时拿到context">6.页面初始化时拿到context</h2>
+<h1 id="6页面初始化时拿到context">6.页面初始化时拿到context</h1>
 <p>有时候，可能会在页面初始化使用<code>context</code>，比如说路由相关的<code>Navigator.of(context)</code>。解决方法很简单，在<code>initState</code>方法中，<code>this</code>指向上下文，即使用<code>this.context</code>即可以保存页面初始的<code>context</code></p>
-<h2 id="7键盘弹出时将布局打乱或者说将元素顶起来了">7.键盘弹出时将布局打乱，或者说将元素顶起来了</h2>
+<h1 id="7键盘弹出时将布局打乱或者说将元素顶起来了">7.键盘弹出时将布局打乱，或者说将元素顶起来了</h1>
 <p>在 <code>Scafold</code> 里设置 <code>resizeToAvoidBottomInset: false</code>，键盘会遮住布局，而不是顶起布局。</p>
-<h2 id="8无法设置虚线边框">8.无法设置虚线边框</h2>
+<h1 id="8无法设置虚线边框">8.无法设置虚线边框</h1>
 <p>说实话当时发现<code>Flutter</code>无法设置虚线边框的时候我是很震惊的，我感觉这算是基本的不能在基本的属性了，解决方法，参考官方<code>issues</code>中大佬的解法，目前只能自己实现<code>paint</code>方法，自己用<code>Canvas</code>画</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -520,10 +516,10 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="9使用dio时设置相应数据的媒体类型">9.使用Dio时，设置相应数据的媒体类型</h2>
+</div><h1 id="9使用dio时设置相应数据的媒体类型">9.使用Dio时，设置相应数据的媒体类型</h1>
 <p>使用<code>Dio</code>封装网络请求，普通的请求最好设置相应类型<code>dio.options.responseType = ResponseType.json</code>，否则可能接收到的响应可能是字符串。</p>
-<h2 id="10build配置">10.build配置</h2>
-<h3 id="1安卓的sha1码获取方式">1.安卓的SHA1码获取方式</h3>
+<h1 id="10build配置">10.build配置</h1>
+<h2 id="1安卓的sha1码获取方式">1.安卓的SHA1码获取方式</h2>
 <p>很多第三方应用都需要用到安卓的SHA1码，在<code>Flutter</code>应用中，首先用<code>Andriod Studio</code>打开项目，随意选择一个文件，点击右上角<code>Open for Editing in Android Studio</code></p>
 <p><img
         class="lazyload"
@@ -551,7 +547,7 @@
         data-sizes="auto"
         alt="https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg"
         title="3.jpg" /></p>
-<h3 id="2安卓打包release配置">2.安卓打包<code>release</code>配置</h3>
+<h2 id="2安卓打包release配置">2.安卓打包<code>release</code>配置</h2>
 <p>首先打开<code>/android/build.gradle</code>文件，在<code>buildscript</code>中指定<code>kotlin_version</code>，否则<code>debug</code>、<code>release</code>编译会不通过</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -671,7 +667,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>然后进入项目根目录，执行<code>flutter build apk</code>，即可以打包一个安卓apk包</p>
-<h3 id="3ios调试打包注意事项">3.iOS调试打包注意事项</h3>
+<h2 id="3ios调试打包注意事项">3.iOS调试打包注意事项</h2>
 <p><code>iOS</code>模拟器调试体验比安卓好的多，但是真机调试，首先你得有个苹果ID，然后用<code>Xcode</code>打开项目，点击<code>Signing &amp; Capabilities</code>，找到<code>Team</code>设置，设置一个开发账号，可以是未付费注册的苹果ID，设置好开发者证书</p>
 <p><img
         class="lazyload"
@@ -683,7 +679,7 @@
         title="4.png" /></p>
 <p>然后<code>flutter run</code>的时候，选择一个真机设备，即可在真机上调试<code>app</code>了，但是未付费注册的苹果ID证书有效期只有七天，七天后你手机上的<code>app</code>就不可用了。</p>
 <p>未付费注册的账号也无法打包上传<code>App Store</code>，不过配置完了开发团队、账号后、开发证书后，可以直接<code>flutter build ios</code>，这样会生成一个文件。这时候创建一个名为<code>Payload</code>的文件夹，将打包生成的文件放进去、压缩，然后将压缩文件后缀改为<code>ipa</code>，即可以生成一个<code>ipa</code>文件了。然后借助第三方工具，如<code>itunes(貌似已经不能用)、xxx助手</code>即可将这个文件安装在终端上运行。</p>
-<h2 id="11总结">11.总结</h2>
+<h1 id="11总结">11.总结</h1>
 <p>断断续续做这个小项目已经有几个月了，因为平常很忙，所以拖了这么久。<code>Flutter</code>给我的感觉优点就是流程、动画较为细腻，相对于其它跨平台方案，使用<code>JsBrigde</code>与<code>native</code>端通信，有较大的优势，毕竟它是自己的引擎绘制的页面。但是它的官方组件太少，自定义组件所需精力较多(可能是我不熟悉)，<code>iOS</code>风格组件虽然样式和原生的差不多，但具体效果还是有差距。这种跨平台框架终于还是得要和原生开发人员一起操作才玩的溜。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

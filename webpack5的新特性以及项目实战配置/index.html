@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Webpack5的新特性以及项目实战配置 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="Webpack5的新特性以及项目实战配置" />
-<meta property="og:description" content="前言 webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不" />
+<meta property="og:description" content="webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" />
 <meta property="og:image" content="https://luckly.work/logo.png"/>
@@ -16,9 +16,9 @@
 <meta name="twitter:image" content="https://luckly.work/logo.png"/>
 
 <meta name="twitter:title" content="Webpack5的新特性以及项目实战配置"/>
-<meta name="twitter:description" content="前言 webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不"/>
+<meta name="twitter:description" content="webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" /><link rel="next" href="https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luckly.work\/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE\/"
-        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2673 ,
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2681 ,
         "url": "https:\/\/luckly.work\/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE\/","datePublished": "2021-08-03T22:34:03+08:00","dateModified": "2021-08-03T22:34:03+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
@@ -77,7 +77,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Webpack5的新特性以及项目实战配置</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-03">2021-08-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2673 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-03">2021-08-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2681 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -86,34 +86,19 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li><a href="#前言">前言</a></li>
-            <li><a href="#新特性">新特性</a>
-              <ul>
-                <li><a href="#1用持久性缓存来提高构建性能">1.用持久性缓存来提高构建性能</a></li>
-                <li><a href="#2对资源实现了内部支持而不需要额外的loader">2.对资源实现了内部支持而不需要额外的loader</a></li>
-                <li><a href="#3用更好的-tree-shaking-和代码生成来改善包大小">3.用更好的 Tree Shaking 和代码生成来改善包大小</a></li>
-                <li><a href="#4moduleids--chunkids--content-hash-的优化">4.moduleIds &amp; chunkIds &amp; content hash 的优化</a></li>
-                <li><a href="#5支持生成es6es2015的代码">5.支持生成ES6/ES2015的代码</a></li>
-                <li><a href="#6移除了-nodejs-polyfills">6.移除了 Node.js Polyfills</a></li>
-                <li><a href="#7module-federation">7.Module Federation</a></li>
-              </ul>
-            </li>
-            <li><a href="#项目实战">项目实战</a></li>
-            <li><a href="#参考链接">参考链接</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#1用持久性缓存来提高构建性能">1.用持久性缓存来提高构建性能</a></li>
+    <li><a href="#2对资源实现了内部支持而不需要额外的loader">2.对资源实现了内部支持而不需要额外的loader</a></li>
+    <li><a href="#3用更好的-tree-shaking-和代码生成来改善包大小">3.用更好的 Tree Shaking 和代码生成来改善包大小</a></li>
+    <li><a href="#4moduleids--chunkids--content-hash-的优化">4.moduleIds &amp; chunkIds &amp; content hash 的优化</a></li>
+    <li><a href="#5支持生成es6es2015的代码">5.支持生成ES6/ES2015的代码</a></li>
+    <li><a href="#6移除了-nodejs-polyfills">6.移除了 Node.js Polyfills</a></li>
+    <li><a href="#7module-federation">7.Module Federation</a></li>
+    <li><a href="#8项目实战">8.项目实战</a></li>
+    <li><a href="#9参考链接">9.参考链接</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h3 id="前言">前言</h3>
-<p>webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了，我也实际在项目中运用了下，所以现在做个总结</p>
-<h3 id="新特性">新特性</h3>
-<h4 id="1用持久性缓存来提高构建性能">1.用持久性缓存来提高构建性能</h4>
+            </div><div class="content" id="content"><p>webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了，提出了很多新特性，我也实际在项目中运用了下，所以现在做个总结</p>
+<h1 id="1用持久性缓存来提高构建性能">1.用持久性缓存来提高构建性能</h1>
 <p>在webpack4中，我们可以通过cache-loader等手段来将编译的结果写入到磁盘中，现在可以直接通过设置将编译结果缓存到文件系统中</p>
 <p>type：<code>string: 'memory' | 'filesystem'</code> ，将 <code>cache</code> 类型设置为内存或者文件系统</p>
 <p>buildDependencies：<code>object</code>，针对构建的额外代码依赖的数组对象。webpack 将使用这些项和所有依赖项的哈希值来使文件系统缓存失效</p>
@@ -135,7 +120,7 @@
 <span class="p">},</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="2对资源实现了内部支持而不需要额外的loader">2.对资源实现了内部支持而不需要额外的loader</h4>
+</div><h1 id="2对资源实现了内部支持而不需要额外的loader">2.对资源实现了内部支持而不需要额外的loader</h1>
 <p><code>asset/resource</code> 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。</p>
 <p><code>asset/inline</code> 导出一个资源的 data URI。之前通过使用 url-loader 实现。</p>
 <p><code>asset/source</code> 导出资源的源代码。之前通过使用 raw-loader 实现。</p>
@@ -196,9 +181,9 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="3用更好的-tree-shaking-和代码生成来改善包大小">3.用更好的 Tree Shaking 和代码生成来改善包大小</h4>
+</div><h1 id="3用更好的-tree-shaking-和代码生成来改善包大小">3.用更好的 Tree Shaking 和代码生成来改善包大小</h1>
 <p>现在的Tree Shaking 能够完全剔除未使用的代码，同样使用ES6模块，并开起production mode；并且现在能处理对 Commonjs 的 tree shaking，<strong>允许消除未使用的CommonJs导出并跟踪require()调用中引用的导出名称</strong>，在打包出的文件中可以看到最终的代码。</p>
-<h4 id="4moduleids--chunkids--content-hash-的优化">4.moduleIds &amp; chunkIds &amp; content hash 的优化</h4>
+<h1 id="4moduleids--chunkids--content-hash-的优化">4.moduleIds &amp; chunkIds &amp; content hash 的优化</h1>
 <p><strong>moduleIds &amp; chunkIds的优化</strong></p>
 <p>在webpack5以前，没有从entry打包的chunk文件，都会以1，2，3&hellip;的文件命名方式输出，文件名称后的hash值是用chunkhash生成的。这样会造成当删除或者暂时不用1.js这个文件后，那么重新打包时2.js-&gt;1.js,3.js-&gt;2.js，这样会造成原来线上的2.js和3.js缓存失效。</p>
 <p>webpack5为了确保moduleId，chunkId 的确定性， 增加了如下配置：</p>
@@ -243,7 +228,7 @@
 </div><p>当然在开发模式下，可以设置成<code>natural</code>以保持以前的老模式</p>
 <p><strong>content hash的优化</strong></p>
 <p>之前使用content hash的时候，当改动文件内容的时候content hash会重新生成；而现在Webpack 5 将使用真正的文件内容哈希值，也就是说当进行了修改注释或者修改变量名等代码逻辑是没有影响的操作时，文件内容的变更不会导致 contenthash 变化。</p>
-<h4 id="5支持生成es6es2015的代码">5.支持生成ES6/ES2015的代码</h4>
+<h1 id="5支持生成es6es2015的代码">5.支持生成ES6/ES2015的代码</h1>
 <p>webpack 4 默认只能输出 ES5 代码，现在支持指定环境，然后生成该环境的一个代码</p>
 <blockquote>
 <p><code>target</code></p>
@@ -253,7 +238,7 @@
 <p>然后我们设置</p>
 <p><code> target: ['web', 'es5']</code></p>
 <p>webpack 将生成 web 平台的运行时代码，并且只使用 ES5 相关的特性</p>
-<h4 id="6移除了-nodejs-polyfills">6.移除了 Node.js Polyfills</h4>
+<h1 id="6移除了-nodejs-polyfills">6.移除了 Node.js Polyfills</h1>
 <blockquote>
 <p>在早期，webpack 的目的是为了让大多数的 Node.js 模块运行在浏览器中，但如今模块的格局已经发生了变化，现在许多模块主要是为前端而编写。webpack &lt;= 4 的版本中提供了许多 Node.js 核心模块的 polyfills，一旦某个模块引用了任何一个核心模块（如 <code>cypto</code> 模块），webpack 就会自动引用这些 polyfills。</p>
 <p>尽管这会使得使用为 Node.js 编写模块变得容易，但它在构建时给 bundle 附加了庞大的 polyfills。在大部分情况下，这些 polyfills 并非必须。</p>
@@ -265,13 +250,13 @@
 <li>Package 作者：在 <code>package.json</code> 中添加 <code>browser</code> 字段，使 package 与前端兼容。为浏览器提供其他的实现/dependencies。</li>
 </ul>
 </blockquote>
-<h4 id="7module-federation">7.Module Federation</h4>
+<h1 id="7module-federation">7.Module Federation</h1>
 <blockquote>
 <p>多个独立的构建可以组成一个应用程序，这些独立的构建之间不应该存在依赖关系，因此可以单独开发和部&gt;署它们。</p>
 <p>这通常被称作微前端，但并不仅限于此。</p>
 </blockquote>
 <p>简单来说就是允许一个应用中动态地去加载和引入另一个应用的代码，就好像本地起一个应用作CDN库，其它地方去引用，具体可以看<a href="https://webpack.docschina.org/concepts/module-federation/" target="_blank" rel="noopener noreffer">官方配置</a>，个人感觉并不是特别的实用</p>
-<h3 id="项目实战">项目实战</h3>
+<h1 id="8项目实战">8.项目实战</h1>
 <p>首先定义一个webpack.config.base.js，即开发环境以及生产环境都需要的配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -492,7 +477,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>以上就是一个webpack5的基本配置，可以看到除了其内部更新的特性意外，其它的还是可以用原来的loader去配置，主要用到的还是它的缓存的一个功能，当然其它的你也可以按照官方文档进行一个配置</p>
-<h3 id="参考链接">参考链接</h3>
+<h1 id="9参考链接">9.参考链接</h1>
 <p><a href="https://webpack.docschina.org/" target="_blank" rel="noopener noreffer">webpack官方网站</a></p>
 <p><a href="https://juejin.cn/post/6983985071699001357" target="_blank" rel="noopener noreffer">webpack新特性</a></p>
 </div><div class="post-footer" id="post-footer">
@@ -518,7 +503,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" class="prev" rel="prev" title="前端的模块规范简述以及如何实现一个UMD-Loader方法"><i class="fas fa-angle-left fa-fw"></i>前端的模块规范简述以及如何实现一个UMD-Loader方法</a></div>
+    <div class="post-nav"><a href="/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" class="prev" rel="prev" title="前端的模块规范简述以及如何实现一个UMD-Loader方法"><i class="fas fa-angle-left fa-fw"></i>前端的模块规范简述以及如何实现一个UMD-Loader方法</a>
+            <a href="/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" class="next" rel="next" title="StoryBook &#43; Lerna 开发自己的UI组件库(一)">StoryBook &#43; Lerna 开发自己的UI组件库(一)<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

@@ -84,9 +84,15 @@
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1错误监控">1.错误监控</a></li>
+    <li><a href="#2埋点">2.埋点</a></li>
+    <li><a href="#3白屏时间">3.白屏时间</a></li>
+  </ul>
+</nav></div>
             </div><div class="content" id="content"><p>监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案、营销策略以及项目的迭代。 试想，如果没有这些监控系统，那么线上的运行的项目出问题了，定位是比较困难的，这时候修复起来就比较劳神了。我记录下我所了解的，常见的方式。</p>
-<p>1.错误监控</p>
+<h1 id="1错误监控">1.错误监控</h1>
 <p>我们对于错误的处理，在<code>js</code>中很常见的错误捕获<code>try catch</code>、<code>promise中的catch</code>等等。在window对象上有一个方法<code>onerror</code>，可以拿到当前报错的信息，我们就可以将这个信息拿到然后提交到我们自己的监控系统，还有个很重要的原因，不处理这些错误，导致页面挂了停止加载，那损失可就大了。对于抛出的错误，它有几个属性</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -234,7 +240,7 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><p>2.埋点</p>
+</div><h1 id="2埋点">2.埋点</h1>
 <p>埋点是一种常见的统计用户行为的方式或工具。通过在页面设置埋点，来统计用户对于某个页面、广告、功能的使用频率、喜好，然后通过对埋点的数据统计，确定好页面或功能的迭代。简单的做法，设置一个全局方法用来提交埋点点击的行为，在需要的地方调用这个方法。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -301,7 +307,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>通常这样来统计页面上某个功能、某个广告的点击量，获取对应的统计数据。还有一种比较常见的方式，为需要添加埋点的<code>html</code>标签上加上某个约定好的自定义属性，如<code>&lt;div data-link=&quot;111&quot;&gt;&lt;/div&gt;</code>，这个<code>111</code>就是就是实现生成好或者规划好的埋点。然后给这种属性添加全局的点击事件，点击后同样的将对应的数据提交到自己的后台系统去。有些时候为了方便查阅或者直观的观看统计数据，还可以在页面渲染的时候，为含有<code>data-link</code>属性的标签生成对应的一些图标或者文字标签，使用<code>absolute</code>定位显示在对应的元素上，当然这种方式在你添加买点埋点属性的时候，需要给这个元素设置相应的<code>position css</code>属性；当然也可能设置一些热力图啊等其它形式，反正都是实现同一个效果的。</p>
-<p>3.白屏时间</p>
+<h1 id="3白屏时间">3.白屏时间</h1>
 <p>这个之前说过，就不说废话了，白屏时间的统计是非常重要的。比如有些时候，只有某个用户的某个设备出现了页面加载过长，页面没内容，发现这个问题后，通过判断错误日志和白屏时间才能更快的定位问题。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

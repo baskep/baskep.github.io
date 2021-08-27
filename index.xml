@@ -3,15 +3,22 @@
         <title>👨🏻‍💻</title>
         <link>https://luckly.work/</link>
         <description>早起的年轻人做的网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 27 Aug 2021 21:29:12 &#43;0800</lastBuildDate>
             <atom:link href="https://luckly.work/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>StoryBook &#43; Lerna 开发自己的UI组件库(一)</title>
+    <link>https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</link>
+    <pubDate>Fri, 27 Aug 2021 21:29:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</guid>
+    <description><![CDATA[1.前言 我们在日常工作中会接触到公共组件的开发，那公司内部肯定会创建自己的私有组件库，有的完全自研，从项目的脚手架搭建到最后的成品由专业团队]]></description>
+</item><item>
     <title>Webpack5的新特性以及项目实战配置</title>
     <link>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</link>
     <pubDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</guid>
-    <description><![CDATA[前言 webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不]]></description>
+    <description><![CDATA[webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了]]></description>
 </item><item>
     <title>前端的模块规范简述以及如何实现一个UMD-Loader方法</title>
     <link>https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</link>
@@ -39,7 +46,7 @@
     <pubDate>Sat, 28 Nov 2020 16:23:05 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</guid>
-    <description><![CDATA[简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T]]></description>
+    <description><![CDATA[在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、Tex]]></description>
 </item><item>
     <title>输入一个URL到页面呈现的过程</title>
     <link>https://luckly.work/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</link>
@@ -60,7 +67,7 @@
     <pubDate>Sat, 24 Oct 2020 23:45:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</guid>
-    <description><![CDATA[白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连接、发送]]></description>
+    <description><![CDATA[1.定义 白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连]]></description>
 </item><item>
     <title>Webpack打包优化</title>
     <link>https://luckly.work/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</link>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://luckly.work/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</guid>
     <description><![CDATA[之前了解了webpack的基本打包流程或者说原理，如果只是配置一个基本的webpack打包配置， 打包后的文件会变得很大，当你项目部署后，用户]]></description>
-</item><item>
-    <title>Webpack理解</title>
-    <link>https://luckly.work/webpack%E7%90%86%E8%A7%A3/</link>
-    <pubDate>Sun, 23 Aug 2020 21:36:20 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://luckly.work/webpack%E7%90%86%E8%A7%A3/</guid>
-    <description><![CDATA[webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加]]></description>
 </item></channel>
 </rss>

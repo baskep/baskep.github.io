@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>StoryBook &#43; Lerna 开发自己的UI组件库(一) - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="StoryBook &#43; Lerna 开发自己的UI组件库(一)" />
+<meta property="og:description" content="1.前言 我们在日常工作中会接触到公共组件的开发，那公司内部肯定会创建自己的私有组件库，有的完全自研，从项目的脚手架搭建到最后的成品由专业团队" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" />
+<meta property="og:image" content="https://luckly.work/logo.png"/>
+<meta property="article:published_time" content="2021-08-27T21:29:12+08:00" />
+<meta property="article:modified_time" content="2021-08-27T21:29:12+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://luckly.work/logo.png"/>
+
+<meta name="twitter:title" content="StoryBook &#43; Lerna 开发自己的UI组件库(一)"/>
+<meta name="twitter:description" content="1.前言 我们在日常工作中会接触到公共组件的开发，那公司内部肯定会创建自己的私有组件库，有的完全自研，从项目的脚手架搭建到最后的成品由专业团队"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" /><link rel="prev" href="https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "StoryBook + Lerna 开发自己的UI组件库(一)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/luckly.work\/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80\/"
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3234 ,
+        "url": "https:\/\/luckly.work\/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80\/","datePublished": "2021-08-27T21:29:12+08:00","dateModified": "2021-08-27T21:29:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">StoryBook &#43; Lerna 开发自己的UI组件库(一)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-27">2021-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3234 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1前言">1.前言</a></li>
+    <li><a href="#2项目的初始化">2.项目的初始化</a>
+      <ul>
+        <li><a href="#21基本初始化">2.1.基本初始化</a></li>
+        <li><a href="#22目录介绍">2.2.目录介绍</a></li>
+      </ul>
+    </li>
+    <li><a href="#3storybook的配置">3.storybook的配置</a>
+      <ul>
+        <li><a href="#31支持typescript">3.1.支持typescript</a></li>
+        <li><a href="#32支持less文件">3.2.支持less文件</a></li>
+        <li><a href="#33安装基础的ui库">3.3.安装基础的UI库</a></li>
+      </ul>
+    </li>
+    <li><a href="#4组件开发">4.组件开发</a>
+      <ul>
+        <li><a href="#41组件的开发">4.1.组件的开发</a></li>
+        <li><a href="#42组件的文档">4.2.组件的文档</a></li>
+        <li><a href="#43组件的展示">4.3.组件的展示</a></li>
+      </ul>
+    </li>
+    <li><a href="#5eslint的引入">5.eslint的引入</a>
+      <ul>
+        <li><a href="#51需要安装的依赖">5.1.需要安装的依赖</a></li>
+        <li><a href="#52eslintrcjs的配置">5.2.eslintrc.js的配置</a></li>
+        <li><a href="#53vscode环境下的开发配置">5.3.vscode环境下的开发配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#6小结">6.小结</a>
+      <ul>
+        <li><a href="#61当前的项目目录结构">6.1.当前的项目目录结构</a></li>
+        <li><a href="#62页面运行的效果">6.2页面运行的效果</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1前言">1.前言</h1>
+<p>我们在日常工作中会接触到公共组件的开发，那公司内部肯定会创建自己的私有组件库，有的完全自研，从项目的脚手架搭建到最后的成品由专业团队去做，如果为了快捷或者方便，也可以选择现有的方案去实现，比如<code>dumi</code>：基于 Umi 造、为组件开发场景而生的文档工具，用大实话讲，dumi 就是可以用来写文档、官网和组件库 Demo 的 Umi；又或者<code>StoryBook </code>：一个快捷构建 UI 组件或者页面的开源工具。本文以 StoryBook 为例，从 0 开始搭建一个 UI 组件私有库</p>
+<h1 id="2项目的初始化">2.项目的初始化</h1>
+<h2 id="21基本初始化">2.1.基本初始化</h2>
+<p>可以按照<a href="https://storybook.js.org/docs/react/get-started/install" target="_blank" rel="noopener noreffer">storybook 官网</a>推荐的方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">npx</span> <span class="nx">sb</span> <span class="nx">init</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>它会让你选择项目类型，我们这里选择 react 就行</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">初始化项目后，npm install 依赖之后，然后 run start-storybook -p 6006，这个时候可能会报<code> Cannot find module 'react/package.json'</code>或者<code> Cannot find module 'react-dom/package.json'</code>的错，导致项目运行不起来，解决的办法也就是手动安装<code>npm install react react-dom --save -dev</code>依赖。这个问题似乎普遍存在 storybook 6.x 的版本中，也可以看下<a href="https://github.com/storybookjs/storybook/issues/13269" target="_blank" rel="noopener noreffer">Issues</a></div>
+        </div>
+    </div>
+<p>安装好依赖，<code>npm run storybook</code>，项目就能运行起来，默认会初始化一些组件</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2021/08/28/HbDFx7fCgVKsYXo.png"
+        data-srcset="https://i.loli.net/2021/08/28/HbDFx7fCgVKsYXo.png, https://i.loli.net/2021/08/28/HbDFx7fCgVKsYXo.png 1.5x, https://i.loli.net/2021/08/28/HbDFx7fCgVKsYXo.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2021/08/28/HbDFx7fCgVKsYXo.png"
+        title="1.png" /></p>
+<h2 id="22目录介绍">2.2.目录介绍</h2>
+<p>这样初始化下来的项目目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">├─package.json
+├─yarn.lock
+├─stories
+|    ├─Button.jsx
+|    ├─Button.stories.jsx
+|    ├─Header.jsx
+|    ├─Header.stories.jsx
+|    ├─Introduction.stories.mdx
+|    ├─Page.jsx
+|    ├─Page.stories.jsx
+|    ├─button.css
+|    ├─header.css
+|    ├─page.css
+|    ├─assets
+|    |   ├─code-brackets.svg
+|    |   ├─colors.svg
+|    |   ├─comments.svg
+|    |   ├─direction.svg
+|    |   ├─flow.svg
+|    |   ├─plugin.svg
+|    |   ├─repo.svg
+|    |   └stackalt.svg
+├─.storybook
+|     ├─main.js
+|     └preview.js
+</code></pre></td></tr></table>
+</div>
+</div><p>首先是<code>.storybook</code>，这是包含的是storybook的配置文件，可以指定整个项目的入口，引入的样式，引入的插件，webpack的配置等等；然后是<code>stories</code>，这里面就是UI组件具体的开发地方，可以看到有.stories.jsx、.stories.mdx、.jsx三种类型的文件。</p>
+<p>可以这么理解：.jsx即是你的组件源码，.stories.jsx是每个组件的使用示例，可以展示在页面上，而.stories.mdx则是类似于文档的东西。</p>
+<h1 id="3storybook的配置">3.storybook的配置</h1>
+<h2 id="31支持typescript">3.1.支持typescript</h2>
+<p>打开<code>.storybook/main.js</code>，在这里添加webpack的配置，我们添加如下代码，代表添加ts文件的解析</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">webpackFinal</span><span class="o">:</span> <span class="nx">async</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+    <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(ts|tsx)$/</span><span class="p">,</span>
+    <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">loader</span><span class="o">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;babel-loader&#39;</span><span class="p">),</span>
+        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">presets</span><span class="o">:</span> <span class="p">[</span><span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;babel-preset-react-app&#39;</span><span class="p">)],</span>
+        <span class="p">},</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">});</span>
+  <span class="k">return</span> <span class="nx">config</span><span class="p">;</span>
+<span class="p">},</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="32支持less文件">3.2.支持less文件</h2>
+<p>同样的，在<code>.storybook/main.js</code>中添加对less的解析，最后该文件的代码为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&#34;stories&#34;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&#34;../stories/**/*.stories.mdx&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;../stories/**/*.stories.@(js|jsx|ts|tsx)&#34;</span>
+  <span class="p">],</span>
+  <span class="nx">webpackFinal</span><span class="o">:</span> <span class="nx">async</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(ts|tsx)$/</span><span class="p">,</span>
+      <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nx">loader</span><span class="o">:</span> <span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;babel-loader&#39;</span><span class="p">),</span>
+          <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">presets</span><span class="o">:</span> <span class="p">[</span><span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;babel-preset-react-app&#39;</span><span class="p">)],</span>
+          <span class="p">},</span>
+        <span class="p">},</span>
+      <span class="p">],</span>
+    <span class="p">});</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">module</span><span class="p">.</span><span class="nx">rules</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.less$/</span><span class="p">,</span>
+      <span class="nx">loaders</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">&#39;style-loader&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;css-loader&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+          <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;less-loader&#39;</span><span class="p">,</span>
+          <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">lessOptions</span><span class="o">:</span> <span class="p">{</span>
+              <span class="nx">javascriptEnabled</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="p">},</span>
+          <span class="p">},</span>
+        <span class="p">},</span>
+      <span class="p">],</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">config</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="s2">&#34;addons&#34;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&#34;@storybook/addon-links&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;@storybook/addon-essentials&#34;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="33安装基础的ui库">3.3.安装基础的UI库</h2>
+<p>因为本次是基于<code>antd、antd-mobile</code>开发，所以在依赖中记得添加antd以及antd-mobile</p>
+<h1 id="4组件开发">4.组件开发</h1>
+<p>现在把<code>stories</code>目录下自动创建的组件删除，自己新建一个<code>index.tsx、index.less、index.stories.mdx</code>文件，其中<code>index.stories.mdx</code>则为展示的内容，</p>
+<h2 id="41组件的开发">4.1.组件的开发</h2>
+<p>打开<code>index.tsx</code>，我们简单定义一个Button组件，依赖于<code>antd</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Button</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;antd&#39;</span>
+<span class="kr">import</span> <span class="nx">PropTypes</span> <span class="nx">from</span> <span class="s1">&#39;prop-types&#39;</span>
+
+<span class="kr">import</span> <span class="s1">&#39;./index.less&#39;</span>
+
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">PrimaryButtonProps</span> <span class="p">{</span>
+  <span class="nx">text</span><span class="o">:</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">PrimaryButton</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">PrimaryButtonProps</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span> <span class="nx">text</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span>
+
+  <span class="kr">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;primary&#34;</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">handleClick</span><span class="p">}</span> <span class="o">&gt;</span> <span class="p">{</span><span class="nx">text</span><span class="p">}</span> <span class="o">&lt;</span><span class="err">/ Button&gt;</span>
+<span class="p">}</span>
+
+<span class="nx">PrimaryButton</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">text</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">这样写出来的组件是不包含<code>antd</code>的样式的，所以到时候展示的页面会是元素的默认样式，所以我们要将<code>antd</code>的样式文件引入项目中</div>
+        </div>
+    </div>
+<p>将找到的样式文件放入<code>stories</code>目录下，然后打开<code>.storybook/preview.js</code>文件，讲刚才的样式文件引入到全局</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// .storybook/preview.js
+</span><span class="c1"></span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">parameters</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">actions</span><span class="o">:</span> <span class="p">{</span> <span class="nx">argTypesRegex</span><span class="o">:</span> <span class="s2">&#34;^on[A-Z].*&#34;</span> <span class="p">},</span>
+  <span class="nx">controls</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">matchers</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">color</span><span class="o">:</span> <span class="sr">/(background|color)$/i</span><span class="p">,</span>
+      <span class="nx">date</span><span class="o">:</span> <span class="sr">/Date$/</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+
+
+<span class="kr">import</span> <span class="s1">&#39;../stories/global-style/antd/index.less&#39;</span>
+<span class="kr">import</span> <span class="s1">&#39;../stories/global-style/antd-mobile/index.less&#39;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="42组件的文档">4.2.组件的文档</h2>
+<p>打开<code>index.stories.mdx</code>，描述该组件的基本使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Meta</span><span class="p">,</span> <span class="nx">Story</span><span class="p">,</span> <span class="nx">Preview</span><span class="p">,</span> <span class="nx">Props</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;@storybook/addon-docs/blocks&#34;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">PrimaryButton</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./index.tsx&#39;</span><span class="p">;</span>
+
+<span class="o">&lt;</span><span class="nx">Meta</span> <span class="nx">title</span><span class="o">=</span><span class="s2">&#34;Components/PrimaryButton&#34;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">PrimaryButton</span><span class="p">}</span> <span class="o">/&gt;</span>
+
+<span class="err">#</span> <span class="nx">PrimaryButton</span>
+
+<span class="err">##</span> <span class="nx">基本使用</span>
+
+<span class="o">&lt;</span><span class="nx">Preview</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">Story</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;基本使用&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">PrimaryButton</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;我的第一个按钮组2&#34;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="err">/Story&gt;</span>
+<span class="o">&lt;</span><span class="err">/Preview&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>注意，这里使用的是<code>storybook/addon-docs</code>提供的组件，可以在<a href="https://storybook.js.org/docs/react/writing-docs/doc-blocks" target="_blank" rel="noopener noreffer">官网</a>找到描述</p>
+<h2 id="43组件的展示">4.3.组件的展示</h2>
+<p>这样编辑好了以后，storybook首先会从<code>.storybook/main.js</code>中找到入口文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;stories&#34;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="s2">&#34;../stories/**/*.stories.mdx&#34;</span><span class="p">,</span>
+  <span class="s2">&#34;../stories/**/*.stories.@(js|jsx|ts|tsx)&#34;</span>
+<span class="p">],</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后加载<code>index.stories.mdx</code>展示内容，包含其中的组件代码</p>
+<h1 id="5eslint的引入">5.eslint的引入</h1>
+<p>作为公共的组件库的项目，还是有必要引入eslint去做代码规范的</p>
+<h2 id="51需要安装的依赖">5.1.需要安装的依赖</h2>
+<p>首先需要添加以下依赖，这是使用typescript环境下，使用eslint必须的，其中还用了各种plugin是为了兼容各种语法，当然此项目比较简单，可以删除这些plugin</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;@typescript-eslint/eslint-plugin&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.22.1&#34;</span><span class="p">,</span>
+<span class="s2">&#34;@typescript-eslint/parser&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.22.1&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint&#34;</span><span class="o">:</span> <span class="s2">&#34;^7.32.0&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-config-standard&#34;</span><span class="o">:</span> <span class="s2">&#34;^16.0.2&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-config-standard-jsx&#34;</span><span class="o">:</span> <span class="s2">&#34;^10.0.0&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-import-resolver-webpack&#34;</span><span class="o">:</span> <span class="s2">&#34;^0.13.0&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-plugin-import&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.22.1&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-plugin-json&#34;</span><span class="o">:</span> <span class="s2">&#34;^3.0.0&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-plugin-node&#34;</span><span class="o">:</span> <span class="s2">&#34;^11.1.0&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-plugin-promise&#34;</span><span class="o">:</span> <span class="s2">&#34;^5.1.0&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-plugin-react&#34;</span><span class="o">:</span> <span class="s2">&#34;^7.23.2&#34;</span><span class="p">,</span>
+<span class="s2">&#34;eslint-plugin-react-hooks&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.2.0&#34;</span><span class="p">,</span>
+<span class="s2">&#34;typescript&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.3.5&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="52eslintrcjs的配置">5.2.eslintrc.js的配置</h2>
+<p>这里我只是简单对引号、console.log语法、分号以及max-len做了一些限制</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;env&#39;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;node&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s1">&#39;browser&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s1">&#39;commonjs&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s1">&#39;amd&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="s1">&#39;extends&#39;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s1">&#39;eslint:recommended&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;plugin:react/recommended&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;plugin:@typescript-eslint/recommended&#39;</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="s1">&#39;parser&#39;</span><span class="o">:</span> <span class="s1">&#39;@typescript-eslint/parser&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;parserOptions&#39;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;ecmaFeatures&#39;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s1">&#39;jsx&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;ecmaVersion&#39;</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;sourceType&#39;</span><span class="o">:</span> <span class="s1">&#39;module&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="s1">&#39;plugins&#39;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s1">&#39;react&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;@typescript-eslint&#39;</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="s1">&#39;rules&#39;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;no-var&#39;</span><span class="o">:</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;no-console&#39;</span><span class="o">:</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;quotes&#39;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;error&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;single&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;semi&#39;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;error&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;never&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;comma-dangle&#39;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;error&#39;</span><span class="p">,</span> 
+      <span class="s1">&#39;always-multiline&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;max-len&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="mi">120</span><span class="p">],</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="53vscode环境下的开发配置">5.3.vscode环境下的开发配置</h2>
+<p>仅仅像上面这样配置，eslint只会在run lint命令的时候才会去校验，为了在开发阶段就去校验eslint并且让编辑器去自动的修复不规范的语法，在项目根目录创建一个<code>.vscode</code>目录，并在下面创建一个<code>setting.json</code>去覆盖全局设置，其内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">//</span> <span class="err">.vscode/settings.json</span>
+<span class="p">{</span>  
+  <span class="err">//</span> <span class="err">对那些文件进行自动校验</span>
+  <span class="nt">&#34;eslint.validate&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&#34;javascript&#34;</span><span class="p">,</span>
+    <span class="err">//</span> <span class="err">jsx</span>
+    <span class="s2">&#34;javascriptreact&#34;</span><span class="p">,</span>
+    <span class="err">//</span> <span class="err">ts</span> 
+    <span class="s2">&#34;typescript&#34;</span><span class="p">,</span>
+    <span class="err">//</span> <span class="err">tsx</span>
+   <span class="s2">&#34;typescriptreact&#34;</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;editor.formatOnPaste&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&#34;editor.formatOnSave&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="err">//</span> <span class="err">保存时修复不合理的语法</span>
+  <span class="nt">&#34;editor.codeActionsOnSave&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;source.fixAll.eslint&#34;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样eslint的配置基本完成</p>
+<h1 id="6小结">6.小结</h1>
+<h2 id="61当前的项目目录结构">6.1.当前的项目目录结构</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">├─.editorconfig
+├─.eslintignore
+├─.eslintrc.js
+├─package-lock.json
+├─package.json
+├─yarn.lock
+├─stories
+|    ├─index.less
+|    ├─index.stories.mdx
+|    ├─index.tsx
+|    ├─global-style
+|    |      ├─index-mobile.less
+|    |      ├─index.less
+|    |      ├─normalize-mobile.less
+|    |      ├─normalize.less
+|    |      ├─antd-mobile
+|    |      |      ├─anim.less
+|    |      |      ├─component.less
+|    |      |      ├─index.less
+|    |      |      ├─mixins.less
+|    |      |      └theme.less
+|    |      ├─antd
+|    |      |  ├─component.less
+|    |      |  ├─dark.less
+|    |      |  ├─index.less
+|    |      |  ├─mixins.less
+|    |      |  └theme.less
+├─.vscode
+|    └settings.json
+├─.storybook
+|     ├─main.js
+|     └preview.js
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="62页面运行的效果">6.2页面运行的效果</h2>
+<p>这里引入的<code>antd</code>样式是一个绿色的主色</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2021/08/28/tSi8RD3qEFlwcsn.png"
+        data-srcset="https://i.loli.net/2021/08/28/tSi8RD3qEFlwcsn.png, https://i.loli.net/2021/08/28/tSi8RD3qEFlwcsn.png 1.5x, https://i.loli.net/2021/08/28/tSi8RD3qEFlwcsn.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2021/08/28/tSi8RD3qEFlwcsn.png"
+        title="2.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-08-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(一)"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(一)"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(一)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(一)"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" class="prev" rel="prev" title="Webpack5的新特性以及项目实战配置"><i class="fas fa-angle-left fa-fw"></i>Webpack5的新特性以及项目实战配置</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

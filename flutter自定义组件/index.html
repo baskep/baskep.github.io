@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Flutter自定义组件 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="Flutter自定义组件" />
-<meta property="og:description" content="简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T" />
+<meta property="og:description" content="在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、Tex" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" />
 <meta property="og:image" content="https://luckly.work/logo.png"/>
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="https://luckly.work/logo.png"/>
 
 <meta name="twitter:title" content="Flutter自定义组件"/>
-<meta name="twitter:description" content="简言 在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、T"/>
+<meta name="twitter:description" content="在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、Tex"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" /><link rel="prev" href="https://luckly.work/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/" /><link rel="next" href="https://luckly.work/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luckly.work\/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6\/"
-        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3117 ,
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3115 ,
         "url": "https:\/\/luckly.work\/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6\/","datePublished": "2020-11-28T16:23:05+08:00","dateModified": "2020-11-28T16:23:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
@@ -77,7 +77,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Flutter自定义组件</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-28">2020-11-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3117 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-28">2020-11-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3115 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -86,27 +86,14 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li><a href="#简言">简言</a>
-              <ul>
-                <li><a href="#1原理基本介绍">1.原理基本介绍</a></li>
-                <li><a href="#2组合其它组件">2..组合其它组件</a></li>
-                <li><a href="#4自绘组件">4.自绘组件</a></li>
-                <li><a href="#5实现renderobject">5.实现RenderObject</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#1原理基本介绍">1.原理基本介绍</a></li>
+    <li><a href="#2组合其它组件">2..组合其它组件</a></li>
+    <li><a href="#4自绘组件">4.自绘组件</a></li>
+    <li><a href="#5实现renderobject">5.实现RenderObject</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h3 id="简言">简言</h3>
-<p>在使用<code>Flutter</code>开发app的时候，是使用各种各样的<code>Widget</code> 组合绘制出的页面，一些最基础的如<code>Container</code>、<code>Padding</code>、<code>Text</code> 等等，由官方封装好的比较复杂的组件如<code>AppBar</code>、<code>日历选择器</code>等等。仅仅使用这些组件也确实能写出一些app，但是官方封装好的拓展性我觉得不太好，有些属性根本无法改变；另外一旦和设计稿出入比较大，那根不就玩不了了，所以这就涉及到自定义组件。<code>Flutter</code>自定义组件的方式我了解到有三种，一是通过组合其它组件来达到你想要的效果；二是自绘，这块牵扯到<code>Canvas</code>；三是实现<code>RenderObject</code>。</p>
-<h4 id="1原理基本介绍">1.原理基本介绍</h4>
+            </div><div class="content" id="content"><p>在使用<code>Flutter</code>开发app的时候，是使用各种各样的<code>Widget</code> 组合绘制出的页面，一些最基础的如<code>Container</code>、<code>Padding</code>、<code>Text</code> 等等，由官方封装好的比较复杂的组件如<code>AppBar</code>、<code>日历选择器</code>等等。仅仅使用这些组件也确实能写出一些app，但是官方封装好的拓展性我觉得不太好，有些属性根本无法改变；另外一旦和设计稿出入比较大，那根不就玩不了了，所以这就涉及到自定义组件。<code>Flutter</code>自定义组件的方式我了解到有三种，一是通过组合其它组件来达到你想要的效果；二是自绘，这块牵扯到<code>Canvas</code>；三是实现<code>RenderObject</code>。</p>
+<h1 id="1原理基本介绍">1.原理基本介绍</h1>
 <p><code>Flutter</code>引擎会将我们所写组件生成一个<code>Widget Tree</code>，而实际渲染出来的结果又有一个<code>RenderObject Tree</code>，<code>RenderObject</code>是继承<code>Widget</code>的。在项目运行中<code>Widget Tree</code>是不断变化的，如果每次变化都要导致整个<code>RenderObject Tree</code>变化，这对性能来说是一个很大的消耗，于是就有了一个<code>Element Trre</code>，这就相当于一个中间层，由<code>Widget</code>→<code>Elment</code>→<code>RenderObject</code>。每次<code>Widget</code>变化时，与<code>Element</code>做对比，找出最小最优的变化，作用于<code>RenderObject</code>。我们创建的<code>Widget</code>基本继承于<code>StatelessWidget</code>、<code>StatefulWidget</code>，他们仅负责属性、生命周期等的管理，最终也还是会继承于<code>RenderObjectWidget</code></p>
 <p><code>RenderObjectWidget</code>下面又有三个子类</p>
 <p><code>SngleChildRenderObjectWidget</code>：<code>RenderObject</code>只有一个 <code>child</code></p>
@@ -134,7 +121,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>可以看到每次创建一个<code>SingleChildRenderObjectWidget</code>就会调用``CreateElement<code>生成一个对应的</code>Elment<code>，当然</code>MultiChildRenderObjectWidget<code>也是类似，这也就说明了他们一对一的关系。所以我们实现自定义组件必须得继承</code>SingleChildRenderObjectWidget<code>或者</code>MultiChildRenderObjectWidget<code>或者调用官方实现好的自绘类，这也是</code>Flutter`引擎渲染的基本结构。</p>
-<h4 id="2组合其它组件">2..组合其它组件</h4>
+<h1 id="2组合其它组件">2..组合其它组件</h1>
 <p>这种方式是最基本最简单的方式，说白了就是将一些原有的、封装好的组件合并再封装一次。<code>Flutter</code>本身就有很多组合组件，比如常用的<code>Container</code>，查看它的源码就知道，它是由<code>DecoratedBox</code>、<code>ConstrainedBox</code>、<code>Transform</code>、<code>Padding</code>、<code>Align</code>等组件组成，其内部做了很多判断处理。这里实现一个自定义宽度的<code>drawer</code>组件，创建一个类<code>SmartDrawer</code>继承<code>StatelessWidget</code>，并实现其具体方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -217,7 +204,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>可以看到，上述组件就是将<code>ConstrainedBox</code>以及传入的<code>child</code>组合成一个新的组件，其他属性则是来控制样式的。这里需要特别说明的，最后返回的<code>Semantics</code>，它继承<code>SingleChildRenderObjectWidget</code>，它上面定义的属性有点带有语义化的意思，而它上面定义的<code>child</code>属性则是返回的组件，这样<code>return Semantices{}</code>实际就表示返回了带有一些语义的组件。</p>
-<h4 id="4自绘组件">4.自绘组件</h4>
+<h1 id="4自绘组件">4.自绘组件</h1>
 <p><code>Flutter</code>跨平台的实现方式就是在不同操作系统的上层绘制一个中间的UI系统，对不同的操作系统的<code>API</code>进行适配，风格统一，这样就能实现一个跨平台应用了，这也是和<code>React Native</code>的最大的差异以及优于<code>React Native</code>的地方。当你无法用现有的组件来描绘你所需要UI时，可以考虑使用自绘组件来实现。下面是一个自绘的验证码组件示例</p>
 <p>首先创建一个名为<code>CodeReview</code>的<code>StatefulWidget</code></p>
 <div class="highlight"><div class="chroma">
@@ -554,7 +541,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>综上，自绘逐渐的核心是继承<code>CustomPaint</code>，然后使用<code>Canvas</code>实现UI的绘制</p>
-<h4 id="5实现renderobject">5.实现RenderObject</h4>
+<h1 id="5实现renderobject">5.实现RenderObject</h1>
 <p>实现<code>RenderObject</code>即是自己重写一整套渲染树，首先得继承一个<code>RenderObject</code>，实现其内置仿佛，还得继承<code>Element</code>，实现其内置方法，复杂的自定义组件最终也是通过<code>Canvas</code> API来绘制的，而上面说的<code>CustomPaint</code>只是为了方便开发者封装的一个代理类，它直接继承自<code>SingleChildRenderObjectWidget</code>，通过<code>RenderCustomPaint</code>的<code>paint</code>方法将<code>Canvas</code>和画笔<code>Painter</code>连接起来实现自绘组件。这种方式操作起来实在比较麻烦，我也没怎么用过，所以就不提供示例展示了。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

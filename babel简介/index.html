@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luckly.work\/babel%E7%AE%80%E4%BB%8B\/"
-        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3059 ,
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3064 ,
         "url": "https:\/\/luckly.work\/babel%E7%AE%80%E4%BB%8B\/","datePublished": "2020-08-23T21:32:52+08:00","dateModified": "2020-08-23T21:32:52+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
@@ -74,10 +74,10 @@
 <main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Babel简介</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-23">2020-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3059 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-23">2020-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3064 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -86,48 +86,32 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1babel-简介">1.babel 简介</a></li>
+    <li><a href="#2babel的解析流程">2.babel的解析流程</a>
       <ul>
-        <li>
-          <ul>
-            <li><a href="#1babel-简介">1.babel 简介</a></li>
-            <li><a href="#2babel的解析流程">2.babel的解析流程</a>
-              <ul>
-                <li><a href="#21词法解析">2.1词法解析</a></li>
-                <li><a href="#22语法解析">2.2语法解析</a></li>
-                <li><a href="#23traverser">2.3Traverser</a></li>
-                <li><a href="#24transform">2.4Transform</a></li>
-                <li><a href="#25生成代码">2.5生成代码</a></li>
-              </ul>
-            </li>
-            <li><a href="#3babel里面的一些依赖包">3.babel里面的一些依赖包</a>
-              <ul>
-                <li><a href="#31babelcore">3.1@babel/core</a></li>
-                <li><a href="#32插件">3.2插件</a></li>
-                <li><a href="#33辅助开发工具">3.3辅助开发工具</a></li>
-                <li><a href="#4参考链接">4.参考链接</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <li><a href="#21词法解析">2.1.词法解析</a></li>
+        <li><a href="#22语法解析">2.2.语法解析</a></li>
+        <li><a href="#23traverser">2.3.Traverser</a></li>
+        <li><a href="#24transform">2.4.Transform</a></li>
+        <li><a href="#25生成代码">2.5.生成代码</a></li>
       </ul>
     </li>
+    <li><a href="#3babel里面的一些依赖包">3.babel里面的一些依赖包</a>
+      <ul>
+        <li><a href="#31babelcore">3.1.@babel/core</a></li>
+        <li><a href="#32插件">3.2.插件</a></li>
+        <li><a href="#33辅助开发工具">3.3.辅助开发工具</a></li>
+      </ul>
+    </li>
+    <li><a href="#4参考链接">4.参考链接</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h3 id="1babel-简介">1.babel 简介</h3>
+            </div><div class="content" id="content"><h1 id="1babel-简介">1.babel 简介</h1>
 <blockquote>
 <p>Babel是现代JavaScript语法转换器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中，包括不限于: eslint jsx vue-template等等。他能为你做的：语法转换、通过 Polyfill 方式在目标环境中添加缺失的特性、源码转换。可以说，通过babel，我们可以使用最新的语法或者特性专注的开发业务，而不用将精力花在代码的兼容上</p>
 </blockquote>
-<h3 id="2babel的解析流程">2.babel的解析流程</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://github.com/xtid/blog/blob/master/static/img/deal_process.png"
-        data-srcset="https://github.com/xtid/blog/blob/master/static/img/deal_process.png, https://github.com/xtid/blog/blob/master/static/img/deal_process.png 1.5x, https://github.com/xtid/blog/blob/master/static/img/deal_process.png 2x"
-        data-sizes="auto"
-        alt="https://github.com/xtid/blog/blob/master/static/img/deal_process.png"
-        title="babel处理流程" /></p>
-<h4 id="21词法解析">2.1词法解析</h4>
+<h1 id="2babel的解析流程">2.babel的解析流程</h1>
+<h2 id="21词法解析">2.1.词法解析</h2>
 <p>首先由入口文件<code>@babel/core</code>引入各种配置文件以及解析的模块，其中负责解析基本语法的为<code>parse</code>模块，其中就定义了<code>词法解析器Tokenizer</code>，可以看出初始化时会有一个<code>tokens</code>数组，在这个阶段会把字符串形式的代码转换为一个数组，<code>tokens可以视为由拆分为各个片段组成的数组</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -210,7 +194,7 @@
 <pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;我是一段语法&#39;</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="s1">&#39;&#34;我是一段语法&#34;&#39;</span><span class="p">,</span> <span class="s1">&#39;)&#39;</span><span class="p">]</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="22语法解析">2.2语法解析</h4>
+</div><h2 id="22语法解析">2.2.语法解析</h2>
 <p>当生成完<code>tokens</code>，则进入到语法解析阶段，同样可以看见在<code>parse</code>模块中定一个了一个<code>Node</code>对象，这个对象定义了一些属性，当然还有个私有的<code>_clone</code>方法，用于表示将要生成的<code>AST</code>中节点的位置、名称、类型等等信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -335,7 +319,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>可以看出这个语法树包含了整个语法的一个层级关系，并且标注了他们的名称、类型以及位置</p>
-<h4 id="23traverser">2.3Traverser</h4>
+<h2 id="23traverser">2.3.Traverser</h2>
 <p><code>Traverser</code>会对生成好<code>AST</code>进行一个遍历，在此过程中对节点进行添加、删除等等操作，这也是其他插件将要处理的地方，通过这些插件，也可以处理不同的<code>AST</code>语法树，然后转换符合相应规则的代码，比如<code>Taro</code>，就可以视为将<code>React</code>代码转换成小程序对应代码的一个插件。<code>Traverser</code>中会引入<code>visitors</code>，用它来进行一个深度遍历操作；<code>Path</code>用于关联各个节点，这样使得节点操作简单，例如：</p>
 <p>例如，如果有下面这样一个节点及其子节点︰</p>
 <div class="highlight"><div class="chroma">
@@ -445,14 +429,14 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="24transform">2.4Transform</h4>
+</div><h2 id="24transform">2.4.Transform</h2>
 <p><code>transform</code>会对抽象语法树进行又一次遍历，针对已经处理好的<code>AST</code>做进一步处理，如对代码的更改，对节点的操作、节点的增删改查、压缩代码、删除注释等等。得到最终的一个<code>AST</code></p>
-<h4 id="25生成代码">2.5生成代码</h4>
+<h2 id="25生成代码">2.5.生成代码</h2>
 <p>得到上一步生成的<code>AST</code>之后，会调用对应的代码生成器代码，通过递归遍历生成最终的代码，其中遇到不同的节点类型时，会做不同的处理，比如函数类型、参数定义类型、代码块类型等等</p>
-<h3 id="3babel里面的一些依赖包">3.babel里面的一些依赖包</h3>
-<h4 id="31babelcore">3.1@babel/core</h4>
+<h1 id="3babel里面的一些依赖包">3.babel里面的一些依赖包</h1>
+<h2 id="31babelcore">3.1.@babel/core</h2>
 <p><code>@babel/core</code>整个<code>babel</code>的一个核心，也算是<code>babel</code>的一个入口，它会加载和处理用户定义的配置，加载各种各样的插件；调用<code>Parser</code>进行语法解析，生成<code>Tokens</code>以及<code>AST</code>；调用<code>Traverser</code>遍历<code>AST</code>，进行一个转换；最后<code>generator</code>生成源代码</p>
-<h4 id="32插件">3.2插件</h4>
+<h2 id="32插件">3.2.插件</h2>
 <p>语法插件：<code>babel</code>有很多语法插件，用于支持<code>JavaScript</code>的各种语法特性，在解析的时候会用的到，通常其形式为<code>@babel/plugin-syntax-*</code>，比如<code>babel-plugin-syntax-dynamic-import</code>就是用来处理<code>import</code>语法的一个插件</p>
 <p>转换插件： 用于对 <code>AST</code> 进行转换, 实现转换为<code>ES5</code>代码、压缩、功能增强等目的，<code>babel</code>仓库将转换插件划分为两种(只是命名上的区别)：</p>
 <p>如<code>@babel/plugin-transform-*</code>： <code>babel</code>中的一个转换插件</p>
@@ -491,12 +475,12 @@
 </div><p><code>targets</code>生成指定环境的代码，<code>useBuiltIns</code>配合<code>@babel/polyfill</code>使用，当然最新版的<code>babel</code>可直接使用<code>corejs</code>，填上对应的数值就行，<code>modules</code>表示是否将代码ES6的模块语法转换为另一种类型或标准，比如<code>amd</code>、<code>commonjs</code>等</p>
 <p><code>@babel/polyfill</code>顾名思义，在<code>babel</code>转化的过程中，对于一些无法处理的特性或者属性，使用<code>@babel/polyfill</code>来对这些功能进行处理；</p>
 <p><code>@babel/runtime</code>一般应用于两种场景：开发类库/工具（生成不污染全局空间和内置对象原型的代码）、借助 <code>@babel/runtime</code> 中帮助函数（helper function）移除冗余工具函数，在最新的版本中，完全可以用<code>@babel/runtime</code>代替<code>@babel/polyfill</code></p>
-<h4 id="33辅助开发工具">3.3辅助开发工具</h4>
+<h2 id="33辅助开发工具">3.3.辅助开发工具</h2>
 <p><code>@babel/template</code>： 某些场景直接操作<code>AST</code>太麻烦，就比如我们直接操作<code>DOM</code>一样，所以<code>babel</code>实现了这么一个简单的模板引擎，可以将字符串代码转换为<code>AST</code>。比如在生成一些辅助代码<code>(helper)</code>时会用到这个库</p>
 <p><code>@babel/types</code>： 主要用途是在创建<code>AST</code>的过程中判断各种语法的类型。</p>
 <p><code>@babel/helper-*</code>： 一些辅助器，用于辅助插件开发，例如简化<code>AST</code>操作</p>
 <p><code>@babel/helper</code>： 辅助代码，单纯的语法转换可能无法让代码运行起来，比如低版本浏览器无法识别<code>class</code>关键字，这时候需要添加辅助代码，对<code>class</code>进行模拟。</p>
-<h4 id="4参考链接">4.参考链接</h4>
+<h1 id="4参考链接">4.参考链接</h1>
 <p>1.<a href="https://juejin.im/post/5d94bfbf5188256db95589be" target="_blank" rel="noopener noreffer">深入浅出Babel</a></p>
 <p>2.<a href="https://www.babeljs.cn/" target="_blank" rel="noopener noreffer">babel中文网</a></p>
 <p>3.<a href="https://github.com/jamiebuilds/babel-handbook" target="_blank" rel="noopener noreffer">babel-handbook</a></p>

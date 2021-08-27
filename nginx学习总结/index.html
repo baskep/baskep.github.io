@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>nginx学习总结 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="nginx学习总结" />
-<meta property="og:description" content="1.nginx简介 &ldquo;nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常" />
+        <title>Nginx学习总结 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="Nginx学习总结" />
+<meta property="og:description" content="1.nginx 简介 &ldquo;nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&rdqu" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" />
 <meta property="og:image" content="https://luckly.work/logo.png"/>
@@ -15,19 +15,19 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://luckly.work/logo.png"/>
 
-<meta name="twitter:title" content="nginx学习总结"/>
-<meta name="twitter:description" content="1.nginx简介 &ldquo;nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常"/>
+<meta name="twitter:title" content="Nginx学习总结"/>
+<meta name="twitter:description" content="1.nginx 简介 &ldquo;nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&rdqu"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" /><link rel="prev" href="https://luckly.work/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/" /><link rel="next" href="https://luckly.work/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "nginx学习总结",
+        "headline": "Nginx学习总结",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luckly.work\/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93\/"
-        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1841 ,
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1727 ,
         "url": "https:\/\/luckly.work\/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93\/","datePublished": "2019-10-25T22:42:19+09:15","dateModified": "2019-10-25T22:42:19+09:15","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
@@ -75,9 +75,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">nginx学习总结</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Nginx学习总结</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-10-25">2019-10-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1841 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-10-25">2019-10-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1727 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -86,39 +86,27 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li>
-              <ul>
-                <li><a href="#1nginx简介">1.nginx简介</a></li>
-                <li><a href="#2nginx优点">2.nginx优点</a></li>
-                <li><a href="#3nginx配置介绍">3.nginx配置介绍</a></li>
-                <li><a href="#4nginx基本的访问权限配置">4.nginx基本的访问权限配置</a></li>
-                <li><a href="#5nginx设置虚拟主机">5.nginx设置虚拟主机</a></li>
-                <li><a href="#6nginx设置反向代理">6.nginx设置反向代理</a></li>
-                <li><a href="#7nginx匹配pc或wap端">7.nginx匹配PC或wap端</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#1nginx-简介">1.nginx 简介</a></li>
+    <li><a href="#2nginx-优点">2.nginx 优点</a></li>
+    <li><a href="#3nginx-配置介绍">3.nginx 配置介绍</a></li>
+    <li><a href="#4nginx-基本的访问权限配置">4.nginx 基本的访问权限配置</a></li>
+    <li><a href="#5nginx-设置虚拟主机">5.nginx 设置虚拟主机</a></li>
+    <li><a href="#6nginx-设置反向代理">6.nginx 设置反向代理</a></li>
+    <li><a href="#7nginx-匹配-pc-或-wap-端">7.nginx 匹配 PC 或 wap 端</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h4 id="1nginx简介">1.nginx简介</h4>
+            </div><div class="content" id="content"><h1 id="1nginx-简介">1.nginx 简介</h1>
 <blockquote>
-<p>&ldquo;nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常用于服务端的反向代理和负载均衡。&rdquo;</p>
+<p>&ldquo;nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&rdquo;</p>
 </blockquote>
-<h4 id="2nginx优点">2.nginx优点</h4>
+<h1 id="2nginx-优点">2.nginx 优点</h1>
 <blockquote>
-<p>2.1 支持海量高并发：采用IO多路复用epoll。官方测试nginx能够支持5万并发链接，实际生产环境中可以支撑2-4万并发连接数。</p>
-<p>2.2 内存消耗少：在主流的服务器中nginx目前是内存消耗最小的了，比如我们用nginx+PHP，在3万并发链接下，开启10个nginx进程消耗150M内存。</p>
-<p>2.3 免费使用可以商业化：nginx为开源软件，采用的是2-clause BSD-like协议，可以免费使用，并且可以用于商业。并且配置简单</p>
+<p>2.1 支持海量高并发：采用 IO 多路复用 epoll。官方测试 nginx 能够支持 5 万并发链接，实际生产环境中可以支撑 2-4 万并发连接数。</p>
+<p>2.2 内存消耗少：在主流的服务器中 nginx 目前是内存消耗最小的了，比如我们用 nginx+PHP，在 3 万并发链接下，开启 10 个 nginx 进程消耗 150M 内存。</p>
+<p>2.3 免费使用可以商业化：nginx 为开源软件，采用的是 2-clause BSD-like 协议，可以免费使用，并且可以用于商业。并且配置简单</p>
 </blockquote>
-<h4 id="3nginx配置介绍">3.nginx配置介绍</h4>
-<p><code>nginx.conf</code> 文件是nginx总配置文件，nginx的基本配置或者设置代理等等基本配置可以在此设置</p>
+<h1 id="3nginx-配置介绍">3.nginx 配置介绍</h1>
+<p><code>nginx.conf</code> 文件是 nginx 总配置文件，nginx 的基本配置或者设置代理等等基本配置可以在此设置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -159,7 +147,7 @@
 <pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="c1">#运行用户，默认即是nginx，可以不进行设置
 </span><span class="c1"></span><span class="k">user</span>  <span class="s">nginx</span><span class="p">;</span>
 <span class="c1">#nginx进程，一般设置为和CPU核数一样
-</span><span class="c1"></span><span class="k">worker_processes</span>  <span class="mi">1</span><span class="p">;</span>   
+</span><span class="c1"></span><span class="k">worker_processes</span>  <span class="mi">1</span><span class="p">;</span>
 <span class="c1">#错误日志存放目录
 </span><span class="c1"></span><span class="k">error_log</span>  <span class="s">/var/log/nginx/error.log</span> <span class="s">warn</span><span class="p">;</span>
 <span class="c1">#进程pid存放位置
@@ -191,7 +179,7 @@
     <span class="kn">include</span> <span class="s">/etc/nginx/conf.d/*.conf</span><span class="p">;</span> <span class="c1">#包含的子配置项位置和文件
 </span></code></pre></td></tr></table>
 </div>
-</div><p><code>nginx.default.conf</code>，nginx具体的默认配置，代理，服务配置等等都可以写在这个配置文件里</p>
+</div><p><code>nginx.default.conf</code>，nginx 具体的默认配置，代理，服务配置等等都可以写在这个配置文件里</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -244,7 +232,7 @@
     <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>   <span class="c1">#配置监听端口
 </span><span class="c1"></span>    <span class="kn">server_name</span>  <span class="s">localhost</span><span class="p">;</span>  <span class="kn">//配置域名</span>
 
-    <span class="c1">#charset koi8-r;     
+    <span class="c1">#charset koi8-r;
 </span><span class="c1"></span>    <span class="c1">#access_log  /var/log/nginx/host.access.log  main;
 </span><span class="c1"></span>
     <span class="s">location</span> <span class="s">/</span> <span class="p">{</span>
@@ -286,8 +274,8 @@
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="4nginx基本的访问权限配置">4.nginx基本的访问权限配置</h4>
-<p>依靠deny和allow这两个指令，可以实现基本的访问权限控制，如以下的配置，表示只允许<code>45.76.202.231</code>进行访问，其他的IP是禁止访问的</p>
+</div><h1 id="4nginx-基本的访问权限配置">4.nginx 基本的访问权限配置</h1>
+<p>依靠 deny 和 allow 这两个指令，可以实现基本的访问权限控制，如以下的配置，表示只允许<code>45.76.202.231</code>进行访问，其他的 IP 是禁止访问的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -303,11 +291,11 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>如果对于其他复杂的需求，可以使用<a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="noopener noreffer">正则</a>实现。</p>
-<h4 id="5nginx设置虚拟主机">5.nginx设置虚拟主机</h4>
+<h1 id="5nginx-设置虚拟主机">5.nginx 设置虚拟主机</h1>
 <blockquote>
-<p>虚拟主机是指在一台物理主机服务器上划分出多个磁盘空间，每个磁盘空间都是一个虚拟主机，每台虚拟主机都可以对外提供Web服务，并且互不干扰。在外界看来，虚拟主机就是一台独立的服务器主机，这意味着用户能够利用虚拟主机把多个不同域名的网站部署在同一台服务器上，而不必再为简历一个网站单独购买一台服务器，既解决了维护服务器技术的难题，同时又极大地节省了服务器硬件成本和相关的维护费用。</p>
+<p>虚拟主机是指在一台物理主机服务器上划分出多个磁盘空间，每个磁盘空间都是一个虚拟主机，每台虚拟主机都可以对外提供 Web 服务，并且互不干扰。在外界看来，虚拟主机就是一台独立的服务器主机，这意味着用户能够利用虚拟主机把多个不同域名的网站部署在同一台服务器上，而不必再为简历一个网站单独购买一台服务器，既解决了维护服务器技术的难题，同时又极大地节省了服务器硬件成本和相关的维护费用。</p>
 </blockquote>
-<p>具体做法是，在<code>nginx.default.conf</code>添加多个server，可根据ip，端口或域名来划分，这样，就可以访问同一台服务器上的不同资源了，值得注意是，如果是使用域名，这还要让域名的dns解析指向你的服务器</p>
+<p>具体做法是，在<code>nginx.default.conf</code>添加多个 server，可根据 ip，端口或域名来划分，这样，就可以访问同一台服务器上的不同资源了，值得注意是，如果是使用域名，这还要让域名的 dns 解析指向你的服务器</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -338,8 +326,8 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="6nginx设置反向代理">6.nginx设置反向代理</h4>
-<p>客户端发送的请求，想要访问server服务器上的内容。发送的内容被发送到代理服务器上，这个代理服务器再把请求发送到自己设置好的内部服务器上，而用户真实想获得的内容就在这些设置好的服务器上，反向代理实际生产环境可以说用的非常多</p>
+</div><h1 id="6nginx-设置反向代理">6.nginx 设置反向代理</h1>
+<p>客户端发送的请求，想要访问 server 服务器上的内容。发送的内容被发送到代理服务器上，这个代理服务器再把请求发送到自己设置好的内部服务器上，而用户真实想获得的内容就在这些设置好的服务器上，反向代理实际生产环境可以说用的非常多</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -385,7 +373,7 @@
 <span class="s">proxy_redirect</span> <span class="p">:</span><span class="s">用于修改后端服务器返回的响应头中的Location和Refresh</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="7nginx匹配pc或wap端">7.nginx匹配PC或wap端</h4>
+</div><h1 id="7nginx-匹配-pc-或-wap-端">7.nginx 匹配 PC 或 wap 端</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -425,7 +413,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="nginx学习总结"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="nginx学习总结"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="nginx学习总结"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="nginx学习总结"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -437,8 +425,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/" class="prev" rel="prev" title="d3.js绘制中国地图"><i class="fas fa-angle-left fa-fw"></i>d3.js绘制中国地图</a>
-            <a href="/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" class="next" rel="next" title="nodejs实现excel导出数据的功能">nodejs实现excel导出数据的功能<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/" class="prev" rel="prev" title="D3.js绘制中国地图"><i class="fas fa-angle-left fa-fw"></i>D3.js绘制中国地图</a>
+            <a href="/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" class="next" rel="next" title="Nodejs实现excel导出数据的功能">Nodejs实现excel导出数据的功能<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

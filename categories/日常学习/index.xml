@@ -9,7 +9,7 @@
     <pubDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</guid>
-    <description><![CDATA[前言 webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不]]></description>
+    <description><![CDATA[webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了]]></description>
 </item><item>
     <title>前端的模块规范简述以及如何实现一个UMD-Loader方法</title>
     <link>https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</link>
@@ -44,7 +44,7 @@
     <pubDate>Sat, 24 Oct 2020 23:45:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</guid>
-    <description><![CDATA[白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连接、发送]]></description>
+    <description><![CDATA[1.定义 白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连]]></description>
 </item><item>
     <title>Webpack打包优化</title>
     <link>https://luckly.work/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</link>
@@ -67,11 +67,11 @@
     <guid>https://luckly.work/babel%E7%AE%80%E4%BB%8B/</guid>
     <description><![CDATA[1.babel 简介 Babel是现代JavaScript语法转换器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其]]></description>
 </item><item>
-    <title>nginx学习总结</title>
+    <title>Nginx学习总结</title>
     <link>https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</link>
     <pubDate>Fri, 25 Oct 2019 22:42:19 &#43;0915</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</guid>
-    <description><![CDATA[1.nginx简介 &ldquo;nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常]]></description>
+    <description><![CDATA[1.nginx 简介 &ldquo;nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&rdqu]]></description>
 </item></channel>
 </rss>

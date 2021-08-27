@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/luckly.work\/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B\/"
-        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  4541 ,
+        },"image": ["https:\/\/luckly.work\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  4542 ,
         "url": "https:\/\/luckly.work\/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B\/","datePublished": "2020-07-27T22:25:56+08:00","dateModified": "2020-07-27T22:25:56+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/luckly.work\/images\/avatar.png"},"author": {
@@ -74,17 +74,27 @@
 <main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Vue的初始化渲染过程简介</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/"><i class="far fa-folder fa-fw"></i>源码理解</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-07-27">2020-07-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4541 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-07-27">2020-07-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4542 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1initmixin">1.initMixin</a></li>
+    <li><a href="#2initlifecycle">2.initLifecycle</a></li>
+    <li><a href="#3initevents">3.initEvents</a></li>
+    <li><a href="#4initrender">4.initRender</a></li>
+    <li><a href="#5initprovide和initinjection">5.initProvide和initInjection</a></li>
+    <li><a href="#6initstate">6.initState</a></li>
+    <li><a href="#7执行完上面步骤后会调用vmmount">7.执行完上面步骤后，会调用<code>vm.$mount</code></a></li>
+  </ul>
+</nav></div>
             </div><div class="content" id="content"><p>首先进入到<code>src/core/instance/index.js</code>，可以看到定义了一个<code>Vue</code>构造函数，内容很简单，如果不是生产环境并且不是通过<code>new</code>关键字创建对象的话，就在控制台打印一个<code>warn</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -125,7 +135,7 @@
 <span class="nx">renderMixin</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2>1.initMixin</h2>
+</div><h1 id="1initmixin">1.initMixin</h1>
 <p>初始化方法，首先为当前<code>vm</code>设置一个<code>_uid</code>，然后添加属性<code>_isVue</code>，其目的在于监听数据变化时过滤<code>vm</code>，<code>_isComponent</code>是内部创建子组件时才会添加为<code>true</code>的属性，然后走到<code>else</code>分支，调用<code>resolveConstructorOptions</code>会获取构造器父级的<code>options</code>，然后调用<code>mergeOptions</code>合并父级的<code>options</code>以及本身传入的<code>options</code>，最后生成的<code>options</code>包含<code>components、directives</code>等属性</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -249,7 +259,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3> 1.1initLifecycle </h3>
+</div><h1 id="2initlifecycle">2.initLifecycle</h1>
 <p>这个方法首先会设置<code>vm</code>的一个父子节点、根节点信息，然后会定义一些生命周期相关的属性，比如<code>_isMounted、_isDestroyed、_isBeingDestroyed</code>等</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -307,7 +317,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3> 1.2initEvents </h3>
+</div><h1 id="3initevents">3.initEvents</h1>
 <p>通过名字可以看出是一个初始化事件相关的方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -386,7 +396,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3> 1.3initRender </h3>
+</div><h1 id="4initrender">4.initRender</h1>
 <p>主要是添加了一些虚拟dom、<code>slot</code>等相关的属性和方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -516,7 +526,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>调用钩子函数<code>beforeCreate</code></p>
-<h3> 1.4initProvide和initInjection </h3>
+<h1 id="5initprovide和initinjection">5.initProvide和initInjection</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -583,7 +593,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3> 1.5initState </h3>
+</div><h1 id="6initstate">6.initState</h1>
 <p>主要是初始化一些数据和属性，比如<code>props</code>、<code>methods</code>、<code>data</code>、<code>computed</code>、<code>watch</code>,</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1102,7 +1112,7 @@
 <span class="nx">vm</span><span class="p">.</span><span class="nx">message</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>执行完上面步骤后，会调用<code>vm.$mount</code></p>
+</div><h1 id="7执行完上面步骤后会调用vmmount">7.执行完上面步骤后，会调用<code>vm.$mount</code></h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
