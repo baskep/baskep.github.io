@@ -3,17 +3,17 @@
         <title>日常学习 - 分类 - 👨🏻‍💻</title>
         <link>https://luckly.work/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
         <description>日常学习 - 分类 - 👨🏻‍💻</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</lastBuildDate><atom:link href="https://luckly.work/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Jul 2021 14:45:25 &#43;0800</lastBuildDate><atom:link href="https://luckly.work/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
     <title>Webpack5的新特性以及项目实战配置</title>
     <link>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</link>
-    <pubDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</pubDate>
+    <pubDate>Sun, 18 Jul 2021 14:45:25 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</guid>
     <description><![CDATA[webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了]]></description>
 </item><item>
     <title>前端的模块规范简述以及如何实现一个UMD-Loader方法</title>
     <link>https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</link>
-    <pubDate>Sat, 10 Jul 2021 16:51:03 &#43;0800</pubDate>
+    <pubDate>Tue, 25 May 2021 14:41:48 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[现在的前端开发中根本离不开组件化、模块化的开发方式，这些模块有各种各样的规范，比如： 1.CommonJS 规范 主要用在与 Nodejs 服务端，在服务器端，模块的加载是运行时]]></description>

@@ -3,9 +3,16 @@
         <title>👨🏻‍💻</title>
         <link>https://luckly.work/</link>
         <description>早起的年轻人做的网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 27 Aug 2021 21:29:12 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</lastBuildDate>
             <atom:link href="https://luckly.work/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>StoryBook &#43; Lerna 开发自己的UI组件库(二)</title>
+    <link>https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</link>
+    <pubDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</guid>
+    <description><![CDATA[上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用]]></description>
+</item><item>
     <title>StoryBook &#43; Lerna 开发自己的UI组件库(一)</title>
     <link>https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</link>
     <pubDate>Fri, 27 Aug 2021 21:29:12 &#43;0800</pubDate>
@@ -15,14 +22,14 @@
 </item><item>
     <title>Webpack5的新特性以及项目实战配置</title>
     <link>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</link>
-    <pubDate>Tue, 03 Aug 2021 22:34:03 &#43;0800</pubDate>
+    <pubDate>Sun, 18 Jul 2021 14:45:25 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</guid>
     <description><![CDATA[webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了]]></description>
 </item><item>
     <title>前端的模块规范简述以及如何实现一个UMD-Loader方法</title>
     <link>https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</link>
-    <pubDate>Sat, 10 Jul 2021 16:51:03 &#43;0800</pubDate>
+    <pubDate>Tue, 25 May 2021 14:41:48 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://luckly.work/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[现在的前端开发中根本离不开组件化、模块化的开发方式，这些模块有各种各样的规范，比如： 1.CommonJS 规范 主要用在与 Nodejs 服务端，在服务器端，模块的加载是运行时]]></description>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://luckly.work/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</guid>
     <description><![CDATA[1.定义 白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连]]></description>
-</item><item>
-    <title>Webpack打包优化</title>
-    <link>https://luckly.work/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</link>
-    <pubDate>Mon, 07 Sep 2020 22:03:34 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://luckly.work/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</guid>
-    <description><![CDATA[之前了解了webpack的基本打包流程或者说原理，如果只是配置一个基本的webpack打包配置， 打包后的文件会变得很大，当你项目部署后，用户]]></description>
 </item></channel>
 </rss>

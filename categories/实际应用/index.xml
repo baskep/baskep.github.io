@@ -3,7 +3,14 @@
         <title>实际应用 - 分类 - 👨🏻‍💻</title>
         <link>https://luckly.work/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
         <description>实际应用 - 分类 - 👨🏻‍💻</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 27 Aug 2021 21:29:12 &#43;0800</lastBuildDate><atom:link href="https://luckly.work/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</lastBuildDate><atom:link href="https://luckly.work/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>StoryBook &#43; Lerna 开发自己的UI组件库(二)</title>
+    <link>https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</link>
+    <pubDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</guid>
+    <description><![CDATA[上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用]]></description>
+</item><item>
     <title>StoryBook &#43; Lerna 开发自己的UI组件库(一)</title>
     <link>https://luckly.work/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</link>
     <pubDate>Fri, 27 Aug 2021 21:29:12 &#43;0800</pubDate>
