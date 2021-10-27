@@ -3,9 +3,16 @@
         <title>👨🏻‍💻</title>
         <link>https://xtidcr.com/</link>
         <description>早起的年轻人做的网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</lastBuildDate>
             <atom:link href="https://xtidcr.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>计算机编码的简介</title>
+    <link>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/</link>
+    <pubDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/</guid>
+    <description><![CDATA[1.简介 程序最终都是以二进制的形式存在计算底层，也就是以0、1这样的字符排列组成程序运行的信息。我们知道计算机最小的存储单位叫做bit(位)]]></description>
+</item><item>
     <title>StoryBook &#43; Lerna 开发自己的UI组件库(二)</title>
     <link>https://xtidcr.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</link>
     <pubDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://xtidcr.com/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</guid>
     <description><![CDATA[监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案]]></description>
-</item><item>
-    <title>白屏时间</title>
-    <link>https://xtidcr.com/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</link>
-    <pubDate>Sat, 24 Oct 2020 23:45:12 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://xtidcr.com/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/</guid>
-    <description><![CDATA[1.定义 白屏时间指的是从用户进入网站，一直到页面有内容展示出来的时间节点，在这期间用户什么东西都看不到，这个过程包括dns查询、建立tcp连]]></description>
 </item></channel>
 </rss>

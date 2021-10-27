@@ -3,7 +3,14 @@
         <title>日常学习 - 分类 - 👨🏻‍💻</title>
         <link>https://xtidcr.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
         <description>日常学习 - 分类 - 👨🏻‍💻</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Jul 2021 14:45:25 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>计算机编码的简介</title>
+    <link>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/</link>
+    <pubDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/</guid>
+    <description><![CDATA[1.简介 程序最终都是以二进制的形式存在计算底层，也就是以0、1这样的字符排列组成程序运行的信息。我们知道计算机最小的存储单位叫做bit(位)]]></description>
+</item><item>
     <title>Webpack5的新特性以及项目实战配置</title>
     <link>https://xtidcr.com/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/</link>
     <pubDate>Sun, 18 Jul 2021 14:45:25 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://xtidcr.com/babel%E7%AE%80%E4%BB%8B/</guid>
     <description><![CDATA[1.babel 简介 Babel是现代JavaScript语法转换器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其]]></description>
-</item><item>
-    <title>Nginx学习总结</title>
-    <link>https://xtidcr.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</link>
-    <pubDate>Fri, 25 Oct 2019 22:42:19 &#43;0915</pubDate>
-    <author>作者</author>
-    <guid>https://xtidcr.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</guid>
-    <description><![CDATA[1.nginx 简介 &ldquo;nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&rdqu]]></description>
 </item></channel>
 </rss>
