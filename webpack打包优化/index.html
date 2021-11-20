@@ -84,7 +84,19 @@
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1基础优化">1.基础优化</a></li>
+    <li><a href="#2使用dllplugin">2.使用<code>DllPlugin</code></a></li>
+    <li><a href="#3splitchunks">3.<code>splitChunks</code></a></li>
+    <li><a href="#4catch-loader">4.<code>catch-loader</code></a></li>
+    <li><a href="#5happypack">5.<code>HappyPack</code></a></li>
+    <li><a href="#6css的压缩">6.<code>css</code>的压缩</a></li>
+    <li><a href="#7图片的处理">7.图片的处理</a></li>
+    <li><a href="#8cdn加速">8.CDN加速</a></li>
+    <li><a href="#9按需加载">9.按需加载</a></li>
+  </ul>
+</nav></div>
             </div><div class="content" id="content"><p>之前了解了<code>webpack</code>的基本打包流程或者说原理，如果只是配置一个基本的<code>webpack</code>打包配置，
 打包后的文件会变得很大，当你项目部署后，用户打开对应的界面，也许会很长时间才加载完(当然和网络环境或硬件设备也有关系)，尤其是单页面应用效果很明显，这样的用户体验自然是不好的，所以此文章主要是对<code>webpack</code>打包优化的一个小小总结</p>
 <p>首先搭建好一个基本的项目，目录结构</p>
@@ -238,7 +250,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>优化：</p>
-<p>1.基础优化</p>
+<h1 id="1基础优化">1.基础优化</h1>
 <p>配置<code>loader</code>，添加<code>exclude</code>、<code>include</code>缩小搜索范围，比如</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -260,7 +272,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>2.使用<code>DllPlugin</code></p>
+</div><h1 id="2使用dllplugin">2.使用<code>DllPlugin</code></h1>
 <p>将一些变动较少或者根本不会变动的库先打包生成对应的<code>.dll.js</code>，在<code>webpack</code>打包的时候，将这些资源引入</p>
 <p>首先新建一个<code>webpack.config.dll.js</code></p>
 <div class="highlight"><div class="chroma">
@@ -356,7 +368,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>这样打包时页面就会引入<code>react.dll.js</code>资源了，从而减少重复的资源打包。这种方式可以简单的理解为，抽出公共模块打包，然后引入</p>
-<p>3.<code>splitChunks</code></p>
+<h1 id="3splitchunks">3.<code>splitChunks</code></h1>
 <p>以前<code>webpack</code>拆分模块还会用<code>CommonsChunkPlugin</code>，在<code>webpack4</code>后，可以直接用<code>splitChunks</code>来代替完成这项工作，在<code>optimization</code>里面设置了<code>splitChunks</code>后，打包分割出来的文件是默认压缩过的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -406,7 +418,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>4.<code>catch-loader</code></p>
+</div><h1 id="4catch-loader">4.<code>catch-loader</code></h1>
 <p>在一些性能开销较大的<code>loader</code>之前添加此 <code>loader</code>，以将结果缓存到磁盘里，不做过多介绍</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -442,7 +454,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>5.<code>HappyPack</code></p>
+</div><h1 id="5happypack">5.<code>HappyPack</code></h1>
 <p><code>HappyPack</code>使用<code>node</code>多线程进行构建来提升构建的速度，使用情况较少</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -494,7 +506,7 @@
 <span class="p">],</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>6.<code>css</code>的压缩</p>
+</div><h1 id="6css的压缩">6.<code>css</code>的压缩</h1>
 <p>对于<code>scss</code>文件，一般来讲，依次配置<code>sass-loader</code>、<code>css-loader</code>、<code>style-loader</code>来进行处理</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -545,10 +557,10 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><p>7.图片的处理</p>
+</div><h1 id="7图片的处理">7.图片的处理</h1>
 <p>同样的，先用<code>file-loader</code>解析图片保证webpack能处理，然后可以用<code>image-webpack-loader</code>压缩图片，或者说用<code>url-loader</code>将图片转为<code>base64</code>编码的形式，不多赘述</p>
-<p>8.CDN加速
-通常在打包中，把不变的一些静态文件放到<code>CDN</code>上，可以直观地减小资源包大小，比如项目中用到了<code>clipboard.js</code>，然后在模板<code>html</code>中引入这个文件</p>
+<h1 id="8cdn加速">8.CDN加速</h1>
+<p>通常在打包中，把不变的一些静态文件放到<code>CDN</code>上，可以直观地减小资源包大小，比如项目中用到了<code>clipboard.js</code>，然后在模板<code>html</code>中引入这个文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -572,7 +584,7 @@
 </div>
 </div><p>这样就保证了打包时不打包<code>clipboard</code>，优化打包后的文件体积</p>
 <p>还有一种方式就是把所有的静态资源，如<code>js</code>、<code>css</code>都放在相应的<code>CDN</code>上，在打包的<code>config</code>中指定对应资源的<code>CDN</code>域名，同样配置<code>externals</code>。但其实这种方式有个很大的缺点就是，如果全部这样做的话，万一<code>CDN</code>挂了，整个页面也就挂了</p>
-<p>9.按需加载</p>
+<h1 id="9按需加载">9.按需加载</h1>
 <p>以<code>react</code>为例，使用<code>react-loadable</code>来做按需加载，以前还有些其它方法这里就不赘述。主要是针对<code>react-router</code>做一个处理，首先安装依赖<code>react-loadable</code>，入口文件中封装一个<code>loading</code>组件，用于页面加载时给一个提示，然后封装一个方法，用于异步加载这些组件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
