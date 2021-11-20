@@ -3,7 +3,14 @@
         <title>所有文章 - 👨🏻‍💻</title>
         <link>https://xtidcr.com/posts/</link>
         <description>所有文章 | 👨🏻‍💻</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>useEffect的使用</title>
+    <link>https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+    <description><![CDATA[react hooks中的useEffect是用的最频繁，也是需要'&lsquo;小心'&lsquo;的的hooks，因为一时不留神，页面就造成了死循]]></description>
+</item><item>
     <title>计算机编码的简介</title>
     <link>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/</link>
     <pubDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://xtidcr.com/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</guid>
     <description><![CDATA[1.DNS解析 平时在浏览器中输入的域名并非是网址或资源真实所在的服务器地址或资源，域名只是与ip地址的一个映射。在进行正式的请求之前，就会先]]></description>
-</item><item>
-    <title>浅谈前端统计</title>
-    <link>https://xtidcr.com/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</link>
-    <pubDate>Wed, 28 Oct 2020 21:45:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://xtidcr.com/%E6%B5%85%E8%B0%88%E5%89%8D%E7%AB%AF%E7%BB%9F%E8%AE%A1/</guid>
-    <description><![CDATA[监控系统在现在的项目中是必不可少的，它具有性能监控、错误监控以及数据上报等功能。通过对的错误监控、用户正常行为的收集，从而指定对应的优化方案]]></description>
 </item></channel>
 </rss>

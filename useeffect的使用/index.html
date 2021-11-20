@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>useEffect的使用 - 👨🏻‍💻</title><meta name="Description" content="早起的年轻人做的网站"><meta property="og:title" content="useEffect的使用" />
+<meta property="og:description" content="react hooks中的useEffect是用的最频繁，也是需要&#39;&lsquo;小心&#39;&lsquo;的的hooks，因为一时不留神，页面就造成了死循" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/" />
+<meta property="og:image" content="https://xtidcr.com/logo.png"/>
+<meta property="article:published_time" content="2021-11-15T22:41:34+08:00" />
+<meta property="article:modified_time" content="2021-11-15T22:41:34+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xtidcr.com/logo.png"/>
+
+<meta name="twitter:title" content="useEffect的使用"/>
+<meta name="twitter:description" content="react hooks中的useEffect是用的最频繁，也是需要&#39;&lsquo;小心&#39;&lsquo;的的hooks，因为一时不留神，页面就造成了死循"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "useEffect的使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xtidcr.com\/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8\/"
+        },"image": ["https:\/\/xtidcr.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  4731 ,
+        "url": "https:\/\/xtidcr.com\/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8\/","datePublished": "2021-11-15T22:41:34+08:00","dateModified": "2021-11-15T22:41:34+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/xtidcr.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="👨🏻‍💻"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/xtid" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">useEffect的使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/"><i class="far fa-folder fa-fw"></i>源码理解</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-15">2021-11-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4731 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1useeffect的源码">1.useEffect的源码</a>
+      <ul>
+        <li><a href="#11mounteffect">1.1.mountEffect</a></li>
+        <li><a href="#12updateeffect">1.2.updateEffect</a></li>
+        <li><a href="#13pusheffect">1.3.pushEffect</a></li>
+      </ul>
+    </li>
+    <li><a href="#2useeffect参数的意义">2.useEffect参数的意义</a></li>
+    <li><a href="#3使用的技巧以及坑">3.使用的技巧以及坑</a>
+      <ul>
+        <li><a href="#31初次渲染useeffect只执行一次">3.1.初次渲染useEffect只执行一次</a></li>
+        <li><a href="#32useeffect的依赖项">3.2.useEffect的依赖项</a></li>
+        <li><a href="#33闭包问题">3.3.闭包问题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>react hooks中的useEffect是用的最频繁，也是需要'&lsquo;小心'&lsquo;的的hooks，因为一时不留神，页面就造成了死循环，又或者数据不更新，又或者数据请求结果不对，这篇文章会介绍一下基本概念以及我的一些使用心得。</p>
+<h1 id="1useeffect的源码">1.useEffect的源码</h1>
+<p>useEffect的入口在 ReactFiberHooks.js中，这个文件，会在react内部调度的时候(渲染或者更新)先调用renderWithHooks，这个方法会根据当前是否有一个hooks链表来判断是创建新的hooks链表还是调用相应的update方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">renderWithHooks</span><span class="p">(</span>
+  <span class="nx">current</span><span class="o">:</span> <span class="nx">Fiber</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">workInProgress</span><span class="o">:</span> <span class="nx">Fiber</span><span class="p">,</span>
+  <span class="nx">Component</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
+  <span class="nx">refOrContext</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
+  <span class="nx">nextRenderExpirationTime</span><span class="o">:</span> <span class="nx">ExpirationTime</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="nx">any</span> <span class="p">{</span>
+  <span class="nx">renderExpirationTime</span> <span class="o">=</span> <span class="nx">nextRenderExpirationTime</span><span class="p">;</span>
+  <span class="c1">// workInProgress表示正在调度的Fiber任务
+</span><span class="c1"></span>  <span class="nx">currentlyRenderingFiber</span> <span class="o">=</span> <span class="nx">workInProgress</span><span class="p">;</span>
+  <span class="c1">// memoizedState为挂载的hooks链表
+</span><span class="c1"></span>  <span class="nx">firstCurrentHook</span> <span class="o">=</span> <span class="nx">nextCurrentHook</span> <span class="o">=</span>
+    <span class="nx">current</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">?</span> <span class="nx">current</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+  
+  <span class="c1">// 判断是调用创建hooks链表方法还是更新hooks方法
+</span><span class="c1"></span>  <span class="c1">// 将方法赋予ReactCurrentDispatcher，由ReactCurrentDispatcher统一调用
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">__DEV__</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ReactCurrentDispatcher</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span>
+      <span class="nx">nextCurrentHook</span> <span class="o">===</span> <span class="kc">null</span>
+        <span class="o">?</span> <span class="nx">HooksDispatcherOnMountInDEV</span>
+        <span class="o">:</span> <span class="nx">HooksDispatcherOnUpdateInDEV</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">ReactCurrentDispatcher</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span>
+      <span class="nx">nextCurrentHook</span> <span class="o">===</span> <span class="kc">null</span>
+        <span class="o">?</span> <span class="nx">HooksDispatcherOnMount</span>
+        <span class="o">:</span> <span class="nx">HooksDispatcherOnUpdate</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后会看到HooksDispatcherOnMountInDEV定义中，初次渲染的时候useEffect调用的是mountEffect</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+<span class="nx">useEffect</span><span class="p">(</span>
+  <span class="nx">create</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="k">void</span><span class="p">,</span>
+  <span class="nx">deps</span><span class="o">:</span> <span class="nb">Array</span> <span class="o">&lt;</span> <span class="nx">mixed</span> <span class="o">&gt;</span> <span class="o">|</span> <span class="k">void</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="nx">currentHookNameInDev</span> <span class="o">=</span> <span class="s1">&#39;useEffect&#39;</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">mountEffect</span><span class="p">(</span><span class="nx">create</span><span class="p">,</span> <span class="nx">deps</span><span class="p">);</span>
+<span class="p">},</span>
+<span class="p">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后更新的时候HooksDispatcherOnUpdateInDEV，调用的是updateEffect</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+<span class="nx">useEffect</span><span class="p">(</span>
+  <span class="nx">create</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="k">void</span><span class="p">,</span>
+  <span class="nx">deps</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">mixed</span><span class="o">&gt;</span> <span class="o">|</span> <span class="k">void</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="nx">currentHookNameInDev</span> <span class="o">=</span> <span class="s1">&#39;useEffect&#39;</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">updateEffect</span><span class="p">(</span><span class="nx">create</span><span class="p">,</span> <span class="nx">deps</span><span class="p">);</span>
+<span class="p">},</span>
+<span class="p">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="11mounteffect">1.1.mountEffect</h2>
+<p>首先是mountEffect</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">mountEffect</span><span class="p">(</span>
+  <span class="nx">create</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="k">void</span><span class="p">,</span>
+  <span class="nx">deps</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">mixed</span><span class="o">&gt;</span> <span class="o">|</span> <span class="k">void</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">mountEffectImpl</span><span class="p">(</span>
+    <span class="nx">UpdateEffect</span> <span class="o">|</span> <span class="nx">PassiveEffect</span><span class="p">,</span>
+    <span class="nx">UnmountPassive</span> <span class="o">|</span> <span class="nx">MountPassive</span><span class="p">,</span>
+    <span class="nx">create</span><span class="p">,</span>
+    <span class="nx">deps</span><span class="p">,</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其中的mountEffectImpl方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">mountEffectImpl</span><span class="p">(</span><span class="nx">fiberEffectTag</span><span class="p">,</span> <span class="nx">hookEffectTag</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="nx">deps</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">mountWorkInProgressHook</span><span class="p">();</span>
+  <span class="kr">const</span> <span class="nx">nextDeps</span> <span class="o">=</span> <span class="nx">deps</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">deps</span><span class="p">;</span>
+  <span class="nx">sideEffectTag</span> <span class="o">|=</span> <span class="nx">fiberEffectTag</span><span class="p">;</span>
+  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">pushEffect</span><span class="p">(</span><span class="nx">hookEffectTag</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>mountWorkInProgressHook</code> 就是创建一个新的hook，而memoizedState则记录调用pushEffect后的返回值，这点先记下</p>
+<h2 id="12updateeffect">1.2.updateEffect</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">updateEffect</span><span class="p">(</span>
+  <span class="nx">create</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="k">void</span><span class="p">,</span>
+  <span class="nx">deps</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">mixed</span><span class="o">&gt;</span> <span class="o">|</span> <span class="k">void</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">updateEffectImpl</span><span class="p">(</span>
+    <span class="nx">UpdateEffect</span> <span class="o">|</span> <span class="nx">PassiveEffect</span><span class="p">,</span>
+    <span class="nx">UnmountPassive</span> <span class="o">|</span> <span class="nx">MountPassive</span><span class="p">,</span>
+    <span class="nx">create</span><span class="p">,</span>
+    <span class="nx">deps</span><span class="p">,</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后是其中的<code>updateEffectImpl</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">updateEffectImpl</span><span class="p">(</span><span class="nx">fiberEffectTag</span><span class="p">,</span> <span class="nx">hookEffectTag</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="nx">deps</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">hook</span> <span class="o">=</span> <span class="nx">updateWorkInProgressHook</span><span class="p">();</span>
+  <span class="kr">const</span> <span class="nx">nextDeps</span> <span class="o">=</span> <span class="nx">deps</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="nx">deps</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">destroy</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">currentHook</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">prevEffect</span> <span class="o">=</span> <span class="nx">currentHook</span><span class="p">.</span><span class="nx">memoizedState</span><span class="p">;</span>
+    <span class="nx">destroy</span> <span class="o">=</span> <span class="nx">prevEffect</span><span class="p">.</span><span class="nx">destroy</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">nextDeps</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">prevDeps</span> <span class="o">=</span> <span class="nx">prevEffect</span><span class="p">.</span><span class="nx">deps</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">areHookInputsEqual</span><span class="p">(</span><span class="nx">nextDeps</span><span class="p">,</span> <span class="nx">prevDeps</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">pushEffect</span><span class="p">(</span><span class="nx">NoHookEffect</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="nx">destroy</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">sideEffectTag</span> <span class="o">|=</span> <span class="nx">fiberEffectTag</span><span class="p">;</span>
+  <span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">pushEffect</span><span class="p">(</span><span class="nx">hookEffectTag</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="nx">destroy</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>1.updateWorkInProgressHook是获取正在调度中的hook，当currentHook为空的时候，<code>updateEffectImpl</code>和<code>mountEffectImpl</code>的逻辑没什么区别</p>
+<p>2.当<code>currentHook</code>不为空的时候，也就是说当前处理的hook有值，那么就会调用<code> currentHook.memoizedState</code>，拿到<code>prevEffect</code>上的<code>destroy</code>，<code>deps</code>，复制给方法内的destroy</p>
+<p>3.然后对比<code>nextDeps</code>, <code>prevDeps</code>，如果相同，会调用<code> pushEffect(NoHookEffect, create, destroy, nextDeps)</code>，猜测一下，代表不执行这次的useEffect</p>
+<p>如果不同，会走到最后调用<code>pushEffect</code>。其实就可以猜一下，这个pushEffect就是返回的一个<code>effect</code>对象，这个对象保留了<code>useEffect</code>上面的依赖(deps)，return方法(destroy)等等，并将这个<code>effect</code>对象保留在当前<code>hook</code>的<code>memoizedState</code>对象上，以便后续update的时候再对比</p>
+<h2 id="13pusheffect">1.3.pushEffect</h2>
+<p>下面是<code>pushEffect</code>的定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">pushEffect</span><span class="p">(</span><span class="nx">tag</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="nx">destroy</span><span class="p">,</span> <span class="nx">deps</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">effect</span><span class="o">:</span> <span class="nx">Effect</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">tag</span><span class="p">,</span>
+    <span class="nx">create</span><span class="p">,</span>
+    <span class="nx">destroy</span><span class="p">,</span>
+    <span class="nx">deps</span><span class="p">,</span>
+    <span class="nx">next</span><span class="o">:</span> <span class="p">(</span><span class="kc">null</span><span class="o">:</span> <span class="nx">any</span><span class="p">),</span>
+  <span class="p">};</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">componentUpdateQueue</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">componentUpdateQueue</span> <span class="o">=</span> <span class="nx">createFunctionComponentUpdateQueue</span><span class="p">();</span>
+    <span class="nx">componentUpdateQueue</span><span class="p">.</span><span class="nx">lastEffect</span> <span class="o">=</span> <span class="nx">effect</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">effect</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">lastEffect</span> <span class="o">=</span> <span class="nx">componentUpdateQueue</span><span class="p">.</span><span class="nx">lastEffect</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">lastEffect</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">componentUpdateQueue</span><span class="p">.</span><span class="nx">lastEffect</span> <span class="o">=</span> <span class="nx">effect</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">effect</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">firstEffect</span> <span class="o">=</span> <span class="nx">lastEffect</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+      <span class="nx">lastEffect</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">effect</span><span class="p">;</span>
+      <span class="nx">effect</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">firstEffect</span><span class="p">;</span>
+      <span class="nx">componentUpdateQueue</span><span class="p">.</span><span class="nx">lastEffect</span> <span class="o">=</span> <span class="nx">effect</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">effect</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Effect的定义
+</span><span class="c1"></span><span class="nx">type</span> <span class="nx">Effect</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">tag</span><span class="o">:</span> <span class="nx">HookEffectTag</span><span class="p">,</span> <span class="c1">// 一个二进制数，它将决定 effect 的行为
+</span><span class="c1"></span>  <span class="nx">create</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="k">void</span><span class="p">,</span> <span class="c1">// 绘制后应该运行的回调
+</span><span class="c1"></span>  <span class="nx">destroy</span><span class="o">:</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="k">void</span><span class="p">,</span> <span class="c1">// 用于确定是否应销毁和重新创建 effect
+</span><span class="c1"></span>  <span class="nx">deps</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">mixed</span><span class="o">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span> <span class="c1">// 决定重绘制后是否执行的 deps
+</span><span class="c1"></span>  <span class="nx">next</span><span class="o">:</span> <span class="nx">Effect</span><span class="p">,</span> <span class="c1">// 函数组件中定义的下一个 effect 的引用
+</span><span class="c1"></span><span class="p">};</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到pushEffect里面的逻辑，componentUpdateQueue是一个存储当前页面effect的变量</p>
+<p>1.当<code>componentUpdateQueue === null</code>，也就是mountEffect的时候，就创建一个链表，改一下next的指向，方便后续添加</p>
+<p>2.当它不为空的时候，还会判断<code>lastEffect</code>的值，然后lastEffect 为空的时候，代表的是这次渲染阶段中遇到的第一个effect，和上一步处理逻辑一样；当lastEffect 不为空的时候，就将componentUpdateQueue链表添加新的effect，并更新next指向</p>
+<p>3.最后也就是return 这个新的effect</p>
+<p>4.也就是说这个pushEffect方法的作用如上说的一样，用来创建effect链表或更新effect链表，方法里面<code>retrun effect</code>会挂载到<code>hook.memoizedState</code>用于下次对这个effect的状态比较</p>
+<p>5.还有一个需要主要的地方，这个componentUpdateQueue最后保存着effect链表，它会挂载到当前<code>fiberNode</code>的<code>updateQueue</code>对象上，然后会依次去调用，碰到了<code>NoHookEffect</code>会跳过这个effect代表无须执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">fiber</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">child</span> <span class="c1">// 子节点
+</span><span class="c1"></span>  <span class="nx">sibling</span> <span class="c1">// 兄弟节点
+</span><span class="c1"></span>  <span class="nx">memoizedState</span> <span class="c1">// 保存所有hooks链表
+</span><span class="c1"></span>  <span class="nx">updateQueue</span> <span class="c1">// effect链表
+</span><span class="c1"></span>  <span class="k">return</span> <span class="c1">// 父节点
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="2useeffect参数的意义">2.useEffect参数的意义</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// code
+</span><span class="c1"></span>  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// code
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">deps</span><span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>里面return回调会在组件卸载的时候调用；[deps]则是数组里面的变量更新后useEffect会重新执行，其内部就像上面源码说的，会调用areHookInputsEqual先进行对比</p>
+<h1 id="3使用的技巧以及坑">3.使用的技巧以及坑</h1>
+<h2 id="31初次渲染useeffect只执行一次">3.1.初次渲染useEffect只执行一次</h2>
+<p>有这样一个场景：一个父组件包含一个子组件，子组件的数据依赖父组件传入，父组件会在一开始useEffect进行异步请求，更改子组件依赖的数据，子组件再写一个useEffect去依赖父组件传入的数据再进行相应的操作，如下代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEffect</span><span class="p">,</span> <span class="nx">useState</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;react&#34;</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Test</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">name</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;useEffect&#34;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">name</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+<span class="p">};</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">setName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setName</span><span class="p">(</span><span class="s1">&#39;子组件&#39;</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">300</span><span class="p">)</span>
+  <span class="p">},</span> <span class="p">[])</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Test</span> <span class="nx">name</span><span class="o">=</span><span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="err">/Test&gt;;</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这段代码的缺点在于子组件的<code>useEffect</code>会执行两次，因为useEffect不管依赖是否发生变化，在初次渲染调用<code>pushEffect</code>的时候是会调用一次的</p>
+<p>在此段代码中，如果在子组件Test中的useEffect进行了接口请求，那么在一开始就会调用两次，这会造成网络资源的浪费，并且如果异步接口的响应时间相反了，后调用的先返回了，那这个页面的数据也就不正常了，这就是隐患</p>
+<p>解决办法：</p>
+<p>1.在Test组件中一开始对name属性进行一个空值的判断，用于过滤无效的请求，当然这是条件比较特别(初始化值为空)才会这么做</p>
+<p>2.配合<code>useRef</code>使用，useRef不同于useState需要手动set值的改变，useRef不仅仅用于保存dom元素的应用，它的current属性还可以保留响应式值。那这里我创建一个属性<code>isMounted</code>代表是否是<code>updateEffect</code>阶段，用于过滤第一次调用的effcet</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">Test</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">name</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// isMounted代表初次渲染是否完成
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">isMounted</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isMounted</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">isMounted</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="kc">true</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;useEffect&#34;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">name</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+<span class="p">};</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就能过滤掉第一次多余的调用，这个技巧在useEffect过多或者依赖项复杂的时候还是比较实用的；同样的，如果是多次调用接口的场景，也可以用这样一个变量来控制请求是否发起，从而保证异步接口的顺序</p>
+<h2 id="32useeffect的依赖项">3.2.useEffect的依赖项</h2>
+<p>上面的代码改造一下，可以看到这里定义了一个名为<code>obj</code>的state，而当我点击按钮的时候，会setObj一个空对象，而这时useEffect却会执行<code>console.log</code>语句，从表面上看<code>obj</code>的属性并没有改变，按一般的期望，应该是<code>obj</code>改了才会执行才对</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">isMounted</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="p">[</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">setObj</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+  <span class="p">});</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isMounted</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">isMounted</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="kc">true</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;useEffect&#34;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">obj</span><span class="p">]);</span>
+
+  <span class="kr">const</span> <span class="nx">handleChangeObjValue</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setObj</span><span class="p">({</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">handleChangeObjValue</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">按钮</span><span class="o">&lt;</span><span class="err">/button&gt;;</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>造成这种现象的原因，还是可以从源码中看到，在<code>updateEffectImpl</code>中会调用<code>areHookInputsEqual</code>这个方法来遍历useEffect中的依赖，来对比每个依赖项是否相同，如果有一个不同，就返回false，返回false之后就会走<code>hook.memoizedState = pushEffect(hookEffectTag, create, destroy, nextDeps)</code>也就是上面说的更新effect链表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// updateEffectImpl方法
+</span><span class="c1"></span><span class="p">...</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">areHookInputsEqual</span><span class="p">(</span><span class="nx">nextDeps</span><span class="p">,</span> <span class="nx">prevDeps</span><span class="p">))</span> <span class="p">{</span>
+   <span class="nx">pushEffect</span><span class="p">(</span><span class="nx">NoHookEffect</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="nx">destroy</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">);</span>
+   <span class="k">return</span><span class="p">;</span>
+ <span class="p">}</span>
+
+<span class="nx">sideEffectTag</span> <span class="o">|=</span> <span class="nx">fiberEffectTag</span><span class="p">;</span>
+<span class="nx">hook</span><span class="p">.</span><span class="nx">memoizedState</span> <span class="o">=</span> <span class="nx">pushEffect</span><span class="p">(</span><span class="nx">hookEffectTag</span><span class="p">,</span> <span class="nx">create</span><span class="p">,</span> <span class="nx">destroy</span><span class="p">,</span> <span class="nx">nextDeps</span><span class="p">);</span>
+<span class="p">...</span>
+
+<span class="c1">// areHookInputsEqual方法
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">areHookInputsEqual</span><span class="p">(</span>
+  <span class="nx">nextDeps</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">mixed</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nx">prevDeps</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">mixed</span><span class="o">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">prevDeps</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  	<span class="p">...</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="p">...</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">prevDeps</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nextDeps</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">is</span><span class="p">(</span><span class="nx">nextDeps</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">prevDeps</span><span class="p">[</span><span class="nx">i</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>areHookInputsEqual</code>里面的is是基于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/is" target="_blank" rel="noopener noreffer">Object.is</a>，也就是说上面的代码<code>setObj</code>设置新的对象的时候useEffect内部与旧的依赖对比的时候是两个不同的对象，所以会执行这个effect，因为<code>{}</code>语法本来就是创建一个新的对象，所以两者对比会返回false。所以我们在写的时候要写明白我们所需的依赖，因为这个时候会是一个基本类型的值(当然也有其它对象、数组等引用类型的值)，而不是一股脑的直接扔一个对象到[]中就完事了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;useEffect&#34;</span><span class="p">);</span>
+  <span class="c1">// 写明依赖obj.name
+</span><span class="c1"></span><span class="p">},</span> <span class="p">[</span><span class="nx">obj</span><span class="p">.</span><span class="nx">name</span><span class="p">]);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="33闭包问题">3.3.闭包问题</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">Test</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">playing</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">timer</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">playing</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">playingm</span><span class="p">,</span> <span class="nx">count</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&#34;App&#34;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">count</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">[</span><span class="nx">playing</span><span class="p">,</span> <span class="nx">setPlaying</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&#34;App&#34;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">setPlaying</span><span class="p">(</span><span class="o">!</span><span class="nx">playing</span><span class="p">)}</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">playing</span> <span class="o">?</span> <span class="s2">&#34;播放&#34;</span> <span class="o">:</span> <span class="s2">&#34;暂停&#34;</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Test</span> <span class="nx">playing</span><span class="o">=</span><span class="p">{</span><span class="nx">playing</span><span class="p">}</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这段代码想要实现的效果是，在点击播放的时候，count能每一秒都+1，并且渲染到页面上。而实际的效果是页面上的count并不会变，因为在<code>useEffect</code>定义的<code>setInterval</code>会产生一个闭包，一直引用着最初的count，导致每次<code>setCount</code>的值一直没变，所以页面也就没有刷新，解决的办法：</p>
+<p>1.将count添加到useEffect的依赖项中，让setInterval每次能够引用到最新的count值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">timer</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">playing</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">playing</span><span class="p">,</span> <span class="nx">count</span><span class="p">]);</span>
+
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这种方式确实能解决count未改变的问题，但是它每次都会创建一个新的定时器对象，这对于浏览器性能来说是是不友好的</p>
+<p>2.我们需要一种不讲count放进useEffect依赖项的解决方法，也就是使用<code>useState</code>中的回调函数，每次拿到上一次更新的值，然后在进行这一次更新操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">timer</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">playing</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// 使用回调拿到上一次更新后的值，保证每次的值是最新的
+</span><span class="c1"></span>      <span class="c1">// 这个是react所提供的api
+</span><span class="c1"></span>      <span class="nx">setCount</span><span class="p">(</span><span class="nx">v</span> <span class="p">=&gt;</span> <span class="nx">v</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">playing</span><span class="p">]);</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>3.还有一种方式，在<code>setInterval</code>闭包中对当前引用的变量进行修改，这样闭包内所引用的变量的就会变化，在通过<code>set</code>操作，将外层的响应式变量更高，从而重新渲染页面</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">timer</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">playing</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// 对闭包内引用的count进行修改
+</span><span class="c1"></span>      <span class="c1">// setCount后render
+</span><span class="c1"></span>      <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">playing</span><span class="p">]);</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-11-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="useEffect的使用"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="useEffect的使用"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="useEffect的使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="useEffect的使用"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/" class="prev" rel="prev" title="计算机编码的简介"><i class="fas fa-angle-left fa-fw"></i>计算机编码的简介</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"三块给你买麻吉","id-2":"三块给你买麻吉"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
