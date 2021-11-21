@@ -3,14 +3,7 @@
         <title>源码理解 - 分类 - 👨🏻‍💻</title>
         <link>https://xtidcr.com/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</link>
         <description>源码理解 - 分类 - 👨🏻‍💻</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/" rel="self" type="application/rss+xml" /><item>
-    <title>useEffect的使用</title>
-    <link>https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
-    <pubDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
-    <description><![CDATA[react hooks中的useEffect是用的最频繁，也是需要'&lsquo;小心'&lsquo;的的hooks，因为一时不留神，页面就造成了死循]]></description>
-</item><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 05 Jan 2021 23:02:17 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/" rel="self" type="application/rss+xml" /><item>
     <title>React调度过程</title>
     <link>https://xtidcr.com/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</link>
     <pubDate>Tue, 05 Jan 2021 23:02:17 &#43;0800</pubDate>
