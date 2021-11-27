@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Categories - 分类 - 👨🏻‍💻</title>
+        <title>Categories - 分类 - 森田の博客</title>
         <link>https://xtidcr.com/categories/</link>
-        <description>Categories - 分类 - 👨🏻‍💻</description>
+        <description>Categories - 分类 - 森田の博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/categories/" rel="self" type="application/rss+xml" /><item>
     <title>源码理解</title>
     <link>https://xtidcr.com/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</link>

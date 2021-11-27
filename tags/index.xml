@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Tags - 标签 - 👨🏻‍💻</title>
+        <title>Tags - 标签 - 森田の博客</title>
         <link>https://xtidcr.com/tags/</link>
-        <description>Tags - 标签 - 👨🏻‍💻</description>
+        <description>Tags - 标签 - 森田の博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="https://xtidcr.com/tags/" rel="self" type="application/rss+xml" /></channel>
 </rss>
