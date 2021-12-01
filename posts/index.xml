@@ -11,11 +11,11 @@
     <guid>https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[react hooks中的useEffect是用的最频繁，也是需要'&lsquo;小心'&lsquo;的的hooks，因为一时不留神，页面就造成了死循]]></description>
 </item><item>
-    <title>计算机编码的简介</title>
-    <link>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/</link>
+    <title>计算机字符编码的介绍</title>
+    <link>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/</link>
     <pubDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81%E7%9A%84%E7%AE%80%E4%BB%8B/</guid>
+    <guid>https://xtidcr.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/</guid>
     <description><![CDATA[1.简介 程序最终都是以二进制的形式存在计算底层，也就是以0、1这样的字符排列组成程序运行的信息。我们知道计算机最小的存储单位叫做bit(位)]]></description>
 </item><item>
     <title>StoryBook &#43; Lerna 开发自己的UI组件库(二)</title>
