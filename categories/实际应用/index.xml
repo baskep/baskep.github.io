@@ -3,7 +3,14 @@
         <title>实际应用 - 分类 - 森田の博客</title>
         <link>https://xtidcr.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
         <description>实际应用 - 分类 - 森田の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>从0构建一个Nodejs脚手架</title>
+    <link>https://xtidcr.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</link>
+    <pubDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xtidcr.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</guid>
+    <description><![CDATA[搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通]]></description>
+</item><item>
     <title>StoryBook &#43; Lerna 开发自己的UI组件库(二)</title>
     <link>https://xtidcr.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</link>
     <pubDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://xtidcr.com/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
     <description><![CDATA[在很多活动页面我们经常会看到这种效果，屏幕上下着红包雨，点开有有各种礼品或者是优惠券什么的。之前项目要求做一个这样的效果，于是尝试着写了下 1]]></description>
-</item><item>
-    <title>简单实现一个单屏滚动效果</title>
-    <link>https://xtidcr.com/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/</link>
-    <pubDate>Mon, 22 Apr 2019 20:23:19 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://xtidcr.com/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%8D%95%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%95%88%E6%9E%9C/</guid>
-    <description><![CDATA[单屏滚动效果这里指的是滑动鼠标滚落，每次只滚动一个整屏，这种效果多用于一些展示性的网站首页以及一些活动页，这里就用使用jQuery实现这种效]]></description>
 </item></channel>
 </rss>

@@ -3,7 +3,14 @@
         <title>所有文章 - 森田の博客</title>
         <link>https://xtidcr.com/posts/</link>
         <description>所有文章 | 森田の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</lastBuildDate><atom:link href="https://xtidcr.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>从0构建一个Nodejs脚手架</title>
+    <link>https://xtidcr.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</link>
+    <pubDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xtidcr.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</guid>
+    <description><![CDATA[搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通]]></description>
+</item><item>
     <title>useEffect的使用</title>
     <link>https://xtidcr.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://xtidcr.com/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</guid>
     <description><![CDATA[在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、Tex]]></description>
-</item><item>
-    <title>输入一个URL到页面呈现的过程</title>
-    <link>https://xtidcr.com/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</link>
-    <pubDate>Sun, 15 Nov 2020 15:21:34 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://xtidcr.com/%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%91%88%E7%8E%B0%E7%9A%84%E8%BF%87%E7%A8%8B/</guid>
-    <description><![CDATA[1.DNS解析 平时在浏览器中输入的域名并非是网址或资源真实所在的服务器地址或资源，域名只是与ip地址的一个映射。在进行正式的请求之前，就会先]]></description>
 </item></channel>
 </rss>
