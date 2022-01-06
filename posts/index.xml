@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>所有文章 - 长风1の博客</title>
+        <title>所有文章 - 长风の博客</title>
         <link>https://baskep.com/posts/</link>
-        <description>所有文章 | 长风1の博客</description>
+        <description>所有文章 | 长风の博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/posts/" rel="self" type="application/rss+xml" /><item>
     <title>从0构建一个Nodejs脚手架</title>
     <link>https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</link>
