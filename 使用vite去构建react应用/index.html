@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/baskep.com\/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8\/"
-        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5272 ,
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  6145 ,
         "url": "https:\/\/baskep.com\/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8\/","datePublished": "2021-12-30T14:13:30+08:00","dateModified": "2021-12-30T14:13:30+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
@@ -77,8 +77,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">使用Vite去构建React应用</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>长风</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-30">2021-12-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5272 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-30">2021-12-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6145 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -90,6 +90,7 @@
       <ul>
         <li><a href="#11webpack打包的做法">1.1.webpack打包的做法</a></li>
         <li><a href="#12vite的改进">1.2.vite的改进</a></li>
+        <li><a href="#13依赖预构建">1.3.依赖预构建</a></li>
       </ul>
     </li>
     <li><a href="#2vite的配置">2.vite的配置</a>
@@ -121,8 +122,9 @@
         <li><a href="#53css-module-修改问题">5.3.css module 修改问题</a></li>
         <li><a href="#54css预处理器">5.4.css预处理器</a></li>
         <li><a href="#55rematchloading库的不兼容">5.5.@rematch/loading库的不兼容</a></li>
-        <li><a href="#56按需引入">5.6.按需引入</a></li>
-        <li><a href="#57首屏启动慢">5.7.首屏启动慢</a></li>
+        <li><a href="#56antd-mobile模块加载的问题">5.6.antd-mobile模块加载的问题</a></li>
+        <li><a href="#57按需引入">5.7.按需引入</a></li>
+        <li><a href="#58首屏启动慢">5.8.首屏启动慢</a></li>
       </ul>
     </li>
   </ul>
@@ -201,6 +203,30 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>3.vite本身也会起一个<code>koa</code>服务，然后对于请求的文件进行一个缓存，源码模块的请求会根据 <code>304 Not Modified</code> 进行协商缓存，因此一旦被缓存它们将不需要再次请求</p>
+<h2 id="13依赖预构建">1.3.依赖预构建</h2>
+<p>vite里面会有一个所谓的<code>预构建</code>的概念，它的作用</p>
+<blockquote>
+<ol>
+<li>
+<p><strong>CommonJS 和 UMD 兼容性:</strong> 开发阶段中，Vite 的开发服务器将所有代码视为原生 ES 模块。因此，Vite 必须先将作为 CommonJS 或 UMD 发布的依赖项转换为 ESM</p>
+<p>当转换 CommonJS 依赖时，Vite 会执行智能导入分析，这样即使导出是动态分配的（如 React），按名导入也会符合预期效果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 符合预期
+import React, { useState } from &#39;react&#39;
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>性能：</strong> Vite 将有许多内部模块的 ESM 依赖关系转换为单个模块，以提高后续页面加载性能</p>
+</li>
+</ol>
+</blockquote>
+<p>可以看到官方的描述 预构建的作用就是兼容commonjs的语法，优化模块的解析，提高加载的性能</p>
 <h1 id="2vite的配置">2.vite的配置</h1>
 <p>这里用vite初始化一个基本的项目，然后一步一步的配置</p>
 <h2 id="21基本配置">2.1.基本配置</h2>
@@ -723,9 +749,79 @@
 </div><h2 id="55rematchloading库的不兼容">5.5.@rematch/loading库的不兼容</h2>
 <p>reamatch可以当成一个redux库的更优实践，它里面没有多余的action types，action creators，switch 语句或者thunks，可以说是更简洁的基于redux的状态管理工具</p>
 <p>它提供了一个<code>@rematch/loading</code>，对每个model中的effects自动添加loading状态，但是这个库的使用会报一个错<code>Cannot assign to read only property 'xxxx' of object '#&lt;Object&gt;'</code>，从字面意思上讲就是说修改了一个不可改动的对象。但是我在他的源码位置并未找到相关的改动或者配置，暂无修改的思路，最后只能把这个库删除，其实它的作用也不是很大</p>
-<h2 id="56按需引入">5.6.按需引入</h2>
+<h2 id="56antd-mobile模块加载的问题">5.6.antd-mobile模块加载的问题</h2>
+<p>在前面的配置中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">alias</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">cwd</span><span class="p">,</span> <span class="s1">&#39;./src&#39;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/^~/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/antd\/lib/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;antd/es&#39;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/^antd$/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;antd/es&#39;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="s1">&#39;moment&#39;</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;dayjs&#39;</span> <span class="p">},</span>
+  <span class="p">],</span>
+<span class="p">},</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里将antd的模块引入路径改为了<code>antd/es</code>，目的是为了直接引入antd下面的es module，提高vite的一个打包速度</p>
+<p>但是如果项目中还用到了<code>antd-mobile</code>，如果将其配置改为<code> { find: /^antd-mobile$/, replacement: 'antd-mobile/es' }</code>就会抛出一个<code>require</code>语法找不到的错误，造成这个错误的原因在于<code>antd-mobile</code>的<code>es</code>分类下的组件还用了<code> return require('./locale/zh_CN');</code>去做本地化处理，而其<code>es</code>分类下的组件又大量采用了<code>es6</code>的语法，那这个require语句肯定就不会被支持，也就会报错，当然遇到这种错我也是有点无语</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// antd-mobile es文件夹下的组件代码片段
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">_locale</span> <span class="o">=</span> <span class="nx">getComponentLocale</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">,</span> <span class="s1">&#39;Picker&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./locale/zh_CN&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那解决的办法就是将配置改为<code>antd-mobile/lib</code>，这句话的意思就是<code>antd-mobile</code>直接用es5语法，里面纯粹的使用的<code>commonjs</code>规范。这里需要注意的是，vite并不是不能用commonjs的规范，而是不能<code>commonjs</code>、<code>es module</code>混着用，对于<code>commonjs</code>，rollup在打包的时候，会有<a href="https://www.npmjs.com/package/@rollup/plugin-commonjs" target="_blank" rel="noopener noreffer">插件</a>去转换的</p>
+<p>所以这个抛错的原因也就在于<code>antd-mobile/es</code>下的组件，两种模块混合使用了，完整的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript">  <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">alias</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">cwd</span><span class="p">,</span> <span class="s1">&#39;./src&#39;</span><span class="p">)</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/^~/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/antd\/lib/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;antd/es&#39;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/^antd$/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;antd/es&#39;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/^antd-mobile$/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;antd-mobile/lib&#39;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="s1">&#39;moment&#39;</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;@dian/dayjs&#39;</span> <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="57按需引入">5.7.按需引入</h2>
 <p>对于组件，vite本身已按需导入了组件库，未用的组件会做tree shaking，所以只需按需引入它的样式。以前的<code>babel-plugin-import</code>在vite中不能使用，可以使用<a href="https://github.com/vbenjs/vite-plugin-style-import" target="_blank" rel="noopener noreffer">vite-plugin-style-import</a></p>
-<h2 id="57首屏启动慢">5.7.首屏启动慢</h2>
+<h2 id="58首屏启动慢">5.8.首屏启动慢</h2>
 <p>vite开发环境下，模块以esm的形式被浏览器加载，没有额外的打包压缩处理，所以服务启动很快，然后再访问具体的页面则会去请求这个页面所有需要加载的文件，然后加载的时候遇到了比如<code>less</code>这样的文件则会去进行<code>less</code>的编译，其它的同样如此，所以vite首次启动首屏加载的会比较慢，后面请求的时候文件自然会缓存，所以更新的时候感觉不到差异</p>
 <p>项目中所用的自定义插件以及完整的<a href="https://github.com/sentianc/react-vite-demo" target="_blank" rel="noopener noreffer">demo地址</a></p>
 </div><div class="post-footer" id="post-footer">
