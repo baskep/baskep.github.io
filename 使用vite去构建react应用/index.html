@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>使用Vite去构建React应用 - 长风の博客</title><meta name="Description" content="长风做的网站"><meta property="og:title" content="使用Vite去构建React应用" />
+<meta property="og:description" content="1.vite的基本介绍 vite是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成： 一个开发服务器，它基于 原生 ES 模块 提供了 丰" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" />
+<meta property="og:image" content="https://baskep.com/logo.png"/>
+<meta property="article:published_time" content="2021-12-30T14:13:30+08:00" />
+<meta property="article:modified_time" content="2021-12-30T14:13:30+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+
+<meta name="twitter:title" content="使用Vite去构建React应用"/>
+<meta name="twitter:description" content="1.vite的基本介绍 vite是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成： 一个开发服务器，它基于 原生 ES 模块 提供了 丰"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" /><link rel="prev" href="https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "使用Vite去构建React应用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.com\/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8\/"
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5272 ,
+        "url": "https:\/\/baskep.com\/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8\/","datePublished": "2021-12-30T14:13:30+08:00","dateModified": "2021-12-30T14:13:30+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "长风"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="长风の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="长风の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">使用Vite去构建React应用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>长风</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-30">2021-12-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5272 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1vite的基本介绍">1.vite的基本介绍</a>
+      <ul>
+        <li><a href="#11webpack打包的做法">1.1.webpack打包的做法</a></li>
+        <li><a href="#12vite的改进">1.2.vite的改进</a></li>
+      </ul>
+    </li>
+    <li><a href="#2vite的配置">2.vite的配置</a>
+      <ul>
+        <li><a href="#21基本配置">2.1.基本配置</a></li>
+        <li><a href="#22css-module">2.2.css module</a></li>
+        <li><a href="#23server的配置">2.3.server的配置</a>
+          <ul>
+            <li><a href="#serverport">server.port</a></li>
+            <li><a href="#serverproxy">server.proxy</a></li>
+          </ul>
+        </li>
+        <li><a href="#24路径的配置">2.4.路径的配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#3react开发配置的改进">3.react开发配置的改进</a>
+      <ul>
+        <li><a href="#31setimmediatejs">3.1.setImmediate.js</a></li>
+        <li><a href="#31vite-plugin-legacyjs">3.1.vite-plugin-legacy.js</a></li>
+        <li><a href="#32devtoolsjs">3.2.devtools.js</a></li>
+        <li><a href="#33indexjs">3.3.index.js</a></li>
+      </ul>
+    </li>
+    <li><a href="#4项目测试">4.项目测试</a></li>
+    <li><a href="#5生产打包的问题">5.生产打包的问题</a>
+      <ul>
+        <li><a href="#51jsx文件后缀">5.1.jsx文件后缀</a></li>
+        <li><a href="#52资源的路径">5.2.资源的路径</a></li>
+        <li><a href="#53css-module-修改问题">5.3.css module 修改问题</a></li>
+        <li><a href="#54css预处理器">5.4.css预处理器</a></li>
+        <li><a href="#55rematchloading库的不兼容">5.5.@rematch/loading库的不兼容</a></li>
+        <li><a href="#56按需引入">5.6.按需引入</a></li>
+        <li><a href="#57首屏启动慢">5.7.首屏启动慢</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1vite的基本介绍">1.vite的基本介绍</h1>
+<blockquote>
+<p>vite是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成：</p>
+<ul>
+<li>一个开发服务器，它基于 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" target="_blank" rel="noopener noreffer">原生 ES 模块</a> 提供了 <a href="https://vitejs.cn/guide/features.html" target="_blank" rel="noopener noreffer">丰富的内建功能</a>，如速度快到惊人的 <a href="https://vitejs.cn/guide/features.html#hot-module-replacement" target="_blank" rel="noopener noreffer">模块热更新（HMR）</a>。</li>
+<li>一套构建指令，它使用 <a href="https://rollupjs.org/" target="_blank" rel="noopener noreffer">Rollup</a> 打包你的代码，并且它是预配置的，可输出用于生产环境的高度优化过的静态资源。</li>
+</ul>
+<p>vite 意在提供开箱即用的配置，同时它的 <a href="https://vitejs.cn/guide/api-plugin.html" target="_blank" rel="noopener noreffer">插件 API</a> 和 <a href="https://vitejs.cn/guide/api-javascript.html" target="_blank" rel="noopener noreffer">JavaScript API</a> 带来了高度的可扩展性，并有完整的类型支持</p>
+</blockquote>
+<h2 id="11webpack打包的做法">1.1.webpack打包的做法</h2>
+<p>1.使用webpack的时候第一次打包编译速度非常忙，遇到大一点的项目可以用分钟去计数</p>
+<p>这是因为webpack会从<code>entry</code>文件开始，根据不同的<code>router</code>，生成不同的<code>chunk</code>文件，然后打入到<code>bundle</code>里面。这个过程是比较耗时的，因为它又要启动服务，建立<code>websocket</code>链接，同时还会生成自己内部的一些兼容性的代码，所以最终的体积一般来说比较大，也会比较耗时</p>
+<p>2.热更新的时候改动一行代码可能也要好几秒页面才能重新加载出来</p>
+<p>webpack的热更新涉及到对新的hash、新的文件的请求，然后检查是否真正的更新，再替换模块，写入内存，然后刷新对应的模块，所以对于大型项目，webpack的热更新</p>
+<h2 id="12vite的改进">1.2.vite的改进</h2>
+<p>1.对于项目中的依赖vite是用<code>esbuild</code>是去构建，<code>esbuild</code>的底层使用的是 Go 进行编写，这比Nodejs写的构建器速度更快，当然esbuild对于代码分割、css的加载支持的不是特别好，所以它不能直接的作为真正的生产环境的打包编译器去使用</p>
+<p>2.对于打包后的代码，vite会按照引用的路径去按需加载，而不是一股脑的将所有的module打进<code>mian.js</code>，而且它也不会将代码重新生成为兼容所有环境的代码，它的打包产物<code>main.js</code>做的操作是修改代码中引入模块的路径，处理浏览器所不能识别的语法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// main.js
+</span><span class="c1"></span>
+<span class="kd">var</span> <span class="nx">_jsxFileName</span> <span class="o">=</span> <span class="s2">&#34;/Users/guaye/Documents/project/react-vite/src/main.jsx&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">__vite__cjsImport0_react</span> <span class="nx">from</span> <span class="s2">&#34;/node_modules/.vite/react.js?v=298c8aeb&#34;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">__vite__cjsImport0_react</span><span class="p">.</span><span class="nx">__esModule</span> <span class="o">?</span> <span class="nx">__vite__cjsImport0_react</span><span class="p">.</span><span class="k">default</span> <span class="o">:</span> <span class="nx">__vite__cjsImport0_react</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">__vite__cjsImport1_reactDom</span> <span class="nx">from</span> <span class="s2">&#34;/node_modules/.vite/react-dom.js?v=298c8aeb&#34;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">__vite__cjsImport1_reactDom</span><span class="p">.</span><span class="nx">__esModule</span> <span class="o">?</span> <span class="nx">__vite__cjsImport1_reactDom</span><span class="p">.</span><span class="k">default</span> <span class="o">:</span> <span class="nx">__vite__cjsImport1_reactDom</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s2">&#34;/src/index.css&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">App</span> <span class="nx">from</span> <span class="s2">&#34;/src/App.jsx&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">__vite__cjsImport4_react_jsxDevRuntime</span> <span class="nx">from</span> <span class="s2">&#34;/node_modules/.vite/react_jsx-dev-runtime.js?v=298c8aeb&#34;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">_jsxDEV</span> <span class="o">=</span> <span class="nx">__vite__cjsImport4_react_jsxDevRuntime</span><span class="p">[</span><span class="s2">&#34;jsxDEV&#34;</span><span class="p">];</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="cm">/* @__PURE__ */</span>
+<span class="nx">_jsxDEV</span><span class="p">(</span><span class="nx">React</span><span class="p">.</span><span class="nx">StrictMode</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">children</span><span class="o">:</span> <span class="cm">/* @__PURE__ */</span>
+    <span class="nx">_jsxDEV</span><span class="p">(</span><span class="nx">App</span><span class="p">,</span> <span class="p">{},</span> <span class="k">void</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">fileName</span><span class="o">:</span> <span class="nx">_jsxFileName</span><span class="p">,</span>
+        <span class="nx">lineNumber</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="nx">columnNumber</span><span class="o">:</span> <span class="mi">5</span>
+    <span class="p">},</span> <span class="k">this</span><span class="p">)</span>
+<span class="p">},</span> <span class="k">void</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">fileName</span><span class="o">:</span> <span class="nx">_jsxFileName</span><span class="p">,</span>
+    <span class="nx">lineNumber</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="nx">columnNumber</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">},</span> <span class="k">this</span><span class="p">),</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;root&#34;</span><span class="p">));</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>3.vite本身也会起一个<code>koa</code>服务，然后对于请求的文件进行一个缓存，源码模块的请求会根据 <code>304 Not Modified</code> 进行协商缓存，因此一旦被缓存它们将不需要再次请求</p>
+<h1 id="2vite的配置">2.vite的配置</h1>
+<p>这里用vite初始化一个基本的项目，然后一步一步的配置</p>
+<h2 id="21基本配置">2.1.基本配置</h2>
+<p>这里以React项目为例，在项目内建一个文件<code>vite.config.js</code>，配置好对React的支持，然后项目启动的时候<code>vite</code>自会去寻找这个配置项进行编译</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// vite.config.js
+</span><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vite&#39;</span>
+<span class="kr">import</span> <span class="nx">react</span> <span class="nx">from</span> <span class="s1">&#39;@vitejs/plugin-react&#39;</span>
+
+<span class="c1">// https://vitejs.dev/config/
+</span><span class="c1"></span><span class="kr">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span><span class="nx">react</span><span class="p">()]</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="22css-module">2.2.css module</h2>
+<p>vite是默认支持<code>less</code>的，只要安好了<code>less</code>、<code>less-loader</code>依赖即可直接使用Less语法写样式。它也支持<code>css module</code>，准确的来说，它是提供了配置供<a href="https://link.zhihu.com/?target=https%3A//github.com/outpunk/postcss-modules" target="_blank" rel="noopener noreffer">PostCSS-modules</a>调用，然后支持CSS Module</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span><span class="nx">react</span><span class="p">()],</span>
+  <span class="nx">css</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// css module
+</span><span class="c1"></span>    <span class="nx">modules</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">generateScopedName</span><span class="o">:</span> <span class="s1">&#39;[name]__[local]___[hash:base64:5]&#39;</span><span class="p">,</span>
+      <span class="nx">hashPrefix</span><span class="o">:</span> <span class="s1">&#39;prefix&#39;</span><span class="p">,</span>
+    <span class="p">},</span> 
+  <span class="p">},</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就可以配置好CSS Module，需要注意的是，所有的样式文件名，必须以.module.[css|less|scss]结尾</p>
+<h2 id="23server的配置">2.3.server的配置</h2>
+<p>就类似于<code>webpack-dev-server</code>的配置，配置开发服务器的选项，比较基本的</p>
+<blockquote>
+<h3 id="serverport">server.port</h3>
+<ul>
+<li>
+<p><strong>类型：</strong> <code>number</code></p>
+</li>
+<li>
+<p><strong>默认值：</strong> <code>3000</code></p>
+<p>指定开发服务器端口。注意：如果端口已经被使用，vite会自动尝试下一个可用的端口，所以这可能不是开发服务器最终监听的实际端口。</p>
+</li>
+</ul>
+</blockquote>
+<p>server的端口配置，可以修改为其它的服务端口</p>
+<blockquote>
+<h3 id="serverproxy">server.proxy</h3>
+<p><strong>类型：</strong> <code>Record&lt;string, string | ProxyOptions&gt;</code></p>
+<p>为开发服务器配置自定义代理规则。期望接收一个 <code>{ key: options }</code> 对象。如果 key 值以 <code>^</code> 开头，将会被解释为 <code>RegExp</code>。<code>configure</code> 可用于访问 proxy 实例。</p>
+</blockquote>
+<p>这就是vite的代理服务的配置了，包括接口服务的域名地址，以下是一个实际的例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">proxy</span><span class="o">:</span> <span class="p">{</span>
+	<span class="s1">&#39;/api&#39;</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;https://www.test.com&#39;</span><span class="p">,</span>
+    <span class="nx">changeOrigin</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">cookieDomainRewrite</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;*&#39;</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="p">},</span>
+		<span class="nx">rewrite</span><span class="o">:</span> <span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">path</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\/api/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>1.target：请求的接口的实际域名</p>
+<p>2.changeOrigin：配置支持跨域，当为true的时候，这个时候请求<code>/api</code>的时候，请求的<code>Request URL</code>就是<code>target</code>中配置的地址，如果为false，则是<code>localhost:端口号</code>，这个时候就会造成跨域的问题</p>
+<p>3.cookieDomainRewrite：设置cookie的跨域问题，比如当前的cookie设置的域名为<code>test</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Set-Cookie: cookie1=1; path=/; expires=; domain=baidu
+</code></pre></td></tr></table>
+</div>
+</div><p>但是本地开发的时候访问的域名是<code>localhost:端口</code>，这时出现跨域，set-cookie就不起作用。所以使用<code>    cookieDomainRewrite: { '*': '' }</code>配置，将domain去除，此时cookie所在的域名就是我们访问的域名</p>
+<p>4.rewrite：用于重写实际的请求地址，比如我们在请求接口的时候会写到<code>/api/getList</code>，但实际想要请求的接口地址为<code>/getList</code>，<code>api</code>的前缀只是方便我们发送请求。这个时候就可以使用rewrite配置，替换<code>api</code>的路径，让请求到达真实的接口地址</p>
+<p>其它的proxy<a href="https://github.com/http-party/node-http-proxy#options" target="_blank" rel="noopener noreffer">配置</a></p>
+<h2 id="24路径的配置">2.4.路径的配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">alias</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">cwd</span><span class="p">,</span> <span class="s1">&#39;./src&#39;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/^~/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/antd\/lib/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;antd/es&#39;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="sr">/^antd$/</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;antd/es&#39;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">find</span><span class="o">:</span> <span class="s1">&#39;moment&#39;</span><span class="p">,</span> <span class="nx">replacement</span><span class="o">:</span> <span class="s1">&#39;dayjs&#39;</span> <span class="p">},</span>
+  <span class="p">],</span>
+<span class="p">},</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是我在项目中的一个路径配置，这里将<code>antd/lib/</code>下的文件替换成了<code>antd/es</code>，同时<code>moment</code>这个模块改为了<code>dayjs</code>。这两个操作都是为了减少打包的一个体积，进行性能的优化，<code>dayjs</code>的体积比<code>moment</code>模块小，<code>antd/es</code>则直接是es6版本的语法</p>
+<p>此时的vite配置为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vite&#39;</span>
+<span class="kr">import</span> <span class="nx">react</span> <span class="nx">from</span> <span class="s1">&#39;@vitejs/plugin-react&#39;</span>
+
+<span class="c1">// https://vitejs.dev/config/
+</span><span class="c1"></span><span class="kr">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
+  <span class="nx">server</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">port</span><span class="o">:</span> <span class="mi">3001</span><span class="p">,</span>
+    <span class="nx">proxy</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s1">&#39;/api&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;https://www.baidu.com&#39;</span><span class="p">,</span>
+        <span class="nx">changeOrigin</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">cookieDomainRewrite</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s1">&#39;*&#39;</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
+        <span class="p">},</span>
+        <span class="nx">rewrite</span><span class="o">:</span> <span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">path</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\/api/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+      <span class="p">},</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">react</span><span class="p">(),</span>
+  <span class="p">],</span>
+  <span class="nx">css</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">modules</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">generateScopedName</span><span class="o">:</span> <span class="s1">&#39;[name]__[local]___[hash:base64:5]&#39;</span><span class="p">,</span>
+      <span class="nx">hashPrefix</span><span class="o">:</span> <span class="s1">&#39;prefix&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="3react开发配置的改进">3.react开发配置的改进</h1>
+<p>vite中提供了<code>@vitejs/plugin-react</code>支持React的开发，又提供了<code>@vitejs/plugin-legacy</code>为打包后的文件提供传统浏览器兼容性支持，但是这些库还有bug，比如<code>@vitejs/plugin-legacy</code>会有兼容的问题，打包出来的文件会有缺失，Issues<a href="https://github.com/vitejs/vite/issues/4358" target="_blank" rel="noopener noreffer">地址</a>。那这里写一个vite的React插件去处理这个问题</p>
+<h2 id="31setimmediatejs">3.1.setImmediate.js</h2>
+<p>首先在项目内建一个名为<code>vite-preset-react</code>的文件夹，作为这个插件的根目录，然后下面建一个<code>setImmediate.js</code>，它的作用是用来兼容<code>fbjs</code>中的<code>setImmediate</code>方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">setImmediate</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">setImmediate</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">setImmediate</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="31vite-plugin-legacyjs">3.1.vite-plugin-legacy.js</h2>
+<p>新建一个<code>vite-plugin-legacy.js</code>，这个文件用来替换原来<code>@vitejs/plugin-legacy</code>，其实就是<code>@vitejs/plugin-legacy</code>的源码，加上了上面了解决不兼容问题的<a href="https://github.com/vitejs/vite/issues/4358#issuecomment-906075416" target="_blank" rel="noopener noreffer">方案</a>，源码太长，我就不放了</p>
+<h2 id="32devtoolsjs">3.2.devtools.js</h2>
+<p>新建一个<code>devtools.js</code>，这是我们自定义的一个插件，目的是为了控制<code>react devtools</code>在生产环境是否可用。关于vite的插件定义请看<a href="https://vitejs.cn/guide/api-plugin.html" target="_blank" rel="noopener noreffer">这里</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">reactDevtoolsPlugin</span><span class="p">({</span>
+  <span class="nx">removeInProd</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+<span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;react:devtools&#39;</span><span class="p">,</span>
+    <span class="nx">enforce</span><span class="o">:</span> <span class="s1">&#39;pre&#39;</span><span class="p">,</span>
+    <span class="nx">apply</span><span class="o">:</span> <span class="s1">&#39;build&#39;</span><span class="p">,</span>
+
+    <span class="nx">transformIndexHtml</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">removeInProd</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+          <span class="nx">html</span><span class="o">:</span> <span class="nx">code</span><span class="p">,</span>
+          <span class="nx">tags</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="nx">injectTo</span><span class="o">:</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span>
+            <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span>
+            <span class="nx">children</span><span class="o">:</span> <span class="s1">&#39;if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === \&#39;object\&#39;) { window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {};};&#39;</span><span class="p">,</span>
+          <span class="p">}],</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">code</span>
+    <span class="p">},</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">plugin</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当<code>removeInProd</code>为true的时候，就移除这个<code>react devtools</code>，准确的说是将<code>react</code>的全局打印日志的方法置为空</p>
+<p><code>enforce</code>：控制这个插件的执行顺序</p>
+<blockquote>
+<p>一个 vite 插件可以额外指定一个 <code>enforce</code> 属性（类似于 webpack 加载器）来调整它的应用顺序。<code>enforce</code> 的值可以是<code>pre</code> 或 <code>post</code>。解析后的插件将按照以下顺序排列：</p>
+<ul>
+<li>alias</li>
+<li>带有 <code>enforce: 'pre'</code> 的用户插件</li>
+<li>vite 核心插件</li>
+<li>没有 enforce 值的用户插件</li>
+<li>vite 构建用的插件</li>
+<li>带有 <code>enforce: 'post'</code> 的用户插件</li>
+<li>vite 后置构建插件（最小化，manifest，报告）</li>
+</ul>
+</blockquote>
+<p><code>apply</code>：应用的环境</p>
+<blockquote>
+<p>默认情况下插件在开发（serve）和构建（build）模式中都会调用。如果插件只需要在预览或构建期间有条件地应用，请使用 <code>apply</code> 属性指明它们仅在 <code>'build'</code> 或 <code>'serve'</code> 模式时调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">myPlugin</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">return</span> <span class="p">{</span>
+ <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;build-only&#39;</span><span class="p">,</span>
+ <span class="nx">apply</span><span class="o">:</span> <span class="s1">&#39;build&#39;</span> <span class="c1">// 或 &#39;serve&#39;
+</span><span class="c1"></span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p><code>transformIndexHtml</code>：转换 <code>index.html</code> 的专用钩子。钩子接收当前的 HTML 字符串和转换上下文。上下文在开发期间暴露<a href="https://vitejs.cn/guide/api-javascript.html#vitedevserver" target="_blank" rel="noopener noreffer"><code>ViteDevServer</code></a>实例，在构建期间暴露 Rollup 输出的包。意思就是可以对当前打包过程中的html进行处理</p>
+<h2 id="33indexjs">3.3.index.js</h2>
+<p>新建一个<code>index.js</code>，作为这个项目的入口文件，定义一个react插件，这个插件的作用：</p>
+<p>4.1.首先会引入我们自己定义的<code>react devtools</code>插件</p>
+<p>4.2.引入<code>@vitejs/plugin-react-refresh</code>，这个是用来启动react的热加载，它的内部会用正则去匹配当前真正需要替换的模块</p>
+<p>4.3.引入<code>vite-tsconfig-paths</code>，如果项目中用了ts，并且还用到了ts的路径映射，那么就要用这个插件来做额外的处理，否则ts中引入的模块无法解析</p>
+<p>4.4.引入用户的配置，包括less文件的处理，又或者是省略<code>import React from 'react'</code>语句等配置</p>
+<p>源码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span>
+
+<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">reactRefresh</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@vitejs/plugin-react-refresh&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">reactDevtoolsPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./devtools&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">legacyPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../compat/legacy/vite-plugin-legacy&#39;</span><span class="p">).</span><span class="k">default</span>
+<span class="kr">const</span> <span class="nx">tsconfigPaths</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vite-tsconfig-paths&#39;</span><span class="p">).</span><span class="k">default</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">reactPlugin</span> <span class="p">({</span>
+  <span class="nx">removeDevtoolsInProd</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 是否生产环境下禁用React devtools 
+</span><span class="c1"></span>  <span class="nx">injectReact</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 注入import React from &#39;react&#39;
+</span><span class="c1"></span>  <span class="nx">legacy</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 兼容老浏览器
+</span><span class="c1"></span>  <span class="nx">base</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="nx">lessOptions</span> <span class="o">=</span> <span class="p">{},</span>
+<span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;react:config&#39;</span><span class="p">,</span>
+      <span class="nx">config</span> <span class="p">(</span><span class="nx">userConfig</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+          <span class="nx">base</span><span class="o">:</span> <span class="nx">userConfig</span><span class="p">.</span><span class="nx">base</span> <span class="o">||</span> <span class="nx">base</span> <span class="o">||</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PUBLIC_PATH</span> <span class="o">||</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+          <span class="nx">build</span><span class="o">:</span> <span class="p">{</span> <span class="nx">outDir</span><span class="o">:</span> <span class="s1">&#39;./build&#39;</span><span class="p">,</span> <span class="nx">sourcemap</span><span class="o">:</span> <span class="s1">&#39;hidden&#39;</span><span class="p">,</span> <span class="nx">manifest</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">cssTarget</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;chrome38&#39;</span><span class="p">,</span> <span class="s1">&#39;ios10&#39;</span><span class="p">]</span> <span class="p">},</span>
+          <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">alias</span><span class="o">:</span> <span class="p">{</span>
+              <span class="c1">// esm 兼容
+</span><span class="c1"></span>              <span class="s1">&#39;fbjs/lib/setImmediate&#39;</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../compat/fbjs/setImmediate.js&#39;</span><span class="p">),</span>
+              <span class="s1">&#39;@rematch/core&#39;</span><span class="o">:</span> <span class="s1">&#39;@rematch/core/dist/umd/rematch.js&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+          <span class="p">},</span>
+          <span class="nx">esbuild</span><span class="o">:</span> <span class="p">{</span>
+            <span class="p">...(</span><span class="nx">injectReact</span> <span class="o">?</span> <span class="p">{</span> <span class="nx">jsxInject</span><span class="o">:</span> <span class="s1">&#39;import React from \&#39;react\&#39;&#39;</span> <span class="p">}</span> <span class="o">:</span> <span class="p">{}),</span>
+          <span class="p">},</span>
+          <span class="nx">css</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">preprocessorOptions</span><span class="o">:</span> <span class="p">{</span>
+              <span class="nx">less</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">javascriptEnabled</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="p">...</span><span class="nx">lessOptions</span><span class="p">,</span>
+              <span class="p">},</span>
+            <span class="p">},</span>
+          <span class="p">},</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="nx">tsconfigPaths</span><span class="p">(),</span>
+    <span class="nx">reactRefresh</span><span class="p">(),</span>
+    <span class="nx">reactDevtoolsPlugin</span><span class="p">({</span> <span class="nx">removeInProd</span><span class="o">:</span> <span class="nx">removeDevtoolsInProd</span> <span class="p">}),</span>
+    <span class="nx">legacy</span> <span class="o">&amp;&amp;</span> <span class="nx">legacyPlugin</span><span class="p">(</span><span class="nx">legacy</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">?</span> <span class="p">{}</span> <span class="o">:</span> <span class="nx">legacy</span><span class="p">),</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="4项目测试">4.项目测试</h1>
+<p>这些配置好了以后，安装对应的依赖<code>yarn dev</code>跑一遍项目</p>
+<p><img src="https://s4.ax1x.com/2021/12/28/TsWAG8.png" alt="TsWAG8.png" style="zoom:20%;" /></p>
+<h1 id="5生产打包的问题">5.生产打包的问题</h1>
+<h2 id="51jsx文件后缀">5.1.jsx文件后缀</h2>
+<p>在webpack里，无论是以.js为后缀、又或者是.jsx为后缀的文件，遇到了相应的语法webpack会用Babel去进行转化，并最终转换成浏览器可执行的js代码</p>
+<p>但是在vite中，vite启动会进行<code>依赖的预构建</code>，这个过程默认都只会对<code>jsx</code>与<code>tsx</code>做语法转换，不会对js做jsx的语法转换。这样如果你直接在.js文件中写jsx的语法，是会报错的</p>
+<p>解决方法：</p>
+<p>1.将所有react的js文件改为.jsx后缀</p>
+<p>2.添加<code>babel</code>的插件<code>@babel/plugin-transform-react-jsx</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vite&#39;</span>
+<span class="kr">import</span> <span class="nx">react</span> <span class="nx">from</span> <span class="s1">&#39;@vitejs/plugin-react&#39;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span><span class="nx">react</span><span class="p">({</span>
+      <span class="nx">babel</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;@babel/plugin-transform-react-jsx&#39;</span><span class="p">],</span>
+      <span class="p">},</span>
+  <span class="p">})],</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="52资源的路径">5.2.资源的路径</h2>
+<p>1.默认情况下vite打包出来的<code>index.html</code>里面引入的js资源是项目的根路径<code>/</code>，比如<code>&lt;script type=&quot;module&quot; crossorigin src=&quot;/assets/index.52c50904.js&quot;&gt;&lt;/script&gt;</code>，那这样预览index.html的时候会找不到文件，因为打包的产物是放在build目录下的，这个时候可以修改<code>base</code>这个配置去指定打包后的资源引入地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
+  <span class="nx">base</span><span class="o">:</span> <span class="s1">&#39;./&#39;</span><span class="p">,</span>
+  <span class="p">......</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>2.index.html有的时候并不一定会放在根目录，有可能是根目录下的其它文件夹，这个时候就要用到<code>root</code>这个配置，去指定index.html的入口地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
+  <span class="nx">root</span><span class="o">:</span> <span class="s1">&#39;./&#39;</span><span class="p">,</span>
+  <span class="p">......</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="53css-module-修改问题">5.3.css module 修改问题</h2>
+<p>前面说了css module的配置，但这不代表说整个项目就一定要全用css module了，如果全部这样改动，那整个项目的改动可能不是一点功夫就能改的完的，因为每个样式都得以模块的方式去调用</p>
+<p>所以我建议是可以保持原来的<code>less</code>啊或者其他的css预处理器的使用</p>
+<h2 id="54css预处理器">5.4.css预处理器</h2>
+<p>vite 也同时提供了对 <code>.scss</code>, <code>.sass</code>, <code>.less</code>, <code>.styl</code> 和 <code>.stylus</code> 文件的内置支持。没有必要为它们安装特定的 vite 插件，但必须安装相应的预处理器依赖</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="err">#</span> <span class="p">.</span><span class="nx">scss</span> <span class="nx">and</span> <span class="p">.</span><span class="nx">sass</span>
+<span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">D</span> <span class="nx">sass</span>
+
+<span class="err">#</span> <span class="p">.</span><span class="nx">less</span>
+<span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">D</span> <span class="nx">less</span>
+
+<span class="err">#</span> <span class="p">.</span><span class="nx">styl</span> <span class="nx">and</span> <span class="p">.</span><span class="nx">stylus</span>
+<span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">D</span> <span class="nx">stylus</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="55rematchloading库的不兼容">5.5.@rematch/loading库的不兼容</h2>
+<p>reamatch可以当成一个redux库的更优实践，它里面没有多余的action types，action creators，switch 语句或者thunks，可以说是更简洁的基于redux的状态管理工具</p>
+<p>它提供了一个<code>@rematch/loading</code>，对每个model中的effects自动添加loading状态，但是这个库的使用会报一个错<code>Cannot assign to read only property 'xxxx' of object '#&lt;Object&gt;'</code>，从字面意思上讲就是说修改了一个不可改动的对象。但是我在他的源码位置并未找到相关的改动或者配置，暂无修改的思路，最后只能把这个库删除，其实它的作用也不是很大</p>
+<h2 id="56按需引入">5.6.按需引入</h2>
+<p>对于组件，vite本身已按需导入了组件库，未用的组件会做tree shaking，所以只需按需引入它的样式。以前的<code>babel-plugin-import</code>在vite中不能使用，可以使用<a href="https://github.com/vbenjs/vite-plugin-style-import" target="_blank" rel="noopener noreffer">vite-plugin-style-import</a></p>
+<h2 id="57首屏启动慢">5.7.首屏启动慢</h2>
+<p>vite开发环境下，模块以esm的形式被浏览器加载，没有额外的打包压缩处理，所以服务启动很快，然后再访问具体的页面则会去请求这个页面所有需要加载的文件，然后加载的时候遇到了比如<code>less</code>这样的文件则会去进行<code>less</code>的编译，其它的同样如此，所以vite首次启动首屏加载的会比较慢，后面请求的时候文件自然会缓存，所以更新的时候感觉不到差异</p>
+<p>项目中所用的自定义插件以及完整的<a href="https://github.com/sentianc/react-vite-demo" target="_blank" rel="noopener noreffer">demo地址</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-30</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" data-title="使用Vite去构建React应用"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" data-title="使用Vite去构建React应用"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" data-title="使用Vite去构建React应用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" data-title="使用Vite去构建React应用"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" class="prev" rel="prev" title="从0构建一个Nodejs脚手架"><i class="fas fa-angle-left fa-fw"></i>从0构建一个Nodejs脚手架</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">长风</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

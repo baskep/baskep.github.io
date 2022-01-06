@@ -3,7 +3,14 @@
         <title>实际应用 - 分类 - 长风の博客</title>
         <link>https://baskep.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
         <description>实际应用 - 分类 - 长风の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 30 Dec 2021 14:13:30 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>使用Vite去构建React应用</title>
+    <link>https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</link>
+    <pubDate>Thu, 30 Dec 2021 14:13:30 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</guid>
+    <description><![CDATA[1.vite的基本介绍 vite是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成： 一个开发服务器，它基于 原生 ES 模块 提供了 丰]]></description>
+</item><item>
     <title>从0构建一个Nodejs脚手架</title>
     <link>https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</link>
     <pubDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.com/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</guid>
     <description><![CDATA[​ 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其]]></description>
-</item><item>
-    <title>实现一个红包雨的效果</title>
-    <link>https://baskep.com/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
-    <pubDate>Tue, 28 May 2019 19:23:19 &#43;0700</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.com/%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
-    <description><![CDATA[在很多活动页面我们经常会看到这种效果，屏幕上下着红包雨，点开有有各种礼品或者是优惠券什么的。之前项目要求做一个这样的效果，于是尝试着写了下 1]]></description>
 </item></channel>
 </rss>
