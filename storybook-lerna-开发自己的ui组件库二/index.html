@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>StoryBook &#43; Lerna 开发自己的UI组件库(二) - 长风の博客</title><meta name="Description" content="长风做的网站"><meta property="og:title" content="StoryBook &#43; Lerna 开发自己的UI组件库(二)" />
+<meta property="og:description" content="上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" />
+<meta property="og:image" content="https://baskep.com/logo.png"/>
+<meta property="article:published_time" content="2021-08-28T14:47:27+08:00" />
+<meta property="article:modified_time" content="2021-08-28T14:47:27+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+
+<meta name="twitter:title" content="StoryBook &#43; Lerna 开发自己的UI组件库(二)"/>
+<meta name="twitter:description" content="上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" /><link rel="prev" href="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" /><link rel="next" href="https://baskep.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "StoryBook + Lerna 开发自己的UI组件库(二)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.com\/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C\/"
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2584 ,
+        "url": "https:\/\/baskep.com\/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C\/","datePublished": "2021-08-28T14:47:27+08:00","dateModified": "2021-08-28T14:47:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "长风"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="长风の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="长风の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">StoryBook &#43; Lerna 开发自己的UI组件库(二)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>长风</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-28">2021-08-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2584 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1verdaccio的安装与配置">1.verdaccio的安装与配置</a>
+      <ul>
+        <li><a href="#11基本安装">1.1.基本安装</a></li>
+        <li><a href="#12账号的注册">1.2.账号的注册</a></li>
+      </ul>
+    </li>
+    <li><a href="#2lerna的使用">2.lerna的使用</a>
+      <ul>
+        <li><a href="#21lerna的初始化与配置">2.1.lerna的初始化与配置</a></li>
+        <li><a href="#22lerna项目关联git仓库">2.2.lerna项目关联git仓库</a></li>
+        <li><a href="#23原有项目的目录改造">2.3.原有项目的目录改造</a></li>
+        <li><a href="#24组件库的打包配置">2.4.组件库的打包配置</a></li>
+        <li><a href="#25组件库的发布">2.5.组件库的发布</a></li>
+      </ul>
+    </li>
+    <li><a href="#3总结">3.总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用<code>npm</code>官方提供的发布方式，需要你自己注册账号、密码，对于企业版当然要收费。这里使用<code>verdaccio</code>去搭建npm私有库，并且使用<code>lerna</code>去管理所有组件库</p>
+<h1 id="1verdaccio的安装与配置">1.verdaccio的安装与配置</h1>
+<h2 id="11基本安装">1.1.基本安装</h2>
+<p>首先<code>npm install –g verdaccio</code>，安装好后输入<code>verdaccio</code>运行，verdaccio默认监听<code>4873</code>端口，如果需要修改配置，请打开<code>verdaccio/config.yaml</code>修改，这个配置文件包含了verdaccio所有的配置。服务运行效果如下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2021/08/28/FVOPUWxdsS7eInN.png"
+        data-srcset="https://i.loli.net/2021/08/28/FVOPUWxdsS7eInN.png, https://i.loli.net/2021/08/28/FVOPUWxdsS7eInN.png 1.5x, https://i.loli.net/2021/08/28/FVOPUWxdsS7eInN.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2021/08/28/FVOPUWxdsS7eInN.png"
+        title="3.png" /></p>
+<h2 id="12账号的注册">1.2.账号的注册</h2>
+<p>首先将npm的资源库地址执行本地的verdaccio(http://127.0.0.1:4873)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">npm</span> <span class="nx">set</span> <span class="nx">registry</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:4873
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">这里将全局的npm仓库设置到本地，只为调试使用，之后记得改回来</div>
+        </div>
+    </div>
+<p>然后添加用户名、密码、email</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">npm</span> <span class="nx">adduser</span> <span class="o">-</span><span class="nx">registry</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:4873
+</span></code></pre></td></tr></table>
+</div>
+</div><p>注册完了之后可以<code>npm who am i</code>看下是否注册成功，这就意味着在我本地就可以用这个账号发布npm包了</p>
+<h1 id="2lerna的使用">2.lerna的使用</h1>
+<p><a href="https://www.lernajs.cn/" target="_blank" rel="noopener noreffer">lerna</a>是一个管理工具，用于管理包含多个软件包（package）的JavaScript项目。首先要明白一个概念，lerna是可以管理多个仓库的工具，默认情况下，它会管理你项目中<code>packages</code>目录中所有的npm仓库。</p>
+<h2 id="21lerna的初始化与配置">2.1.lerna的初始化与配置</h2>
+<p>首先全局安装lerna</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">global</span> <span class="nx">lerna</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后进入我们的项目，执行<code>lerna init</code>，将其初始化成一个lerna管理的<code>git</code>仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">lerna</span> <span class="nx">init</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此时我们的项目里面会多出来一个<code>lerna.json</code>文件，这个文件是用来配置lerna管理的仓库的地址的，把他修改下，设置lerna发布npm包的时候，添加到我们本地<code>verdaccio</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="s2">&#34;packages&#34;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&#34;packages/*&#34;</span> <span class="c1">// 管理packages目录下的仓库
+</span><span class="c1"></span>  <span class="p">],</span>
+  <span class="s2">&#34;npmClient&#34;</span><span class="o">:</span> <span class="s2">&#34;yarn&#34;</span><span class="p">,</span>
+  <span class="s2">&#34;useWorkspaces&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="s2">&#34;independent&#34;</span><span class="p">,</span>
+  <span class="s2">&#34;command&#34;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&#34;publish&#34;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&#34;ignoreChanges&#34;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&#34;{__tests__,tests}/**/*.{js,jsx,ts,tsx}&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;*.mdx&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;*.md&#34;</span>
+      <span class="p">],</span>
+      <span class="s2">&#34;message&#34;</span><span class="o">:</span> <span class="s2">&#34;chore(release): publish [skip ci]&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;registry&#34;</span><span class="o">:</span> <span class="s2">&#34;http://127.0.0.1:4873/&#34;</span>
+    <span class="p">},</span>
+    <span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&#34;message&#34;</span><span class="o">:</span> <span class="s2">&#34;chore(release): publish new version [skip ci]&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;conventionalCommits&#34;</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&#34;bootstrap&#34;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&#34;npmClientArgs&#34;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">&#34;--no-package-lock&#34;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对了还需要添加lerna的build的命令，在package.json中添加<code>&quot;build&quot;: &quot;lerna run build&quot;</code></p>
+<h2 id="22lerna项目关联git仓库">2.2.lerna项目关联git仓库</h2>
+<p>现在本地的storybook项目需要关联一个git仓库，这样的话，在publish的时候，lerna会从这个远程git仓库去拉取代码然后推送到<code>http://127.0.0.1:4873/</code>的<code>verdaccio</code>中。这里我在github上创建了一个模板项目，与本地项目作关联</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git remote add origin https://github.com/sentianc/storybook-template.git
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="23原有项目的目录改造">2.3.原有项目的目录改造</h2>
+<p>现在将项目整体目录进行改造，将所有的组件库代码放入<code>packages</code>目录中，每个组件库管理自己的依赖，最外层定义storybook的基本配置，这里我创建一个叫<code>ui-mobile</code>的组件库，将之前写的button组件以及storybook的mdx文件移过去。因为是组件库，所以要有一个index文件将所有的组件抛出，修改后整体的项目目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">├─.DS_Store
+├─.editorconfig
+├─.eslintignore
+├─.eslintrc.js
+├─.gitignore
+├─lerna.json
+├─package-lock.json
+├─package.json
+├─yarn.lock
+├─packages
+|    ├─ui-mobile
+|    |     ├─src
+|    |     |  ├─index.tsx
+|    |     |  ├─global-style
+|    |     |  |      ├─index-mobile.less
+|    |     |  |      ├─index.less
+|    |     |  |      ├─normalize-mobile.less
+|    |     |  |      ├─normalize.less
+|    |     |  |      ├─antd-mobile
+|    |     |  |      |      ├─anim.less
+|    |     |  |      |      ├─component.less
+|    |     |  |      |      ├─index.less
+|    |     |  |      |      ├─mixins.less
+|    |     |  |      |      └theme.less
+|    |     |  |      ├─antd
+|    |     |  |      |  ├─component.less
+|    |     |  |      |  ├─dark.less
+|    |     |  |      |  ├─index.less
+|    |     |  |      |  ├─mixins.less
+|    |     |  |      |  └theme.less
+|    |     |  ├─components
+|    |     |  |     ├─index.tsx
+|    |     |  |     ├─button
+|    |     |  |     |   ├─index.less
+|    |     |  |     |   ├─index.stories.mdx
+|    |     |  |     |   └index.tsx
+├─.vscode
+|    └settings.json
+├─.storybook
+|     ├─main.js
+|     └preview.js
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="24组件库的打包配置">2.4.组件库的打包配置</h2>
+<p>现在目录已经改了，思考一下，这个组件库还要定外的打包编译成dist，然后再发布，那这里使用的工具选择为<a href="https://github.com/formium/tsdx" target="_blank" rel="noopener noreffer">tsdx</a>，tsdx是专门管理用ts写的npm组件库，它甚至提供了react-storybook模板。那将原来的<code>ui-mobile</code>目录删除，使用<code>npx tsdx create ui-mobile</code>去创建一个tsdx项目，这里选择react模板就行。然后再将之前组件库代码移过去</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">这里还有个问题：将这些项目目录调整之后，记得将<code>.storybook/main.js</code>、<code>.storybook/preview.js</code>中的入口文件以及引入的全局样式修改一下</div>
+        </div>
+    </div>
+<h2 id="25组件库的发布">2.5.组件库的发布</h2>
+<p>至此组件库已经基本搭建完成，接下来要做的：</br>
+1.使用tsdx打包编译组件库到dist目录<code>npm run build</code> </br>
+2.将代码提交到git仓库 </br>
+3.<code>lerna publish</code>将组件库推送到本地<code>verdaccio</code>(在这步执行的时候，记得在根目录package.json里面添加yarn的workspaces)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;workspaces&#34;</span><span class="o">:</span> <span class="p">[</span>
+  <span class="s2">&#34;packages/*&#34;</span>
+<span class="p">],</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>publish 成功的效果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2021/08/28/YrhU1zW9FtJjsip.png"
+        data-srcset="https://i.loli.net/2021/08/28/YrhU1zW9FtJjsip.png, https://i.loli.net/2021/08/28/YrhU1zW9FtJjsip.png 1.5x, https://i.loli.net/2021/08/28/YrhU1zW9FtJjsip.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2021/08/28/YrhU1zW9FtJjsip.png"
+        title="4.png" /></p>
+<p>然后打开<code>http://127.0.0.1:4873/</code>，看下组件库是否发布成功</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2021/08/28/ATp49UxwvgC7eF5.png"
+        data-srcset="https://i.loli.net/2021/08/28/ATp49UxwvgC7eF5.png, https://i.loli.net/2021/08/28/ATp49UxwvgC7eF5.png 1.5x, https://i.loli.net/2021/08/28/ATp49UxwvgC7eF5.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2021/08/28/ATp49UxwvgC7eF5.png"
+        title="5.png" /></p>
+<p>可以看到我这里已经发布成功了，那么后续就可以<code>npm install ui-mobile</code>去安装这个依赖并且使用了，这就是整个流程</p>
+<h1 id="3总结">3.总结</h1>
+<p>这些示例都是在本地环境做的，真正的开发环境应该是在服务器里去部署这些服务，并且公司内部一般会用gitlab去做项目的管理。<code>storybook + lerna</code>的确是一个好的管理组件库的解决方案，也可以参考下我的模板<code>https://github.com/sentianc/storybook-template</code></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-08-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" class="prev" rel="prev" title="StoryBook &#43; Lerna 开发自己的UI组件库(一)"><i class="fas fa-angle-left fa-fw"></i>StoryBook &#43; Lerna 开发自己的UI组件库(一)</a>
+            <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/" class="next" rel="next" title="计算机字符编码的介绍">计算机字符编码的介绍<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">长风</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

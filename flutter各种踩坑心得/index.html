@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Flutter各种踩坑心得 - 长风の博客</title><meta name="Description" content="长风做的网站"><meta property="og:title" content="Flutter各种踩坑心得" />
+<meta property="og:description" content="1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" />
+<meta property="og:image" content="https://baskep.com/logo.png"/>
+<meta property="article:published_time" content="2020-12-05T16:06:56+08:00" />
+<meta property="article:modified_time" content="2020-12-05T16:06:56+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+
+<meta name="twitter:title" content="Flutter各种踩坑心得"/>
+<meta name="twitter:description" content="1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" /><link rel="prev" href="https://baskep.com/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" /><link rel="next" href="https://baskep.com/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Flutter各种踩坑心得",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.com\/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97\/"
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2994 ,
+        "url": "https:\/\/baskep.com\/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97\/","datePublished": "2020-12-05T16:06:56+08:00","dateModified": "2020-12-05T16:06:56+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "长风"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="长风の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="长风の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Flutter各种踩坑心得</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>长风</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-05">2020-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2994 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1安卓开发环境的基本配置">1.安卓开发环境的基本配置</a></li>
+    <li><a href="#2signlechildscrollview页面不满一屏无法撑满全屏">2.SignleChildScrollView页面不满一屏无法撑满全屏</a></li>
+    <li><a href="#3自定义appbar">3.自定义AppBar</a></li>
+    <li><a href="#4push页面返回保持上一次的页面位置状态">4.push页面返回，保持上一次的页面位置状态</a></li>
+    <li><a href="#5路由跳转方式的选择">5.路由跳转方式的选择</a></li>
+    <li><a href="#6页面初始化时拿到context">6.页面初始化时拿到context</a></li>
+    <li><a href="#7键盘弹出时将布局打乱或者说将元素顶起来了">7.键盘弹出时将布局打乱，或者说将元素顶起来了</a></li>
+    <li><a href="#8无法设置虚线边框">8.无法设置虚线边框</a></li>
+    <li><a href="#9使用dio时设置相应数据的媒体类型">9.使用Dio时，设置相应数据的媒体类型</a></li>
+    <li><a href="#10build配置">10.build配置</a>
+      <ul>
+        <li><a href="#1安卓的sha1码获取方式">1.安卓的SHA1码获取方式</a></li>
+        <li><a href="#2安卓打包release配置">2.安卓打包<code>release</code>配置</a></li>
+        <li><a href="#3ios调试打包注意事项">3.iOS调试打包注意事项</a></li>
+      </ul>
+    </li>
+    <li><a href="#11总结">11.总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1安卓开发环境的基本配置">1.安卓开发环境的基本配置</h1>
+<p>首先修改你创建的项目中的<code>/android/build.gradle</code>文件，修改<code>buildscript</code>以及<code>allprojects</code>的仓库地址，否则编译打包会卡住不动，其次就是<code>package get</code>会卡住，原因是因为连接不上谷歌的服务，有点蛋疼</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">buildscript</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="c1">// google()
+</span><span class="c1"></span>        <span class="c1">// jcenter()
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">allprojects</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="c1">// google()
+</span><span class="c1"></span>        <span class="c1">// jcenter()
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }
+</span><span class="c1"></span>    <span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="2signlechildscrollview页面不满一屏无法撑满全屏">2.SignleChildScrollView页面不满一屏无法撑满全屏</h1>
+<p>可以换个布局组件或者将其设置为<code>Container</code>子组件，设置<code>alignment</code>，如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="n">Container</span><span class="p">(</span>
+  <span class="nl">alignment:</span> <span class="n">Alignment</span><span class="p">.</span><span class="n">topLeft</span><span class="p">,</span>
+  <span class="nl">child:</span> <span class="n">SingleChildScrollView</span><span class="p">(),</span>
+<span class="p">),</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="3自定义appbar">3.自定义AppBar</h1>
+<p><code>AppBar</code>这个组件可拓展性还是比较低的，尤其是它的高度都是写死的，这种情况可以换<code>SliverAppBar</code>或者自定义<code>AppBar</code>，换句话说自定义组件，这里就不详诉</p>
+<h1 id="4push页面返回保持上一次的页面位置状态">4.push页面返回，保持上一次的页面位置状态</h1>
+<p>使用 <code>StatefulWidget</code> 混入 <code>AutomaticKeepAliveClientMixin</code>，覆盖<code>wantKeepAlive</code>属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">TesPage</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">createState</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">TesPageState</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">TesPageState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">TesPage</span><span class="o">&gt;</span> <span class="kd">with</span> <span class="n">AutomaticKeepAliveClientMixin</span> <span class="p">{</span>
+  
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">bool</span> <span class="kd">get</span> <span class="n">wantKeepAlive</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="5路由跳转方式的选择">5.路由跳转方式的选择</h1>
+<p>通常路由跳转会用到<code>Navigator.push</code>推入路由栈，<code>Navigator.pop</code>就移出、返回上一个的状态。如果在页面上全部用这两个方法，你会发现你的页面间的跳转仿佛乱了一样，原因就是<code>Navigator.push</code>是每次将你的路由推入栈，也就是你可以一直做返回操作、手势来获取之前的页面状态。这个时候就要考虑用其他方式，如</p>
+<p><code>pushAndRemoveUntil</code>：跳转到指定路由，删除先前的路由栈
+<code>pushNamed</code>：跳转到指定命名路由，路由栈不会删除。这种方式需要配合命名路由使用，即在入口文件<code>MaterialApp</code>配置好<code>routes</code>
+<code>pushNamedAndRemoveUntil</code>：跳转到指定路由，删除先前的路由栈
+<code>pushReplacement</code>：路由替换
+<code>pushReplacementNamed</code>：跳转到指定命名路由，并删除最后的路由</p>
+<h1 id="6页面初始化时拿到context">6.页面初始化时拿到context</h1>
+<p>有时候，可能会在页面初始化使用<code>context</code>，比如说路由相关的<code>Navigator.of(context)</code>。解决方法很简单，在<code>initState</code>方法中，<code>this</code>指向上下文，即使用<code>this.context</code>即可以保存页面初始的<code>context</code></p>
+<h1 id="7键盘弹出时将布局打乱或者说将元素顶起来了">7.键盘弹出时将布局打乱，或者说将元素顶起来了</h1>
+<p>在 <code>Scafold</code> 里设置 <code>resizeToAvoidBottomInset: false</code>，键盘会遮住布局，而不是顶起布局。</p>
+<h1 id="8无法设置虚线边框">8.无法设置虚线边框</h1>
+<p>说实话当时发现<code>Flutter</code>无法设置虚线边框的时候我是很震惊的，我感觉这算是基本的不能在基本的属性了，解决方法，参考官方<code>issues</code>中大佬的解法，目前只能自己实现<code>paint</code>方法，自己用<code>Canvas</code>画</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="k">import</span> <span class="s1">&#39;package:flutter/material.dart&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;package:path_drawing/path_drawing.dart&#39;</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">runApp</span><span class="p">(</span><span class="n">MyApp</span><span class="p">());</span>
+
+<span class="kd">class</span> <span class="nc">MyApp</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">MaterialApp</span><span class="p">(</span>
+      <span class="nl">title:</span> <span class="s1">&#39;Flutter Demo&#39;</span><span class="p">,</span>
+      <span class="nl">theme:</span> <span class="n">ThemeData</span><span class="p">(</span>
+        <span class="nl">primarySwatch:</span> <span class="n">Colors</span><span class="p">.</span><span class="n">blue</span><span class="p">,</span>
+      <span class="p">),</span>
+      <span class="nl">home:</span> <span class="n">MyHomePage</span><span class="p">(</span><span class="nl">title:</span> <span class="s1">&#39;Flutter Demo Home Page&#39;</span><span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">MyHomePage</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+  <span class="n">MyHomePage</span><span class="p">({</span><span class="n">Key</span> <span class="n">key</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">title</span><span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
+  <span class="kd">final</span> <span class="kt">String</span> <span class="n">title</span><span class="p">;</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">_MyHomePageState</span> <span class="n">createState</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">_MyHomePageState</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">_MyHomePageState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">MyHomePage</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">_counter</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="n">_incrementCounter</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+      <span class="n">_counter</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Scaffold</span><span class="p">(</span>
+      <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+        <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="n">widget</span><span class="p">.</span><span class="n">title</span><span class="p">),</span>
+      <span class="p">),</span>
+      <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
+        <span class="nl">child:</span> <span class="n">Column</span><span class="p">(</span>
+          <span class="nl">mainAxisAlignment:</span> <span class="n">MainAxisAlignment</span><span class="p">.</span><span class="n">center</span><span class="p">,</span>
+          <span class="nl">children:</span> <span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="p">[</span>
+            <span class="n">Container</span><span class="p">(</span>
+              <span class="nl">decoration:</span> <span class="n">BoxDecoration</span><span class="p">(</span>
+                <span class="nl">border:</span> <span class="n">DashPathBorder</span><span class="p">.</span><span class="n">all</span><span class="p">(</span>
+                  <span class="nl">dashArray:</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">[</span><span class="m">5.0</span><span class="p">,</span> <span class="m">2.5</span><span class="p">]),</span>
+                <span class="p">),</span>
+              <span class="p">),</span>
+              <span class="nl">padding:</span> <span class="kd">const</span> <span class="n">EdgeInsets</span><span class="p">.</span><span class="n">all</span><span class="p">(</span><span class="m">20.0</span><span class="p">),</span>
+              <span class="nl">child:</span> <span class="kd">const</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;You have pushed the button this many times:&#39;</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="n">Text</span><span class="p">(</span>
+              <span class="s1">&#39;</span><span class="si">$</span><span class="n">_counter</span><span class="s1">&#39;</span><span class="p">,</span>
+              <span class="nl">style:</span> <span class="n">Theme</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">textTheme</span><span class="p">.</span><span class="n">display1</span><span class="p">,</span>
+            <span class="p">),</span>
+          <span class="p">],</span>
+        <span class="p">),</span>
+      <span class="p">),</span>
+      <span class="nl">floatingActionButton:</span> <span class="n">FloatingActionButton</span><span class="p">(</span>
+        <span class="nl">onPressed:</span> <span class="n">_incrementCounter</span><span class="p">,</span>
+        <span class="nl">tooltip:</span> <span class="s1">&#39;Increment&#39;</span><span class="p">,</span>
+        <span class="nl">child:</span> <span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="n">add</span><span class="p">),</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">DashPathBorder</span> <span class="kd">extends</span> <span class="n">Border</span> <span class="p">{</span>
+  <span class="n">DashPathBorder</span><span class="p">({</span>
+    <span class="err">@</span><span class="n">required</span> <span class="k">this</span><span class="p">.</span><span class="n">dashArray</span><span class="p">,</span>
+    <span class="n">BorderSide</span> <span class="n">top</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
+    <span class="n">BorderSide</span> <span class="n">left</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
+    <span class="n">BorderSide</span> <span class="n">right</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
+    <span class="n">BorderSide</span> <span class="n">bottom</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
+  <span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span>
+          <span class="nl">top:</span> <span class="n">top</span><span class="p">,</span>
+          <span class="nl">left:</span> <span class="n">left</span><span class="p">,</span>
+          <span class="nl">right:</span> <span class="n">right</span><span class="p">,</span>
+          <span class="nl">bottom:</span> <span class="n">bottom</span><span class="p">,</span>
+        <span class="p">);</span>
+
+  <span class="kd">factory</span> <span class="n">DashPathBorder</span><span class="p">.</span><span class="n">all</span><span class="p">({</span>
+    <span class="n">BorderSide</span> <span class="n">borderSide</span> <span class="o">=</span> <span class="kd">const</span> <span class="n">BorderSide</span><span class="p">(),</span>
+    <span class="err">@</span><span class="n">required</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">dashArray</span><span class="p">,</span>
+  <span class="p">})</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">DashPathBorder</span><span class="p">(</span>
+      <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">,</span>
+      <span class="nl">top:</span> <span class="n">borderSide</span><span class="p">,</span>
+      <span class="nl">right:</span> <span class="n">borderSide</span><span class="p">,</span>
+      <span class="nl">left:</span> <span class="n">borderSide</span><span class="p">,</span>
+      <span class="nl">bottom:</span> <span class="n">borderSide</span><span class="p">,</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kd">final</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">dashArray</span><span class="p">;</span>
+
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">void</span> <span class="n">paint</span><span class="p">(</span>
+    <span class="n">Canvas</span> <span class="n">canvas</span><span class="p">,</span>
+    <span class="n">Rect</span> <span class="n">rect</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">TextDirection</span> <span class="n">textDirection</span><span class="p">,</span>
+    <span class="n">BoxShape</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">BoxShape</span><span class="p">.</span><span class="n">rectangle</span><span class="p">,</span>
+    <span class="n">BorderRadius</span> <span class="n">borderRadius</span><span class="p">,</span>
+  <span class="p">})</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">isUniform</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">switch</span> <span class="p">(</span><span class="n">top</span><span class="p">.</span><span class="n">style</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="nl">none:</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="nl">solid:</span>
+          <span class="k">switch</span> <span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="n">BoxShape</span><span class="p">.</span><span class="nl">circle:</span>
+              <span class="k">assert</span><span class="p">(</span><span class="n">borderRadius</span> <span class="o">==</span> <span class="kc">null</span><span class="p">,</span>
+                  <span class="s1">&#39;A borderRadius can only be given for rectangular boxes.&#39;</span><span class="p">);</span>
+              <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
+                <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addOval</span><span class="p">(</span><span class="n">rect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
+                <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
+              <span class="p">);</span>
+              <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">BoxShape</span><span class="p">.</span><span class="nl">rectangle:</span>
+              <span class="k">if</span> <span class="p">(</span><span class="n">borderRadius</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">final</span> <span class="n">RRect</span> <span class="n">rrect</span> <span class="o">=</span>
+                    <span class="n">RRect</span><span class="p">.</span><span class="n">fromRectAndRadius</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">borderRadius</span><span class="p">.</span><span class="n">topLeft</span><span class="p">);</span>
+                <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
+                  <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addRRect</span><span class="p">(</span><span class="n">rrect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
+                  <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
+                <span class="p">);</span>
+                <span class="k">return</span><span class="p">;</span>
+              <span class="p">}</span>
+              <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
+                <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addRect</span><span class="p">(</span><span class="n">rect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
+                <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
+              <span class="p">);</span>
+
+              <span class="k">break</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">assert</span><span class="p">(</span><span class="n">borderRadius</span> <span class="o">==</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s1">&#39;A borderRadius can only be given for uniform borders.&#39;</span><span class="p">);</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">shape</span> <span class="o">==</span> <span class="n">BoxShape</span><span class="p">.</span><span class="n">rectangle</span><span class="p">,</span>
+        <span class="s1">&#39;A border can only be drawn as a circle if it is uniform.&#39;</span><span class="p">);</span>
+
+    <span class="c1">// TODO(dnfield): implement when borders are not uniform.
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="9使用dio时设置相应数据的媒体类型">9.使用Dio时，设置相应数据的媒体类型</h1>
+<p>使用<code>Dio</code>封装网络请求，普通的请求最好设置相应类型<code>dio.options.responseType = ResponseType.json</code>，否则可能接收到的响应可能是字符串。</p>
+<h1 id="10build配置">10.build配置</h1>
+<h2 id="1安卓的sha1码获取方式">1.安卓的SHA1码获取方式</h2>
+<p>很多第三方应用都需要用到安卓的SHA1码，在<code>Flutter</code>应用中，首先用<code>Andriod Studio</code>打开项目，随意选择一个文件，点击右上角<code>Open for Editing in Android Studio</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/12/05/KrYUhiXpHu3cLBs.png"
+        data-srcset="https://i.loli.net/2020/12/05/KrYUhiXpHu3cLBs.png, https://i.loli.net/2020/12/05/KrYUhiXpHu3cLBs.png 1.5x, https://i.loli.net/2020/12/05/KrYUhiXpHu3cLBs.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/12/05/KrYUhiXpHu3cLBs.png"
+        title="1.png" /></p>
+<p>打开<code>Terminal</code>，输入<code>gradlew signingReport</code>，mac环境需要指定当前目录</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/12/05/BxEfHGOAtQcLSn7.png"
+        data-srcset="https://i.loli.net/2020/12/05/BxEfHGOAtQcLSn7.png, https://i.loli.net/2020/12/05/BxEfHGOAtQcLSn7.png 1.5x, https://i.loli.net/2020/12/05/BxEfHGOAtQcLSn7.png 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/12/05/BxEfHGOAtQcLSn7.png"
+        title="2.png" /></p>
+<p>最后控制台会打印出应用的各种签名信息，复制<code>SHA1</code>码即可</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg"
+        data-srcset="https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg, https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg 1.5x, https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/12/05/6cKCEUzuBRS5Ohw.jpg"
+        title="3.jpg" /></p>
+<h2 id="2安卓打包release配置">2.安卓打包<code>release</code>配置</h2>
+<p>首先打开<code>/android/build.gradle</code>文件，在<code>buildscript</code>中指定<code>kotlin_version</code>，否则<code>debug</code>、<code>release</code>编译会不通过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">buildscript</span> <span class="o">{</span>
+    <span class="n">ext</span><span class="o">.</span><span class="na">kotlin_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">1</span><span class="o">.</span><span class="na">3</span><span class="o">.</span><span class="na">50</span><span class="err">&#39;</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="c1">// google()
+</span><span class="c1"></span>        <span class="c1">// jcenter()
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }
+</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="n">classpath</span> <span class="err">&#39;</span><span class="n">com</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">tools</span><span class="o">.</span><span class="na">build</span><span class="o">:</span><span class="n">gradle</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">5</span><span class="o">.</span><span class="na">0</span><span class="err">&#39;</span>
+        <span class="n">classpath</span> <span class="s">&#34;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&#34;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后生成<code>key</code>，同样打开<code>Andriod Studio</code>，打开<code>Terminal</code>，输入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">keytool</span> <span class="o">-</span><span class="n">genkey</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">keystore</span> <span class="o">~/</span><span class="n">key</span><span class="o">.</span><span class="na">jks</span> <span class="o">-</span><span class="n">keyalg</span> <span class="n">RSA</span> <span class="o">-</span><span class="n">keysize</span> <span class="n">2048</span> <span class="o">-</span><span class="n">validity</span> <span class="n">10000</span> <span class="o">-</span><span class="n">alias</span> <span class="n">key</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成过程中会让你输入存储密码和文件密码，生成完<code>key</code>后记住文件地址</p>
+<p>然后在在<code>android</code>目录中创建一个文件，文件名为：<code>key.properties</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/12/05/MuVAtUaI3TojQi6.jpg"
+        data-srcset="https://i.loli.net/2020/12/05/MuVAtUaI3TojQi6.jpg, https://i.loli.net/2020/12/05/MuVAtUaI3TojQi6.jpg 1.5x, https://i.loli.net/2020/12/05/MuVAtUaI3TojQi6.jpg 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/12/05/MuVAtUaI3TojQi6.jpg"
+        title="05D6800C-27E4-4550-A7CD-88C691BC8202.png" /></p>
+<p>添加内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">storePassword</span> <span class="o">=</span> <span class="c1">// 和生成key输入的存储密码一致
+</span><span class="c1"></span><span class="n">keyPassword</span> <span class="o">=</span> <span class="c1">// 和生成key输入的密码一致
+</span><span class="c1"></span><span class="n">keyAlias</span> <span class="o">=</span> <span class="n">key</span> <span class="c1">// 
+</span><span class="c1"></span><span class="n">storeFile</span> <span class="o">=</span> <span class="c1">// key文件的存储路径
+</span></code></pre></td></tr></table>
+</div>
+</div><p>找到<code>android/app/build.gradle</code>文件，添加签名配置<code>singingConfig</code>以及打包配置<code>buildTypes</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">android</span> <span class="o">{</span>
+		<span class="o">.....</span>
+    <span class="n">signingConfigs</span> <span class="o">{</span>
+        <span class="n">release</span> <span class="o">{</span>
+            <span class="n">keyAlias</span> <span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">keyAlias</span><span class="err">&#39;</span><span class="o">]</span>
+            <span class="n">keyPassword</span> <span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">keyPassword</span><span class="err">&#39;</span><span class="o">]</span>
+            <span class="n">storeFile</span> <span class="nf">file</span><span class="o">(</span><span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">storeFile</span><span class="err">&#39;</span><span class="o">])</span>
+            <span class="n">storePassword</span> <span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">storePassword</span><span class="err">&#39;</span><span class="o">]</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="n">buildTypes</span> <span class="o">{</span>
+        <span class="n">release</span> <span class="o">{</span>
+            <span class="n">signingConfig</span> <span class="n">signingConfigs</span><span class="o">.</span><span class="na">release</span>
+            <span class="n">ndk</span> <span class="o">{</span>
+                <span class="n">abiFilters</span> <span class="err">&#39;</span><span class="n">armeabi</span><span class="o">-</span><span class="n">v7a</span><span class="sc">&#39;,&#39;</span><span class="n">x86</span><span class="err">&#39;</span> <span class="c1">// 指定打包平台
+</span><span class="c1"></span>            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后进入项目根目录，执行<code>flutter build apk</code>，即可以打包一个安卓apk包</p>
+<h2 id="3ios调试打包注意事项">3.iOS调试打包注意事项</h2>
+<p><code>iOS</code>模拟器调试体验比安卓好的多，但是真机调试，首先你得有个苹果ID，然后用<code>Xcode</code>打开项目，点击<code>Signing &amp; Capabilities</code>，找到<code>Team</code>设置，设置一个开发账号，可以是未付费注册的苹果ID，设置好开发者证书</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.loli.net/2020/12/05/IM1z4KEkUxPFAvl.jpg"
+        data-srcset="https://i.loli.net/2020/12/05/IM1z4KEkUxPFAvl.jpg, https://i.loli.net/2020/12/05/IM1z4KEkUxPFAvl.jpg 1.5x, https://i.loli.net/2020/12/05/IM1z4KEkUxPFAvl.jpg 2x"
+        data-sizes="auto"
+        alt="https://i.loli.net/2020/12/05/IM1z4KEkUxPFAvl.jpg"
+        title="4.png" /></p>
+<p>然后<code>flutter run</code>的时候，选择一个真机设备，即可在真机上调试<code>app</code>了，但是未付费注册的苹果ID证书有效期只有七天，七天后你手机上的<code>app</code>就不可用了。</p>
+<p>未付费注册的账号也无法打包上传<code>App Store</code>，不过配置完了开发团队、账号后、开发证书后，可以直接<code>flutter build ios</code>，这样会生成一个文件。这时候创建一个名为<code>Payload</code>的文件夹，将打包生成的文件放进去、压缩，然后将压缩文件后缀改为<code>ipa</code>，即可以生成一个<code>ipa</code>文件了。然后借助第三方工具，如<code>itunes(貌似已经不能用)、xxx助手</code>即可将这个文件安装在终端上运行。</p>
+<h1 id="11总结">11.总结</h1>
+<p>断断续续做这个小项目已经有几个月了，因为平常很忙，所以拖了这么久。<code>Flutter</code>给我的感觉优点就是流程、动画较为细腻，相对于其它跨平台方案，使用<code>JsBrigde</code>与<code>native</code>端通信，有较大的优势，毕竟它是自己的引擎绘制的页面。但是它的官方组件太少，自定义组件所需精力较多(可能是我不熟悉)，<code>iOS</code>风格组件虽然样式和原生的差不多，但具体效果还是有差距。这种跨平台框架终于还是得要和原生开发人员一起操作才玩的溜。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-12-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" class="prev" rel="prev" title="Flutter自定义组件"><i class="fas fa-angle-left fa-fw"></i>Flutter自定义组件</a>
+            <a href="/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" class="next" rel="next" title="React调度过程">React调度过程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">长风</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
