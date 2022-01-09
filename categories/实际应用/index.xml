@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>实际应用 - 分类 - 长风の博客</title>
+        <title>实际应用 - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
-        <description>实际应用 - 分类 - 长风の博客</description>
+        <description>实际应用 - 分类 - 早起的老年人の博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 30 Dec 2021 14:13:30 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
     <title>使用Vite去构建React应用</title>
     <link>https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</link>
