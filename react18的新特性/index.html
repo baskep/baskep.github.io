@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>React18的新特性 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="React18的新特性" />
+<meta property="og:description" content="1.自动批处理 批处理是指React将多个状态更新分组到一个重新渲染中，以获得更好的性能。如果没有自动批处理，我们只对React事件处理程序内" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" />
+<meta property="og:image" content="https://baskep.com/logo.png"/>
+<meta property="article:published_time" content="2022-04-13T23:00:36+08:00" />
+<meta property="article:modified_time" content="2022-04-13T23:00:36+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+
+<meta name="twitter:title" content="React18的新特性"/>
+<meta name="twitter:description" content="1.自动批处理 批处理是指React将多个状态更新分组到一个重新渲染中，以获得更好的性能。如果没有自动批处理，我们只对React事件处理程序内"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" /><link rel="prev" href="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "React18的新特性",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.com\/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7\/"
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3998 ,
+        "url": "https:\/\/baskep.com\/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7\/","datePublished": "2022-04-13T23:00:36+08:00","dateModified": "2022-04-13T23:00:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">React18的新特性</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-13">2022-04-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3998 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1自动批处理">1.自动批处理</a></li>
+    <li><a href="#2transitions">2.Transitions</a></li>
+    <li><a href="#3新的ssr-suspense功能">3.新的SSR Suspense功能</a></li>
+    <li><a href="#4reactdom-api">4.ReactDOM API</a>
+      <ul>
+        <li><a href="#41客户端">4.1.客户端</a>
+          <ul>
+            <li><a href="#411createroot">4.1.1.createRoot</a></li>
+            <li><a href="#412hydrateroot">4.1.2.hydrateRoot</a></li>
+          </ul>
+        </li>
+        <li><a href="#42服务端">4.2.服务端</a>
+          <ul>
+            <li><a href="#421rendertopipeablestream">4.2.1.renderToPipeableStream</a></li>
+            <li><a href="#422rendertoreadablestream">4.2.2.renderToReadableStream</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#5新的hooks">5.新的Hooks</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#51useid">5.1.useId</a></li>
+            <li><a href="#52usetransition">5.2.useTransition</a></li>
+            <li><a href="#53usedeferredvalue">5.3.useDeferredValue</a></li>
+            <li><a href="#54usesyncexternalstore">5.4.useSyncExternalStore</a></li>
+            <li><a href="#55useinsertioneffect">5.5.useInsertionEffect</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#6react-dom废弃的api">6.react-dom废弃的api</a></li>
+    <li><a href="#7参考链接">7.参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1自动批处理">1.自动批处理</h1>
+<p>批处理是指React将多个状态更新分组到一个重新渲染中，以获得更好的性能。如果没有自动批处理，我们只对React事件处理程序内的更新进行批处理，默认情况下，React不会对 promises 、setTimeout、native、event handlers 或任何其他事件中的更新进行批处理，有了自动批处理，这些更新将被自动批处理</p>
+<p>React18之前：只有React事件被批处理，比如我一个点击按钮，点击后事件处理程序内两次<code>set</code>操作，那么这两次<code>set</code>会被批处理，整体状态更新一次，而在<code>setTimeout</code>或者其它原生事件比如<code>onclick</code>里是没有批处理的，比如下面的例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">setCount</span><span class="p">(</span><span class="nx">c</span> <span class="p">=&gt;</span> <span class="nx">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="nx">setFlag</span><span class="p">(</span><span class="nx">f</span> <span class="p">=&gt;</span> <span class="o">!</span><span class="nx">f</span><span class="p">)</span>
+  <span class="c1">// React将渲染两次，每次状态更新一次（无批处理）
+</span><span class="c1"></span><span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>React18：在promises 、setTimeout 、native event handlers中都会被批处理，比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">setCount</span><span class="p">(</span><span class="nx">c</span> <span class="p">=&gt;</span> <span class="nx">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="nx">setFlag</span><span class="p">(</span><span class="nx">f</span> <span class="p">=&gt;</span> <span class="o">!</span><span class="nx">f</span><span class="p">)</span>
+  <span class="c1">// React最后只会重新渲染一次（批处理）
+</span><span class="c1"></span><span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>有的情况我们想跳过React自动的批处理，比如在状态更改后立即获取DOM元素中的某些数据，可以用到<code>flushSync</code>api跳过批处理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">flushSync</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-dom&#39;</span>
+
+<span class="kd">function</span> <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">flushSync</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setCounter</span><span class="p">(</span><span class="nx">c</span> <span class="p">=&gt;</span> <span class="nx">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">})</span>
+  <span class="nx">flushSync</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setFlag</span><span class="p">(</span><span class="nx">f</span> <span class="p">=&gt;</span> <span class="o">!</span><span class="nx">f</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="2transitions">2.Transitions</h1>
+<p>Transitions(过渡)是React的一个新概念，用于区分紧急和非紧急更新</p>
+<ul>
+<li><strong>紧急更新</strong>反映了直接的互动，如输入文字、点击、按压等等</li>
+<li><strong>过渡更新</strong>则是将用户界面从一个视图过渡到另一个视图</li>
+</ul>
+<p>简单来说，就是被 startTransition 回调包裹的 setState 触发的渲染 被标记为不紧急的渲染，这些渲染可能被其他紧急渲染所抢占，因为它的意思就是出于过渡阶段，过渡时可优先执行别的紧急更新</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">[</span><span class="nx">resource</span><span class="p">,</span> <span class="nx">setResource</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">initialResource</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="p">[</span><span class="nx">startTransition</span><span class="p">,</span> <span class="nx">isPending</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useTransition</span><span class="p">({</span>
+    <span class="nx">timeoutMs</span><span class="o">:</span> <span class="mi">3000</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>startTransition</code>是一个函数，使用它来告诉React需要过渡的操作</li>
+<li><code>isPending</code>是一个布尔值，React告诉我们这种转变目前是否正在进行中</li>
+</ul>
+<p><code>timeoutMs</code>的意思指定等待转换的多长时间，通过传递<code>{timeoutMs: 3000}</code>，也就是在<code>startTransition</code>里的操作最多愿意等待3s，如果超过3s，isPending状态改变，然后根据自己的需要做页面渲染</p>
+<h1 id="3新的ssr-suspense功能">3.新的SSR Suspense功能</h1>
+<p>React18前的Suspense通常会配合React.lazy 拆分代码，如果组件树的某个部分还没有准备好被显示，可以让你声明性地指定它的加载状态，比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">Suspense</span> <span class="nx">fallback</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">Loading</span> <span class="o">/&gt;</span><span class="p">}</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">Comments</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="err">/Suspense&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这相当于显示一个懒加载组件的过渡效果，而且在服务器上渲染时根本不支持</p>
+<p>在React18中，Suspense有很大的增强，它的服务端模式可以叫做SSR for Suspense，完整名称是：streaming SSR with selective hydration(流式传输HTML +
+选择性水合)，而不是renderToString 那样一次性渲染机制</p>
+<p><code>hydration</code>指的是后端内容输出到前端后，js需要将事件绑定其上，才能响应用户交互或者 DOM 更新行为，而在React18之前，这个操作必须是整体性的，而<code>hydration</code>过程可能比较慢，会引起全局的卡顿，所以<code>selective hydration</code>可以按需优先进行<code>hydration</code></p>
+<p>主要解决以下问题：</p>
+<p>1.SSR模式下，如果不同模块取数效率不同，会因为最慢的一个模块拖慢整体 HTML吞吐时间，这可能导致体验还不如非SSR来的好</p>
+<p>2.即便SSR内容打到了页面上，由于js没有加载完毕，所以根本无法进行hydration，整个页面处于无法交互状态</p>
+<p>3.即便js加载完了，由于React18之前只能进行整体hydration，可能导致卡顿，导致首次交互响应不及时</p>
+<p>在React18的SSR中：</p>
+<p>1.在server端流式传输html：使用全新的server api来搭建从server端到client的流式渲染通道，可以持续不断地向client输出已经ready的html区块，而不需要像传统SSR那样需要整体ready之后通过renderToString一次性输出</p>
+<p>2.client端进行selective hydration：将组件使用Suspense进行包裹，这样它们就不会阻塞渲染，在组件内容数据ready之前，框架将渲染通过fallback参数指定的内容</p>
+<p>总结，现在Suspense提供了一个可以选择性水合服务端渲染内容的功能，核心就是可选择性、按需性</p>
+<h1 id="4reactdom-api">4.ReactDOM API</h1>
+<h2 id="41客户端">4.1.客户端</h2>
+<h3 id="411createroot">4.1.1.createRoot</h3>
+<p>创建一个根节点来渲染或卸载，使用它代替ReactDOM.render，使用<code>createRoot</code>React18的新功能才能生效</p>
+<h3 id="412hydrateroot">4.1.2.hydrateRoot</h3>
+<p>为服务器渲染hydrate，使用它代替 ReactDOM.hydrate 与新的React DOM Server APIs一起使用，同样的，配合React18新的功能一起使用</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
+
+<span class="c1">// 旧 render API
+</span><span class="c1"></span><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="nx">tab</span><span class="o">=</span><span class="s2">&#34;home&#34;</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">container</span><span class="p">)</span>
+
+<span class="c1">// 新 createRoot API
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">createRoot</span><span class="p">(</span><span class="nx">container</span><span class="p">)</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="nx">tab</span><span class="o">=</span><span class="s2">&#34;home&#34;</span> <span class="o">/&gt;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>createRoot和hydrateRoot都接受一个新的选项，叫做<code>onRecoverableError</code> ，以便你想在React从渲染或hydrate过程中发生错误时得到通知，默认情况下，React会使用<a href="https://developer.mozilla.org/en-US/docs/Web/API/reportError" target="_blank" rel="noopener noreffer">reportError</a>，或者在旧的浏览器中使用<code>console.error</code></p>
+<h2 id="42服务端">4.2.服务端</h2>
+<h3 id="421rendertopipeablestream">4.2.1.renderToPipeableStream</h3>
+<p>运行在Node环境中的api，创建一个流式的页面，这是与之前的<code>renderToString</code>一次性渲染不同的，具体的SSR渲染写法为</p>
+<p>客户端的或者组件用<code>createRoot</code>创建根节点，也可以选择<code>hydrateRoot</code>，React会尽量的保留之前的渲染结果并且只附加事件处理程序，让我们有一个非常高性能的首次加载体验</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createRoot</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-dom/client&#39;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">createRoot</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">))</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Nodejs服务端的<code>renderToPipeableStream</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">renderToPipeableStream</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-dom/server&#39;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">handleRequest</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">renderToPipeableStream</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">onShellReady</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">200</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">&#39;Content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">)</span>
+      <span class="nx">stream</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+    <span class="p">},</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这中间还可以配合上面所说的<code>Suspense</code>做一个<code>selective hydration</code>来提升整体的渲染体验</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Suspense</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">createRoot</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-dom/client&#39;</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">section</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&#34;post&#34;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Suspense</span> <span class="nx">fallback</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">loading</span><span class="o">&lt;</span><span class="err">/div&gt;}&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+      <span class="o">&lt;</span><span class="err">/Suspense&gt;</span>
+    <span class="o">&lt;</span><span class="err">/section&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">createRoot</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">))</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="422rendertoreadablestream">4.2.2.renderToReadableStream</h3>
+<p>用于现代边缘端运行环境，如Deno和CloudFlare workers，它也支持<code>Suspense</code>以及流式HTML</p>
+<p>官方示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AbortController</span><span class="p">()</span>
+<span class="k">try</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">stream</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">renderToReadableStream</span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span><span class="nx">Success</span><span class="o">&lt;</span><span class="err">/body&gt;</span>
+    <span class="o">&lt;</span><span class="err">/html&gt;,</span>
+    <span class="p">{</span>
+      <span class="nx">signal</span><span class="o">:</span> <span class="nx">controller</span><span class="p">.</span><span class="nx">signal</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/html&#39;</span><span class="p">},</span>
+  <span class="p">})</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span>
+    <span class="s1">&#39;&lt;!doctype html&gt;&lt;p&gt;Loading...&lt;/p&gt;&lt;script src=&#34;clientrender.js&#34;&gt;&lt;/script&gt;&#39;</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="nx">status</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+      <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/html&#39;</span><span class="p">},</span>
+    <span class="p">}</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="5新的hooks">5.新的Hooks</h1>
+<h3 id="51useid">5.1.useId</h3>
+<p>可以创建一个唯一的id，在SSR的时候，为组件赋予唯一的id，避免hydrate不匹配导致冗余的渲染</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Checkbox</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">useId</span><span class="p">()</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;&gt;</span>
+      <span class="o">&lt;</span><span class="nx">label</span> <span class="nx">htmlFor</span><span class="o">=</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Do</span> <span class="nx">you</span> <span class="nx">like</span> <span class="nx">React</span><span class="o">?&lt;</span><span class="err">/label&gt;</span>
+      <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">id</span><span class="o">=</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;checkbox&#34;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;react&#34;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="err">/&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="52usetransition">5.2.useTransition</h3>
+<p>见上面<code>Transitions</code>部分，核心就是让你把一些状态更新标记为不紧急，其他状态更新在默认情况下被认为是紧急的，React 将允许紧急状态更新（例如，更新一个文本输入）打断非紧急状态更新（例如，渲染搜索结果列表）</p>
+<h3 id="53usedeferredvalue">5.3.useDeferredValue</h3>
+<p>useDeferredValue可以延迟渲染一个非紧急任务，它是可以中断的，并不会打扰比如用户输入等优先级更高的任务，它会在React在其他工作完成后立即进行更新，它是有点类似于<code>useTransition</code>，使用时可以传入一个值和一个延迟时间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">deferredText</span> <span class="o">=</span> <span class="nx">useDeferredValue</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">timeoutMs</span><span class="o">:</span> <span class="mi">5000</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>还可以配合<code>useMemo</code>来避免这些需要延迟渲染的组件在紧急更新期间重新渲染</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Typeahead</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">useSearchQuery</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">deferredQuery</span> <span class="o">=</span> <span class="nx">useDeferredValue</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+
+  <span class="kr">const</span> <span class="nx">suggestions</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="p">=&gt;</span>
+    <span class="o">&lt;</span><span class="nx">SearchSuggestions</span> <span class="nx">query</span><span class="o">=</span><span class="p">{</span><span class="nx">deferredQuery</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">deferredQuery</span><span class="p">]</span>
+  <span class="p">)</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;&gt;</span>
+      <span class="o">&lt;</span><span class="nx">SearchInput</span> <span class="nx">query</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Suspense</span> <span class="nx">fallback</span><span class="o">=</span><span class="s2">&#34;Loading results...&#34;</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">suggestions</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="err">/Suspense&gt;</span>
+    <span class="o">&lt;</span><span class="err">/&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="54usesyncexternalstore">5.4.useSyncExternalStore</h3>
+<p>这个hook并不是为普通的业务开发所准备的，它是为类似于<code>Redux</code>这些状态管理库的开发者准备的。以前我们在render的时候是一次执行，每一次的render读取的值都是固定的，下一次的render会在上一次render完成，控制权退出后执行，保证数据的准确性</p>
+<p>而现在React18引入了并发的特性，比如引用某个状态A，也许在一次render过程中，内部做了其他操作改变了状态，改变了A的状态，那么最终一次render的不同部分引入的状态A就不同，这也是官方说的<code>tearing</code></p>
+<p>比如<code>Redux</code>，它在控制状态时并非直接使用的React的API(useState)，而是自己在外部维护了一个store对象，脱离了React的管理，也就无法依靠React自动解决<code>tearing</code>问题。因此，React对外提供了这样一个API，帮助这类框架开发者(有外部store需求的)解决<code>tearing</code>问题</p>
+<p>参数：</p>
+<p><code>subscribe</code>：回调函数，用于通知react外部状态发生变更</p>
+<p><code>getSnapshot</code>：回外部状态的最新快照值</p>
+<p><code>getServerSnapshot</code>：服务端的回调函数，返回状态的最新快照</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">useSyncExternalStore</span><span class="p">(</span><span class="nx">store</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">,</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getSnapshot</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="55useinsertioneffect">5.5.useInsertionEffect</h3>
+<p>用法和useEffect相同，在DOM变更之前执行，在useLayoutEffect之前执行，不能使用ref和调度更新，在React18中很重要，因为React 在并发渲染时向浏览器让步，给它一个重新计算布局的机会</p>
+<p>按照官方的说法：useInsertionEffect应该仅限于<code>css-in-js</code>库作者，方便DOM突变的时候重新计算布局，我们用useEffect或useLayoutEffect就可以了</p>
+<p>用法很简单，传一个回调函数就行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">useInsertionEffect</span><span class="p">(</span><span class="nx">didUpdate</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="6react-dom废弃的api">6.react-dom废弃的api</h1>
+<p><code>react-dom</code>：<code>ReactDOM.render</code>被废弃。使用它会发出一个警告并且会将你的app降级以React 17的模式运行</p>
+<p><code>react-dom</code>：<code>ReactDOM.hydrate</code>被废弃。使用它会发出一个警告并且会将你的app降级以React 17的模式运行</p>
+<p><code>react-dom</code>：<code>ReactDOM.unmountComponentAtNode</code> 被废弃</p>
+<p><code>react-dom</code>：<code>ReactDOM.renderSubtreeIntoContainer</code> 被废弃</p>
+<p><code>react-dom/server</code>：<code>ReactDOMServer.renderToNodeStream</code> 被废弃</p>
+<h1 id="7参考链接">7.参考链接</h1>
+<p>1.<a href="https://reactjs.org/" target="_blank" rel="noopener noreffer">React</a></p>
+<p>2.<a href="https://juejin.cn/post/7080787526377701389/" target="_blank" rel="noopener noreffer">React 18</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" data-title="React18的新特性"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" data-title="React18的新特性"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" data-title="React18的新特性"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" data-title="React18的新特性"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" class="prev" rel="prev" title="使用Vite去构建React应用"><i class="fas fa-angle-left fa-fw"></i>使用Vite去构建React应用</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

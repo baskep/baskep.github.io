@@ -3,7 +3,14 @@
         <title>日常学习 - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
         <description>日常学习 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 13 Apr 2022 23:00:36 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>React18的新特性</title>
+    <link>https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</link>
+    <pubDate>Wed, 13 Apr 2022 23:00:36 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</guid>
+    <description><![CDATA[1.自动批处理 批处理是指React将多个状态更新分组到一个重新渲染中，以获得更好的性能。如果没有自动批处理，我们只对React事件处理程序内]]></description>
+</item><item>
     <title>计算机字符编码的介绍</title>
     <link>https://baskep.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/</link>
     <pubDate>Wed, 27 Oct 2021 23:14:01 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.com/webpack%E7%90%86%E8%A7%A3/</guid>
     <description><![CDATA[webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加]]></description>
-</item><item>
-    <title>Babel简介</title>
-    <link>https://baskep.com/babel%E7%AE%80%E4%BB%8B/</link>
-    <pubDate>Sun, 23 Aug 2020 21:32:52 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.com/babel%E7%AE%80%E4%BB%8B/</guid>
-    <description><![CDATA[1.babel 简介 Babel是现代JavaScript语法转换器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其]]></description>
 </item></channel>
 </rss>
