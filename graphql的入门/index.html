@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>GraphQL的入门 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="GraphQL的入门" />
+<meta property="og:description" content="GraphQL 既是一种用于 API 的查询语言，它对API中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/" />
+<meta property="og:image" content="https://baskep.com/logo.png"/>
+<meta property="article:published_time" content="2022-06-30T21:32:24+08:00" />
+<meta property="article:modified_time" content="2022-06-30T21:32:24+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+
+<meta name="twitter:title" content="GraphQL的入门"/>
+<meta name="twitter:description" content="GraphQL 既是一种用于 API 的查询语言，它对API中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/" /><link rel="prev" href="https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GraphQL的入门",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.com\/graphql%E7%9A%84%E5%85%A5%E9%97%A8\/"
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5226 ,
+        "url": "https:\/\/baskep.com\/graphql%E7%9A%84%E5%85%A5%E9%97%A8\/","datePublished": "2022-06-30T21:32:24+08:00","dateModified": "2022-06-30T21:32:24+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">GraphQL的入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-30">2022-06-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5226 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1最基本的查询">1.最基本的查询</a></li>
+    <li><a href="#2查询和变更">2.查询和变更</a>
+      <ul>
+        <li><a href="#21字段">2.1.字段</a></li>
+        <li><a href="#22别名">2.2.别名</a></li>
+        <li><a href="#23变量">2.3.变量</a></li>
+        <li><a href="#24指令">2.4.指令</a></li>
+        <li><a href="#25操作类型">2.5.操作类型</a>
+          <ul>
+            <li><a href="#251query">2.5.1.query</a></li>
+            <li><a href="#252mutation">2.5.2.mutation</a></li>
+            <li><a href="#253substription">2.5.3.substription</a></li>
+          </ul>
+        </li>
+        <li><a href="#26schema和类型">2.6.Schema和类型</a>
+          <ul>
+            <li><a href="#261对象类型">2.6.1.对象类型</a></li>
+            <li><a href="#262标量类型">2.6.2.标量类型</a></li>
+            <li><a href="#263枚举">2.6.3.枚举</a></li>
+            <li><a href="#264列表和非空">2.6.4.列表和非空</a></li>
+            <li><a href="#265联合类型">2.6.5.联合类型</a></li>
+            <li><a href="#267interface接口">2.6.7.interface(接口)</a></li>
+            <li><a href="#268-input类型">2.6.8. input类型</a></li>
+            <li><a href="#269resolver">2.6.9.resolver</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3实战测试">3.实战测试</a>
+      <ul>
+        <li><a href="#31入口appjs">3.1.入口app.js</a></li>
+        <li><a href="#32mongodb连接配置">3.2.mongodb连接配置</a></li>
+        <li><a href="#33mongodb-schema的定义">3.3.mongodb schema的定义</a></li>
+        <li><a href="#34mongodb连接文件">3.4.mongodb连接文件</a></li>
+        <li><a href="#35graphql-schema定义">3.5.Graphql schema定义</a></li>
+      </ul>
+    </li>
+    <li><a href="#4n--1-query的问题">4.n + 1 query的问题</a></li>
+    <li><a href="#5参考链接">5.参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>GraphQL 既是一种用于 API 的查询语言，它对API中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。它没有和任何特定数据库或者存储引擎绑定，而是依靠你现有的代码和数据支撑</p>
+</blockquote>
+<p>换言之，GraphQL 服务是通过定义类型和类型上的字段来创建的，然后给每个类型上的每个字段提供解析函数，当我们在客户端发送相应请求时，通过我们写的解析函数，GraphQL能返回我们想要的字段</p>
+<p>在开发中也许有这样的痛点，当某个需求改变时，后端因为各种原因不需要变动接口，把工作全部扔给前端，由前端去从各种字段里面筛选组合想要的字段，这是很烦的</p>
+<p>同样的，在一些产品链复杂的场景，后端需要提供对应 WebApp、WebPC、APP、小程序、快应用等各端 API，此时 API 的粒度大小就显得格外重要，粗粒度会导致移动端不必要的流量损耗，细粒度则会造成函数爆炸 (Function Explosion)，在此情景下 Facebook 的工程师于 2015 年开源了GraphQL 规范，让前端自己描述自己希望的数据形式，服务端则返回前端所描述的数据结构</p>
+<p>当然，它的本质就是通过定义查询的类型、写解析函数、响应对应字段， 这和Nodejs做BFF筛选过滤的作用其实是有点类似的，GraphQL也不是没有缺点，这个后面再说</p>
+<h1 id="1最基本的查询">1.最基本的查询</h1>
+<p>首先定义查询的字段类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">type Query {
+  me: User
+}
+ 
+type User {
+  id: ID
+  name: String
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>上面先是定义了一个<code>User</code>的类型；再定义了一个<code>Query</code>，代表可以返回类型为<code>User</code>、字段名为<code>me</code>这样一个类型</p>
+<p>一旦一个 GraphQL 服务运行起来（通常在 web 服务的一个 URL 上），它就能接收 GraphQL 查询，并验证和执行，接收到的查询首先会被检查确保它只引用了已定义的类型和字段，然后运行指定的解析函数来生成结果</p>
+<p>当执行这样一个查询时</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+  me {
+    name
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>意思就是查询<code>me</code>下面的<code>name</code>字段，而<code>me</code>的类型就是<code>User</code>，里面是包含<code>name</code>字段的</p>
+<p>响应的结果为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+  &#34;me&#34;: {
+    &#34;name&#34;: &#34;Luke Skywalker&#34;
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="2查询和变更">2.查询和变更</h1>
+<h2 id="21字段">2.1.字段</h2>
+<p>字段就是客户端调用所返回的，在定义查询的时候，可以嵌套有多层选择</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+  hero {
+    name
+    # 查询可以有备注！
+    friends {
+      name
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>当然也可以带上参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+  human(id: &#34;1000&#34;) {
+    name
+    height
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="22别名">2.2.别名</h2>
+<p>比如我要根据参数的不同，分别查不同的数据，如果都是定义为<code>human</code>，那么字段就会起冲突，这个时候就要取别名了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+  people: human(id: &#34;1000&#34;) {
+    name
+    height
+  }
+  human: human(id: &#34;2000&#34;) {
+    name
+    height
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的<code>people</code>以及<code>human</code>就是别名</p>
+<h2 id="23变量">2.3.变量</h2>
+<blockquote>
+<p>在很多应用中，字段的参数可能是动态的：例如，可能是一个&quot;下拉菜单&quot;让你选择感兴趣的《星球大战》续集，或者是一个搜索区，或者是一组过滤器</p>
+<p>将这些动态参数直接传进查询字符串并不是好主意，因为这样我们的客户端就得动态地在运行时操作这些查询字符串了，再把它序列化成 GraphQL 专用的格式。其实，GraphQL 拥有一级方法将动态值提取到查询之外，然后作为分离的字典传进去。这些动态值即称为<strong>变量</strong></p>
+</blockquote>
+<p>变量前缀必须为 <code>$</code>，后跟其类型，变量的使用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># { &#34;graphiql&#34;: true, &#34;variables&#34;: { &#34;episode&#34;: JEDI } }
+query HeroNameAndFriends($episode: Episode) {
+  hero(episode: $episode) {
+    name
+    friends {
+      name
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p><code>hero(episode: $episode)</code>代表这次查询需要传入参数，参数名为<code>episode</code>，<code>$episode</code>为参数值，上面的<code>($episode: Episode)</code>其实是对参数值的约束，代表它必须为<code>Episode</code>类型</p>
+<p>在查询中的类型定义后面附带默认值的方式，将默认值赋给变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">query HeroNameAndFriends($episode: Episode = &#34;JEDI&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="24指令">2.4.指令</h2>
+<p>GraphQL的指令可以附着在字段或者片段包含的字段上，然后以任何服务端期待的方式来改变查询的执行，GraphQL 的核心规范包含两个指令，其必须被任何规范兼容的 GraphQL 服务器实现所支持</p>
+<ul>
+<li><code>@include(if: Boolean)</code> 仅在参数为 <code>true</code> 时，包含此字段</li>
+<li><code>@skip(if: Boolean)</code> 如果参数为 <code>true</code>，跳过此字段</li>
+</ul>
+<p>指令在你不得不通过字符串操作来增减查询的字段时解救你。服务端实现也可以定义新的指令来添加新的特性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">query Hero($episode: Episode, $withFriends: Boolean!) {
+  hero(episode: $episode) {
+    name
+    friends @include(if: $withFriends) {
+      name
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="25操作类型">2.5.操作类型</h2>
+<blockquote>
+<p><strong>操作类型</strong>可以是 <em>query</em>、<em>mutation</em> 或 <em>subscription</em>，描述你打算做什么类型的操作。操作类型是必需的，除非你使用查询简写语法，在这种情况下，你无法为操作提供名称或变量定义</p>
+</blockquote>
+<h3 id="251query">2.5.1.query</h3>
+<p>也就是基本的获取数据，查询</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">query {
+  user {
+    id
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="252mutation">2.5.2.mutation</h3>
+<p>一般用作数据变更、修改数据。一般来讲，用于变更数据的<code>mutation</code>建议不要使用<code>get</code>请求，而是使用<code>post</code>，使用post发起的http请求如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mutation ($id: Int!) {
+  upvotePost(postId: $id) {
+    id
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>当用axios发起一个post请求，传入数据为<code>id=1</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">axios({
+  method: &#39;post&#39;,
+  url: &#39;/graphql&#39;,
+  data: {id : 1},
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>请求主体JSON数据为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+  &#34;query&#34;: &#34;mutation ($id: Int!) { upvotePost(postId: $id) { id } } &#34;, 
+  &#34;variables&#34;: { &#34;id&#34;: 1 } 
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>如查询一样，如果任何变更字段返回一个对象类型，也能请求其嵌套字段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mutation CreateReviewForEpisode($ep: Episode!, $review: ReviewInput!) {
+  createReview(episode: $ep, review: $review) {
+    stars
+    commentary
+  }
+}
+
+// response
+{
+  &#34;data&#34;: {
+    &#34;createReview&#34;: {
+      &#34;stars&#34;: 5,
+      &#34;commentary&#34;: &#34;This is a great movie!&#34;
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>查询和变更之间名称之外的一个重要区别是：<code>查询字段时，是并行执行，而变更字段时，是线性执行，一个接着一个</code></p>
+<h3 id="253substription">2.5.3.substription</h3>
+<p>订阅，当数据发生更改时进行通知</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">subscription subscription {
+  author {
+  	id
+  	login
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="26schema和类型">2.6.Schema和类型</h2>
+<p><code>graphql</code>里的schema和<code>mongoose</code>里的schema是有些类似的，它定义了字段的类型、数据的结构，描述了接口数据请求的规则，一般这样表示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">type Character {
+  name: String!
+  appearsIn: [Episode!]!
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>它的类型也是分为好几种</p>
+<h3 id="261对象类型">2.6.1.对象类型</h3>
+<ul>
+<li><code>Character</code> 是一个 <strong>GraphQL 对象类型</strong>，表示其是一个拥有一些字段的类型。你的 schema 中的大多数类型都会是对象类型</li>
+<li><code>name</code> 和 <code>appearsIn</code> 是 <code>Character</code> 类型上的<strong>字段</strong>。这意味着在一个操作 <code>Character</code> 类型的 GraphQL 查询中的任何部分，都只能出现 <code>name</code> 和 <code>appearsIn</code> 字段</li>
+<li><code>String</code> 是内置的<strong>标量</strong>类型之一 —— 标量类型是解析到单个标量对象的类型，无法在查询中对它进行次级选择。后面我们将细述标量类型</li>
+<li><code>String!</code> 表示这个字段是<strong>非空的</strong>，GraphQL 服务保证当你查询这个字段后总会给你返回一个值。在类型语言里面，我们用一个感叹号来表示这个特性</li>
+<li><code>[Episode!]!</code> 表示一个 <code>Episode</code> <strong>数组</strong>。因为它也是<strong>非空的</strong>，所以当你查询 <code>appearsIn</code> 字段的时候，你也总能得到一个数组（零个或者多个元素），且由于 <code>Episode!</code> 也是<strong>非空的</strong>，你总是可以预期到数组中的每个项目都是一个 <code>Episode</code> 对象</li>
+</ul>
+<h3 id="262标量类型">2.6.2.标量类型</h3>
+<ul>
+<li><code>Int</code>：有符号 32 位整数</li>
+<li><code>Float</code>：有符号双精度浮点值</li>
+<li><code>String</code>：UTF‐8 字符序列</li>
+<li><code>Boolean</code>：<code>true</code> 或者 <code>false</code></li>
+<li><code>ID</code>：ID 标量类型表示一个唯一标识符，通常用以重新获取对象或者作为缓存中的键。ID 类型使用和 String 一样的方式序列化；然而将其定义为 ID 意味着并不需要人类可读型</li>
+</ul>
+<h3 id="263枚举">2.6.3.枚举</h3>
+<p>枚举类型用<code>enum</code>关键词定义，然后定义schema的类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">enum CompanyType {
+   GOOGLE
+   GITHUB
+   OUTLOOK
+}
+
+type Episode {
+	company: CompanyType
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="264列表和非空">2.6.4.列表和非空</h3>
+<p>非空指的是在某个字段的类型名后面添加一个感叹号<code>!</code>将其标注为非空，如果服务端讲这个字段设置为空值，那graphql则会返回一个错误，对于数组或者说列表，使用会稍微灵活一点</p>
+<p>基本用法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">type Character {
+  name: String!
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>结合数组：</p>
+<p>首先是每个成员本身不能为空的情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">myField: [String!]
+
+// 这表示数组本身可以为空，但是其不能有任何空值成员
+myField: null // 有效
+myField: [] // 有效
+myField: [&#39;a&#39;, &#39;b&#39;] // 有效
+myField: [&#39;a&#39;, null, &#39;b&#39;] // 错误
+</code></pre></td></tr></table>
+</div>
+</div><p>还有数组不能为空的情况，这代表数组可以有空选项，但必须有成员</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">myField: [String]!
+
+myField: null // 错误
+myField: [] // 有效
+myField: [&#39;a&#39;, &#39;b&#39;] // 有效
+myField: [&#39;a&#39;, null, &#39;b&#39;] // 有效
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="265联合类型">2.6.5.联合类型</h3>
+<p>用<code>union</code>关键字去定义一个联合类型，联合类型的成员需要是具体对象类型；你不能使用接口或者其他联合类型来创造一个联合类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">union SearchResult = Human | Droid | Starship
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+  search(text: &#34;an&#34;) {
+    ... on Human {
+      name
+      height
+    }
+    ... on Droid {
+      name
+      primaryFunction
+    }
+    ... on Starship {
+      name
+      length
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>查询联合类型的对象时，除了没有公共字段外，其他与接口类型的查询一致，也是使用<code>... on</code>语法来查询</p>
+<h3 id="267interface接口">2.6.7.interface(接口)</h3>
+<p>一个<strong>接口</strong>是一个抽象类型，它包含某些字段，而对象类型必须包含这些字段，才能算实现了这个接口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">interface Character {
+  id: ID!
+  name: String!
+  friends: [Character]
+  appearsIn: [Episode]!
+}
+
+// 实现Character接口要包含其所有属性
+type Human implements Character {
+  id: ID!
+  name: String!
+  friends: [Character]
+  appearsIn: [Episode]!
+  starships: [Starship]
+  totalCredits: Int
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="268-input类型">2.6.8. input类型</h3>
+<p>输入类型看上去和常规对象一模一样，除了关键字是 <code>input</code> 而不是 <code>type</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">input ReviewInput {
+  stars: Int!
+  commentary: String
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>input通常定义那种很复杂的对象，用于在<code>mutation</code>中的操作</p>
+<h3 id="269resolver">2.6.9.resolver</h3>
+<p>当接收到<code>query</code>、<code>mutation</code>之后，我们可以写同名的Resolver来解析或者处理数据，增强了Graphql筛选数据、处理数据的能力</p>
+<p>一个</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 定义一个query
+</span><span class="c1"></span><span class="nx">query</span> <span class="p">{</span>
+  <span class="nx">hello</span>
+<span class="p">}</span>
+
+<span class="c1">// 同名的Resolver
+</span><span class="c1"></span><span class="nx">Query</span> <span class="p">{</span>
+  <span class="nx">hello</span><span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>解析函数接受四个参数，分别为</p>
+<ol>
+<li><code>parent</code>：当前上一个解析函数的返回值</li>
+<li><code>args</code>：查询中传入的参数</li>
+<li><code>context</code>：提供给所有解析器的上下文信息</li>
+<li><code>info</code>：一个保存与当前查询相关的字段特定信息以及 schema 详细信息的值</li>
+</ol>
+<p>解析函数的返回值可以是一个具体的值，也可以是 Promise 或 Promise 数组。</p>
+<h1 id="3实战测试">3.实战测试</h1>
+<p>GraphQL 现在也有很多社区提供的库，可以快速的整合使用，比如<a href="https://github.com/glennreyes/graphpack" target="_blank" rel="noopener noreffer">graphpack</a>，但是很遗憾，这个库已经很久没维护了，这里使用<code>nodejs + mongoDB + koa + apollo-server-koa</code>搭建一个基本的GraphQL服务，[apollo-server][https://github.com/apollographql/apollo-server]是一个GraphQL集成服务，可以支持<code>Express</code>、<code>Koa</code></p>
+<h2 id="31入口appjs">3.1.入口app.js</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">Koa</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;koa&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">KoaStatic</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;koa-static&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">Router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;koa-router&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">bodyParser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;koa-bodyparser&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">ApolloServer</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;apollo-server-koa&#39;</span><span class="p">)</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./mongodb&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">routerMap</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./router&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">typeDefs</span><span class="p">,</span> <span class="nx">resolvers</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./graphql/schema&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Koa</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">apollo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ApolloServer</span><span class="p">({</span> <span class="nx">typeDefs</span><span class="p">,</span> <span class="nx">resolvers</span> <span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">())</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">KoaStatic</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/static&#39;</span><span class="p">))</span>
+<span class="c1">// 路由配置
+</span><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">routerMap</span><span class="p">.</span><span class="nx">routes</span><span class="p">())</span>
+<span class="c1">// 使用路由
+</span><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">.</span><span class="nx">routes</span><span class="p">())</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">.</span><span class="nx">allowedMethods</span><span class="p">())</span>
+<span class="c1">// 使用apollo
+</span><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">apollo</span><span class="p">.</span><span class="nx">getMiddleware</span><span class="p">())</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;🚀 GraphQL-demo server listen at http://localhost:4000\n&#39;</span><span class="p">)</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`🚀 Server ready at http://localhost:4000</span><span class="si">${</span><span class="nx">apollo</span><span class="p">.</span><span class="nx">graphqlPath</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+<span class="p">})</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="32mongodb连接配置">3.2.mongodb连接配置</h2>
+<p>由于是在本地测试，所以在写mongodb连接的地址记得带上admin权限，比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">dbPath</span><span class="o">:</span> <span class="s1">&#39;mongodb://root:root@localhost:27017/graphql?authSource=admin&#39;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="33mongodb-schema的定义">3.3.mongodb schema的定义</h2>
+<p>也就是定义mongodb里的数据结构，这里的示例代码定义了三个schema</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// student
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">Schema</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span>
+<span class="kr">const</span> <span class="nx">ObjectId</span> <span class="o">=</span> <span class="nx">Schema</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span>
+
+<span class="kr">const</span> <span class="nx">StudentSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="nx">sex</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="nx">age</span><span class="o">:</span> <span class="nb">Number</span><span class="p">,</span>
+  <span class="nx">meta</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">createdAt</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="nb">Date</span><span class="p">,</span>
+      <span class="k">default</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="nx">updatedAt</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="nb">Date</span><span class="p">,</span>
+      <span class="k">default</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="nx">StudentSchema</span><span class="p">.</span><span class="nx">pre</span><span class="p">(</span><span class="s1">&#39;save&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isNew</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">createdAt</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">updatedAt</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">updatedAt</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+  <span class="p">}</span>
+  <span class="nx">next</span><span class="p">()</span>
+<span class="p">})</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">&#39;Student&#39;</span><span class="p">,</span> <span class="nx">StudentSchema</span><span class="p">)</span>
+
+
+
+<span class="c1">// course
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">Schema</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span>
+<span class="kr">const</span> <span class="nx">ObjectId</span> <span class="o">=</span> <span class="nx">Schema</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span>
+
+<span class="kr">const</span> <span class="nx">CourseSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">({</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="nx">desc</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="nx">page</span><span class="o">:</span> <span class="nb">Number</span><span class="p">,</span>
+  <span class="nx">author</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="nx">meta</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">createdAt</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="nb">Date</span><span class="p">,</span>
+      <span class="k">default</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="nx">updatedAt</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="nb">Date</span><span class="p">,</span>
+      <span class="k">default</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="nx">CourseSchema</span><span class="p">.</span><span class="nx">pre</span><span class="p">(</span><span class="s1">&#39;save&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isNew</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">createdAt</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">updatedAt</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">updatedAt</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="nx">next</span><span class="p">()</span>
+<span class="p">})</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">&#39;Course&#39;</span><span class="p">,</span> <span class="nx">CourseSchema</span><span class="p">)</span>
+
+
+
+<span class="c1">// info
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">Schema</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span>
+<span class="kr">const</span> <span class="nx">ObjectId</span> <span class="o">=</span> <span class="nx">Schema</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span>
+
+<span class="c1">// 学生附加信息
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">InfoSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">({</span>
+  <span class="nx">hobby</span><span class="o">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">],</span>
+  <span class="nx">height</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="nx">weight</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="nx">studentId</span><span class="o">:</span> <span class="nx">ObjectId</span><span class="p">,</span>
+  <span class="nx">meta</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">createdAt</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="nb">Date</span><span class="p">,</span>
+      <span class="k">default</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="nx">updatedAt</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="nb">Date</span><span class="p">,</span>
+      <span class="k">default</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="nx">InfoSchema</span><span class="p">.</span><span class="nx">pre</span><span class="p">(</span><span class="s1">&#39;save&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isNew</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">createdAt</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">updatedAt</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">updatedAt</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+  <span class="p">}</span>
+  <span class="nx">next</span><span class="p">()</span>
+<span class="p">})</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">&#39;Info&#39;</span><span class="p">,</span> <span class="nx">InfoSchema</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="34mongodb连接文件">3.4.mongodb连接文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../config&#39;</span><span class="p">)</span>
+
+<span class="c1">// 引入上述定义的schema
+</span><span class="c1"></span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./schema/info&#39;</span><span class="p">)</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./schema/student&#39;</span><span class="p">)</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./schema/course&#39;</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">database</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">mongoose</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+  <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">dbPath</span><span class="p">)</span>
+  <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;disconnected&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">dbPath</span><span class="p">)</span>
+  <span class="p">})</span>
+  <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+  <span class="p">})</span>
+
+  <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Connected to MongoDB &#39;</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dbPath</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="nx">database</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="35graphql-schema定义">3.5.Graphql schema定义</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="p">{</span> <span class="nx">gql</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;apollo-server-koa&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">CourseModel</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">&#39;Course&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">InfoModel</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">&#39;Info&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">StudentModel</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">&#39;Student&#39;</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">typeDefs</span> <span class="o">=</span> <span class="nx">gql</span><span class="sb">`
+</span><span class="sb">  type Course {
+</span><span class="sb">    title: String
+</span><span class="sb">    desc: String
+</span><span class="sb">    page: Int
+</span><span class="sb">    author: String
+</span><span class="sb">  }
+</span><span class="sb">  type Info {
+</span><span class="sb">    height: String
+</span><span class="sb">    weight: String
+</span><span class="sb">    hobby: [String],
+</span><span class="sb">    studentId: ID,
+</span><span class="sb">    _id: ID
+</span><span class="sb">  }
+</span><span class="sb">  type Student {
+</span><span class="sb">    name: String
+</span><span class="sb">    sex: String
+</span><span class="sb">    age: Int,
+</span><span class="sb">    _id: ID,
+</span><span class="sb">    info: Info
+</span><span class="sb">  }
+</span><span class="sb">  type Query {
+</span><span class="sb">    getCourse: [Course]
+</span><span class="sb">    getStudent: [Student]
+</span><span class="sb">    getStudentInfo(id: ID): Info
+</span><span class="sb">    getInfo: [Info]
+</span><span class="sb">  }
+</span><span class="sb">  type Mutation {
+</span><span class="sb">    addCourse(post: CourseInput): Course,
+</span><span class="sb">    addStudent(post: StudentInput): Student
+</span><span class="sb">    addStudentInfo(id: ID, height: String, weight: String, hobby: [String]): Info
+</span><span class="sb">    changeStudentInfo(id: ID, height: String, weight: String, hobby: [String]): Info
+</span><span class="sb">  }
+</span><span class="sb">  input CourseInput {
+</span><span class="sb">    title: String
+</span><span class="sb">    desc: String
+</span><span class="sb">    page: Int
+</span><span class="sb">    author: String
+</span><span class="sb">  }
+</span><span class="sb">  input StudentInput {
+</span><span class="sb">    name: String
+</span><span class="sb">    sex: String
+</span><span class="sb">    age: Int
+</span><span class="sb">  }
+</span><span class="sb">`</span>
+
+<span class="kr">const</span> <span class="nx">resolvers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">Query</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">getCourse</span><span class="o">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">CourseModel</span><span class="p">.</span><span class="nx">find</span><span class="p">({})</span>
+    <span class="p">},</span>
+    <span class="nx">getStudent</span><span class="o">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">StudentModel</span><span class="p">.</span><span class="nx">find</span><span class="p">({})</span>
+    <span class="p">},</span>
+    <span class="nx">getStudentInfo</span><span class="o">:</span> <span class="nx">async</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">InfoModel</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="nx">studentId</span><span class="o">:</span> <span class="nx">args</span><span class="p">.</span><span class="nx">id</span><span class="p">})</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">getInfo</span><span class="o">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">InfoModel</span><span class="p">.</span><span class="nx">find</span><span class="p">({})</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">Mutation</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">addCourse</span><span class="o">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="p">{</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">desc</span><span class="p">,</span> <span class="nx">page</span><span class="p">,</span> <span class="nx">author</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">post</span>
+      <span class="k">return</span> <span class="nx">CourseModel</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">title</span><span class="p">,</span> <span class="nx">desc</span><span class="p">,</span> <span class="nx">page</span><span class="p">,</span> <span class="nx">author</span><span class="p">})</span>
+    <span class="p">},</span>
+    <span class="nx">addStudent</span><span class="o">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="p">{</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">sex</span><span class="p">,</span> <span class="nx">age</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">post</span>
+      <span class="k">return</span> <span class="nx">StudentModel</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">name</span><span class="p">,</span> <span class="nx">sex</span><span class="p">,</span> <span class="nx">age</span> <span class="p">})</span>
+    <span class="p">},</span>
+    <span class="nx">addStudentInfo</span><span class="o">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">weight</span><span class="p">,</span> <span class="nx">hobby</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">args</span>
+      <span class="k">return</span> <span class="nx">InfoModel</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="nx">hobby</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">weight</span><span class="p">,</span> <span class="nx">studentId</span><span class="o">:</span> <span class="nx">id</span> <span class="p">})</span>
+    <span class="p">},</span>
+    <span class="nx">changeStudentInfo</span><span class="o">:</span> <span class="p">(</span><span class="nx">parent</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">weight</span><span class="p">,</span> <span class="nx">hobby</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">args</span>
+      <span class="k">return</span> <span class="nx">InfoModel</span><span class="p">.</span><span class="nx">findOneAndUpdate</span><span class="p">({</span><span class="nx">studentId</span><span class="o">:</span> <span class="nx">id</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">hobby</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">weight</span> <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">resolvers</span><span class="p">,</span>
+  <span class="nx">typeDefs</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>以上定义了Graphql的查询以及input类型，又定义了<code>Query</code>、<code>Mutation</code>的操作以及对应的Resolver，这就是一个简单地Graphql查询定义了</p>
+<h1 id="4n--1-query的问题">4.n + 1 query的问题</h1>
+<p>GraphQL的查询每次只能查单个的信息，遇到多条相同的数据的时候要查询多次，比如我要查多本书的作者的姓名，那我就要依次为每本书查询每个作者，这个效率是很低的；更好的做法是查询到所有书的作者的id，然后一次性去查所有的作者的姓名；为了解决这个方法，GraphQL会配合<a href="https://github.com/graphql/dataloader" target="_blank" rel="noopener noreffer">dataloader</a>去使用，这个也是GraphQL官方出品</p>
+<p>它的一个思路是</p>
+<blockquote>
+<p>当前事件循环收集 callback 和所有的 keys，下一轮事件循环触发 callback 并传入所有当前事件循环中收集的 keys：</p>
+<p>let datas = callback(keys)</p>
+<p>dataloader 根据 keys 的顺序依次触发每个 load 的 resolve 根据顺序传入对应的 data</p>
+</blockquote>
+<p>具体的请看<a href="https://github.com/graphql/dataloader" target="_blank" rel="noopener noreffer">dataloader</a>，这里不多赘述</p>
+<h1 id="5参考链接">5.参考链接</h1>
+<p>1.<a href="https://graphql.cn/learn/" target="_blank" rel="noopener noreffer">GraphQL官方文档</a></p>
+<p>2.<a href="https://juejin.cn/post/6844903795407716366" target="_blank" rel="noopener noreffer">GraphQL 从入门到实践</a></p>
+<p>3.<a href="https://github.com/naihe138/GraphQL-demo.git" target="_blank" rel="noopener noreffer">GraphQL demo</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-30</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/" data-title="GraphQL的入门"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/" data-title="GraphQL的入门"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/" data-title="GraphQL的入门"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/" data-title="GraphQL的入门"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/" class="prev" rel="prev" title="React18的新特性"><i class="fas fa-angle-left fa-fw"></i>React18的新特性</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

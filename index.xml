@@ -3,9 +3,16 @@
         <title>早起的老年人の博客</title>
         <link>https://baskep.com/</link>
         <description>早起的老年人做的网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 13 Apr 2022 23:00:36 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 30 Jun 2022 21:32:24 &#43;0800</lastBuildDate>
             <atom:link href="https://baskep.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>GraphQL的入门</title>
+    <link>https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Thu, 30 Jun 2022 21:32:24 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[GraphQL 既是一种用于 API 的查询语言，它对API中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更]]></description>
+</item><item>
     <title>React18的新特性</title>
     <link>https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</link>
     <pubDate>Wed, 13 Apr 2022 23:00:36 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://baskep.com/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[现在的前端开发中根本离不开组件化、模块化的开发方式，这些模块有各种各样的规范，比如： 1.CommonJS 规范 主要用在与 Nodejs 服务端，在服务器端，模块的加载是运行时]]></description>
-</item><item>
-    <title>React调度过程</title>
-    <link>https://baskep.com/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</link>
-    <pubDate>Tue, 05 Jan 2021 23:02:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.com/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</guid>
-    <description><![CDATA[1.forwardRef 用来解决高阶组件传递ref的问题。它的用法就像是使用redux的时候，在外面包裹一层，通过...props的方式把外部的props传入到实]]></description>
 </item></channel>
 </rss>

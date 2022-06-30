@@ -3,7 +3,14 @@
         <title>日常学习 - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
         <description>日常学习 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 13 Apr 2022 23:00:36 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 30 Jun 2022 21:32:24 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>GraphQL的入门</title>
+    <link>https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Thu, 30 Jun 2022 21:32:24 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[GraphQL 既是一种用于 API 的查询语言，它对API中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更]]></description>
+</item><item>
     <title>React18的新特性</title>
     <link>https://baskep.com/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</link>
     <pubDate>Wed, 13 Apr 2022 23:00:36 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.com/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/</guid>
     <description><![CDATA[之前了解了webpack的基本打包流程或者说原理，如果只是配置一个基本的webpack打包配置， 打包后的文件会变得很大，当你项目部署后，用户]]></description>
-</item><item>
-    <title>Webpack理解</title>
-    <link>https://baskep.com/webpack%E7%90%86%E8%A7%A3/</link>
-    <pubDate>Sun, 23 Aug 2020 21:36:20 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.com/webpack%E7%90%86%E8%A7%A3/</guid>
-    <description><![CDATA[webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加]]></description>
 </item></channel>
 </rss>
