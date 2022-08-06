@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>PNG格式的详解 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="PNG格式的详解" />
+<meta property="og:description" content="序言 便携式网络图形（英语：Portable Network Graphics，PNG）是一种支¶持无损压缩的位图图形格式，支持索引、灰度、RGB三种颜色方案" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" />
+<meta property="og:image" content="https://baskep.com/logo.png"/>
+<meta property="article:published_time" content="2022-08-06T15:04:14+08:00" />
+<meta property="article:modified_time" content="2022-08-06T15:04:14+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+
+<meta name="twitter:title" content="PNG格式的详解"/>
+<meta name="twitter:description" content="序言 便携式网络图形（英语：Portable Network Graphics，PNG）是一种支¶持无损压缩的位图图形格式，支持索引、灰度、RGB三种颜色方案"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" /><link rel="prev" href="https://baskep.com/graphql%E7%9A%84%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "PNG格式的详解",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.com\/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3\/"
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2719 ,
+        "url": "https:\/\/baskep.com\/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3\/","datePublished": "2022-08-06T15:04:14+08:00","dateModified": "2022-08-06T15:04:14+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">PNG格式的详解</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-08-06">2022-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2719 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#序言">序言</a></li>
+    <li><a href="#存储结构">存储结构</a></li>
+    <li><a href="#压缩方案">压缩方案</a></li>
+    <li><a href="#png的文件结构">PNG的文件结构</a></li>
+    <li><a href="#png文件结构实例">PNG文件结构实例</a>
+      <ul>
+        <li><a href="#png的标识符">PNG的标识符</a></li>
+        <li><a href="#ihdr数据块">IHDR数据块</a></li>
+        <li><a href="#iend数据块">IEND数据块</a></li>
+      </ul>
+    </li>
+    <li><a href="#base64图片加密">Base64图片加密</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="序言">序言</h1>
+<blockquote>
+<p>便携式网络图形（英语：Portable Network Graphics，PNG）是一种支¶持无损压缩的位图图形格式，支持索引、灰度、RGB三种颜色方案以及Alpha通道等特性。PNG的开发目标是改善并取代GIF作为适合网络传输的格式而不需专利许可，所以被广泛应用于互联网及其他方面上。PNG图片大多数都使用PNG作为扩展名，其互联网媒体类型为image/png。PNG于1997年3月作为知识性RFC 2083发布，于2004年作为ISO/IEC标准发布</p>
+</blockquote>
+<h1 id="存储结构">存储结构</h1>
+<p>PNG图片主要由三种类型存储：</p>
+<p>PNG 8：图片使用8 bits索引色来存储，可以用2的8次方大小个种类颜色来存储一张黑白的图片。也就是说PNG 8能存储256中颜色，因为颜色少，文件体积也非常小，一张图片如果颜色简单，将它设置成PNG 8得图片是非常省空间合适的，但是它并不支持动画</p>
+<p>PNG 24：图片使用24bits来存储，用三个8bits分别去表示 R（红）、G（绿）、B（蓝）三个通道(Channel)的数值。可以表达256乘以256乘以256=16777216种颜色的图片，色彩丰富度更高，但相对的所占用的空间也就更大了，适合用在那些对品质要求高的场景</p>
+<p>PNG 32：图片使用32bits来存储，相当于PNG 24 加上 8bits的透明颜色通道，总共有R（红）、G（绿）、B（蓝）、A（透明）四个通道。图片能表示的色彩跟PNG 24一样多，并且还支持256种透明度，能让图片色彩更加丰富</p>
+<h1 id="压缩方案">压缩方案</h1>
+<p>PNG压缩提供两种压缩方案</p>
+<p>无损压缩(Lossless Compression）：数据经过压缩之后，信息不受损失，能够完全还原至压缩前的模样，通常此种压缩方案的压缩率有一定的限制，现在PNG的无损算法主要是基于
+<a href="https://zh.m.wikipedia.org/zh/LZ77%E4%B8%8ELZ78" target="_blank" rel="noopener noreffer">LZ77</a></p>
+<p>有损压缩(Lossy compression）：数据经过压缩之后，信息数据会和原始数据不同，但仅限于些微差距，通常此种压缩方案能提供非常高的压缩率</p>
+<h1 id="png的文件结构">PNG的文件结构</h1>
+<p>PNG图像格式文件由一个8字节的PNG文件标识（file signature or file header）域和3个以上的后续数据块(chunk)如：IHDR、IDAT、IEND等组成</p>
+<table>
+<thead>
+<tr>
+<th>PNG标识符</th>
+<th>PNG数据块IHDR</th>
+<th align="right">其他类型的数据块&hellip;</th>
+<th align="left">PNG结尾标识数据块</th>
+</tr>
+</thead>
+</table>
+<p>如这个表格所示，一个PNG文件是由各种数据块组成的，比如<code>标识符区块</code>、<code>IHDR</code>、<code>结尾标识数据块</code>等等，它们的作用：</p>
+<p>文件头数据块IHDR（header chunk）：包含有图像基本信息，作为第一个数据块出现并只出现一次
+调色板数据块PLTE（palette chunk）：必须放在图像数据块之前
+图像数据块IDAT（image data chunk）：存储实际图像数据。PNG数据允许包含多个连续的图像数据块
+图像结束数据IEND（image trailer chunk）：放在文件尾部，表示PNG数据流结束</p>
+<p>除了这些比较关键的数据块以外，还有一些辅助的数据块：</p>
+<table class="wikitable">
+  <tbody>
+    <tr>
+      <th>数据块识别符号</th>
+      <th>数据块含意</th>
+      <th>数据块位置限制
+      </th>
+    </tr>
+    <tr>
+      <td>cHRM</td>
+      <td>基色和白色点数据块</td>
+      <td>放在PLTE和IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>gAMA</td>
+      <td>图像γ数据块</td>
+      <td>放在PLTE和IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>sBIT</td>
+      <td>样本有效位数据块</td>
+      <td>放在PLTE和IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>bKGD</td>
+      <td>背景颜色数据块</td>
+      <td>放在PLTE之后IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>hIST</td>
+      <td>图像直方图数据块</td>
+      <td>放在PLTE之后IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>tRNS</td>
+      <td>图像透明数据块</td>
+      <td>放在PLTE之后IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>pHYs</td>
+      <td>物理像素尺寸数据块</td>
+      <td>放在IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>tIME</td>
+      <td>图像最后修改时间数据块</td>
+      <td>无限制
+      </td>
+    </tr>
+    <tr>
+      <td>tEXt</td>
+      <td>文件基本消息数据块</td>
+      <td>无限制
+      </td>
+    </tr>
+    <tr>
+      <td>zTXt</td>
+      <td>压缩文本数据块</td>
+      <td>无限制
+      </td>
+    </tr>
+    <tr>
+      <td>sCAL</td>
+      <td>(专用公共数据块)</td>
+      <td>放在IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>oFFs</td>
+      <td>(专用公共数据块)</td>
+      <td>放在IDAT之前
+      </td>
+    </tr>
+    <tr>
+      <td>fRAc</td>
+      <td>(专用公共数据块)</td>
+      <td>无限制
+      </td>
+    </tr>
+    <tr>
+      <td>gIFg</td>
+      <td>(专用公共数据块)</td>
+      <td>无限制
+      </td>
+    </tr>
+    <tr>
+      <td>gIFt</td>
+      <td>(专用公共数据块)</td>
+      <td>无限制
+      </td>
+    </tr>
+    <tr>
+      <td>gIFx</td>
+      <td>(专用公共数据块)</td>
+      <td>无限制
+      </td>
+    </tr>
+    <tr>
+      <td>IEND</td>
+      <td>图像结束数据</td>
+      <td>最后一个数据块</td>
+    </tr>
+  </tbody>
+</table>
+<h1 id="png文件结构实例">PNG文件结构实例</h1>
+<p>打开一张PNG图片，看一下它的文件组成</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s1.ax1x.com/2022/07/06/jaldL6.jpg"
+        data-srcset="https://s1.ax1x.com/2022/07/06/jaldL6.jpg, https://s1.ax1x.com/2022/07/06/jaldL6.jpg 1.5x, https://s1.ax1x.com/2022/07/06/jaldL6.jpg 2x"
+        data-sizes="auto"
+        alt="https://s1.ax1x.com/2022/07/06/jaldL6.jpg"
+        title="jaldL6.jpg" /></p>
+<h2 id="png的标识符">PNG的标识符</h2>
+<p>上面图片中最前面的八字节<code>89 50 4E 47 0D 0A 1A 0A</code>，就是用标识这是一个PNG文件，所有的PNG图片的内容开头都有这样一串识别码</p>
+<table class="wikitable">
+  <tbody>
+    <tr>
+      <th>十六进制</th>
+      <th>含义
+      </th>
+    </tr>
+    <tr>
+      <td>89</td>
+      <td>用于检测传输系统是否支持8位的字符编码（8 bit data），用以减少将文本文件被错误的识别成PNG文件的机会，反之亦然。
+      </td>
+    </tr>
+    <tr>
+      <td>50 4E 47</td>
+      <td>PNG每个字母对应的ASCII，让用户可以使用文本编辑器查看时，识别出是PNG文件。
+      </td>
+    </tr>
+    <tr>
+      <td>0D 0A</td>
+      <td>DOS风格的换行符（CRLF）。用于DOS-Unix数据的换行符转换。
+      </td>
+    </tr>
+    <tr>
+      <td>1A</td>
+      <td>在DOS命令行下，用于阻止文件显示的文件结束符。
+      </td>
+    </tr>
+    <tr>
+      <td>0A</td>
+      <td>Unix风格的换行符（LF）。用于Unix-DOS换行符的转换。
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="ihdr数据块">IHDR数据块</h2>
+<p>也就是存储PNG文件的基本信息的区块，它占13个字节</p>
+<table border="0" cellspacing="1" cellpadding="0">
+  <tbody>
+    <tr>
+      <td>
+        <p><strong>域的名称</strong></p>
+      </td>
+      <td>
+        <p><strong>字节数</strong></p>
+      </td>
+      <td>
+        <p><strong>说明</strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Width</p>
+      </td>
+      <td>
+        <p>4 bytes</p>
+      </td>
+      <td>
+        <p>图像宽度，以像素为单位</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Height</p>
+      </td>
+      <td>
+        <p>4 bytes</p>
+      </td>
+      <td>
+        <p>图像高度，以像素为单位</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Bit depth</p>
+      </td>
+      <td>
+        <p>1 byte</p>
+      </td>
+      <td>
+        <p>图像深度：&nbsp;<br>索引彩色图像：1，2，4或8&nbsp;<br>灰度图像：1，2，4，8或16&nbsp;<br>真彩色图像：8或16</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>ColorType</p>
+      </td>
+      <td>
+        <p>1 byte</p>
+      </td>
+      <td>
+        <p>颜色类型：<br>0：灰度图像,
+          1，2，4，8或16&nbsp;<br>2：真彩色图像，8或16&nbsp;<br>3：索引彩色图像，1，2，4或8&nbsp;<br>4：带α通道数据的灰度图像，8或16&nbsp;<br>6：带α通道数据的真彩色图像，8或16
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Compression method</p>
+      </td>
+      <td>
+        <p>1 byte</p>
+      </td>
+      <td>
+        <p>压缩方法(LZ77派生算法)</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Filter method</p>
+      </td>
+      <td>
+        <p>1 byte</p>
+      </td>
+      <td>
+        <p>滤波器方法</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Interlace method</p>
+      </td>
+      <td>
+        <p>1 byte</p>
+      </td>
+      <td>
+        <p>隔行扫描方法：<br>0：非隔行扫描&nbsp;<br>1： Adam7(由Adam M. Costello开发的7遍隔行扫描方法)</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>上面图片中的<code>89 50 4E 47 0D 0A 1A 0A</code>是文件标识符，紧跟着的<code>00 00 00 0d 49 48 44 52 00 00 00 b4 00 00 00 b4 08 06 00 00 00 3d cd 06 32</code>则是IHDR数据块的内容</p>
+<p>1、00 00 00 0D 说明IHDR头块长为13
+2、49 48 44 52 IHDR标识
+3、00 00 00 b4 图像的宽，180像素
+4、00 00 00 b4 图像的高，180像素
+5、08 色深，2^8=16，即这是一个256色的图像
+6、06 颜色类型，索引图像
+7、00 PNG Spec规定此处总为0（非0值为将来使用更好的压缩方法预留），表示使压缩方法(LZ77派生算法)
+8、00 同上
+9、00 非隔行扫描
+10、3d cd 06 32 <a href="https://zh.m.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E5%86%97%E9%A4%98%E6%A0%A1%E9%A9%97" target="_blank" rel="noopener noreffer">CRC校验链接</a></p>
+<h2 id="iend数据块">IEND数据块</h2>
+<p>图片上结尾部分的<code>00 00 00 00 49 45 4E 44 AE 42 60 82</code>则是一个PNG文件的结尾数据块，每个PNG文件都应该包含IEND结束数据块，这样才会被认为一个合法的PNG文件</p>
+<h1 id="base64图片加密">Base64图片加密</h1>
+<p>Base64加密图片的原理也就是加密图片的这些16进制数据块，如果是PNG文件加密那么前面固定为<code>data:image/gif;base64,iVBORw0KGgo</code>，中间为分割符，然后依次各种区块，比如<code>IHDR</code>区块<code>SUhEUg</code>，再就是<code>IDAT</code>，直到结尾，这就是一个Base64加密的过程</p>
+<p><code>data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...</code>，稍微大一点的PNG文件包含的数据块会很多，加密出来的Base64文件很大，所以Base64加密图片比较适合用于小文件或者为了优化网络请求</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-08-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" data-title="PNG格式的详解"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" data-title="PNG格式的详解"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" data-title="PNG格式的详解"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" data-title="PNG格式的详解"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/graphql%E7%9A%84%E5%85%A5%E9%97%A8/" class="prev" rel="prev" title="GraphQL的入门"><i class="fas fa-angle-left fa-fw"></i>GraphQL的入门</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
