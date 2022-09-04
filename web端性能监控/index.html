@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Web端性能监控 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="Web端性能监控" />
+<meta property="og:description" content="前言 ⼀个⻚⾯性能差的话会⼤⼤影响⽤户体验，⽤户打开⻚⾯等待的太久，可能会直接关掉⻚⾯，甚⾄就不再使⽤了，这种情况在移动端更加明显，移动端⽤户" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" />
+<meta property="og:image" content="https://baskep.com/logo.png"/>
+<meta property="article:published_time" content="2022-09-04T22:55:55+08:00" />
+<meta property="article:modified_time" content="2022-09-04T22:55:55+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+
+<meta name="twitter:title" content="Web端性能监控"/>
+<meta name="twitter:description" content="前言 ⼀个⻚⾯性能差的话会⼤⼤影响⽤户体验，⽤户打开⻚⾯等待的太久，可能会直接关掉⻚⾯，甚⾄就不再使⽤了，这种情况在移动端更加明显，移动端⽤户"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" /><link rel="prev" href="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Web端性能监控",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.com\/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7\/"
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5471 ,
+        "url": "https:\/\/baskep.com\/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7\/","datePublished": "2022-09-04T22:55:55+08:00","dateModified": "2022-09-04T22:55:55+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Web端性能监控</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-04">2022-09-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5471 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#1性能指标">1.性能指标</a>
+      <ul>
+        <li><a href="#11-基本指标">1.1 基本指标</a>
+          <ul>
+            <li><a href="#111-fcpfirst-contentful-paint">1.1.1. FCP：First Contentful Paint</a></li>
+            <li><a href="#112-ttitime-to-interactive">1.1.2. TTI：Time To Interactive</a></li>
+            <li><a href="#113-fidfirst-input-delay">1.1.3. FID：First Input Delay</a></li>
+            <li><a href="#114-tbttotal-blocking-time">1.1.4. TBT：Total Blocking Time</a></li>
+            <li><a href="#115-fmpfirst-meaningful-paint">1.1.5. FMP：First Meaningful Paint</a></li>
+            <li><a href="#116-lcplargest-contentful-paint">1.1.6. LCP：Largest Contentful Paint</a></li>
+            <li><a href="#117-clscumulative-layout-shift">1.1.7. CLS：Cumulative Layout Shift</a></li>
+            <li><a href="#118-sispeed--index">1.1.8. SI：Speed  Index</a></li>
+            <li><a href="#119-ttfbtime-to-first-byte户浏览器接收内容的第个字节所需的时间">1.1.9. TTFB：Time To First Byte（⽤户浏览器接收⻚⾯内容的第⼀个字节所需的时间）</a></li>
+            <li><a href="#1110-dcl-domcontentloaded-eventdom树完全加载并解析完成的时间">1.1.10. DCL: DOMContentLoaded Event（DOM树完全加载并解析完成的时间）</a></li>
+            <li><a href="#1111-ol-onload-event当整个及所有依赖资源如样式表和图都已完成加载的时间">1.1.11. OL: Onload Event（当整个⻚⾯及所有依赖资源如样式表和图⽚都已完成加载的时间）</a></li>
+            <li><a href="#1112-本地资源拦截成功率从本地缓存加载资源成功量--路由解析总量">1.1.12. 本地资源拦截成功率（从本地缓存加载资源成功量 / 路由解析总量）</a></li>
+          </ul>
+        </li>
+        <li><a href="#12衡量标准">1.2.衡量标准</a>
+          <ul>
+            <li><a href="#121-google-core-web-vitals">1.2.1. Google Core Web Vitals</a></li>
+            <li><a href="#122-sentry">1.2.2. Sentry</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2rail模型">2.RAIL模型</a>
+      <ul>
+        <li><a href="#21响应response">2.1.响应(response)</a></li>
+        <li><a href="#22动画animation">2.2.动画(animation)</a></li>
+        <li><a href="#23空闲idle">2.3.空闲(idle)</a></li>
+        <li><a href="#23加载load">2.3.加载(load)</a></li>
+      </ul>
+    </li>
+    <li><a href="#3如何监控">3.如何监控</a>
+      <ul>
+        <li><a href="#31采集数据">3.1.采集数据</a>
+          <ul>
+            <li><a href="#311手动采集">3.1.1.手动采集</a></li>
+            <li><a href="#312数据上报">3.1.2.数据上报</a></li>
+          </ul>
+        </li>
+        <li><a href="#32性能分析">3.2.性能分析</a>
+          <ul>
+            <li><a href="#321-performance">3.2.1. Performance</a></li>
+            <li><a href="#322-lighthouse">3.2.2. Lighthouse</a></li>
+            <li><a href="#323-memory">3.2.3. Memory</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#4参考链接">4.参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="前言">前言</h1>
+<p>⼀个⻚⾯性能差的话会⼤⼤影响⽤户体验，⽤户打开⻚⾯等待的太久，可能会直接关掉⻚⾯，甚⾄就不再使⽤了，这种情况在移动端更加明显，移动端⽤户对⻚⾯响应延迟容忍度很低</p>
+<p>所以我们要了解需要衡量哪些指标，以及如何去做到获取这些指标的数据然后加以分析</p>
+<h1 id="1性能指标">1.性能指标</h1>
+<p>指的是我们在衡量网站性能时所关注的指标</p>
+<h2 id="11-基本指标">1.1 基本指标</h2>
+<h3 id="111-fcpfirst-contentful-paint">1.1.1. FCP：First Contentful Paint</h3>
+<p><code>首次内容绘制时间，即“⽩屏时间“</code>
+可以在js的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance" target="_blank" rel="noopener noreffer">performance</a>对象中拿到各种信息，最基本的，可以通过<code>performance.getEntriesByType('paint')[1]</code>来获得这个时间</p>
+<h3 id="112-ttitime-to-interactive">1.1.2. TTI：Time To Interactive</h3>
+<p><code>衡量应⽤加载所需时间并能够快速响应⽤户交互的指标</code>
+最后⼀个LongTask结束时间，js执⾏时间超过50ms的任务为⻓任务</p>
+<p><a href="https://imgse.com/i/v2i3eU" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s1.ax1x.com/2022/08/25/v2i3eU.png"
+        data-srcset="https://s1.ax1x.com/2022/08/25/v2i3eU.png, https://s1.ax1x.com/2022/08/25/v2i3eU.png 1.5x, https://s1.ax1x.com/2022/08/25/v2i3eU.png 2x"
+        data-sizes="auto"
+        alt="https://s1.ax1x.com/2022/08/25/v2i3eU.png"
+        title="v2i3eU.png" /></a></p>
+<h3 id="113-fidfirst-input-delay">1.1.3. FID：First Input Delay</h3>
+<p><code>从⽤户输⼊到⻚⾯真正开始处理事件回调的潜在最⼤延迟时间</code>
+FID 具体的计算⽅法，是从以 FCP 为开始到以 TTI 为结束的这段时间⾥，选择其中js执⾏时间最⻓的任务，⽤它消耗的时间再减去50ms</p>
+<p><a href="https://imgse.com/i/v2iDeO" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s1.ax1x.com/2022/08/25/v2iDeO.png"
+        data-srcset="https://s1.ax1x.com/2022/08/25/v2iDeO.png, https://s1.ax1x.com/2022/08/25/v2iDeO.png 1.5x, https://s1.ax1x.com/2022/08/25/v2iDeO.png 2x"
+        data-sizes="auto"
+        alt="https://s1.ax1x.com/2022/08/25/v2iDeO.png"
+        title="v2iDeO.png" /></a></p>
+<p>虽然TTI和FID确实关联良好，但可能存在具有良好TTI分数的⽹站可能具有不良FID分数的情况。例如，站点可能具有⾮常⾼的TTI，但如果⼤多数⽤户在完全加载之前不尝试与站点交互，则这些⽤户将不会遇到⾼TTI的痛苦。 另⼀⽅⾯，站点可能具有相对较低的TTI，但如果站点很早就看起来是交互式的，则⽤户可能会尝试与其进⾏交互，但却发现没有任何反应</p>
+<h3 id="114-tbttotal-blocking-time">1.1.4. TBT：Total Blocking Time</h3>
+<p><code>⻚⾯响应⽤户输⼊时，已经被阻塞的时间总和</code>
+具体的计算⽅法⽐较明确，统计从FCP到TTI之间的所有⻓任务，并将它们的阻塞部分时间进⾏求和，即为TBT。其中阻塞部分时间指的是⻓任务执⾏时间超过50ms的部分，例如⼀个⻓任务执⾏了70ms，那么阻塞时间就是20ms。可以看出，TBT相⽐于FID是⼀个更加稳定的指标，相较⽽⾔能更加真实地反映⻚⾯对于⽤户输⼊的响应平均延时</p>
+<h3 id="115-fmpfirst-meaningful-paint">1.1.5. FMP：First Meaningful Paint</h3>
+<p><code>⾸次有效绘制，表示⻚⾯主⻆元素出现在屏幕上的时间点</code></p>
+<p>Chrome定义的FMP：LayoutObjectsThatHadNeverHadLayout（新增的布局对象）发⽣变化最⼤的下⼀个时刻（paint that follows biggest layout change）</p>
+<p><a href="https://imgse.com/i/v2ibfs" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s1.ax1x.com/2022/08/25/v2ibfs.png"
+        data-srcset="https://s1.ax1x.com/2022/08/25/v2ibfs.png, https://s1.ax1x.com/2022/08/25/v2ibfs.png 1.5x, https://s1.ax1x.com/2022/08/25/v2ibfs.png 2x"
+        data-sizes="auto"
+        alt="https://s1.ax1x.com/2022/08/25/v2ibfs.png"
+        title="v2ibfs.png" /></a></p>
+<p>自定义的FMP：⻚⾯加载完毕时间（load） - 开始请求时间（requestStart）；通过MutationObserver给⻚⾯元素设置权重和得分，监听dom加载时间，取权重分最⾼的元素的加载完成时间作为FMP时间</p>
+<p><a href="https://imgse.com/i/v2FS7F" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s1.ax1x.com/2022/08/25/v2FS7F.png"
+        data-srcset="https://s1.ax1x.com/2022/08/25/v2FS7F.png, https://s1.ax1x.com/2022/08/25/v2FS7F.png 1.5x, https://s1.ax1x.com/2022/08/25/v2FS7F.png 2x"
+        data-sizes="auto"
+        alt="https://s1.ax1x.com/2022/08/25/v2FS7F.png"
+        title="v2FS7F.png" /></a></p>
+<p><a href="https://imgse.com/i/v2FFpR" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s1.ax1x.com/2022/08/25/v2FFpR.png"
+        data-srcset="https://s1.ax1x.com/2022/08/25/v2FFpR.png, https://s1.ax1x.com/2022/08/25/v2FFpR.png 1.5x, https://s1.ax1x.com/2022/08/25/v2FFpR.png 2x"
+        data-sizes="auto"
+        alt="https://s1.ax1x.com/2022/08/25/v2FFpR.png"
+        title="v2FFpR.png" /></a></p>
+<h3 id="116-lcplargest-contentful-paint">1.1.6. LCP：Largest Contentful Paint</h3>
+<p><code>视窗内最⼤的内容元素被渲染的时间</code>
+LCP是⼀个⼗分重要并且以⽤户感受为中⼼的指标；它反映了感知层⾯上⻚⾯的加载速度；它标记了⻚⾯主要内容中最⼤内容元素加载完成的时间点；LCP较短的⻚⾯能够让⽤户更快感觉到⻚⾯是可⽤的</p>
+<p>根据官⽅⽂档，下列元素会被纳⼊Largest Contentful 元素的考虑范围：
+1.<code>&lt;img&gt;</code>
+2.<code>&lt;svg&gt;</code>⾥⾯的<code>&lt;image&gt;</code>
+3.<code>&lt;video&gt;</code>
+4.通过<code>url()</code>函数加载背景图⽚的元素
+5.包含<code>text node</code>的块级元素或者<code>inline text</code>的⼦元素</p>
+<p>如何确定元素的大小:
+1.在viewport内可⻅元素的⼤⼩，如果是超出可视区域或者被裁减、遮挡等，都不算⼊该元素⼤⼩
+2.对于图⽚元素来说，⼤⼩是取图⽚实际⼤⼩和原始⼤⼩的较⼩值，即Min(实际⼤⼩，原始⼤⼩)
+3.对于⽂字元素，只取能够覆盖⽂字的最⼩矩形⾯积
+4.对所有元素，margin、padding、border等都不算</p>
+<h3 id="117-clscumulative-layout-shift">1.1.7. CLS：Cumulative Layout Shift</h3>
+<p><code>累计布局偏移，⻚⾯未加载完引起⻚⾯样式错乱及引起错误操作</code></p>
+<p><a href="https://imgse.com/i/v2F7DK" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s1.ax1x.com/2022/08/25/v2F7DK.png"
+        data-srcset="https://s1.ax1x.com/2022/08/25/v2F7DK.png, https://s1.ax1x.com/2022/08/25/v2F7DK.png 1.5x, https://s1.ax1x.com/2022/08/25/v2F7DK.png 2x"
+        data-sizes="auto"
+        alt="https://s1.ax1x.com/2022/08/25/v2F7DK.png"
+        title="v2F7DK.png" /></a></p>
+<blockquote>
+<p>Layout Shift Score = Impact Fraction * Distance Fraction，如上：影响分数⼤约为⻚⾯的50%，并将正⽂⽂本向下移动20%。布局移位得分为0.1，0.5 * 0.2的乘积，因此，CLS 为 0.1</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/26/f472272768ece98c.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/26/f472272768ece98c.png, https://s3.bmp.ovh/imgs/2022/08/26/f472272768ece98c.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/26/f472272768ece98c.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/26/f472272768ece98c.png"
+        title="https://s3.bmp.ovh/imgs/2022/08/26/f472272768ece98c.png" /></p>
+<h3 id="118-sispeed--index">1.1.8. SI：Speed  Index</h3>
+<p><code>衡量⻚⾯可⻅内容填充快慢的指标</code></p>
+<p>计算过程使⽤是开源⼯具<code>speedline</code>通过对⻚⾯进⾏视频录制，并统计⾸帧与最后⼀帧变化的时间差来计算speed Index 的值</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/26/89303660353812c1.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/26/89303660353812c1.png, https://s3.bmp.ovh/imgs/2022/08/26/89303660353812c1.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/26/89303660353812c1.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/26/89303660353812c1.png"
+        title="https://s3.bmp.ovh/imgs/2022/08/26/89303660353812c1.png" /></p>
+<h3 id="119-ttfbtime-to-first-byte户浏览器接收内容的第个字节所需的时间">1.1.9. TTFB：Time To First Byte（⽤户浏览器接收⻚⾯内容的第⼀个字节所需的时间）</h3>
+<h3 id="1110-dcl-domcontentloaded-eventdom树完全加载并解析完成的时间">1.1.10. DCL: DOMContentLoaded Event（DOM树完全加载并解析完成的时间）</h3>
+<h3 id="1111-ol-onload-event当整个及所有依赖资源如样式表和图都已完成加载的时间">1.1.11. OL: Onload Event（当整个⻚⾯及所有依赖资源如样式表和图⽚都已完成加载的时间）</h3>
+<h3 id="1112-本地资源拦截成功率从本地缓存加载资源成功量--路由解析总量">1.1.12. 本地资源拦截成功率（从本地缓存加载资源成功量 / 路由解析总量）</h3>
+<h2 id="12衡量标准">1.2.衡量标准</h2>
+<h3 id="121-google-core-web-vitals">1.2.1. Google Core Web Vitals</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/26/07abebca369406a4.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/26/07abebca369406a4.png, https://s3.bmp.ovh/imgs/2022/08/26/07abebca369406a4.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/26/07abebca369406a4.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/26/07abebca369406a4.png"
+        title="https://s3.bmp.ovh/imgs/2022/08/26/07abebca369406a4.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/26/b1cac2735ba73f90.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/26/b1cac2735ba73f90.png, https://s3.bmp.ovh/imgs/2022/08/26/b1cac2735ba73f90.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/26/b1cac2735ba73f90.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/26/b1cac2735ba73f90.png"
+        title="https://s3.bmp.ovh/imgs/2022/08/26/b1cac2735ba73f90.png" /></p>
+<h3 id="122-sentry">1.2.2. Sentry</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/26/fdb55bda35236882.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/26/fdb55bda35236882.png, https://s3.bmp.ovh/imgs/2022/08/26/fdb55bda35236882.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/26/fdb55bda35236882.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/26/fdb55bda35236882.png"
+        title="https://s3.bmp.ovh/imgs/2022/08/26/fdb55bda35236882.png" /></p>
+<h1 id="2rail模型">2.RAIL模型</h1>
+<p>RAIL 是一种以用户为中心的性能模型，它提供了一种考虑性能的结构，该模型将用户体验分解到按键操作（例如，点击、滚动、加载）中，帮助我们为每个操作定义性能目标，RAIL 代表 Web 应用生命周期的四个不同方面：响应、动画、空闲和加载。用户对这些上下文分别有不同的性能期望，因此，性能目标是根据上下文以及用户如何感知延迟的用户体验研究来定义的</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/26/65a9b652c4080181.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/26/65a9b652c4080181.png, https://s3.bmp.ovh/imgs/2022/08/26/65a9b652c4080181.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/26/65a9b652c4080181.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/26/65a9b652c4080181.png"
+        title="https://s3.bmp.ovh/imgs/2022/08/26/65a9b652c4080181.png" /></p>
+<p>用户对性能延迟的看法：</p>
+<p>1、0~16ms 用户非常关注轨迹运动，他们不喜欢不流畅的动画。如果每秒渲染60个新帧，他们就认为动画很流畅。也就是说，每一帧只有16毫秒时间，这包括浏览器将新帧绘制到屏幕所需的时间，因而应用约有10毫秒的时间来生成一个帧</p>
+<p>2、0~100ms 在此时间窗口内响应用户操作会让用户觉得结果是即时呈现的。如果时间更长，操作与用户反应之间的联系就会中断</p>
+<p>3、100~1000ms 在此时间窗口内，用户会觉得任务进展基本上是自然连续的。对Web上的大多数用户来说，加载页面或更改视图是一项任务</p>
+<p>4、1000ms 或更长超过1000ms(1s)，用户的注意力就会从正在执行的任务上转移</p>
+<p>5、10000ms 或更长超过10000ms(10s)，用户会感到失望，并且可能放弃任务。他们以后可能会回来，也可能不会再回来</p>
+<h2 id="21响应response">2.1.响应(response)</h2>
+<p><code>目标：在100毫秒内完成由用户输入发起的转换，让用户感觉交互是即时的</code></p>
+<p>时间再⻓，操作与反应之间的连接就会中断，⼈们就会觉得它的操作有延迟。例如：当⽤户点击⼀个按钮，如果100ms内给出响应，那么⽤户就会觉得响应很及时，不会察觉到丝毫延迟感</p>
+<h2 id="22动画animation">2.2.动画(animation)</h2>
+<p><code>目标：在10毫秒或更短的时间内生成动画的每一帧</code></p>
+<p>从技术上来讲，每帧的最大预算为16毫秒（1000 毫秒 / 每秒60帧 ≈ 16毫秒），但是，浏览器需要大约6毫秒来渲染一帧，因此，准则为每帧10毫秒</p>
+<p>实际情况还要根据显示器本身的参数来确定，但一般都是以60帧为标准</p>
+<h2 id="23空闲idle">2.3.空闲(idle)</h2>
+<p><code>目标：最大限度增加空闲时间以提高页面在50毫秒内响应用户输入的几率</code></p>
+<p>空闲周期内运⾏的任务不得超过50ms，当然不⽌RAIL规定，W3C性能⼯作组的Longtasks标准也规定了超过50毫秒的任务属于⻓任务，那么50ms这个数字是怎么得来的呢？</p>
+<p>浏览器是单线程的，这意味着同⼀时间主线程只能处理⼀个任务，如果⼀个任务执⾏时间过⻓，浏览器则⽆法执⾏其他任务，⽤户会感觉到浏览器被卡死了，因为他的输⼊得不到任何响应</p>
+<p>为了达到100ms内给出响应，将空闲周期执⾏的任务限制为50ms意味着，即使⽤户的输⼊⾏为发⽣在空闲任务刚开始执⾏，浏览器仍有剩余的50ms时间⽤来响应⽤户输⼊，⽽不会产⽣⽤户可察觉的延迟</p>
+<h2 id="23加载load">2.3.加载(load)</h2>
+<p><code>目标：在1秒钟内加载⽹⻚并让⽤户看到内容</code></p>
+<p>如果不能在1秒钟内加载⽹⻚并让⽤户看到内容，⽤户的注意⼒就会分散。⽤户会觉得他要做的事情被打断，如果10秒钟还打不开⽹⻚，⽤户会感到失望，会放弃他们想做的事，以后他们或许都不会再回来</p>
+<h1 id="3如何监控">3.如何监控</h1>
+<blockquote>
+<p>前端性能监控主要分为两种⽅式，⼀种叫做合成监控(Synthetic Monitoring，SYN)，另⼀种是真实⽤户监控(Real User Monitoring，RUM)
+合成监控⼀般会借助⼯具来做检查例如：lighthouse。⽽真实⽤户监控的时候，我们就需要采集⼀些⽤户数据</p>
+</blockquote>
+<h2 id="31采集数据">3.1.采集数据</h2>
+<h3 id="311手动采集">3.1.1.手动采集</h3>
+<p>为了帮助开发者更好地衡量和改进前端⻚⾯性能，W3C性能⼩组引⼊了Navigation Timing API，实现了⾃动、精准的⻚⾯性能打点；我们可以利⽤ performance API 轻松获取⻚⾯的相关性能数据和衡量⼀些流程的时间</p>
+<p>W3C Navigation Timing Level 1：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/09/01/8f5ebe940d11a169.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/09/01/8f5ebe940d11a169.png, https://s3.bmp.ovh/imgs/2022/09/01/8f5ebe940d11a169.png 1.5x, https://s3.bmp.ovh/imgs/2022/09/01/8f5ebe940d11a169.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/09/01/8f5ebe940d11a169.png"
+        title="https://s3.bmp.ovh/imgs/2022/09/01/8f5ebe940d11a169.png" /></p>
+<p>W3C Navigation Timing Level 2：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/09/01/5b41fe471b02dd99.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/09/01/5b41fe471b02dd99.png, https://s3.bmp.ovh/imgs/2022/09/01/5b41fe471b02dd99.png 1.5x, https://s3.bmp.ovh/imgs/2022/09/01/5b41fe471b02dd99.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/09/01/5b41fe471b02dd99.png"
+        title="https://s3.bmp.ovh/imgs/2022/09/01/5b41fe471b02dd99.png" /></p>
+<p>各字段的含义：</p>
+<ul>
+  <li>
+    <p>
+    <code>startTime</code>：有些浏览器实现为<a href="https://msdn.microsoft.com/en-us/library/ff974724(v=vs.85).aspx"
+        rel="noopener"><code>navigationStart</code></a>，代表浏览器开始unload前一个页面文档的开始时间节点。比如我们当前正在浏览baidu.com，在地址栏输入google.com并回车，浏览器的执行动作依次为：unload当前文档（即baidu.com）-&gt; 请求下一文档（即google.com）navigationStart的值便是触发unload当前文档的时间节点
+    </p>
+    <blockquote>
+      <p>如果当前文档为空，则navigationStart的值等于fetchStart</p>
+    </blockquote>
+  </li>
+  <li>
+    <code>redirectStart</code>和<code>redirectEnd</code>：如果页面是由redirect而来，则redirectStart和redirectEnd分别代表redirect开始和结束的时间节点
+  </li>
+  <li>
+    <code>unloadEventStart</code>和<code>unloadEventEnd</code>：如果前一个文档和请求的文档是同一个域的，则<code>unloadEventStart</code>和<code>unloadEventEnd</code>分别代表浏览器unload前一个文档的开始和结束时间节点。否则两者都等于0
+  </li>
+  <li><code>fetchStart</code>是指在浏览器发起任何请求之前的时间值。在fetchStart和<code>domainLookupStart</code>之间，浏览器会检查当前文档的缓存
+  </li>
+  <li>
+    <code>domainLookupStart</code>和<code>domainLookupEnd</code>分别代表DNS查询的开始和结束时间节点。如果浏览器没有进行DNS查询（比如使用了cache），则两者的值都等于<code>fetchStart</code>
+  </li>
+  <li>
+    <code>connectStart</code>和<code>connectEnd</code>分别代表TCP建立连接和连接成功的时间节点。如果浏览器没有进行TCP连接（比如使用持久化连接webscoket），则两者都等于<code>domainLookupEnd</code>
+  </li>
+  <li><code>secureConnectionStart</code>：可选。如果页面使用HTTPS，它的值是安全连接握手之前的时刻。如果该属性不可用，则返回undefined。如果该属性可用，但没有使用HTTPS，则返回0
+  </li>
+  <li><code>requestStart</code>代表浏览器发起请求的时间节点，请求的方式可以是请求服务器、缓存、本地资源等</li>
+  <li><code>responseStart</code>和<code>responseEnd</code>分别代表浏览器收到从服务器端（或缓存、本地资源）响应回的第一个字节和最后一个字节数据的时刻</li>
+  <li>
+    <code>domLoading</code>代表浏览器开始解析html文档的时间节点。我们知道IE浏览器下的document有<code>readyState</code>属性，<code>domLoading</code>的值就等于<code>readyState</code>改变为<code>loading</code>的时间节点
+  </li>
+  <li>
+    <code>domInteractive</code>代表浏览器解析html文档的状态为<code>interactive</code>时的时间节点。<code>domInteractive</code>并非DOMReady，它早于DOMReady触发，代表html文档解析完毕（即dom tree创建完成）但是内嵌资源（比如外链css、js等）还未加载的时间点</li>
+  <li>
+    <p><code>domContentLoadedEventStart</code>：代表<code>DOMContentLoaded</code>事件触发的时间节点：</p>
+    <blockquote>
+      <p>页面文档完全加载并解析完毕之后,会触发DOMContentLoaded事件，HTML文档不会等待样式文件,图片文件,子框架页面的加载(load事件可以用来检测HTML页面是否完全加载完毕(fully-loaded))
+      </p>
+  </li>
+  <li>
+    <code>domContentLoadedEventEnd</code>：代表<code>DOMContentLoaded</code>事件完成的时间节点，此刻用户可以对页面进行操作，也就是jQuery中的domready时间
+  </li>
+  <li><code>domComplete</code>：html文档完全解析完毕的时间节点</li>
+  <li>
+    <p><code>loadEventStart</code>和<code>loadEventEnd</code>分别代表onload事件触发和结束的时间节点</p>
+  </li>
+</ul>
+<p>计算性能指标：</p>
+<p>DNS查询耗时 = <code>domainLookupEnd</code> - <code>domainLookupStart</code>
+TCP链接耗时 = <code>connectEnd</code> - <code>connectStart</code>
+request请求耗时 = <code>responseEnd</code> - <code>responseStart</code>
+解析dom树耗时 = <code>domComplete</code> - <code>domInteractive</code>
+白屏时间 = <code>domloadng</code> - <code>fetchStart</code>
+domready时间 = <code>domContentLoadedEventEnd</code> - <code>fetchStart</code>
+onload时间 = <code>loadEventEnd</code> - <code>fetchStart</code></p>
+<blockquote>
+<p>注意：通过window.performance.timing所获的的⻚⾯渲染所相关的时间点数据，在SPA应⽤中改变了url但不刷新⻚⾯的情况下是不会更新的。因此仅仅通过该api是⽆法获得每⼀个⼦路由所对应的⻚⾯渲染的时间。如果需要上报切换路由情况下每⼀个⼦⻚⾯重新render的时间，需要⾃定义上报</p>
+</blockquote>
+<h3 id="312数据上报">3.1.2.数据上报</h3>
+<p><code>navigator.sendBeacon</code></p>
+<p>1.数据可靠，浏览器关闭请求也照样能发
+2.异步执⾏，不会影响下⼀⻚⾯的加载
+3.API使⽤简单</p>
+<p><code>使⽤的img标签降级上报</code></p>
+<p>1.不存在AJAX跨域问题，可做跨源的请求
+2.很古⽼的标签，没有浏览器兼容性问题</p>
+<p><code>http请求</code></p>
+<p>1.三⽅库上报
+2.兼容性好</p>
+<h2 id="32性能分析">3.2.性能分析</h2>
+<p>Chrome DevTools给我们提供了⼏种种常⽤⽅式<code>Performance</code>、<code>Lighthouse</code>、<code>Memory</code>。Performance提供了⾮常多的运⾏时数据，能让我们看到更多细节数据；Lighthouse可以对⻚⾯进⾏性能评分，同时会给我们提供⼀些优化建议；同时我们也可以⽤Memory单独针对内存问题对堆栈快照进
+⾏排查</p>
+<h3 id="321-performance">3.2.1. Performance</h3>
+<blockquote>
+<p>使⽤时间线事件参考了解有关每种时间线事件类型的更多信息</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.bmp.ovh/imgs/2022/09/01/21cf6c8d0403b572.png"
+        data-srcset="https://i.bmp.ovh/imgs/2022/09/01/21cf6c8d0403b572.png, https://i.bmp.ovh/imgs/2022/09/01/21cf6c8d0403b572.png 1.5x, https://i.bmp.ovh/imgs/2022/09/01/21cf6c8d0403b572.png 2x"
+        data-sizes="auto"
+        alt="https://i.bmp.ovh/imgs/2022/09/01/21cf6c8d0403b572.png"
+        title="https://i.bmp.ovh/imgs/2022/09/01/21cf6c8d0403b572.png" /></p>
+<h3 id="322-lighthouse">3.2.2. Lighthouse</h3>
+<blockquote>
+<p>Lighthouse收集关于开发⼈员最佳实践的现代性能指标和⻅解，让开发⼈员根据⽣成的评估⻚⾯，来进⾏⽹站优化和完善，提⾼⽤户体验</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.bmp.ovh/imgs/2022/09/01/25bda5bf3ff9a354.png"
+        data-srcset="https://i.bmp.ovh/imgs/2022/09/01/25bda5bf3ff9a354.png, https://i.bmp.ovh/imgs/2022/09/01/25bda5bf3ff9a354.png 1.5x, https://i.bmp.ovh/imgs/2022/09/01/25bda5bf3ff9a354.png 2x"
+        data-sizes="auto"
+        alt="https://i.bmp.ovh/imgs/2022/09/01/25bda5bf3ff9a354.png"
+        title="https://i.bmp.ovh/imgs/2022/09/01/25bda5bf3ff9a354.png" /></p>
+<h3 id="323-memory">3.2.3. Memory</h3>
+<blockquote>
+<p>内存问题分析有很多种⽅式，例如：任务管理器监控，时间轴监控，堆快照监控等等</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.bmp.ovh/imgs/2022/09/01/1378ee9ee3da7e28.png"
+        data-srcset="https://i.bmp.ovh/imgs/2022/09/01/1378ee9ee3da7e28.png, https://i.bmp.ovh/imgs/2022/09/01/1378ee9ee3da7e28.png 1.5x, https://i.bmp.ovh/imgs/2022/09/01/1378ee9ee3da7e28.png 2x"
+        data-sizes="auto"
+        alt="https://i.bmp.ovh/imgs/2022/09/01/1378ee9ee3da7e28.png"
+        title="https://i.bmp.ovh/imgs/2022/09/01/1378ee9ee3da7e28.png" /></p>
+<h1 id="4参考链接">4.参考链接</h1>
+<p>1.<a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance" target="_blank" rel="noopener noreffer">Performance</a></p>
+<p>2.<a href="https://web.dev/i18n/zh/rail/" target="_blank" rel="noopener noreffer">RAIL模型</a></p>
+<p>3.<a href="https://developer.chrome.com/docs/devtools/" target="_blank" rel="noopener noreffer">Chrome Devtools</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-09-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" class="prev" rel="prev" title="PNG格式的详解"><i class="fas fa-angle-left fa-fw"></i>PNG格式的详解</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
