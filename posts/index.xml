@@ -3,7 +3,14 @@
         <title>所有文章 - 早起的老年人の博客</title>
         <link>https://baskep.com/posts/</link>
         <description>所有文章 | 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 04 Sep 2022 22:55:55 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 18 Sep 2022 15:39:22 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>家具选择</title>
+    <link>https://baskep.com/%E5%AE%B6%E5%85%B7%E9%80%89%E6%8B%A9/</link>
+    <pubDate>Sun, 18 Sep 2022 15:39:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.com/%E5%AE%B6%E5%85%B7%E9%80%89%E6%8B%A9/</guid>
+    <description><![CDATA[1. 沙发 1.1. 填充物 主要分为海绵、羽绒、人造棉、天然乳胶四种 一款合格的好沙发，通常内部坐垫会使用大于30kg/m³的高弹泡沫海绵填充，背垫使用大于]]></description>
+</item><item>
     <title>Web端性能监控</title>
     <link>https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/</link>
     <pubDate>Sun, 04 Sep 2022 22:55:55 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</guid>
     <description><![CDATA[上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用]]></description>
-</item><item>
-    <title>StoryBook &#43; Lerna 开发自己的UI组件库(一)</title>
-    <link>https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</link>
-    <pubDate>Fri, 27 Aug 2021 21:29:12 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</guid>
-    <description><![CDATA[1.前言 我们在日常工作中会接触到公共组件的开发，那公司内部肯定会创建自己的私有组件库，有的完全自研，从项目的脚手架搭建到最后的成品由专业团队]]></description>
 </item></channel>
 </rss>
