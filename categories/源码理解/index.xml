@@ -1,28 +1,28 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>源码理解 - 分类 - 早起的老年人の博客</title>
-        <link>http://localhost:1313/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</link>
+        <link>https://baskep.com/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/</link>
         <description>源码理解 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E6%BA%90%E7%A0%81%E7%90%86%E8%A7%A3/" rel="self" type="application/rss+xml" /><item>
     <title>useEffect的使用</title>
-    <link>http://localhost:1313/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+    <link>https://baskep.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+    <guid>https://baskep.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[react hooks中的useEffect是用的最频繁，也是需要&rsquo;&lsquo;小心&rsquo;&lsquo;的的hooks，因为一时]]></description>
 </item><item>
     <title>React调度过程</title>
-    <link>http://localhost:1313/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</link>
+    <link>https://baskep.com/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</link>
     <pubDate>Tue, 05 Jan 2021 23:02:17 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</guid>
+    <guid>https://baskep.com/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/</guid>
     <description><![CDATA[1.forwardRef 用来解决高阶组件传递ref的问题。它的用法就像是使用redux的时候，在外面包裹一层，通过...props的方式把外部的props传入到实]]></description>
 </item><item>
     <title>Vue的初始化渲染过程简介</title>
-    <link>http://localhost:1313/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</link>
+    <link>https://baskep.com/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</link>
     <pubDate>Mon, 27 Jul 2020 22:25:56 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</guid>
+    <guid>https://baskep.com/vue2.x%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B/</guid>
     <description><![CDATA[首先进入到src/core/instance/index.js，可以看到定义了一个Vue构造函数，内容很简单，如果不是生产环境并且不是通过n]]></description>
 </item></channel>
 </rss>

@@ -1,77 +1,77 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>实际应用 - 分类 - 早起的老年人の博客</title>
-        <link>http://localhost:1313/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
+        <link>https://baskep.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
         <description>实际应用 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 30 Dec 2021 14:13:30 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 30 Dec 2021 14:13:30 &#43;0800</lastBuildDate><atom:link href="https://baskep.com/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
     <title>使用Vite去构建React应用</title>
-    <link>http://localhost:1313/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</link>
+    <link>https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</link>
     <pubDate>Thu, 30 Dec 2021 14:13:30 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</guid>
+    <guid>https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</guid>
     <description><![CDATA[1.vite的基本介绍 vite是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成： 一个开发服务器，它基于原生ES模块提供了]]></description>
 </item><item>
     <title>从0构建一个Nodejs脚手架</title>
-    <link>http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</link>
+    <link>https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</link>
     <pubDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</guid>
+    <guid>https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</guid>
     <description><![CDATA[搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通]]></description>
 </item><item>
     <title>StoryBook &#43; Lerna 开发自己的UI组件库(二)</title>
-    <link>http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</link>
+    <link>https://baskep.com/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</link>
     <pubDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</guid>
+    <guid>https://baskep.com/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</guid>
     <description><![CDATA[上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用]]></description>
 </item><item>
     <title>StoryBook &#43; Lerna 开发自己的UI组件库(一)</title>
-    <link>http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</link>
+    <link>https://baskep.com/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</link>
     <pubDate>Fri, 27 Aug 2021 21:29:12 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</guid>
+    <guid>https://baskep.com/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/</guid>
     <description><![CDATA[1.前言 我们在日常工作中会接触到公共组件的开发，那公司内部肯定会创建自己的私有组件库，有的完全自研，从项目的脚手架搭建到最后的成品由专业团队]]></description>
 </item><item>
     <title>Flutter自定义组件</title>
-    <link>http://localhost:1313/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</link>
+    <link>https://baskep.com/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</link>
     <pubDate>Sat, 28 Nov 2020 16:23:05 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</guid>
+    <guid>https://baskep.com/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/</guid>
     <description><![CDATA[在使用Flutter开发app的时候，是使用各种各样的Widget 组合绘制出的页面，一些最基础的如Container、Padding、Tex]]></description>
 </item><item>
     <title>使用Canvas实现一个红包雨的效果</title>
-    <link>http://localhost:1313/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
+    <link>https://baskep.com/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</link>
     <pubDate>Mon, 15 Jun 2020 18:12:19 &#43;0700</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
+    <guid>https://baskep.com/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/</guid>
     <description><![CDATA[之前使用jQuery做了一个红包雨的效果，感觉不是很理想，创建过多DOM元素造成性能上的浪费，整个页面也不够丝滑流畅，这次该用Canvas做]]></description>
 </item><item>
     <title>Nodejs实现excel导出数据的功能</title>
-    <link>http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
+    <link>https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
     <pubDate>Sun, 10 Nov 2019 22:42:19 &#43;0915</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
+    <guid>https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
     <description><![CDATA[1.对于一些业务系统，很常见的一个功能就是将数据生成 excel 导出，其实在nodejs中已经很多优秀的第三方库可以实现这个功能，我这里选择的是nod]]></description>
 </item><item>
     <title>D3.js绘制中国地图</title>
-    <link>http://localhost:1313/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</link>
+    <link>https://baskep.com/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</link>
     <pubDate>Tue, 13 Aug 2019 22:42:19 &#43;0915</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</guid>
+    <guid>https://baskep.com/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/</guid>
     <description><![CDATA[d3.js 是一个 JavaScript 库，用于根据数据操作文档。d3 可以使用 HTML、SVG 和 CSS 将数据变为现实。d3 对网络标准的强调让你拥有了现代浏览器的全部功能，而不]]></description>
 </item><item>
     <title>最近一些效果的实现</title>
-    <link>http://localhost:1313/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+    <link>https://baskep.com/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
     <pubDate>Wed, 07 Aug 2019 21:42:19 &#43;0623</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+    <guid>https://baskep.com/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
     <description><![CDATA[楼层定位效果 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 const leftNav]]></description>
 </item><item>
     <title>使用文本过滤的方式防御XSS</title>
-    <link>http://localhost:1313/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</link>
+    <link>https://baskep.com/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</link>
     <pubDate>Mon, 15 Jul 2019 19:12:19 &#43;0700</pubDate>
     <author>作者</author>
-    <guid>http://localhost:1313/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</guid>
+    <guid>https://baskep.com/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</guid>
     <description><![CDATA[​ 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其]]></description>
 </item></channel>
 </rss>

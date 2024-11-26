@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Web端性能监控 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="http://localhost:1313/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/">
+        <title>Web端性能监控 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/">
   <meta property="og:site_name" content="早起的老年人の博客">
   <meta property="og:title" content="Web端性能监控">
   <meta property="og:description" content="前言 ⼀个⻚⾯性能差的话会⼤⼤影响⽤户体验，⽤户打开⻚⾯等待的太久，可能会直接关掉⻚⾯，甚⾄就不再使⽤了，这种情况在移动端更加明显，移动端⽤户">
@@ -14,14 +14,14 @@
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2022-09-04T22:55:55+08:00">
     <meta property="article:modified_time" content="2022-09-04T22:55:55+08:00">
-    <meta property="og:image" content="http://localhost:1313/logo.png">
+    <meta property="og:image" content="https://baskep.com/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:image" content="https://baskep.com/logo.png">
   <meta name="twitter:title" content="Web端性能监控">
   <meta name="twitter:description" content="前言 ⼀个⻚⾯性能差的话会⼤⼤影响⽤户体验，⽤户打开⻚⾯等待的太久，可能会直接关掉⻚⾯，甚⾄就不再使⽤了，这种情况在移动端更加明显，移动端⽤户">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" /><link rel="prev" href="http://localhost:1313/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" /><link rel="prev" href="https://baskep.com/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,11 +29,11 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/localhost:1313\/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7\/"
-        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5471 ,
-        "url": "http:\/\/localhost:1313\/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7\/","datePublished": "2022-09-04T22:55:55+08:00","dateModified": "2022-09-04T22:55:55+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "https:\/\/baskep.com\/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7\/"
+        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5471 ,
+        "url": "https:\/\/baskep.com\/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7\/","datePublished": "2022-09-04T22:55:55+08:00","dateModified": "2022-09-04T22:55:55+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
-            "name": "xxxx","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
+            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "早起的老年人"
             },"description": ""
@@ -465,7 +465,7 @@ onload时间 = <code>loadEventEnd</code> - <code>fetchStart</code></p>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" data-title="Web端性能监控"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
