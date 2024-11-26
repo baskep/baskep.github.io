@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Flutter各种踩坑心得 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="Flutter各种踩坑心得" />
-<meta property="og:description" content="1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" />
-<meta property="og:image" content="https://baskep.com/logo.png"/>
-<meta property="article:published_time" content="2020-12-05T16:06:56+08:00" />
-<meta property="article:modified_time" content="2020-12-05T16:06:56+08:00" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+        <title>Flutter各种踩坑心得 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="http://localhost:1313/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Flutter各种踩坑心得">
+  <meta property="og:description" content="1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-12-05T16:06:56+08:00">
+    <meta property="article:modified_time" content="2020-12-05T16:06:56+08:00">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
 
-<meta name="twitter:title" content="Flutter各种踩坑心得"/>
-<meta name="twitter:description" content="1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="Flutter各种踩坑心得">
+  <meta name="twitter:description" content="1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" /><link rel="prev" href="https://baskep.com/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" /><link rel="next" href="https://baskep.com/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" /><link rel="prev" href="http://localhost:1313/flutter%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6/" /><link rel="next" href="http://localhost:1313/react%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -26,11 +29,11 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/baskep.com\/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97\/"
-        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2994 ,
-        "url": "https:\/\/baskep.com\/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97\/","datePublished": "2020-12-05T16:06:56+08:00","dateModified": "2020-12-05T16:06:56+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "http:\/\/localhost:1313\/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2992 ,
+        "url": "http:\/\/localhost:1313\/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97\/","datePublished": "2020-12-05T16:06:56+08:00","dateModified": "2020-12-05T16:06:56+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+            "name": "xxxx","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "早起的老年人"
             },"description": ""
@@ -77,7 +80,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Flutter各种踩坑心得</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-05">2020-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2994 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-05">2020-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2992 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -109,7 +112,7 @@
 <p>首先修改你创建的项目中的<code>/android/build.gradle</code>文件，修改<code>buildscript</code>以及<code>allprojects</code>的仓库地址，否则编译打包会卡住不动，其次就是<code>package get</code>会卡住，原因是因为连接不上谷歌的服务，有点蛋疼</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -127,45 +130,43 @@
 </span><span class="lnt">16
 </span><span class="lnt">17
 </span><span class="lnt">18
-</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">buildscript</span> <span class="o">{</span>
-    <span class="n">repositories</span> <span class="o">{</span>
-        <span class="c1">// google()
-</span><span class="c1"></span>        <span class="c1">// jcenter()
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }
-</span><span class="c1"></span>    <span class="o">}</span>
-<span class="o">}</span>
-
-<span class="n">allprojects</span> <span class="o">{</span>
-    <span class="n">repositories</span> <span class="o">{</span>
-        <span class="c1">// google()
-</span><span class="c1"></span>        <span class="c1">// jcenter()
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }
-</span><span class="c1"></span>    <span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">buildscript</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// google()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// jcenter()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">allprojects</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// google()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// jcenter()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="2signlechildscrollview页面不满一屏无法撑满全屏">2.SignleChildScrollView页面不满一屏无法撑满全屏</h1>
 <p>可以换个布局组件或者将其设置为<code>Container</code>子组件，设置<code>alignment</code>，如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="n">Container</span><span class="p">(</span>
-  <span class="nl">alignment:</span> <span class="n">Alignment</span><span class="p">.</span><span class="n">topLeft</span><span class="p">,</span>
-  <span class="nl">child:</span> <span class="n">SingleChildScrollView</span><span class="p">(),</span>
-<span class="p">),</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="n">Container</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">alignment:</span> <span class="n">Alignment</span><span class="p">.</span><span class="n">topLeft</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">child:</span> <span class="n">SingleChildScrollView</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl"><span class="p">),</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="3自定义appbar">3.自定义AppBar</h1>
 <p><code>AppBar</code>这个组件可拓展性还是比较低的，尤其是它的高度都是写死的，这种情况可以换<code>SliverAppBar</code>或者自定义<code>AppBar</code>，换句话说自定义组件，这里就不详诉</p>
@@ -173,7 +174,7 @@
 <p>使用 <code>StatefulWidget</code> 混入 <code>AutomaticKeepAliveClientMixin</code>，覆盖<code>wantKeepAlive</code>属性</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -183,21 +184,19 @@
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
-</span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="kd">class</span> <span class="nc">TesPage</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
-  <span class="err">@</span><span class="n">override</span>
-  <span class="n">createState</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">TesPageState</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="kd">class</span> <span class="nc">TesPageState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">TesPage</span><span class="o">&gt;</span> <span class="kd">with</span> <span class="n">AutomaticKeepAliveClientMixin</span> <span class="p">{</span>
-  
-  <span class="err">@</span><span class="n">override</span>
-  <span class="kt">bool</span> <span class="kd">get</span> <span class="n">wantKeepAlive</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">TesPage</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">createState</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">TesPageState</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">TesPageState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">TesPage</span><span class="o">&gt;</span> <span class="kd">with</span> <span class="n">AutomaticKeepAliveClientMixin</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="kd">get</span> <span class="n">wantKeepAlive</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="5路由跳转方式的选择">5.路由跳转方式的选择</h1>
 <p>通常路由跳转会用到<code>Navigator.push</code>推入路由栈，<code>Navigator.pop</code>就移出、返回上一个的状态。如果在页面上全部用这两个方法，你会发现你的页面间的跳转仿佛乱了一样，原因就是<code>Navigator.push</code>是每次将你的路由推入栈，也就是你可以一直做返回操作、手势来获取之前的页面状态。这个时候就要考虑用其他方式，如</p>
@@ -214,7 +213,7 @@
 <p>说实话当时发现<code>Flutter</code>无法设置虚线边框的时候我是很震惊的，我感觉这算是基本的不能在基本的属性了，解决方法，参考官方<code>issues</code>中大佬的解法，目前只能自己实现<code>paint</code>方法，自己用<code>Canvas</code>画</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -365,156 +364,156 @@
 </span><span class="lnt">149
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="k">import</span> <span class="s1">&#39;package:flutter/material.dart&#39;</span><span class="p">;</span>
-<span class="k">import</span> <span class="s1">&#39;package:path_drawing/path_drawing.dart&#39;</span><span class="p">;</span>
-
-<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">runApp</span><span class="p">(</span><span class="n">MyApp</span><span class="p">());</span>
-
-<span class="kd">class</span> <span class="nc">MyApp</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
-  <span class="err">@</span><span class="n">override</span>
-  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">MaterialApp</span><span class="p">(</span>
-      <span class="nl">title:</span> <span class="s1">&#39;Flutter Demo&#39;</span><span class="p">,</span>
-      <span class="nl">theme:</span> <span class="n">ThemeData</span><span class="p">(</span>
-        <span class="nl">primarySwatch:</span> <span class="n">Colors</span><span class="p">.</span><span class="n">blue</span><span class="p">,</span>
-      <span class="p">),</span>
-      <span class="nl">home:</span> <span class="n">MyHomePage</span><span class="p">(</span><span class="nl">title:</span> <span class="s1">&#39;Flutter Demo Home Page&#39;</span><span class="p">),</span>
-    <span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">class</span> <span class="nc">MyHomePage</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
-  <span class="n">MyHomePage</span><span class="p">({</span><span class="n">Key</span> <span class="n">key</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">title</span><span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
-  <span class="kd">final</span> <span class="kt">String</span> <span class="n">title</span><span class="p">;</span>
-
-  <span class="err">@</span><span class="n">override</span>
-  <span class="n">_MyHomePageState</span> <span class="n">createState</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">_MyHomePageState</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="kd">class</span> <span class="nc">_MyHomePageState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">MyHomePage</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">_counter</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span>
-
-  <span class="kt">void</span> <span class="n">_incrementCounter</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
-      <span class="n">_counter</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">});</span>
-  <span class="p">}</span>
-
-  <span class="err">@</span><span class="n">override</span>
-  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">Scaffold</span><span class="p">(</span>
-      <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
-        <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="n">widget</span><span class="p">.</span><span class="n">title</span><span class="p">),</span>
-      <span class="p">),</span>
-      <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
-        <span class="nl">child:</span> <span class="n">Column</span><span class="p">(</span>
-          <span class="nl">mainAxisAlignment:</span> <span class="n">MainAxisAlignment</span><span class="p">.</span><span class="n">center</span><span class="p">,</span>
-          <span class="nl">children:</span> <span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="p">[</span>
-            <span class="n">Container</span><span class="p">(</span>
-              <span class="nl">decoration:</span> <span class="n">BoxDecoration</span><span class="p">(</span>
-                <span class="nl">border:</span> <span class="n">DashPathBorder</span><span class="p">.</span><span class="n">all</span><span class="p">(</span>
-                  <span class="nl">dashArray:</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">[</span><span class="m">5.0</span><span class="p">,</span> <span class="m">2.5</span><span class="p">]),</span>
-                <span class="p">),</span>
-              <span class="p">),</span>
-              <span class="nl">padding:</span> <span class="kd">const</span> <span class="n">EdgeInsets</span><span class="p">.</span><span class="n">all</span><span class="p">(</span><span class="m">20.0</span><span class="p">),</span>
-              <span class="nl">child:</span> <span class="kd">const</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;You have pushed the button this many times:&#39;</span><span class="p">),</span>
-            <span class="p">),</span>
-            <span class="n">Text</span><span class="p">(</span>
-              <span class="s1">&#39;</span><span class="si">$</span><span class="n">_counter</span><span class="s1">&#39;</span><span class="p">,</span>
-              <span class="nl">style:</span> <span class="n">Theme</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">textTheme</span><span class="p">.</span><span class="n">display1</span><span class="p">,</span>
-            <span class="p">),</span>
-          <span class="p">],</span>
-        <span class="p">),</span>
-      <span class="p">),</span>
-      <span class="nl">floatingActionButton:</span> <span class="n">FloatingActionButton</span><span class="p">(</span>
-        <span class="nl">onPressed:</span> <span class="n">_incrementCounter</span><span class="p">,</span>
-        <span class="nl">tooltip:</span> <span class="s1">&#39;Increment&#39;</span><span class="p">,</span>
-        <span class="nl">child:</span> <span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="n">add</span><span class="p">),</span>
-      <span class="p">),</span>
-    <span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">class</span> <span class="nc">DashPathBorder</span> <span class="kd">extends</span> <span class="n">Border</span> <span class="p">{</span>
-  <span class="n">DashPathBorder</span><span class="p">({</span>
-    <span class="err">@</span><span class="n">required</span> <span class="k">this</span><span class="p">.</span><span class="n">dashArray</span><span class="p">,</span>
-    <span class="n">BorderSide</span> <span class="n">top</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
-    <span class="n">BorderSide</span> <span class="n">left</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
-    <span class="n">BorderSide</span> <span class="n">right</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
-    <span class="n">BorderSide</span> <span class="n">bottom</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
-  <span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span>
-          <span class="nl">top:</span> <span class="n">top</span><span class="p">,</span>
-          <span class="nl">left:</span> <span class="n">left</span><span class="p">,</span>
-          <span class="nl">right:</span> <span class="n">right</span><span class="p">,</span>
-          <span class="nl">bottom:</span> <span class="n">bottom</span><span class="p">,</span>
-        <span class="p">);</span>
-
-  <span class="kd">factory</span> <span class="n">DashPathBorder</span><span class="p">.</span><span class="n">all</span><span class="p">({</span>
-    <span class="n">BorderSide</span> <span class="n">borderSide</span> <span class="o">=</span> <span class="kd">const</span> <span class="n">BorderSide</span><span class="p">(),</span>
-    <span class="err">@</span><span class="n">required</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">dashArray</span><span class="p">,</span>
-  <span class="p">})</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">DashPathBorder</span><span class="p">(</span>
-      <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">,</span>
-      <span class="nl">top:</span> <span class="n">borderSide</span><span class="p">,</span>
-      <span class="nl">right:</span> <span class="n">borderSide</span><span class="p">,</span>
-      <span class="nl">left:</span> <span class="n">borderSide</span><span class="p">,</span>
-      <span class="nl">bottom:</span> <span class="n">borderSide</span><span class="p">,</span>
-    <span class="p">);</span>
-  <span class="p">}</span>
-  <span class="kd">final</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">dashArray</span><span class="p">;</span>
-
-  <span class="err">@</span><span class="n">override</span>
-  <span class="kt">void</span> <span class="n">paint</span><span class="p">(</span>
-    <span class="n">Canvas</span> <span class="n">canvas</span><span class="p">,</span>
-    <span class="n">Rect</span> <span class="n">rect</span><span class="p">,</span> <span class="p">{</span>
-    <span class="n">TextDirection</span> <span class="n">textDirection</span><span class="p">,</span>
-    <span class="n">BoxShape</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">BoxShape</span><span class="p">.</span><span class="n">rectangle</span><span class="p">,</span>
-    <span class="n">BorderRadius</span> <span class="n">borderRadius</span><span class="p">,</span>
-  <span class="p">})</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">isUniform</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">switch</span> <span class="p">(</span><span class="n">top</span><span class="p">.</span><span class="n">style</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="nl">none:</span>
-          <span class="k">return</span><span class="p">;</span>
-        <span class="k">case</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="nl">solid:</span>
-          <span class="k">switch</span> <span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">case</span> <span class="n">BoxShape</span><span class="p">.</span><span class="nl">circle:</span>
-              <span class="k">assert</span><span class="p">(</span><span class="n">borderRadius</span> <span class="o">==</span> <span class="kc">null</span><span class="p">,</span>
-                  <span class="s1">&#39;A borderRadius can only be given for rectangular boxes.&#39;</span><span class="p">);</span>
-              <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
-                <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addOval</span><span class="p">(</span><span class="n">rect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
-                <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
-              <span class="p">);</span>
-              <span class="k">break</span><span class="p">;</span>
-            <span class="k">case</span> <span class="n">BoxShape</span><span class="p">.</span><span class="nl">rectangle:</span>
-              <span class="k">if</span> <span class="p">(</span><span class="n">borderRadius</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">final</span> <span class="n">RRect</span> <span class="n">rrect</span> <span class="o">=</span>
-                    <span class="n">RRect</span><span class="p">.</span><span class="n">fromRectAndRadius</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">borderRadius</span><span class="p">.</span><span class="n">topLeft</span><span class="p">);</span>
-                <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
-                  <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addRRect</span><span class="p">(</span><span class="n">rrect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
-                  <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
-                <span class="p">);</span>
-                <span class="k">return</span><span class="p">;</span>
-              <span class="p">}</span>
-              <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
-                <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addRect</span><span class="p">(</span><span class="n">rect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
-                <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
-              <span class="p">);</span>
-
-              <span class="k">break</span><span class="p">;</span>
-          <span class="p">}</span>
-          <span class="k">return</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">assert</span><span class="p">(</span><span class="n">borderRadius</span> <span class="o">==</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s1">&#39;A borderRadius can only be given for uniform borders.&#39;</span><span class="p">);</span>
-    <span class="k">assert</span><span class="p">(</span><span class="n">shape</span> <span class="o">==</span> <span class="n">BoxShape</span><span class="p">.</span><span class="n">rectangle</span><span class="p">,</span>
-        <span class="s1">&#39;A border can only be drawn as a circle if it is uniform.&#39;</span><span class="p">);</span>
-
-    <span class="c1">// TODO(dnfield): implement when borders are not uniform.
-</span><span class="c1"></span>  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:flutter/material.dart&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="s1">&#39;package:path_drawing/path_drawing.dart&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">runApp</span><span class="p">(</span><span class="n">MyApp</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">MyApp</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">MaterialApp</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">title:</span> <span class="s1">&#39;Flutter Demo&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">theme:</span> <span class="n">ThemeData</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">primarySwatch:</span> <span class="n">Colors</span><span class="p">.</span><span class="n">blue</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">home:</span> <span class="n">MyHomePage</span><span class="p">(</span><span class="nl">title:</span> <span class="s1">&#39;Flutter Demo Home Page&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">MyHomePage</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">MyHomePage</span><span class="p">({</span><span class="n">Key</span> <span class="n">key</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">title</span><span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="nl">key:</span> <span class="n">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kt">String</span> <span class="n">title</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_MyHomePageState</span> <span class="n">createState</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">_MyHomePageState</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">_MyHomePageState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">MyHomePage</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_counter</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">_incrementCounter</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">setState</span><span class="p">(()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">_counter</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Scaffold</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">title:</span> <span class="n">Text</span><span class="p">(</span><span class="n">widget</span><span class="p">.</span><span class="n">title</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">body:</span> <span class="n">Center</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">child:</span> <span class="n">Column</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">mainAxisAlignment:</span> <span class="n">MainAxisAlignment</span><span class="p">.</span><span class="n">center</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">children:</span> <span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Container</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">              <span class="nl">decoration:</span> <span class="n">BoxDecoration</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nl">border:</span> <span class="n">DashPathBorder</span><span class="p">.</span><span class="n">all</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                  <span class="nl">dashArray:</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">[</span><span class="m">5.0</span><span class="p">,</span> <span class="m">2.5</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">),</span>
+</span></span><span class="line"><span class="cl">              <span class="p">),</span>
+</span></span><span class="line"><span class="cl">              <span class="nl">padding:</span> <span class="kd">const</span> <span class="n">EdgeInsets</span><span class="p">.</span><span class="n">all</span><span class="p">(</span><span class="m">20.0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">              <span class="nl">child:</span> <span class="kd">const</span> <span class="n">Text</span><span class="p">(</span><span class="s1">&#39;You have pushed the button this many times:&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;</span><span class="si">$</span><span class="n">_counter</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nl">style:</span> <span class="n">Theme</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">textTheme</span><span class="p">.</span><span class="n">display1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">floatingActionButton:</span> <span class="n">FloatingActionButton</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">onPressed:</span> <span class="n">_incrementCounter</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">tooltip:</span> <span class="s1">&#39;Increment&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">child:</span> <span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="n">add</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">DashPathBorder</span> <span class="kd">extends</span> <span class="n">Border</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">DashPathBorder</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="kd">required</span> <span class="k">this</span><span class="p">.</span><span class="n">dashArray</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BorderSide</span> <span class="n">top</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BorderSide</span> <span class="n">left</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BorderSide</span> <span class="n">right</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BorderSide</span> <span class="n">bottom</span> <span class="o">=</span> <span class="n">BorderSide</span><span class="p">.</span><span class="n">none</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">top:</span> <span class="n">top</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">left:</span> <span class="n">left</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">right:</span> <span class="n">right</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nl">bottom:</span> <span class="n">bottom</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">factory</span> <span class="n">DashPathBorder</span><span class="p">.</span><span class="n">all</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BorderSide</span> <span class="n">borderSide</span> <span class="o">=</span> <span class="kd">const</span> <span class="n">BorderSide</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="err">@</span><span class="kd">required</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">dashArray</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">DashPathBorder</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">top:</span> <span class="n">borderSide</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">right:</span> <span class="n">borderSide</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">left:</span> <span class="n">borderSide</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nl">bottom:</span> <span class="n">borderSide</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="n">CircularIntervalList</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">dashArray</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">paint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Canvas</span> <span class="n">canvas</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Rect</span> <span class="n">rect</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TextDirection</span> <span class="n">textDirection</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BoxShape</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">BoxShape</span><span class="p">.</span><span class="n">rectangle</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BorderRadius</span> <span class="n">borderRadius</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">isUniform</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">switch</span> <span class="p">(</span><span class="n">top</span><span class="p">.</span><span class="n">style</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="nl">none:</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="n">BorderStyle</span><span class="p">.</span><span class="nl">solid:</span>
+</span></span><span class="line"><span class="cl">          <span class="k">switch</span> <span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">BoxShape</span><span class="p">.</span><span class="nl">circle:</span>
+</span></span><span class="line"><span class="cl">              <span class="k">assert</span><span class="p">(</span><span class="n">borderRadius</span> <span class="o">==</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="s1">&#39;A borderRadius can only be given for rectangular boxes.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">              <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addOval</span><span class="p">(</span><span class="n">rect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">              <span class="p">);</span>
+</span></span><span class="line"><span class="cl">              <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="n">BoxShape</span><span class="p">.</span><span class="nl">rectangle:</span>
+</span></span><span class="line"><span class="cl">              <span class="k">if</span> <span class="p">(</span><span class="n">borderRadius</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">final</span> <span class="n">RRect</span> <span class="n">rrect</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">RRect</span><span class="p">.</span><span class="n">fromRectAndRadius</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">borderRadius</span><span class="p">.</span><span class="n">topLeft</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addRRect</span><span class="p">(</span><span class="n">rrect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">}</span>
+</span></span><span class="line"><span class="cl">              <span class="n">canvas</span><span class="p">.</span><span class="n">drawPath</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">dashPath</span><span class="p">(</span><span class="n">Path</span><span class="p">()..</span><span class="n">addRect</span><span class="p">(</span><span class="n">rect</span><span class="p">),</span> <span class="nl">dashArray:</span> <span class="n">dashArray</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">top</span><span class="p">.</span><span class="n">toPaint</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">              <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">              <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span><span class="p">(</span><span class="n">borderRadius</span> <span class="o">==</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;A borderRadius can only be given for uniform borders.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span><span class="p">(</span><span class="n">shape</span> <span class="o">==</span> <span class="n">BoxShape</span><span class="p">.</span><span class="n">rectangle</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;A border can only be drawn as a circle if it is uniform.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// TODO(dnfield): implement when borders are not uniform.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="9使用dio时设置相应数据的媒体类型">9.使用Dio时，设置相应数据的媒体类型</h1>
 <p>使用<code>Dio</code>封装网络请求，普通的请求最好设置相应类型<code>dio.options.responseType = ResponseType.json</code>，否则可能接收到的响应可能是字符串。</p>
@@ -551,7 +550,7 @@
 <p>首先打开<code>/android/build.gradle</code>文件，在<code>buildscript</code>中指定<code>kotlin_version</code>，否则<code>debug</code>、<code>release</code>编译会不通过</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -568,31 +567,31 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">buildscript</span> <span class="o">{</span>
-    <span class="n">ext</span><span class="o">.</span><span class="na">kotlin_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">1</span><span class="o">.</span><span class="na">3</span><span class="o">.</span><span class="na">50</span><span class="err">&#39;</span>
-    <span class="n">repositories</span> <span class="o">{</span>
-        <span class="c1">// google()
-</span><span class="c1"></span>        <span class="c1">// jcenter()
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }
-</span><span class="c1"></span>        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }
-</span><span class="c1"></span>    <span class="o">}</span>
-
-    <span class="n">dependencies</span> <span class="o">{</span>
-        <span class="n">classpath</span> <span class="err">&#39;</span><span class="n">com</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">tools</span><span class="o">.</span><span class="na">build</span><span class="o">:</span><span class="n">gradle</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">5</span><span class="o">.</span><span class="na">0</span><span class="err">&#39;</span>
-        <span class="n">classpath</span> <span class="s">&#34;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&#34;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">buildscript</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ext</span><span class="p">.</span><span class="na">kotlin_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&#39;</span><span class="n">1</span><span class="p">.</span><span class="na">3</span><span class="p">.</span><span class="na">50</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// google()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// jcenter()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/repository/google&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/repository/jcenter&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="err">&#39;</span><span class="n">https</span><span class="p">:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public&#39; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">classpath</span><span class="w"> </span><span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">tools</span><span class="p">.</span><span class="na">build</span><span class="p">:</span><span class="n">gradle</span><span class="p">:</span><span class="n">3</span><span class="p">.</span><span class="na">5</span><span class="p">.</span><span class="na">0</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">classpath</span><span class="w"> </span><span class="s">&#34;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后生成<code>key</code>，同样打开<code>Andriod Studio</code>，打开<code>Terminal</code>，输入</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">keytool</span> <span class="o">-</span><span class="n">genkey</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">keystore</span> <span class="o">~/</span><span class="n">key</span><span class="o">.</span><span class="na">jks</span> <span class="o">-</span><span class="n">keyalg</span> <span class="n">RSA</span> <span class="o">-</span><span class="n">keysize</span> <span class="n">2048</span> <span class="o">-</span><span class="n">validity</span> <span class="n">10000</span> <span class="o">-</span><span class="n">alias</span> <span class="n">key</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">keytool</span><span class="w"> </span><span class="o">-</span><span class="n">genkey</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">-</span><span class="n">keystore</span><span class="w"> </span><span class="o">~/</span><span class="n">key</span><span class="p">.</span><span class="na">jks</span><span class="w"> </span><span class="o">-</span><span class="n">keyalg</span><span class="w"> </span><span class="n">RSA</span><span class="w"> </span><span class="o">-</span><span class="n">keysize</span><span class="w"> </span><span class="n">2048</span><span class="w"> </span><span class="o">-</span><span class="n">validity</span><span class="w"> </span><span class="n">10000</span><span class="w"> </span><span class="o">-</span><span class="n">alias</span><span class="w"> </span><span class="n">key</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成过程中会让你输入存储密码和文件密码，生成完<code>key</code>后记住文件地址</p>
 <p>然后在在<code>android</code>目录中创建一个文件，文件名为：<code>key.properties</code></p>
@@ -607,22 +606,22 @@
 <p>添加内容</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">storePassword</span> <span class="o">=</span> <span class="c1">// 和生成key输入的存储密码一致
-</span><span class="c1"></span><span class="n">keyPassword</span> <span class="o">=</span> <span class="c1">// 和生成key输入的密码一致
-</span><span class="c1"></span><span class="n">keyAlias</span> <span class="o">=</span> <span class="n">key</span> <span class="c1">// 
-</span><span class="c1"></span><span class="n">storeFile</span> <span class="o">=</span> <span class="c1">// key文件的存储路径
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">storePassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">// 和生成key输入的存储密码一致</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">keyPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">// 和生成key输入的密码一致</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">keyAlias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="c1">// </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">storeFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">// key文件的存储路径</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>找到<code>android/app/build.gradle</code>文件，添加签名配置<code>singingConfig</code>以及打包配置<code>buildTypes</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -644,27 +643,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">android</span> <span class="o">{</span>
-		<span class="o">.....</span>
-    <span class="n">signingConfigs</span> <span class="o">{</span>
-        <span class="n">release</span> <span class="o">{</span>
-            <span class="n">keyAlias</span> <span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">keyAlias</span><span class="err">&#39;</span><span class="o">]</span>
-            <span class="n">keyPassword</span> <span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">keyPassword</span><span class="err">&#39;</span><span class="o">]</span>
-            <span class="n">storeFile</span> <span class="nf">file</span><span class="o">(</span><span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">storeFile</span><span class="err">&#39;</span><span class="o">])</span>
-            <span class="n">storePassword</span> <span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">storePassword</span><span class="err">&#39;</span><span class="o">]</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="n">buildTypes</span> <span class="o">{</span>
-        <span class="n">release</span> <span class="o">{</span>
-            <span class="n">signingConfig</span> <span class="n">signingConfigs</span><span class="o">.</span><span class="na">release</span>
-            <span class="n">ndk</span> <span class="o">{</span>
-                <span class="n">abiFilters</span> <span class="err">&#39;</span><span class="n">armeabi</span><span class="o">-</span><span class="n">v7a</span><span class="sc">&#39;,&#39;</span><span class="n">x86</span><span class="err">&#39;</span> <span class="c1">// 指定打包平台
-</span><span class="c1"></span>            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">android</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">.....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">signingConfigs</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">release</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">keyAlias</span><span class="w"> </span><span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">keyAlias</span><span class="err">&#39;</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">keyPassword</span><span class="w"> </span><span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">keyPassword</span><span class="err">&#39;</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">storeFile</span><span class="w"> </span><span class="nf">file</span><span class="p">(</span><span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">storeFile</span><span class="err">&#39;</span><span class="o">]</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">storePassword</span><span class="w"> </span><span class="n">keystoreProperties</span><span class="o">[</span><span class="err">&#39;</span><span class="n">storePassword</span><span class="err">&#39;</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">buildTypes</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">release</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">signingConfig</span><span class="w"> </span><span class="n">signingConfigs</span><span class="p">.</span><span class="na">release</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">ndk</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">abiFilters</span><span class="w"> </span><span class="err">&#39;</span><span class="n">armeabi</span><span class="o">-</span><span class="n">v7a</span><span class="sc">&#39;,&#39;</span><span class="n">x86</span><span class="err">&#39;</span><span class="w"> </span><span class="c1">// 指定打包平台</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后进入项目根目录，执行<code>flutter build apk</code>，即可以打包一个安卓apk包</p>
 <h2 id="3ios调试打包注意事项">3.iOS调试打包注意事项</h2>
@@ -692,7 +691,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/" data-title="Flutter各种踩坑心得"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>

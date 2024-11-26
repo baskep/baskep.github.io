@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Nodejs实现excel导出数据的功能 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="Nodejs实现excel导出数据的功能" />
-<meta property="og:description" content="1.对于一些业务系统，很常见的一个功能就是将数据生成 excel 导出，其实在nodejs中已经很多优秀的第三方库可以实现这个功能，我这里选择的是nod" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" />
-<meta property="og:image" content="https://baskep.com/logo.png"/>
-<meta property="article:published_time" content="2019-11-10T22:42:19+09:15" />
-<meta property="article:modified_time" content="2019-11-10T22:42:19+09:15" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+        <title>Nodejs实现excel导出数据的功能 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Nodejs实现excel导出数据的功能">
+  <meta property="og:description" content="1.对于一些业务系统，很常见的一个功能就是将数据生成 excel 导出，其实在nodejs中已经很多优秀的第三方库可以实现这个功能，我这里选择的是nod">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-11-10T22:42:19+09:15">
+    <meta property="article:modified_time" content="2019-11-10T22:42:19+09:15">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
 
-<meta name="twitter:title" content="Nodejs实现excel导出数据的功能"/>
-<meta name="twitter:description" content="1.对于一些业务系统，很常见的一个功能就是将数据生成 excel 导出，其实在nodejs中已经很多优秀的第三方库可以实现这个功能，我这里选择的是nod"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="Nodejs实现excel导出数据的功能">
+  <meta name="twitter:description" content="1.对于一些业务系统，很常见的一个功能就是将数据生成 excel 导出，其实在nodejs中已经很多优秀的第三方库可以实现这个功能，我这里选择的是nod">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" /><link rel="prev" href="https://baskep.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" /><link rel="next" href="https://baskep.com/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" /><link rel="prev" href="http://localhost:1313/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" /><link rel="next" href="http://localhost:1313/%E4%BD%BF%E7%94%A8canvas%E5%81%9A%E4%B8%80%E4%B8%AA%E7%BA%A2%E5%8C%85%E9%9B%A8%E7%9A%84%E6%95%88%E6%9E%9C/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -26,11 +29,11 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/baskep.com\/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD\/"
-        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  614 ,
-        "url": "https:\/\/baskep.com\/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD\/","datePublished": "2019-11-10T22:42:19+09:15","dateModified": "2019-11-10T22:42:19+09:15","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "http:\/\/localhost:1313\/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  614 ,
+        "url": "http:\/\/localhost:1313\/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD\/","datePublished": "2019-11-10T22:42:19+09:15","dateModified": "2019-11-10T22:42:19+09:15","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+            "name": "xxxx","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "早起的老年人"
             },"description": ""
@@ -89,7 +92,7 @@
 <p>2.首先得将你需要的导出的数据组装好，并且设置好没一个列表的宽度，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -111,32 +114,32 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 后台所返回的数据
-</span><span class="c1"></span><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">data</span> <span class="o">||</span> <span class="p">[];</span>
-<span class="c1">// 遍历组装数据
-</span><span class="c1"></span><span class="nx">result</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">xlsxData</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
-<span class="p">});</span>
-<span class="c1">// 设置每一列的宽度
-</span><span class="c1"></span><span class="kd">let</span> <span class="nx">option</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&#34;!cols&#34;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nx">wch</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nx">wch</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nx">wch</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="p">},</span>
-  <span class="p">],</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 后台所返回的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">data</span> <span class="o">||</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 遍历组装数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">result</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">xlsxData</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置每一列的宽度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">option</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;!cols&#34;</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">wch</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">wch</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">wch</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>3.调用<code>node-xlsx</code>模块的<code>build</code>方法，将数据转换为字节流数据，并设置请求的响应头，下载保存，大致代码如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -182,51 +185,51 @@
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 后台所返回的数据
-</span><span class="c1"></span><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">data</span> <span class="o">||</span> <span class="p">[];</span>
-
-<span class="c1">// 遍历组装数据
-</span><span class="c1"></span><span class="nx">result</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">xlsxData</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
-<span class="p">});</span>
-
-<span class="c1">// 设置每一列的宽度
-</span><span class="c1"></span><span class="kd">let</span> <span class="nx">option</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&#34;!cols&#34;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nx">wch</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nx">wch</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nx">wch</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="p">},</span>
-  <span class="p">],</span>
-<span class="p">};</span>
-
-<span class="c1">// res为express或koa2请求的相应结果，此方法需在express或koa2框架下运行
-</span><span class="c1"></span><span class="nx">getXlsxInfo</span><span class="p">(</span><span class="nx">xlsxData</span><span class="p">,</span> <span class="s2">&#34;渠道粉丝统计数据&#34;</span><span class="p">,</span> <span class="nx">option</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
-
-<span class="c1">// 生成Excel表格并下载
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">getXlsxInfo</span><span class="p">(</span><span class="nx">xlsxData</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">option</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="nx">xlsx</span><span class="p">.</span><span class="nx">build</span><span class="p">(</span>
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;sheet&#34;</span><span class="p">,</span>
-        <span class="nx">data</span><span class="o">:</span> <span class="nx">xlsxData</span><span class="p">,</span>
-      <span class="p">},</span>
-    <span class="p">],</span>
-    <span class="nx">option</span>
-  <span class="p">);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s2">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s2">&#34;application/vnd.openxmlformats&#34;</span><span class="p">);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span>
-    <span class="s2">&#34;Content-Disposition&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;attachment; filename=&#34;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;.xlsx&#34;</span>
-  <span class="p">);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">buffer</span><span class="p">,</span> <span class="s2">&#34;binary&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 后台所返回的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">data</span> <span class="o">||</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 遍历组装数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">result</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">xlsxData</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置每一列的宽度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">option</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;!cols&#34;</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">wch</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">wch</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">wch</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// res为express或koa2请求的相应结果，此方法需在express或koa2框架下运行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">getXlsxInfo</span><span class="p">(</span><span class="nx">xlsxData</span><span class="p">,</span> <span class="s2">&#34;渠道粉丝统计数据&#34;</span><span class="p">,</span> <span class="nx">option</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 生成Excel表格并下载
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">getXlsxInfo</span><span class="p">(</span><span class="nx">xlsxData</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">option</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="nx">xlsx</span><span class="p">.</span><span class="nx">build</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;sheet&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="nx">xlsxData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">option</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s2">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s2">&#34;application/vnd.openxmlformats&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Content-Disposition&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;attachment; filename=&#34;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;.xlsx&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">buffer</span><span class="p">,</span> <span class="s2">&#34;binary&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>4.有个坑就是使用这种方式下载，必须是直接访问你所写的<code>nodejs接口地址</code>才能打开下载功能，若使用<code>ajax</code>或<code>fetch</code>等方式返回的会是乱码的形式。其原因在于，这两种方式的请求发送的数据不一样，后端解析返回头也不一样，异步请求是不能触发下载返回头的。</p>
 </div><div class="post-footer" id="post-footer">
@@ -240,7 +243,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" data-title="Nodejs实现excel导出数据的功能"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" data-title="Nodejs实现excel导出数据的功能"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" data-title="Nodejs实现excel导出数据的功能"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" data-title="Nodejs实现excel导出数据的功能"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" data-title="Nodejs实现excel导出数据的功能"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" data-title="Nodejs实现excel导出数据的功能"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" data-title="Nodejs实现excel导出数据的功能"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" data-title="Nodejs实现excel导出数据的功能"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>

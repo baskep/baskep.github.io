@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Nginx学习总结 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="Nginx学习总结" />
-<meta property="og:description" content="1.nginx 简介 &ldquo;nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&rdqu" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://baskep.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" />
-<meta property="og:image" content="https://baskep.com/logo.png"/>
-<meta property="article:published_time" content="2019-10-25T22:42:19+09:15" />
-<meta property="article:modified_time" content="2019-10-25T22:42:19+09:15" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+        <title>Nginx学习总结 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="http://localhost:1313/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Nginx学习总结">
+  <meta property="og:description" content="1.nginx 简介 “nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&amp;rdqu">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-10-25T22:42:19+09:15">
+    <meta property="article:modified_time" content="2019-10-25T22:42:19+09:15">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
 
-<meta name="twitter:title" content="Nginx学习总结"/>
-<meta name="twitter:description" content="1.nginx 简介 &ldquo;nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&rdqu"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="Nginx学习总结">
+  <meta name="twitter:description" content="1.nginx 简介 “nginx 是一款轻量级的 HTTP 服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的 IO 性能，时常用于服务端的反向代理和负载均衡。&amp;rdqu">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" /><link rel="prev" href="https://baskep.com/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/" /><link rel="next" href="https://baskep.com/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" /><link rel="prev" href="http://localhost:1313/d3.js%E7%BB%98%E5%88%B6%E4%B8%AD%E5%9B%BD%E5%9C%B0%E5%9B%BE/" /><link rel="next" href="http://localhost:1313/nodejs%E5%AE%9E%E7%8E%B0excel%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%9F%E8%83%BD/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -26,11 +29,11 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/baskep.com\/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93\/"
-        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1727 ,
-        "url": "https:\/\/baskep.com\/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93\/","datePublished": "2019-10-25T22:42:19+09:15","dateModified": "2019-10-25T22:42:19+09:15","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "http:\/\/localhost:1313\/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1727 ,
+        "url": "http:\/\/localhost:1313\/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93\/","datePublished": "2019-10-25T22:42:19+09:15","dateModified": "2019-10-25T22:42:19+09:15","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+            "name": "xxxx","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "早起的老年人"
             },"description": ""
@@ -109,7 +112,7 @@
 <p><code>nginx.conf</code> 文件是 nginx 总配置文件，nginx 的基本配置或者设置代理等等基本配置可以在此设置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -144,45 +147,45 @@
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="c1">#运行用户，默认即是nginx，可以不进行设置
-</span><span class="c1"></span><span class="k">user</span>  <span class="s">nginx</span><span class="p">;</span>
-<span class="c1">#nginx进程，一般设置为和CPU核数一样
-</span><span class="c1"></span><span class="k">worker_processes</span>  <span class="mi">1</span><span class="p">;</span>
-<span class="c1">#错误日志存放目录
-</span><span class="c1"></span><span class="k">error_log</span>  <span class="s">/var/log/nginx/error.log</span> <span class="s">warn</span><span class="p">;</span>
-<span class="c1">#进程pid存放位置
-</span><span class="c1"></span><span class="k">pid</span>        <span class="s">/var/run/nginx.pid</span><span class="p">;</span>
-
-
-<span class="k">events</span> <span class="p">{</span>
-    <span class="kn">worker_connections</span>  <span class="mi">1024</span><span class="p">;</span> <span class="c1"># 单个后台进程的最大并发数
-</span><span class="c1"></span><span class="p">}</span>
-
-
-<span class="k">http</span> <span class="p">{</span>
-    <span class="kn">include</span>       <span class="s">/etc/nginx/mime.types</span><span class="p">;</span>   <span class="c1">#文件扩展名与类型映射表
-</span><span class="c1"></span>    <span class="kn">default_type</span>  <span class="s">application/octet-stream</span><span class="p">;</span>  <span class="c1">#默认文件类型
-</span><span class="c1"></span>    <span class="c1">#设置日志模式
-</span><span class="c1"></span>    <span class="kn">log_format</span>  <span class="s">main</span>  <span class="s">&#39;</span><span class="nv">$remote_addr</span> <span class="s">-</span> <span class="nv">$remote_user</span> <span class="s">[</span><span class="nv">$time_local]</span> <span class="s">&#34;</span><span class="nv">$request&#34;</span> <span class="s">&#39;</span>
-                      <span class="s">&#39;</span><span class="nv">$status</span> <span class="nv">$body_bytes_sent</span> <span class="s">&#34;</span><span class="nv">$http_referer&#34;</span> <span class="s">&#39;</span>
-                      <span class="s">&#39;&#34;</span><span class="nv">$http_user_agent&#34;</span> <span class="s">&#34;</span><span class="nv">$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>
-
-    <span class="kn">access_log</span>  <span class="s">/var/log/nginx/access.log</span>  <span class="s">main</span><span class="p">;</span>   <span class="c1">#nginx访问日志存放位置
-</span><span class="c1"></span>
-    <span class="kn">sendfile</span>        <span class="no">on</span><span class="p">;</span>   <span class="c1">#开启高效传输模式
-</span><span class="c1"></span>    <span class="c1">#tcp_nopush     on;    #减少网络报文段的数量
-</span><span class="c1"></span>
-    <span class="kn">keepalive_timeout</span>  <span class="mi">65</span><span class="p">;</span>  <span class="c1">#保持连接的时间，也叫超时时间
-</span><span class="c1"></span>
-    <span class="c1">#gzip  on;  #开启gzip压缩
-</span><span class="c1"></span>
-    <span class="kn">include</span> <span class="s">/etc/nginx/conf.d/*.conf</span><span class="p">;</span> <span class="c1">#包含的子配置项位置和文件
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="c1">#运行用户，默认即是nginx，可以不进行设置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">user</span>  <span class="s">nginx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#nginx进程，一般设置为和CPU核数一样
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">worker_processes</span>  <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#错误日志存放目录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">error_log</span>  <span class="s">/var/log/nginx/error.log</span> <span class="s">warn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#进程pid存放位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pid</span>        <span class="s">/var/run/nginx.pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">events</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">worker_connections</span>  <span class="mi">1024</span><span class="p">;</span> <span class="c1"># 单个后台进程的最大并发数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">http</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">include</span>       <span class="s">/etc/nginx/mime.types</span><span class="p">;</span>   <span class="c1">#文件扩展名与类型映射表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">default_type</span>  <span class="s">application/octet-stream</span><span class="p">;</span>  <span class="c1">#默认文件类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#设置日志模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">log_format</span>  <span class="s">main</span>  <span class="s">&#39;</span><span class="nv">$remote_addr</span> <span class="s">-</span> <span class="nv">$remote_user</span> <span class="s">[</span><span class="nv">$time_local]</span> <span class="s">&#34;</span><span class="nv">$request&#34;</span> <span class="s">&#39;</span>
+</span></span><span class="line"><span class="cl">                      <span class="s">&#39;</span><span class="nv">$status</span> <span class="nv">$body_bytes_sent</span> <span class="s">&#34;</span><span class="nv">$http_referer&#34;</span> <span class="s">&#39;</span>
+</span></span><span class="line"><span class="cl">                      <span class="s">&#39;&#34;</span><span class="nv">$http_user_agent&#34;</span> <span class="s">&#34;</span><span class="nv">$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kn">access_log</span>  <span class="s">/var/log/nginx/access.log</span>  <span class="s">main</span><span class="p">;</span>   <span class="c1">#nginx访问日志存放位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="kn">sendfile</span>        <span class="no">on</span><span class="p">;</span>   <span class="c1">#开启高效传输模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#tcp_nopush     on;    #减少网络报文段的数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="kn">keepalive_timeout</span>  <span class="mi">65</span><span class="p">;</span>  <span class="c1">#保持连接的时间，也叫超时时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#gzip  on;  #开启gzip压缩
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="kn">include</span> <span class="s">/etc/nginx/conf.d/*.conf</span><span class="p">;</span> <span class="c1">#包含的子配置项位置和文件
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>nginx.default.conf</code>，nginx 具体的默认配置，代理，服务配置等等都可以写在这个配置文件里</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -228,67 +231,67 @@
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">server</span> <span class="p">{</span>
-    <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>   <span class="c1">#配置监听端口
-</span><span class="c1"></span>    <span class="kn">server_name</span>  <span class="s">localhost</span><span class="p">;</span>  <span class="kn">//配置域名</span>
-
-    <span class="c1">#charset koi8-r;
-</span><span class="c1"></span>    <span class="c1">#access_log  /var/log/nginx/host.access.log  main;
-</span><span class="c1"></span>
-    <span class="s">location</span> <span class="s">/</span> <span class="p">{</span>
-        <span class="kn">root</span>   <span class="s">/usr/share/nginx/html</span><span class="p">;</span>     <span class="c1">#服务默认启动目录
-</span><span class="c1"></span>        <span class="kn">index</span>  <span class="s">index.html</span> <span class="s">index.htm</span><span class="p">;</span>    <span class="c1">#默认访问文件
-</span><span class="c1"></span>    <span class="p">}</span>
-
-    <span class="c1">#error_page  404              /404.html;   # 配置404页面
-</span><span class="c1"></span>
-    <span class="c1"># redirect server error pages to the static page /50x.html
-</span><span class="c1"></span>    <span class="c1">#
-</span><span class="c1"></span>    <span class="kn">error_page</span>   <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="s">/50x.html</span><span class="p">;</span>   <span class="c1">#错误状态码的显示页面，配置后需要重启
-</span><span class="c1"></span>    <span class="kn">location</span> <span class="p">=</span> <span class="s">/50x.html</span> <span class="p">{</span>
-        <span class="kn">root</span>   <span class="s">/usr/share/nginx/html</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="c1"># proxy the PHP scripts to Apache listening on 127.0.0.1:80
-</span><span class="c1"></span>    <span class="c1">#
-</span><span class="c1"></span>    <span class="c1">#location ~ \.php$ {
-</span><span class="c1"></span>    <span class="c1">#    proxy_pass   http://127.0.0.1;
-</span><span class="c1"></span>    <span class="c1">#}
-</span><span class="c1"></span>
-    <span class="c1"># pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-</span><span class="c1"></span>    <span class="c1">#
-</span><span class="c1"></span>    <span class="c1">#location ~ \.php$ {
-</span><span class="c1"></span>    <span class="c1">#    root           html;
-</span><span class="c1"></span>    <span class="c1">#    fastcgi_pass   127.0.0.1:9000;
-</span><span class="c1"></span>    <span class="c1">#    fastcgi_index  index.php;
-</span><span class="c1"></span>    <span class="c1">#    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-</span><span class="c1"></span>    <span class="c1">#    include        fastcgi_params;
-</span><span class="c1"></span>    <span class="c1">#}
-</span><span class="c1"></span>
-    <span class="c1"># deny access to .htaccess files, if Apache&#39;s document root
-</span><span class="c1"></span>    <span class="c1"># concurs with nginx&#39;s one
-</span><span class="c1"></span>    <span class="c1">#
-</span><span class="c1"></span>    <span class="c1">#location ~ /\.ht {
-</span><span class="c1"></span>    <span class="c1">#    deny  all;
-</span><span class="c1"></span>    <span class="c1">#}
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>   <span class="c1">#配置监听端口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">server_name</span>  <span class="s">localhost</span><span class="p">;</span>  <span class="kn">//配置域名</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#charset koi8-r;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#access_log  /var/log/nginx/host.access.log  main;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="s">location</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">root</span>   <span class="s">/usr/share/nginx/html</span><span class="p">;</span>     <span class="c1">#服务默认启动目录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kn">index</span>  <span class="s">index.html</span> <span class="s">index.htm</span><span class="p">;</span>    <span class="c1">#默认访问文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#error_page  404              /404.html;   # 配置404页面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># redirect server error pages to the static page /50x.html
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">error_page</span>   <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="s">/50x.html</span><span class="p">;</span>   <span class="c1">#错误状态码的显示页面，配置后需要重启
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">location</span> <span class="p">=</span> <span class="s">/50x.html</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">root</span>   <span class="s">/usr/share/nginx/html</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># proxy the PHP scripts to Apache listening on 127.0.0.1:80
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#location ~ \.php$ {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#    proxy_pass   http://127.0.0.1;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#location ~ \.php$ {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#    root           html;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#    fastcgi_pass   127.0.0.1:9000;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#    fastcgi_index  index.php;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#    include        fastcgi_params;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># deny access to .htaccess files, if Apache&#39;s document root
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># concurs with nginx&#39;s one
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#location ~ /\.ht {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#    deny  all;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="4nginx-基本的访问权限配置">4.nginx 基本的访问权限配置</h1>
 <p>依靠 deny 和 allow 这两个指令，可以实现基本的访问权限控制，如以下的配置，表示只允许<code>45.76.202.231</code>进行访问，其他的 IP 是禁止访问的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
-        <span class="kn">allow</span>  <span class="mi">45</span><span class="s">.76.202.231</span><span class="p">;</span>
-        <span class="kn">deny</span>   <span class="s">all</span><span class="p">;</span>
-	<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">allow</span>  <span class="mi">45</span><span class="s">.76.202.231</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">deny</span>   <span class="s">all</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果对于其他复杂的需求，可以使用<a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="noopener noreffer">正则</a>实现。</p>
 <h1 id="5nginx-设置虚拟主机">5.nginx 设置虚拟主机</h1>
@@ -298,7 +301,7 @@
 <p>具体做法是，在<code>nginx.default.conf</code>添加多个 server，可根据 ip，端口或域名来划分，这样，就可以访问同一台服务器上的不同资源了，值得注意是，如果是使用域名，这还要让域名的 dns 解析指向你的服务器</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -312,25 +315,25 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">server{</span>
-        <span class="s">listen</span> <span class="mi">8001</span><span class="p">;</span>
-        <span class="k">server_name</span> <span class="s">localhost</span><span class="p">;</span>
-        <span class="k">root</span> <span class="s">/usr/share/nginx/html/html8001</span><span class="p">;</span>
-        <span class="k">index</span> <span class="s">index.html</span><span class="p">;</span>
-<span class="k">}</span>
-<span class="s">server</span><span class="p">{</span>
-        <span class="kn">listen</span> <span class="mi">8002</span><span class="p">;</span>
-        <span class="kn">server_name</span> <span class="s">localhost</span><span class="p">;</span>
-        <span class="kn">root</span> <span class="s">/usr/share/nginx/html/html8002</span><span class="p">;</span>
-        <span class="kn">index</span> <span class="s">index.html</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">server{</span>
+</span></span><span class="line"><span class="cl">        <span class="s">listen</span> <span class="mi">8001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">server_name</span> <span class="s">localhost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">root</span> <span class="s">/usr/share/nginx/html/html8001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">index</span> <span class="s">index.html</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">}</span>
+</span></span><span class="line"><span class="cl"><span class="s">server</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">listen</span> <span class="mi">8002</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">server_name</span> <span class="s">localhost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">root</span> <span class="s">/usr/share/nginx/html/html8002</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">index</span> <span class="s">index.html</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="6nginx-设置反向代理">6.nginx 设置反向代理</h1>
 <p>客户端发送的请求，想要访问 server 服务器上的内容。发送的内容被发送到代理服务器上，这个代理服务器再把请求发送到自己设置好的内部服务器上，而用户真实想获得的内容就在这些设置好的服务器上，反向代理实际生产环境可以说用的非常多</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -339,19 +342,19 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">server{</span>
-        <span class="s">listen</span> <span class="mi">80</span><span class="p">;</span>
-        <span class="k">server_name</span> <span class="s">https://www.baidu.com</span><span class="p">;</span>
-        <span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
-               <span class="kn">proxy_pass</span> <span class="s">https://www.baidu1.com</span><span class="p">;</span>
-        <span class="p">}</span>
-<span class="k">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">server{</span>
+</span></span><span class="line"><span class="cl">        <span class="s">listen</span> <span class="mi">80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">server_name</span> <span class="s">https://www.baidu.com</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">               <span class="kn">proxy_pass</span> <span class="s">https://www.baidu1.com</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样，当你访问<code>https://www.baidu.com</code>的时候就会去请求<code>https://www.baidu1.com</code>的资源了，以下还有常用的反向代理命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -362,21 +365,21 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">proxy_set_header</span> <span class="p">:</span><span class="s">在将客户端请求发送给后端服务器之前，更改来自客户端的请求头信息。</span>
-
-<span class="s">proxy_connect_timeout:配置nginx与后端代理服务器尝试建立连接的超时时间。</span>
-
-<span class="s">proxy_read_timeout</span> <span class="p">:</span> <span class="s">配置nginx向后端服务器组发出read请求后，等待相应的超时时间。</span>
-
-<span class="s">proxy_send_timeout：配置nginx向后端服务器组发出write请求后，等待相应的超时时间。</span>
-
-<span class="s">proxy_redirect</span> <span class="p">:</span><span class="s">用于修改后端服务器返回的响应头中的Location和Refresh</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">proxy_set_header</span> <span class="p">:</span><span class="s">在将客户端请求发送给后端服务器之前，更改来自客户端的请求头信息。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s">proxy_connect_timeout:配置nginx与后端代理服务器尝试建立连接的超时时间。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s">proxy_read_timeout</span> <span class="p">:</span> <span class="s">配置nginx向后端服务器组发出read请求后，等待相应的超时时间。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s">proxy_send_timeout：配置nginx向后端服务器组发出write请求后，等待相应的超时时间。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s">proxy_redirect</span> <span class="p">:</span><span class="s">用于修改后端服务器返回的响应头中的Location和Refresh</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="7nginx-匹配-pc-或-wap-端">7.nginx 匹配 PC 或 wap 端</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -389,18 +392,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">server{</span>
-        <span class="s">listen</span> <span class="mi">80</span><span class="p">;</span>
-        <span class="k">server_name</span> <span class="s">nginx2.jspang.com</span><span class="p">;</span>
-        <span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
-         <span class="kn">root</span> <span class="s">/usr/share/nginx/pc</span><span class="p">;</span>
-         <span class="kn">if</span> <span class="s">(</span><span class="nv">$http_user_agent</span> <span class="p">~</span><span class="sr">*</span> <span class="s">&#39;(Android|webOS|iPhone|iPod|BlackBerry)&#39;)</span> <span class="p">{</span>
-            <span class="kn">root</span> <span class="s">/usr/share/nginx/mobile</span><span class="p">;</span>
-         <span class="p">}</span>
-         <span class="kn">index</span> <span class="s">index.html</span><span class="p">;</span>
-        <span class="p">}</span>
-<span class="k">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">server{</span>
+</span></span><span class="line"><span class="cl">        <span class="s">listen</span> <span class="mi">80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">server_name</span> <span class="s">nginx2.jspang.com</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="kn">root</span> <span class="s">/usr/share/nginx/pc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">         <span class="kn">if</span> <span class="s">(</span><span class="nv">$http_user_agent</span> <span class="p">~</span><span class="sr">*</span> <span class="s">&#39;(Android|webOS|iPhone|iPod|BlackBerry)&#39;)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kn">root</span> <span class="s">/usr/share/nginx/mobile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">         <span class="kn">index</span> <span class="s">index.html</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -413,7 +416,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/nginx%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-title="Nginx学习总结"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>

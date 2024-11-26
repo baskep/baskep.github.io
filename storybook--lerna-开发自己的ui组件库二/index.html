@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>StoryBook &#43; Lerna 开发自己的UI组件库(二) - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="StoryBook &#43; Lerna 开发自己的UI组件库(二)" />
-<meta property="og:description" content="上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" />
-<meta property="og:image" content="https://baskep.com/logo.png"/>
-<meta property="article:published_time" content="2021-08-28T14:47:27+08:00" />
-<meta property="article:modified_time" content="2021-08-28T14:47:27+08:00" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+        <title>StoryBook &#43; Lerna 开发自己的UI组件库(二) - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="StoryBook &#43; Lerna 开发自己的UI组件库(二)">
+  <meta property="og:description" content="上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-08-28T14:47:27+08:00">
+    <meta property="article:modified_time" content="2021-08-28T14:47:27+08:00">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
 
-<meta name="twitter:title" content="StoryBook &#43; Lerna 开发自己的UI组件库(二)"/>
-<meta name="twitter:description" content="上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="StoryBook &#43; Lerna 开发自己的UI组件库(二)">
+  <meta name="twitter:description" content="上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" /><link rel="prev" href="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" /><link rel="next" href="https://baskep.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" /><link rel="prev" href="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" /><link rel="next" href="http://localhost:1313/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -26,11 +29,11 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/baskep.com\/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C\/"
-        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2584 ,
-        "url": "https:\/\/baskep.com\/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C\/","datePublished": "2021-08-28T14:47:27+08:00","dateModified": "2021-08-28T14:47:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "http:\/\/localhost:1313\/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2584 ,
+        "url": "http:\/\/localhost:1313\/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C\/","datePublished": "2021-08-28T14:47:27+08:00","dateModified": "2021-08-28T14:47:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+            "name": "xxxx","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "早起的老年人"
             },"description": ""
@@ -120,11 +123,11 @@
 <p>首先将npm的资源库地址执行本地的verdaccio(http://127.0.0.1:4873)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">npm</span> <span class="nx">set</span> <span class="nx">registry</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:4873
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">npm</span> <span class="nx">set</span> <span class="nx">registry</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:4873
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition note open">
         <div class="details-summary admonition-title">
@@ -137,11 +140,11 @@
 <p>然后添加用户名、密码、email</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">npm</span> <span class="nx">adduser</span> <span class="o">-</span><span class="nx">registry</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:4873
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">npm</span> <span class="nx">adduser</span> <span class="o">-</span><span class="nx">registry</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//127.0.0.1:4873
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>注册完了之后可以<code>npm who am i</code>看下是否注册成功，这就意味着在我本地就可以用这个账号发布npm包了</p>
 <h1 id="2lerna的使用">2.lerna的使用</h1>
@@ -150,25 +153,25 @@
 <p>首先全局安装lerna</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">global</span> <span class="nx">lerna</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">global</span> <span class="nx">lerna</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后进入我们的项目，执行<code>lerna init</code>，将其初始化成一个lerna管理的<code>git</code>仓库</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">lerna</span> <span class="nx">init</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">lerna</span> <span class="nx">init</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此时我们的项目里面会多出来一个<code>lerna.json</code>文件，这个文件是用来配置lerna管理的仓库的地址的，把他修改下，设置lerna发布npm包的时候，添加到我们本地<code>verdaccio</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -198,52 +201,52 @@
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-  <span class="s2">&#34;packages&#34;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="s2">&#34;packages/*&#34;</span> <span class="c1">// 管理packages目录下的仓库
-</span><span class="c1"></span>  <span class="p">],</span>
-  <span class="s2">&#34;npmClient&#34;</span><span class="o">:</span> <span class="s2">&#34;yarn&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;useWorkspaces&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="s2">&#34;independent&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;command&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;publish&#34;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&#34;ignoreChanges&#34;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&#34;{__tests__,tests}/**/*.{js,jsx,ts,tsx}&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;*.mdx&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;*.md&#34;</span>
-      <span class="p">],</span>
-      <span class="s2">&#34;message&#34;</span><span class="o">:</span> <span class="s2">&#34;chore(release): publish [skip ci]&#34;</span><span class="p">,</span>
-      <span class="s2">&#34;registry&#34;</span><span class="o">:</span> <span class="s2">&#34;http://127.0.0.1:4873/&#34;</span>
-    <span class="p">},</span>
-    <span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&#34;message&#34;</span><span class="o">:</span> <span class="s2">&#34;chore(release): publish new version [skip ci]&#34;</span><span class="p">,</span>
-      <span class="s2">&#34;conventionalCommits&#34;</span><span class="o">:</span> <span class="kc">true</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="s2">&#34;bootstrap&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;npmClientArgs&#34;</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">&#34;--no-package-lock&#34;</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;packages&#34;</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;packages/*&#34;</span> <span class="c1">// 管理packages目录下的仓库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;npmClient&#34;</span><span class="o">:</span> <span class="s2">&#34;yarn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;useWorkspaces&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="s2">&#34;independent&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;command&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;publish&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;ignoreChanges&#34;</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;{__tests__,tests}/**/*.{js,jsx,ts,tsx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;*.mdx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;*.md&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;message&#34;</span><span class="o">:</span> <span class="s2">&#34;chore(release): publish [skip ci]&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;registry&#34;</span><span class="o">:</span> <span class="s2">&#34;http://127.0.0.1:4873/&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;message&#34;</span><span class="o">:</span> <span class="s2">&#34;chore(release): publish new version [skip ci]&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;conventionalCommits&#34;</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;bootstrap&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;npmClientArgs&#34;</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--no-package-lock&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对了还需要添加lerna的build的命令，在package.json中添加<code>&quot;build&quot;: &quot;lerna run build&quot;</code></p>
 <h2 id="22lerna项目关联git仓库">2.2.lerna项目关联git仓库</h2>
 <p>现在本地的storybook项目需要关联一个git仓库，这样的话，在publish的时候，lerna会从这个远程git仓库去拉取代码然后推送到<code>http://127.0.0.1:4873/</code>的<code>verdaccio</code>中。这里我在github上创建了一个模板项目，与本地项目作关联</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">git remote add origin https://github.com/sentianc/storybook-template.git
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git remote add origin https://github.com/sentianc/storybook-template.git
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="23原有项目的目录改造">2.3.原有项目的目录改造</h2>
 <p>现在将项目整体目录进行改造，将所有的组件库代码放入<code>packages</code>目录中，每个组件库管理自己的依赖，最外层定义storybook的基本配置，这里我创建一个叫<code>ui-mobile</code>的组件库，将之前写的button组件以及storybook的mdx文件移过去。因为是组件库，所以要有一个index文件将所有的组件抛出，修改后整体的项目目录</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -286,48 +289,48 @@
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">├─.DS_Store
-├─.editorconfig
-├─.eslintignore
-├─.eslintrc.js
-├─.gitignore
-├─lerna.json
-├─package-lock.json
-├─package.json
-├─yarn.lock
-├─packages
-|    ├─ui-mobile
-|    |     ├─src
-|    |     |  ├─index.tsx
-|    |     |  ├─global-style
-|    |     |  |      ├─index-mobile.less
-|    |     |  |      ├─index.less
-|    |     |  |      ├─normalize-mobile.less
-|    |     |  |      ├─normalize.less
-|    |     |  |      ├─antd-mobile
-|    |     |  |      |      ├─anim.less
-|    |     |  |      |      ├─component.less
-|    |     |  |      |      ├─index.less
-|    |     |  |      |      ├─mixins.less
-|    |     |  |      |      └theme.less
-|    |     |  |      ├─antd
-|    |     |  |      |  ├─component.less
-|    |     |  |      |  ├─dark.less
-|    |     |  |      |  ├─index.less
-|    |     |  |      |  ├─mixins.less
-|    |     |  |      |  └theme.less
-|    |     |  ├─components
-|    |     |  |     ├─index.tsx
-|    |     |  |     ├─button
-|    |     |  |     |   ├─index.less
-|    |     |  |     |   ├─index.stories.mdx
-|    |     |  |     |   └index.tsx
-├─.vscode
-|    └settings.json
-├─.storybook
-|     ├─main.js
-|     └preview.js
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">├─.DS_Store
+</span></span><span class="line"><span class="cl">├─.editorconfig
+</span></span><span class="line"><span class="cl">├─.eslintignore
+</span></span><span class="line"><span class="cl">├─.eslintrc.js
+</span></span><span class="line"><span class="cl">├─.gitignore
+</span></span><span class="line"><span class="cl">├─lerna.json
+</span></span><span class="line"><span class="cl">├─package-lock.json
+</span></span><span class="line"><span class="cl">├─package.json
+</span></span><span class="line"><span class="cl">├─yarn.lock
+</span></span><span class="line"><span class="cl">├─packages
+</span></span><span class="line"><span class="cl">|    ├─ui-mobile
+</span></span><span class="line"><span class="cl">|    |     ├─src
+</span></span><span class="line"><span class="cl">|    |     |  ├─index.tsx
+</span></span><span class="line"><span class="cl">|    |     |  ├─global-style
+</span></span><span class="line"><span class="cl">|    |     |  |      ├─index-mobile.less
+</span></span><span class="line"><span class="cl">|    |     |  |      ├─index.less
+</span></span><span class="line"><span class="cl">|    |     |  |      ├─normalize-mobile.less
+</span></span><span class="line"><span class="cl">|    |     |  |      ├─normalize.less
+</span></span><span class="line"><span class="cl">|    |     |  |      ├─antd-mobile
+</span></span><span class="line"><span class="cl">|    |     |  |      |      ├─anim.less
+</span></span><span class="line"><span class="cl">|    |     |  |      |      ├─component.less
+</span></span><span class="line"><span class="cl">|    |     |  |      |      ├─index.less
+</span></span><span class="line"><span class="cl">|    |     |  |      |      ├─mixins.less
+</span></span><span class="line"><span class="cl">|    |     |  |      |      └theme.less
+</span></span><span class="line"><span class="cl">|    |     |  |      ├─antd
+</span></span><span class="line"><span class="cl">|    |     |  |      |  ├─component.less
+</span></span><span class="line"><span class="cl">|    |     |  |      |  ├─dark.less
+</span></span><span class="line"><span class="cl">|    |     |  |      |  ├─index.less
+</span></span><span class="line"><span class="cl">|    |     |  |      |  ├─mixins.less
+</span></span><span class="line"><span class="cl">|    |     |  |      |  └theme.less
+</span></span><span class="line"><span class="cl">|    |     |  ├─components
+</span></span><span class="line"><span class="cl">|    |     |  |     ├─index.tsx
+</span></span><span class="line"><span class="cl">|    |     |  |     ├─button
+</span></span><span class="line"><span class="cl">|    |     |  |     |   ├─index.less
+</span></span><span class="line"><span class="cl">|    |     |  |     |   ├─index.stories.mdx
+</span></span><span class="line"><span class="cl">|    |     |  |     |   └index.tsx
+</span></span><span class="line"><span class="cl">├─.vscode
+</span></span><span class="line"><span class="cl">|    └settings.json
+</span></span><span class="line"><span class="cl">├─.storybook
+</span></span><span class="line"><span class="cl">|     ├─main.js
+</span></span><span class="line"><span class="cl">|     └preview.js
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="24组件库的打包配置">2.4.组件库的打包配置</h2>
 <p>现在目录已经改了，思考一下，这个组件库还要定外的打包编译成dist，然后再发布，那这里使用的工具选择为<a href="https://github.com/formium/tsdx" target="_blank" rel="noopener noreffer">tsdx</a>，tsdx是专门管理用ts写的npm组件库，它甚至提供了react-storybook模板。那将原来的<code>ui-mobile</code>目录删除，使用<code>npx tsdx create ui-mobile</code>去创建一个tsdx项目，这里选择react模板就行。然后再将之前组件库代码移过去</p>
@@ -346,15 +349,15 @@
 3.<code>lerna publish</code>将组件库推送到本地<code>verdaccio</code>(在这步执行的时候，记得在根目录package.json里面添加yarn的workspaces)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;workspaces&#34;</span><span class="o">:</span> <span class="p">[</span>
-  <span class="s2">&#34;packages/*&#34;</span>
-<span class="p">],</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="s2">&#34;workspaces&#34;</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;packages/*&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">],</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>publish 成功的效果</p>
 <p><img
@@ -388,7 +391,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/" data-title="StoryBook &#43; Lerna 开发自己的UI组件库(二)"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -400,7 +403,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" class="prev" rel="prev" title="StoryBook &#43; Lerna 开发自己的UI组件库(一)"><i class="fas fa-angle-left fa-fw"></i>StoryBook &#43; Lerna 开发自己的UI组件库(一)</a>
+    <div class="post-nav"><a href="/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" class="prev" rel="prev" title="StoryBook &#43; Lerna 开发自己的UI组件库(一)"><i class="fas fa-angle-left fa-fw"></i>StoryBook &#43; Lerna 开发自己的UI组件库(一)</a>
             <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/" class="next" rel="next" title="计算机字符编码的介绍">计算机字符编码的介绍<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>

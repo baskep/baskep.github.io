@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Webpack理解 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="Webpack理解" />
-<meta property="og:description" content="webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://baskep.com/webpack%E7%90%86%E8%A7%A3/" />
-<meta property="og:image" content="https://baskep.com/logo.png"/>
-<meta property="article:published_time" content="2020-08-23T21:36:20+08:00" />
-<meta property="article:modified_time" content="2020-08-23T21:36:20+08:00" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+        <title>Webpack理解 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="http://localhost:1313/webpack%E7%90%86%E8%A7%A3/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Webpack理解">
+  <meta property="og:description" content="webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-08-23T21:36:20+08:00">
+    <meta property="article:modified_time" content="2020-08-23T21:36:20+08:00">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
 
-<meta name="twitter:title" content="Webpack理解"/>
-<meta name="twitter:description" content="webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="Webpack理解">
+  <meta name="twitter:description" content="webpack是一个模块打包器，老一点的还有gulp、grunt等等， 他最显著的特点就是将文件视为一个个模块，通过设置入口文件entry，加">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/webpack%E7%90%86%E8%A7%A3/" /><link rel="prev" href="https://baskep.com/babel%E7%AE%80%E4%BB%8B/" /><link rel="next" href="https://baskep.com/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/webpack%E7%90%86%E8%A7%A3/" /><link rel="prev" href="http://localhost:1313/babel%E7%AE%80%E4%BB%8B/" /><link rel="next" href="http://localhost:1313/webpack%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -26,11 +29,11 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/baskep.com\/webpack%E7%90%86%E8%A7%A3\/"
-        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3438 ,
-        "url": "https:\/\/baskep.com\/webpack%E7%90%86%E8%A7%A3\/","datePublished": "2020-08-23T21:36:20+08:00","dateModified": "2020-08-23T21:36:20+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "http:\/\/localhost:1313\/webpack%E7%90%86%E8%A7%A3\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  3439 ,
+        "url": "http:\/\/localhost:1313\/webpack%E7%90%86%E8%A7%A3\/","datePublished": "2020-08-23T21:36:20+08:00","dateModified": "2020-08-23T21:36:20+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+            "name": "xxxx","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "早起的老年人"
             },"description": ""
@@ -77,7 +80,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Webpack理解</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-23">2020-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3438 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-23">2020-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3439 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -96,7 +99,7 @@
 <p><code>bundle</code>：视为<code>webpack</code>打包提取的模块生成的<code>js</code>文件，将其它具体模块的代码传入其中执行，原本独立的模块文件，通过调用<code>__webpack_require__</code>，合并到了<code>bundle</code>中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -128,37 +131,37 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
-<span class="cm">/******/</span>    <span class="kd">var</span> <span class="nx">installedModules</span> <span class="o">=</span> <span class="p">{};</span>
-<span class="cm">/******/</span>
-<span class="cm">/******/</span>    <span class="kd">var</span> <span class="nx">installedChunks</span> <span class="o">=</span> <span class="p">{</span>
-<span class="cm">/******/</span>        <span class="mi">2</span><span class="o">:</span> <span class="mi">0</span>
-<span class="cm">/******/</span>    <span class="p">};</span>
-<span class="cm">/******/</span>
-<span class="cm">/******/</span>    <span class="kd">function</span> <span class="nx">__webpack_require__</span><span class="p">(</span><span class="nx">moduleId</span><span class="p">)</span> <span class="p">{</span>
-<span class="cm">/******/</span>
-<span class="cm">/******/</span>        <span class="k">if</span><span class="p">(</span><span class="nx">installedModules</span><span class="p">[</span><span class="nx">moduleId</span><span class="p">])</span> <span class="p">{</span>
-<span class="cm">/******/</span>            <span class="k">return</span> <span class="nx">installedModules</span><span class="p">[</span><span class="nx">moduleId</span><span class="p">].</span><span class="nx">exports</span><span class="p">;</span>
-<span class="cm">/******/</span>        <span class="p">}</span>
-<span class="cm">/******/</span>        <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">installedModules</span><span class="p">[</span><span class="nx">moduleId</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-<span class="cm">/******/</span>            <span class="nx">i</span><span class="o">:</span> <span class="nx">moduleId</span><span class="p">,</span>
-<span class="cm">/******/</span>            <span class="nx">l</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-<span class="cm">/******/</span>            <span class="nx">exports</span><span class="o">:</span> <span class="p">{}</span>
-<span class="cm">/******/</span>        <span class="p">};</span>
-<span class="cm">/******/</span>
-<span class="cm">/******/</span>        <span class="nx">modules</span><span class="p">[</span><span class="nx">moduleId</span><span class="p">].</span><span class="nx">call</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span> <span class="nx">module</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span> <span class="nx">__webpack_require__</span><span class="p">);</span>
-<span class="cm">/******/</span>
-<span class="cm">/******/</span>        <span class="nx">module</span><span class="p">.</span><span class="nx">l</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="cm">/******/</span>
-<span class="cm">/******/</span>        <span class="k">return</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">;</span>
-<span class="cm">/******/</span>    <span class="p">}</span>
-<span class="cm">/******/</span> <span class="p">})</span>
-<span class="cm">/************************************************************************/</span>
-<span class="cm">/******/</span> <span class="p">({</span>
-	<span class="c1">// 传入的模块
-</span><span class="c1"></span>	<span class="p">......</span>
-<span class="p">});</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>    <span class="kd">var</span> <span class="nx">installedModules</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>    <span class="kd">var</span> <span class="nx">installedChunks</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>        <span class="mi">2</span><span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>    <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>    <span class="kd">function</span> <span class="nx">__webpack_require__</span><span class="p">(</span><span class="nx">moduleId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>        <span class="k">if</span><span class="p">(</span><span class="nx">installedModules</span><span class="p">[</span><span class="nx">moduleId</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>            <span class="k">return</span> <span class="nx">installedModules</span><span class="p">[</span><span class="nx">moduleId</span><span class="p">].</span><span class="nx">exports</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>        <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">installedModules</span><span class="p">[</span><span class="nx">moduleId</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>            <span class="nx">i</span><span class="o">:</span> <span class="nx">moduleId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>            <span class="nx">l</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>            <span class="nx">exports</span><span class="o">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>        <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>        <span class="nx">modules</span><span class="p">[</span><span class="nx">moduleId</span><span class="p">].</span><span class="nx">call</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span> <span class="nx">module</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span> <span class="nx">__webpack_require__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>        <span class="nx">module</span><span class="p">.</span><span class="nx">l</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>        <span class="k">return</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/************************************************************************/</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/******/</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 传入的模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">......</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>打包后的<code>bundle</code>是一个立即执行的匿名函数，其参数就是打包后的模块，上面<code>__webpack_require__</code>方法会首先判断当前模块<code>moduleId</code>是否已经存在缓存<code>installedModules</code>中，若是存在则直接返回。若是不存在，则会构造一个对象并将其同时存到<code>installedModules</code>中和<code>module</code>中</p>
 <p><code>modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)</code>
@@ -166,7 +169,7 @@
 如以下形式</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -176,20 +179,20 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="cm">/***/</span> <span class="mi">0</span><span class="o">:</span>
-<span class="cm">/***/</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">,</span> <span class="nx">exports</span><span class="p">,</span> <span class="nx">__webpack_require__</span><span class="p">)</span> <span class="p">{</span>
-	<span class="p">......</span>
-	<span class="nx">__webpack_require__</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-	<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">__webpack_require__</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-	<span class="p">......</span>
-
-<span class="cm">/***/</span> <span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="cm">/***/</span> <span class="mi">0</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/***/</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">,</span> <span class="nx">exports</span><span class="p">,</span> <span class="nx">__webpack_require__</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">......</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">__webpack_require__</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">__webpack_require__</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">......</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/***/</span> <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>一个简单的bundle构建过程：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -305,136 +308,136 @@
 </span><span class="lnt">114
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 引入相关依赖，对文件进行编译转换输出处理
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">parse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@babel/parser&#39;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">traverse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@babel/traverse&#39;</span><span class="p">).</span><span class="k">default</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@babel/core&#39;</span><span class="p">);</span>
-
-
-<span class="kd">let</span> <span class="nx">ID</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="c1">// 读取文件信息，并获得当前js文件的依赖关系
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">createAsset</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// 获取文件，返回值是字符串
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">);</span>
-
-  <span class="c1">// 将字符串转为ast
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">ast</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">sourceType</span><span class="o">:</span> <span class="s1">&#39;module&#39;</span>
-  <span class="p">});</span>
-
-  <span class="c1">//用来存储 文件所依赖的模块，简单来说就是，当前js文件 import 了哪些文件，都会保存在这个数组里
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">dependencies</span> <span class="o">=</span> <span class="p">[];</span>
-
-  <span class="c1">//遍历当前ast（抽象语法树）
-</span><span class="c1"></span>  <span class="nx">traverse</span><span class="p">(</span><span class="nx">ast</span><span class="p">,</span> <span class="p">{</span>
-    <span class="c1">//找到有 import语法 的对应节点
-</span><span class="c1"></span>    <span class="nx">ImportDeclaration</span><span class="o">:</span> <span class="p">({</span> <span class="nx">node</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="c1">//把当前依赖的模块加入到数组中
-</span><span class="c1"></span>      <span class="nx">dependencies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
-
-  <span class="c1">//模块的id 从0开始， 相当一个js文件 可以看成一个模块
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">ID</span><span class="o">++</span><span class="p">;</span>
-
-  <span class="c1">//这边主要把ES6 的代码转成 ES5
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="p">{</span> <span class="nx">code</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">babel</span><span class="p">.</span><span class="nx">transformFromAstSync</span><span class="p">(</span><span class="nx">ast</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">presets</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;@babel/preset-env&#39;</span><span class="p">]</span>
-  <span class="p">});</span>
-
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="nx">id</span><span class="p">,</span>
-    <span class="nx">filename</span><span class="p">,</span>
-    <span class="nx">dependencies</span><span class="p">,</span>
-    <span class="nx">code</span>
-  <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="c1">// 从入口开始分析所有依赖项，形成依赖图，采用广度遍历
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">createGraph</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">mainAsset</span> <span class="o">=</span> <span class="nx">createAsset</span><span class="p">(</span><span class="nx">entry</span><span class="p">);</span>
-    
-  <span class="kr">const</span> <span class="nx">queue</span> <span class="o">=</span> <span class="p">[</span><span class="nx">mainAsset</span><span class="p">];</span>
-
-  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">asset</span> <span class="k">of</span> <span class="nx">queue</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">dirname</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">asset</span><span class="p">.</span><span class="nx">filename</span><span class="p">);</span>
-    <span class="c1">// 新增一个属性来保存子依赖项的数据
-</span><span class="c1"></span>    <span class="nx">asset</span><span class="p">.</span><span class="nx">mapping</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="nx">asset</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">relativePath</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="kr">const</span> <span class="nx">absolutePath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dirname</span><span class="p">,</span> <span class="nx">relativePath</span><span class="p">);</span>
-      <span class="c1">//获得子依赖（子模块）的依赖项、代码、模块id，文件名
-</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">createAsset</span><span class="p">(</span><span class="nx">absolutePath</span><span class="p">);</span>
-      <span class="c1">//给子依赖项赋值，
-</span><span class="c1"></span>      <span class="nx">asset</span><span class="p">.</span><span class="nx">mapping</span><span class="p">[</span><span class="nx">relativePath</span><span class="p">]</span> <span class="o">=</span> <span class="nx">child</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
-      <span class="c1">//将子依赖也加入队列中，广度遍历
-</span><span class="c1"></span>      <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
-    <span class="p">});</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">queue</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">//根据生成的依赖关系图，生成对应环境能执行的代码，目前是生产浏览器可以执行的
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">bundle</span><span class="p">(</span><span class="nx">graph</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">let</span> <span class="nx">modules</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-
-  <span class="c1">//循环依赖关系，并把每个模块中的代码存在function作用域里
-</span><span class="c1"></span>  <span class="nx">graph</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">mod</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">modules</span> <span class="o">+=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">mod</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">:[
-</span><span class="sb">      function (require, module, exports){
-</span><span class="sb">        </span><span class="si">${</span><span class="nx">mod</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="sb">
-</span><span class="sb">      },
-</span><span class="sb">      </span><span class="si">${</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">mod</span><span class="p">.</span><span class="nx">mapping</span><span class="p">)</span><span class="si">}</span><span class="sb">,
-</span><span class="sb">    ],`</span><span class="p">;</span>
-  <span class="p">});</span>
-
-  <span class="c1">//require, module, exports 是 cjs的标准不能再浏览器中直接使用，所以这里模拟cjs模块加载，执行，导出操作。
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="sb">`
-</span><span class="sb">    (function(modules){
-</span><span class="sb">      //创建require函数， 它接受一个模块ID（这个模块id是数字0，1，2） ，它会在我们上面定义 modules 中找到对应是模块.
-</span><span class="sb">      function __webpack_require__(id){
-</span><span class="sb">        const [fn, mapping] = modules[id];
-</span><span class="sb">        function localRequire(relativePath){
-</span><span class="sb">          //根据模块的路径在mapping中找到对应的模块id
-</span><span class="sb">          return __webpack_require__(mapping[relativePath]);
-</span><span class="sb">        }
-</span><span class="sb">        const module = {exports:{}};
-</span><span class="sb">        //执行每个模块的代码。
-</span><span class="sb">        fn(localRequire,module,module.exports);
-</span><span class="sb">        return module.exports;
-</span><span class="sb">      }
-</span><span class="sb">      //执行入口文件，
-</span><span class="sb">      __webpack_require__(0);
-</span><span class="sb">    })({</span><span class="si">${</span><span class="nx">modules</span><span class="si">}</span><span class="sb">})
-</span><span class="sb">  `</span><span class="p">;</span>
-
-  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// 入口文件
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">graph</span> <span class="o">=</span> <span class="nx">createGraph</span><span class="p">(</span><span class="s1">&#39;./entry.js&#39;</span><span class="p">);</span>
-<span class="c1">// 文件内容
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">bundle</span><span class="p">(</span><span class="nx">graph</span><span class="p">);</span>
-
-<span class="c1">// 打包生成文件
-</span><span class="c1"></span><span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="s1">&#39;./bundle.js&#39;</span><span class="p">,</span> <span class="nx">ret</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 引入相关依赖，对文件进行编译转换输出处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">parse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@babel/parser&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">traverse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@babel/traverse&#39;</span><span class="p">).</span><span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@babel/core&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">ID</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 读取文件信息，并获得当前js文件的依赖关系
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">createAsset</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 获取文件，返回值是字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 将字符串转为ast
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">ast</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sourceType</span><span class="o">:</span> <span class="s1">&#39;module&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//用来存储 文件所依赖的模块，简单来说就是，当前js文件 import 了哪些文件，都会保存在这个数组里
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">dependencies</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//遍历当前ast（抽象语法树）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">traverse</span><span class="p">(</span><span class="nx">ast</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//找到有 import语法 的对应节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ImportDeclaration</span><span class="o">:</span> <span class="p">({</span> <span class="nx">node</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//把当前依赖的模块加入到数组中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">dependencies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//模块的id 从0开始， 相当一个js文件 可以看成一个模块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">ID</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//这边主要把ES6 的代码转成 ES5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">{</span> <span class="nx">code</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">babel</span><span class="p">.</span><span class="nx">transformFromAstSync</span><span class="p">(</span><span class="nx">ast</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">presets</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;@babel/preset-env&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">filename</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">dependencies</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">code</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 从入口开始分析所有依赖项，形成依赖图，采用广度遍历
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">createGraph</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">mainAsset</span> <span class="o">=</span> <span class="nx">createAsset</span><span class="p">(</span><span class="nx">entry</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">queue</span> <span class="o">=</span> <span class="p">[</span><span class="nx">mainAsset</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">asset</span> <span class="k">of</span> <span class="nx">queue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">dirname</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">asset</span><span class="p">.</span><span class="nx">filename</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 新增一个属性来保存子依赖项的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">asset</span><span class="p">.</span><span class="nx">mapping</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">asset</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">relativePath</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">absolutePath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dirname</span><span class="p">,</span> <span class="nx">relativePath</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//获得子依赖（子模块）的依赖项、代码、模块id，文件名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">createAsset</span><span class="p">(</span><span class="nx">absolutePath</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//给子依赖项赋值，
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">asset</span><span class="p">.</span><span class="nx">mapping</span><span class="p">[</span><span class="nx">relativePath</span><span class="p">]</span> <span class="o">=</span> <span class="nx">child</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//将子依赖也加入队列中，广度遍历
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">queue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//根据生成的依赖关系图，生成对应环境能执行的代码，目前是生产浏览器可以执行的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">bundle</span><span class="p">(</span><span class="nx">graph</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">modules</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//循环依赖关系，并把每个模块中的代码存在function作用域里
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">graph</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">mod</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">modules</span> <span class="o">+=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">mod</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">:[
+</span></span></span><span class="line"><span class="cl"><span class="sb">      function (require, module, exports){
+</span></span></span><span class="line"><span class="cl"><span class="sb">        </span><span class="si">${</span><span class="nx">mod</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="sb">
+</span></span></span><span class="line"><span class="cl"><span class="sb">      },
+</span></span></span><span class="line"><span class="cl"><span class="sb">      </span><span class="si">${</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">mod</span><span class="p">.</span><span class="nx">mapping</span><span class="p">)</span><span class="si">}</span><span class="sb">,
+</span></span></span><span class="line"><span class="cl"><span class="sb">    ],`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">//require, module, exports 是 cjs的标准不能再浏览器中直接使用，所以这里模拟cjs模块加载，执行，导出操作。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="sb">`
+</span></span></span><span class="line"><span class="cl"><span class="sb">    (function(modules){
+</span></span></span><span class="line"><span class="cl"><span class="sb">      //创建require函数， 它接受一个模块ID（这个模块id是数字0，1，2） ，它会在我们上面定义 modules 中找到对应是模块.
+</span></span></span><span class="line"><span class="cl"><span class="sb">      function __webpack_require__(id){
+</span></span></span><span class="line"><span class="cl"><span class="sb">        const [fn, mapping] = modules[id];
+</span></span></span><span class="line"><span class="cl"><span class="sb">        function localRequire(relativePath){
+</span></span></span><span class="line"><span class="cl"><span class="sb">          //根据模块的路径在mapping中找到对应的模块id
+</span></span></span><span class="line"><span class="cl"><span class="sb">          return __webpack_require__(mapping[relativePath]);
+</span></span></span><span class="line"><span class="cl"><span class="sb">        }
+</span></span></span><span class="line"><span class="cl"><span class="sb">        const module = {exports:{}};
+</span></span></span><span class="line"><span class="cl"><span class="sb">        //执行每个模块的代码。
+</span></span></span><span class="line"><span class="cl"><span class="sb">        fn(localRequire,module,module.exports);
+</span></span></span><span class="line"><span class="cl"><span class="sb">        return module.exports;
+</span></span></span><span class="line"><span class="cl"><span class="sb">      }
+</span></span></span><span class="line"><span class="cl"><span class="sb">      //执行入口文件，
+</span></span></span><span class="line"><span class="cl"><span class="sb">      __webpack_require__(0);
+</span></span></span><span class="line"><span class="cl"><span class="sb">    })({</span><span class="si">${</span><span class="nx">modules</span><span class="si">}</span><span class="sb">})
+</span></span></span><span class="line"><span class="cl"><span class="sb">  `</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 入口文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">graph</span> <span class="o">=</span> <span class="nx">createGraph</span><span class="p">(</span><span class="s1">&#39;./entry.js&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 文件内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">bundle</span><span class="p">(</span><span class="nx">graph</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 打包生成文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="s1">&#39;./bundle.js&#39;</span><span class="p">,</span> <span class="nx">ret</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>loader</code>，通过设置对应的<code>rule</code>，使用不同的<code>loader</code>来转换、处理不同的组件，比如<code>css</code>文件使用<code>css-loader</code>以及<code>style-loader</code>来处理</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
-  <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span>
-  <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;style-loader!css-loader&#39;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;style-loader!css-loader&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>除此之外，还有一种内联<code>loader</code>的形式，即<code>import loader from '......'</code></p>
 <p>两种方式处理的顺序也不同，大致流程为
@@ -447,7 +450,7 @@
 <p>以下简单写一个<code>loader</code>，首先写一个方法用于加载<code>loader</code>，并处理传入的模块，然后返回处理完了之后的代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -456,19 +459,19 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">source</span> <span class="o">=</span> <span class="p">......</span> <span class="c1">// source为获取到的模块的代码
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">loaderModule</span><span class="p">(</span><span class="nx">loaderName</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// 获取loader路径
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">loaderPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">(),</span> <span class="nx">loaderName</span><span class="p">)</span>
-  <span class="kr">const</span> <span class="nx">loader</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">loaderPath</span><span class="p">)</span>
-  <span class="nx">source</span> <span class="o">=</span> <span class="nx">loader</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">_this</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">source</span> <span class="o">=</span> <span class="p">......</span> <span class="c1">// source为获取到的模块的代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">loaderModule</span><span class="p">(</span><span class="nx">loaderName</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 获取loader路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">loaderPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">(),</span> <span class="nx">loaderName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">loader</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">loaderPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">source</span> <span class="o">=</span> <span class="nx">loader</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">_this</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>定义一个规则</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -476,18 +479,18 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">rules</span><span class="o">:</span> <span class="p">[{</span>
-  <span class="nx">test</span><span class="o">:</span><span class="sr">/\.js/</span><span class="p">,</span>
-  <span class="nx">use</span><span class="o">:</span><span class="p">[</span>
-    <span class="s1">&#39;./loaderModule.js&#39;</span><span class="p">,</span> <span class="c1">// loader的路径
-</span><span class="c1"></span>  <span class="p">]</span>
-<span class="p">}]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">rules</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">test</span><span class="o">:</span><span class="sr">/\.js/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">use</span><span class="o">:</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;./loaderModule.js&#39;</span><span class="p">,</span> <span class="c1">// loader的路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行的时候遍历<code>rules</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -517,40 +520,40 @@
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">rules</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="p">{</span> <span class="nx">test</span><span class="p">,</span> <span class="nx">use</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">rules</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">modulePath</span><span class="p">))</span> <span class="p">{</span>
-    <span class="c1">// 使用多个loader
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">use</span><span class="p">))</span> <span class="p">{</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">use</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">loaderModule</span><span class="p">(</span><span class="nx">use</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span>
-      <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">use</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">loaderModule</span><span class="p">(</span><span class="nx">use</span><span class="p">)</span>
-      <span class="c1">// 带参数型的loader
-</span><span class="c1"></span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">use</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">loaderModule</span><span class="p">(</span><span class="nx">use</span><span class="p">.</span><span class="nx">loader</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">query</span><span class="o">:</span> <span class="nx">use</span><span class="p">.</span><span class="nx">options</span>
-      <span class="p">})</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// loaderModule.js内容
-</span><span class="c1">// loader-utils是webpack一个工具类，用于解析loader，获取配置的一些loader参数
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">loaderUtils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;loader-utils&#39;</span><span class="p">)</span>
-
-<span class="c1">// 这个简单的loader会将js文件里面的hello字符串替换成word
-</span><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">optionsName</span> <span class="o">=</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;world&#39;</span>
-  <span class="k">return</span> <span class="nx">source</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/hello/g</span><span class="p">,</span> <span class="nx">optionsName</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">rules</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">test</span><span class="p">,</span> <span class="nx">use</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">rules</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">modulePath</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 使用多个loader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">use</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">use</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">loaderModule</span><span class="p">(</span><span class="nx">use</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">use</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">loaderModule</span><span class="p">(</span><span class="nx">use</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 带参数型的loader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">use</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">loaderModule</span><span class="p">(</span><span class="nx">use</span><span class="p">.</span><span class="nx">loader</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">query</span><span class="o">:</span> <span class="nx">use</span><span class="p">.</span><span class="nx">options</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// loaderModule.js内容
+</span></span></span><span class="line"><span class="cl"><span class="c1">// loader-utils是webpack一个工具类，用于解析loader，获取配置的一些loader参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">loaderUtils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;loader-utils&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 这个简单的loader会将js文件里面的hello字符串替换成word
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">optionsName</span> <span class="o">=</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;world&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">source</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/hello/g</span><span class="p">,</span> <span class="nx">optionsName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>前面是一个同步的<code>loader</code>，如果想写一个异步的<code>loader</code>，可以在<code>loader</code>内部调用<code>async</code>方法，然后在处理之后调用对应的回调方法处理</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -562,22 +565,22 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">optionsName</span> <span class="o">=</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;world&#39;</span>
-  <span class="nx">cosnt</span> <span class="nx">callback</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">async</span><span class="p">()</span>
-
-  <span class="c1">// 操作完了之后，调用callback返回结果进入下一个loader
-</span><span class="c1"></span>  <span class="nx">asyncOperation</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">optionsName</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="err">（</span><span class="nx">err</span><span class="err">）</span><span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-    <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
-  <span class="p">})</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">optionsName</span> <span class="o">=</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;world&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cosnt</span> <span class="nx">callback</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="kr">async</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 操作完了之后，调用callback返回结果进入下一个loader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">asyncOperation</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="nx">optionsName</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="err">（</span><span class="nx">err</span><span class="err">）</span><span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果不用上面的方式，返回一个<code>promise</code>也是可以的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -588,16 +591,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">optionsName</span> <span class="o">=</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;world&#39;</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">asyncOperation</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="nx">resolve</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
-    <span class="p">})</span>
-  <span class="p">})</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">optionsName</span> <span class="o">=</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">loaderUtils</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;world&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">asyncOperation</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">resolve</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>plugin</code>
 <code>plugin</code>进一步拓展了<code>webpack</code>的功能，比如打包优化和压缩，清空当前项目的目录，重新定义环境变量，将代码输出到某个文件，提取功能模块等等</p>
@@ -605,7 +608,7 @@
 以下定义一个<code>plugin</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -636,36 +639,36 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">cheerio</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cheerio&#39;</span><span class="p">)</span>
-
-<span class="kr">class</span> <span class="nx">BasePlugin</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
-    <span class="c1">// 插件的参数，filename、template等
-</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span>
-  <span class="p">}</span>
-  <span class="nx">apply</span><span class="p">(</span><span class="nx">compiler</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// 注册afterEmit钩子函数
-</span><span class="c1"></span>    <span class="nx">compiler</span><span class="p">.</span><span class="nx">hooks</span><span class="p">.</span><span class="nx">afterEmit</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="s1">&#39;BasePlugin&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">compilation</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="c1">// 2. 根据模板读取html文件内容
-</span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">template</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-      
-      <span class="c1">// 3. 使用 cheerio 来分析 HTML
-</span><span class="c1"></span>      <span class="kd">let</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">cheerio</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
-    
-      <span class="c1">// 4. 创建 script 标签后插入HTML中
-</span><span class="c1"></span>      <span class="c1">// compilation.assets代表所有输出的资源文件
-</span><span class="c1"></span>      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">compilation</span><span class="p">.</span><span class="nx">assets</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="p">(</span><span class="sb">`&lt;script src=&#34;/</span><span class="si">${</span><span class="nx">item</span><span class="si">}</span><span class="sb">&#34;&gt;&lt;/script&gt;`</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span>
-      <span class="p">})</span>
-    
-      <span class="c1">// 5. 转换成新的HTML并写入到 dist 目录中
-</span><span class="c1"></span>      <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">(),</span> <span class="s1">&#39;dist&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">filename</span><span class="p">),</span> <span class="nx">$</span><span class="p">.</span><span class="nx">html</span><span class="p">())</span>
-    <span class="p">})</span>
-  <span class="p">}</span> 
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">cheerio</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cheerio&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">BasePlugin</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 插件的参数，filename、template等
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">apply</span><span class="p">(</span><span class="nx">compiler</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 注册afterEmit钩子函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">compiler</span><span class="p">.</span><span class="nx">hooks</span><span class="p">.</span><span class="nx">afterEmit</span><span class="p">.</span><span class="nx">tap</span><span class="p">(</span><span class="s1">&#39;BasePlugin&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">compilation</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 2. 根据模板读取html文件内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">template</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="c1">// 3. 使用 cheerio 来分析 HTML
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">let</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">cheerio</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">      <span class="c1">// 4. 创建 script 标签后插入HTML中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// compilation.assets代表所有输出的资源文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">compilation</span><span class="p">.</span><span class="nx">assets</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">$</span><span class="p">(</span><span class="sb">`&lt;script src=&#34;/</span><span class="si">${</span><span class="nx">item</span><span class="si">}</span><span class="sb">&#34;&gt;&lt;/script&gt;`</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">      <span class="c1">// 5. 转换成新的HTML并写入到 dist 目录中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">(),</span> <span class="s1">&#39;dist&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">filename</span><span class="p">),</span> <span class="nx">$</span><span class="p">.</span><span class="nx">html</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>compiler</code>对象包含了<code>webpack</code>环境所有的的配置信息，包含<code>options</code>，<code>loaders</code>，<code>plugins</code>这些信息，这个对象在<code>webpack</code>启动时候被实例化，它是全局唯一的，可以简单地把它理解为<code>webpack</code>实例，<code>compilation</code>对象包含了当前的模块资源、编译生成资源、变化的文件等。当<code>webpack</code>以开发模式运行时，每当检测到一个文件变化，<code>compilation</code>就会被重新构建，其它的一些<a href="https://www.webpackjs.com/api/compiler-hooks/#hooks" target="_blank" rel="noopener noreffer">钩子函数</a></p>
 <p>顺便总结一下，实现一个简单的<code>webpack</code>的步骤
@@ -692,7 +695,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/webpack%E7%90%86%E8%A7%A3/" data-title="Webpack理解"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/webpack%E7%90%86%E8%A7%A3/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/webpack%E7%90%86%E8%A7%A3/" data-title="Webpack理解"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/webpack%E7%90%86%E8%A7%A3/" data-title="Webpack理解"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/webpack%E7%90%86%E8%A7%A3/" data-title="Webpack理解"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/webpack%E7%90%86%E8%A7%A3/" data-title="Webpack理解"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/webpack%E7%90%86%E8%A7%A3/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/webpack%E7%90%86%E8%A7%A3/" data-title="Webpack理解"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/webpack%E7%90%86%E8%A7%A3/" data-title="Webpack理解"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/webpack%E7%90%86%E8%A7%A3/" data-title="Webpack理解"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>

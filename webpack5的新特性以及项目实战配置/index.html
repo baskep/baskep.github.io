@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Webpack5的新特性以及项目实战配置 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="Webpack5的新特性以及项目实战配置" />
-<meta property="og:description" content="webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://baskep.com/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" />
-<meta property="og:image" content="https://baskep.com/logo.png"/>
-<meta property="article:published_time" content="2021-07-18T14:45:25+08:00" />
-<meta property="article:modified_time" content="2021-07-18T14:45:25+08:00" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+        <title>Webpack5的新特性以及项目实战配置 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="http://localhost:1313/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Webpack5的新特性以及项目实战配置">
+  <meta property="og:description" content="webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-07-18T14:45:25+08:00">
+    <meta property="article:modified_time" content="2021-07-18T14:45:25+08:00">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
 
-<meta name="twitter:title" content="Webpack5的新特性以及项目实战配置"/>
-<meta name="twitter:description" content="webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="Webpack5的新特性以及项目实战配置">
+  <meta name="twitter:description" content="webpack5也已经发布了(2021.08)接进一年了，之前刚出来的时候还有些坑也不敢急着实际应用在项目中，现在官方的bug也修的差不多了">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="https://baskep.com/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" /><link rel="next" href="https://baskep.com/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="http://localhost:1313/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" /><link rel="next" href="http://localhost:1313/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -26,11 +29,11 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/baskep.com\/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE\/"
-        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2685 ,
-        "url": "https:\/\/baskep.com\/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE\/","datePublished": "2021-07-18T14:45:25+08:00","dateModified": "2021-07-18T14:45:25+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "http:\/\/localhost:1313\/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2685 ,
+        "url": "http:\/\/localhost:1313\/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE\/","datePublished": "2021-07-18T14:45:25+08:00","dateModified": "2021-07-18T14:45:25+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+            "name": "xxxx","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "早起的老年人"
             },"description": ""
@@ -104,7 +107,7 @@
 <p>buildDependencies：<code>object</code>，针对构建的额外代码依赖的数组对象。webpack 将使用这些项和所有依赖项的哈希值来使文件系统缓存失效</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -112,13 +115,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">cache</span><span class="o">:</span> <span class="p">{</span>
-  <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;filesystem&#39;</span><span class="p">,</span> <span class="c1">// 将缓存类型设置为文件系统，默认为memory
-</span><span class="c1"></span>  <span class="nx">buildDependencies</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">config</span><span class="o">:</span> <span class="p">[</span><span class="nx">__filename</span><span class="p">],</span> <span class="c1">// 这样设置后webpack能获取最新的配置以及依赖项来重新缓存
-</span><span class="c1"></span>  <span class="p">},</span>
-<span class="p">},</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">cache</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;filesystem&#39;</span><span class="p">,</span> <span class="c1">// 将缓存类型设置为文件系统，默认为memory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">buildDependencies</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="o">:</span> <span class="p">[</span><span class="nx">__filename</span><span class="p">],</span> <span class="c1">// 这样设置后webpack能获取最新的配置以及依赖项来重新缓存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="2对资源实现了内部支持而不需要额外的loader">2.对资源实现了内部支持而不需要额外的loader</h1>
 <p><code>asset/resource</code> 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。</p>
@@ -127,7 +130,7 @@
 <p><code>asset</code> 在导出一个 data URI 和发送一个单独的文件之间自动选择。之前通过使用 url-loader，并且配置资源体积限制实现</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -154,32 +157,32 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">module</span><span class="p">.</span><span class="kr">export</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">rules</span><span class="o">:</span> <span class="p">[{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.png$/</span><span class="p">,</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/resource&#34;</span><span class="p">,</span> <span class="c1">//对应file-loader
-</span><span class="c1"></span>    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.svg$/</span><span class="p">,</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/inline&#34;</span><span class="p">,</span> <span class="c1">//对应url-loader 大小&lt;limt 转化为base64
-</span><span class="c1"></span>    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.txt$/</span><span class="p">,</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/source&#34;</span><span class="p">,</span> <span class="c1">//对应raw-loader
-</span><span class="c1"></span>    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.gif$/</span><span class="p">,</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset&#34;</span><span class="p">,</span> <span class="c1">//自动选择
-</span><span class="c1"></span>      <span class="nx">parser</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">dataUrlCondition</span><span class="o">:</span> <span class="p">{</span>
-          <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
-        <span class="p">},</span>
-      <span class="p">},</span>
-    <span class="p">}],</span>
-  <span class="p">},</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="kr">export</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rules</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.png$/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/resource&#34;</span><span class="p">,</span> <span class="c1">//对应file-loader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.svg$/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/inline&#34;</span><span class="p">,</span> <span class="c1">//对应url-loader 大小&lt;limt 转化为base64
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.txt$/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset/source&#34;</span><span class="p">,</span> <span class="c1">//对应raw-loader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.gif$/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;asset&#34;</span><span class="p">,</span> <span class="c1">//自动选择
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">parser</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">dataUrlCondition</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="3用更好的-tree-shaking-和代码生成来改善包大小">3.用更好的 Tree Shaking 和代码生成来改善包大小</h1>
 <p>现在的Tree Shaking 能够完全剔除未使用的代码，同样使用ES6模块，并开起production mode；并且现在能处理对 Commonjs 的 tree shaking，<strong>允许消除未使用的CommonJs导出并跟踪require()调用中引用的导出名称</strong>，在打包出的文件中可以看到最终的代码。</p>
@@ -191,39 +194,39 @@
 <table>
 <thead>
 <tr>
-<th align="left">选荐值</th>
-<th align="center">描述</th>
+<th style="text-align:left">选荐值</th>
+<th style="text-align:center">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left"><code>natural</code></td>
-<td align="center">按使用顺序的数字 id。</td>
+<td style="text-align:left"><code>natural</code></td>
+<td style="text-align:center">按使用顺序的数字 id。</td>
 </tr>
 <tr>
-<td align="left"><code>named</code></td>
-<td align="center">对调试更友好的可读的 id。</td>
+<td style="text-align:left"><code>named</code></td>
+<td style="text-align:center">对调试更友好的可读的 id。</td>
 </tr>
 <tr>
-<td align="left"><code>deterministic</code></td>
-<td align="center">被哈希转化成的小位数值模块名。</td>
+<td style="text-align:left"><code>deterministic</code></td>
+<td style="text-align:center">被哈希转化成的小位数值模块名。</td>
 </tr>
 <tr>
-<td align="left"><code>size</code></td>
-<td align="center">专注于让初始下载包大小更小的数字 id。</td>
+<td style="text-align:left"><code>size</code></td>
+<td style="text-align:center">专注于让初始下载包大小更小的数字 id。</td>
 </tr>
 </tbody>
 </table>
 <p><code>deterministic</code> 选项有益于长期缓存，但对比于 <code>hashed</code> 来说，它会导致更小的文件 bundles。数字值的长度会被选作用于填满最多 80%的 id 空间。 当 <code>optimization.moduleIds</code> 被设置成 <code>deterministic</code>，默认最小 3 位数字会被使用。deterministic配置在生产模式下是默认开启）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">optimization</span><span class="p">.</span><span class="nx">moduleIds</span> <span class="o">=</span> <span class="s1">&#39;deterministic&#39;</span>
-<span class="nx">optimization</span><span class="p">.</span><span class="nx">chunkIds</span> <span class="o">=</span> <span class="s1">&#39;deterministic&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">optimization</span><span class="p">.</span><span class="nx">moduleIds</span> <span class="o">=</span> <span class="s1">&#39;deterministic&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">optimization</span><span class="p">.</span><span class="nx">chunkIds</span> <span class="o">=</span> <span class="s1">&#39;deterministic&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>当然在开发模式下，可以设置成<code>natural</code>以保持以前的老模式</p>
 <p><strong>content hash的优化</strong></p>
@@ -260,7 +263,7 @@
 <p>首先定义一个webpack.config.base.js，即开发环境以及生产环境都需要的配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -311,61 +314,61 @@
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">CleanWebpackPlugin</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;clean-webpack-plugin&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">HtmlWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;html-webpack-plugin&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">MiniCssExtractPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;mini-css-extract-plugin&#34;</span><span class="p">)</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">entry</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span> 
-  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].[chunkhash].bundle.js&#39;</span><span class="p">,</span>
-    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span> 
-  <span class="p">},</span>
-  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">rules</span><span class="o">:</span> <span class="p">[{</span>
-        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.m?js$/</span><span class="p">,</span>
-        <span class="nx">exclude</span><span class="o">:</span> <span class="sr">/node_modules/</span><span class="p">,</span>
-        <span class="nx">use</span><span class="o">:</span> <span class="p">{</span>
-          <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;babel-loader&#39;</span><span class="p">,</span> 
-        <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.s[ac]ss$/</span><span class="p">,</span> 
-        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span><span class="nx">MiniCssExtractPlugin</span><span class="p">.</span><span class="nx">loader</span><span class="p">,</span> <span class="s1">&#39;css-loader&#39;</span><span class="p">,</span> <span class="s1">&#39;sass-loader&#39;</span><span class="p">]</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(png|svg|jpg|gif|webp|jfif)$/</span><span class="p">,</span>
-        <span class="nx">use</span><span class="o">:</span> <span class="p">[{</span>
-          <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;url-loader&#39;</span><span class="p">,</span>
-          <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">limit</span><span class="o">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
-            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;assets/[name]_[hash:10].[ext]&#39;</span>
-          <span class="p">}</span>
-        <span class="p">}]</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
-    <span class="k">new</span> <span class="nx">CleanWebpackPlugin</span><span class="p">({</span> <span class="c1">// 每次打包前删除dist文件夹中的文件
-</span><span class="c1"></span>      <span class="nx">cleanOnceBeforeBuildPatterns</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;**/*&#39;</span><span class="p">,</span> <span class="s1">&#39;!favicon.ico&#39;</span><span class="p">,</span> <span class="s1">&#39;!lib/**&#39;</span><span class="p">],</span> <span class="c1">// dist文件夹下的favicon.ico文件和lib文件夹下的东西都忽略不进行删除
-</span><span class="c1"></span>    <span class="p">}),</span>
-    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
-      <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;index.html&#39;</span><span class="p">,</span> 
-      <span class="nx">favicon</span><span class="o">:</span> <span class="s1">&#39;favicon.ico&#39;</span><span class="p">,</span> 
-      <span class="nx">inject</span><span class="o">:</span> <span class="s1">&#39;head&#39;</span> 
-    <span class="p">}),</span>
-    <span class="k">new</span> <span class="nx">MiniCssExtractPlugin</span><span class="p">({</span>
-      <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name]-[contenthash].css&#39;</span>
-    <span class="p">}),</span>
-  <span class="p">],</span>
-<span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">CleanWebpackPlugin</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;clean-webpack-plugin&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">HtmlWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;html-webpack-plugin&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">MiniCssExtractPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;mini-css-extract-plugin&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">entry</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].[chunkhash].bundle.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rules</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.m?js$/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">exclude</span><span class="o">:</span> <span class="sr">/node_modules/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">use</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;babel-loader&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.s[ac]ss$/</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="nx">use</span><span class="o">:</span> <span class="p">[</span><span class="nx">MiniCssExtractPlugin</span><span class="p">.</span><span class="nx">loader</span><span class="p">,</span> <span class="s1">&#39;css-loader&#39;</span><span class="p">,</span> <span class="s1">&#39;sass-loader&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(png|svg|jpg|gif|webp|jfif)$/</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">use</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;url-loader&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">limit</span><span class="o">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;assets/[name]_[hash:10].[ext]&#39;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="nx">CleanWebpackPlugin</span><span class="p">({</span> <span class="c1">// 每次打包前删除dist文件夹中的文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">cleanOnceBeforeBuildPatterns</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;**/*&#39;</span><span class="p">,</span> <span class="s1">&#39;!favicon.ico&#39;</span><span class="p">,</span> <span class="s1">&#39;!lib/**&#39;</span><span class="p">],</span> <span class="c1">// dist文件夹下的favicon.ico文件和lib文件夹下的东西都忽略不进行删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;index.html&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">      <span class="nx">favicon</span><span class="o">:</span> <span class="s1">&#39;favicon.ico&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">      <span class="nx">inject</span><span class="o">:</span> <span class="s1">&#39;head&#39;</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="nx">MiniCssExtractPlugin</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name]-[contenthash].css&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后配置webpack.config.dev.js，开发环境主要配置代理服务器，代码热更新，以及使用最新的缓存特性</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -405,50 +408,50 @@
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">baseConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.base.js&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">ReactRefreshPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@pmmmwh/react-refresh-webpack-plugin&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">)</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseConfig</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;development&#39;</span><span class="p">,</span>
-  <span class="nx">devtool</span><span class="o">:</span> <span class="s1">&#39;eval-cheap-module-source-map&#39;</span><span class="p">,</span>
-  <span class="nx">devServer</span><span class="o">:</span> <span class="p">{</span> 
-    <span class="nx">contentBase</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">),</span>
-    <span class="nx">port</span><span class="o">:</span> <span class="s1">&#39;8090&#39;</span><span class="p">,</span>
-    <span class="nx">proxy</span><span class="o">:</span> <span class="p">{</span> 
-      <span class="s1">&#39;/api&#39;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;http://127.0.0.1:3001&#39;</span><span class="p">,</span>
-        <span class="nx">pathRewrite</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s1">&#39;^/api&#39;</span><span class="o">:</span> <span class="s1">&#39;
-</span><span class="s1">        }
-</span><span class="s1">      },
-</span><span class="s1">    },
-</span><span class="s1">    hot: true,
-</span><span class="s1">    open: true,
-</span><span class="s1">  },
-</span><span class="s1">  // 热更新
-</span><span class="s1">  plugins: [
-</span><span class="s1">    new ReactRefreshPlugin({
-</span><span class="s1">      overlay: false,
-</span><span class="s1">    }),
-</span><span class="s1">    new webpack.HotModuleReplacementPlugin()
-</span><span class="s1">  ],
-</span><span class="s1">  // 缓存
-</span><span class="s1">  cache: {
-</span><span class="s1">    type: &#39;</span><span class="nx">filesystem</span><span class="err">&#39;</span><span class="p">,</span>
-    <span class="nx">buildDependencies</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">config</span><span class="o">:</span> <span class="p">[</span><span class="nx">__filename</span><span class="p">],</span>
-    <span class="p">},</span>
-  <span class="p">},</span>
-<span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">baseConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.base.js&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ReactRefreshPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@pmmmwh/react-refresh-webpack-plugin&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseConfig</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;development&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">devtool</span><span class="o">:</span> <span class="s1">&#39;eval-cheap-module-source-map&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">devServer</span><span class="o">:</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">contentBase</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;dist&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">port</span><span class="o">:</span> <span class="s1">&#39;8090&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">proxy</span><span class="o">:</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;/api&#39;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;http://127.0.0.1:3001&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">pathRewrite</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;^/api&#39;</span><span class="o">:</span> <span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        }
+</span></span></span><span class="line"><span class="cl"><span class="s1">      },
+</span></span></span><span class="line"><span class="cl"><span class="s1">    },
+</span></span></span><span class="line"><span class="cl"><span class="s1">    hot: true,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    open: true,
+</span></span></span><span class="line"><span class="cl"><span class="s1">  },
+</span></span></span><span class="line"><span class="cl"><span class="s1">  // 热更新
+</span></span></span><span class="line"><span class="cl"><span class="s1">  plugins: [
+</span></span></span><span class="line"><span class="cl"><span class="s1">    new ReactRefreshPlugin({
+</span></span></span><span class="line"><span class="cl"><span class="s1">      overlay: false,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    }),
+</span></span></span><span class="line"><span class="cl"><span class="s1">    new webpack.HotModuleReplacementPlugin()
+</span></span></span><span class="line"><span class="cl"><span class="s1">  ],
+</span></span></span><span class="line"><span class="cl"><span class="s1">  // 缓存
+</span></span></span><span class="line"><span class="cl"><span class="s1">  cache: {
+</span></span></span><span class="line"><span class="cl"><span class="s1">    type: &#39;</span><span class="nx">filesystem</span><span class="err">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">buildDependencies</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">config</span><span class="o">:</span> <span class="p">[</span><span class="nx">__filename</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后是生产环境的配置，生产环境的配置主要是对代码进行一个压缩</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -462,19 +465,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">)</span> 
-<span class="kr">const</span> <span class="nx">OptimizeCSSAssetsPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;optimize-css-assets-webpack-plugin&#34;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">TerserJSPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;terser-webpack-plugin&#34;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">baseConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.base.js&#39;</span><span class="p">)</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseConfig</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">mode</span><span class="o">:</span> <span class="s2">&#34;production&#34;</span><span class="p">,</span>
-  <span class="nx">optimization</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">minimizer</span><span class="o">:</span> <span class="p">[</span><span class="k">new</span> <span class="nx">OptimizeCSSAssetsPlugin</span><span class="p">({})],</span>
-    <span class="nx">minimizer</span><span class="o">:</span> <span class="p">[</span><span class="k">new</span> <span class="nx">TerserJSPlugin</span><span class="p">({}),</span> <span class="k">new</span> <span class="nx">OptimizeCSSAssetsPlugin</span><span class="p">({})]</span> 
-  <span class="p">}</span>
-<span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">OptimizeCSSAssetsPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;optimize-css-assets-webpack-plugin&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">TerserJSPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;terser-webpack-plugin&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">baseConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.base.js&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseConfig</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mode</span><span class="o">:</span> <span class="s2">&#34;production&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">optimization</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">minimizer</span><span class="o">:</span> <span class="p">[</span><span class="k">new</span> <span class="nx">OptimizeCSSAssetsPlugin</span><span class="p">({})],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">minimizer</span><span class="o">:</span> <span class="p">[</span><span class="k">new</span> <span class="nx">TerserJSPlugin</span><span class="p">({}),</span> <span class="k">new</span> <span class="nx">OptimizeCSSAssetsPlugin</span><span class="p">({})]</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以上就是一个webpack5的基本配置，可以看到除了其内部更新的特性意外，其它的还是可以用原来的loader去配置，主要用到的还是它的缓存的一个功能，当然其它的你也可以按照官方文档进行一个配置</p>
 <h1 id="9参考链接">9.参考链接</h1>
@@ -491,7 +494,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/webpack5%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E9%85%8D%E7%BD%AE/" data-title="Webpack5的新特性以及项目实战配置"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -504,7 +507,7 @@
     </div>
 
     <div class="post-nav"><a href="/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/" class="prev" rel="prev" title="前端的模块规范简述以及如何实现一个UMD-Loader方法"><i class="fas fa-angle-left fa-fw"></i>前端的模块规范简述以及如何实现一个UMD-Loader方法</a>
-            <a href="/storybook-lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" class="next" rel="next" title="StoryBook &#43; Lerna 开发自己的UI组件库(一)">StoryBook &#43; Lerna 开发自己的UI组件库(一)<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%B8%80/" class="next" rel="next" title="StoryBook &#43; Lerna 开发自己的UI组件库(一)">StoryBook &#43; Lerna 开发自己的UI组件库(一)<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

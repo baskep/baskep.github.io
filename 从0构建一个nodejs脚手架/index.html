@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>从0构建一个Nodejs脚手架 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:title" content="从0构建一个Nodejs脚手架" />
-<meta property="og:description" content="搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" />
-<meta property="og:image" content="https://baskep.com/logo.png"/>
-<meta property="article:published_time" content="2021-12-12T01:54:55+08:00" />
-<meta property="article:modified_time" content="2021-12-12T01:54:55+08:00" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://baskep.com/logo.png"/>
+        <title>从0构建一个Nodejs脚手架 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="从0构建一个Nodejs脚手架">
+  <meta property="og:description" content="搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-12T01:54:55+08:00">
+    <meta property="article:modified_time" content="2021-12-12T01:54:55+08:00">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
 
-<meta name="twitter:title" content="从0构建一个Nodejs脚手架"/>
-<meta name="twitter:description" content="搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="从0构建一个Nodejs脚手架">
+  <meta name="twitter:description" content="搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通">
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" /><link rel="prev" href="https://baskep.com/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/" /><link rel="next" href="https://baskep.com/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" /><link rel="prev" href="http://localhost:1313/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://localhost:1313/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -26,11 +29,11 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/baskep.com\/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6\/"
-        },"image": ["https:\/\/baskep.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5122 ,
-        "url": "https:\/\/baskep.com\/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6\/","datePublished": "2021-12-12T01:54:55+08:00","dateModified": "2021-12-12T01:54:55+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "http:\/\/localhost:1313\/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6\/"
+        },"image": ["http:\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5042 ,
+        "url": "http:\/\/localhost:1313\/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6\/","datePublished": "2021-12-12T01:54:55+08:00","dateModified": "2021-12-12T01:54:55+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
-            "name": "xxxx","logo": "https:\/\/baskep.com\/images\/avatar.png"},"author": {
+            "name": "xxxx","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "早起的老年人"
             },"description": ""
@@ -77,7 +80,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">从0构建一个Nodejs脚手架</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-12">2021-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5122 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-12">2021-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5042 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -122,7 +125,7 @@
 <p>以下是入口文件<code>index.js</code>的内容</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -133,22 +136,20 @@
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="ch">#!/usr/bin/env node
-</span><span class="ch"></span>
-<span class="s1">&#39;use strict&#39;</span>
-<span class="kr">const</span> <span class="nx">argv</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;minimist&#39;</span><span class="p">)(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-<span class="kr">const</span> <span class="nx">commands</span> <span class="o">=</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span>
-<span class="kr">const</span> <span class="nx">pkg</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../package.json&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">Creator</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./create-app&#39;</span><span class="p">)</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="sb">`[⚙️node-cli]: </span><span class="si">${</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">@</span><span class="si">${</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
-
-<span class="k">new</span> <span class="nx">Creator</span><span class="p">({</span> <span class="nx">projectName</span><span class="o">:</span> <span class="nx">commands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">})</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env node
+</span></span></span><span class="line"><span class="cl"><span class="ch"></span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">argv</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;minimist&#39;</span><span class="p">)(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">commands</span> <span class="o">=</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">pkg</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../package.json&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">Creator</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./create-app&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="sb">`[⚙️node-cli]: </span><span class="si">${</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">@</span><span class="si">${</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">Creator</span><span class="p">({</span> <span class="nx">projectName</span><span class="o">:</span> <span class="nx">commands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面代码的作用：</p>
 <p>1.<code>process.argv.slice(2)</code>：意思是拿到控制台中第3个以后的参数，比如我运行<code>node index.js test --template=test-a</code>，那么就会拿到<code>test</code>、<code>template</code>的内容</p>
@@ -158,7 +159,7 @@
 <p><code>Creator</code>类的基本实现</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -277,130 +278,128 @@
 </span><span class="lnt">117
 </span><span class="lnt">118
 </span><span class="lnt">119
-</span><span class="lnt">120
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">exec</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs-extra&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">inquirer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;inquirer&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">ora</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ora&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">userName</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;git-user-name&#39;</span><span class="p">)()</span>
-<span class="kr">const</span> <span class="nx">userEmail</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./vendor&#39;</span><span class="p">)()</span>
-
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">getRootPath</span><span class="p">,</span> <span class="nx">shouldUseYarn</span><span class="p">,</span> <span class="nx">shouldUseCnpm</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../util&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">fetchTemplate</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./fetch-template&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">generatorFile</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./generator&#39;</span><span class="p">)</span>
-
-<span class="kr">class</span> <span class="nx">Creator</span> <span class="p">{</span>
-  <span class="nx">constructor</span> <span class="p">({</span> <span class="nx">projectName</span> <span class="p">})</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="nx">rootPath</span><span class="o">:</span> <span class="nx">getRootPath</span><span class="p">(),</span>
-      <span class="nx">projectName</span><span class="o">:</span> <span class="nx">projectName</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">()</span>
-  <span class="p">}</span>
-
-  <span class="nx">async</span> <span class="nx">create</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">try</span> <span class="p">{</span>
-      <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">ask</span><span class="p">()</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;创建项目失败: &#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">))</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="nx">async</span> <span class="nx">ask</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="p">{</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">projectName</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kr">const</span> <span class="nx">projectNameAnswer</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">inquirer</span><span class="p">.</span><span class="nx">prompt</span><span class="p">([{</span>
-        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;input&#39;</span><span class="p">,</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;projectName&#39;</span><span class="p">,</span>
-        <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请输入项目名&#39;</span><span class="p">,</span>
-      <span class="p">}])</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">projectName</span> <span class="o">=</span> <span class="nx">projectNameAnswer</span><span class="p">.</span><span class="nx">projectName</span>
-    <span class="p">}</span>
-    <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">validateProjectName</span><span class="p">()</span>
-
-    <span class="k">this</span><span class="p">.</span><span class="nx">askTemplate</span><span class="p">()</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">askCss</span><span class="p">()</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">askTypeScript</span><span class="p">()</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">askDescription</span><span class="p">()</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">askAuthorInfo</span><span class="p">()</span>
-    <span class="kr">const</span> <span class="nx">answers</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">inquirer</span><span class="p">.</span><span class="nx">prompt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">)</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">,</span> <span class="p">...</span><span class="nx">answers</span> <span class="p">}</span>
-  <span class="p">}</span>
-
-
-  <span class="nx">askTemplate</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;template&#39;</span><span class="p">,</span>
-      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请选择下载的模板&#39;</span><span class="p">,</span>
-      <span class="nx">choices</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;react-admin-template&#39;</span><span class="p">,</span> <span class="s1">&#39;storybook-template&#39;</span><span class="p">],</span>
-      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;react-admin-template&#39;</span>
-    <span class="p">})</span>
-  <span class="p">}</span>
-
-  <span class="nx">askCss</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;css&#39;</span><span class="p">,</span>
-      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请选择所使用的css预处理器&#39;</span><span class="p">,</span>
-      <span class="nx">choices</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;less&#39;</span><span class="p">,</span> <span class="s1">&#39;scss&#39;</span><span class="p">,</span> <span class="s1">&#39;stylus&#39;</span><span class="p">],</span>
-      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;less&#39;</span>
-    <span class="p">})</span>
-  <span class="p">}</span>
-
-  <span class="nx">askTypeScript</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;confirm&#39;</span><span class="p">,</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;typescript&#39;</span><span class="p">,</span>
-      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;是否使用TypeScript&#39;</span><span class="p">,</span>
-      <span class="k">default</span><span class="o">:</span> <span class="kc">true</span>
-    <span class="p">})</span>
-  <span class="p">}</span>
-
-  <span class="nx">askDescription</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;input&#39;</span><span class="p">,</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span>
-      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请输入项目介绍&#39;</span><span class="p">,</span>
-    <span class="p">})</span>
-  <span class="p">}</span>
-
-  <span class="nx">askAuthorInfo</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;input&#39;</span><span class="p">,</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;author&#39;</span><span class="p">,</span>
-      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请输入作者信息&#39;</span><span class="p">,</span>
-      <span class="k">default</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">userName</span><span class="si">}</span><span class="sb">&lt;</span><span class="si">${</span><span class="nx">userEmail</span><span class="si">}</span><span class="sb">&gt;`</span><span class="p">,</span>
-    <span class="p">})</span>
-  <span class="p">}</span>
-
-  <span class="nx">validateProjectName</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
-    <span class="kr">const</span> <span class="nx">exists</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span><span class="p">))</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">projectName</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;无效的项目名&#39;</span><span class="p">))</span>
-      <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">exists</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="sb">`项目 </span><span class="si">${</span><span class="nx">projectName</span><span class="si">}</span><span class="sb"> 已经存在，请换一个项目名`</span><span class="p">))</span>
-      <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="kc">true</span>
-  <span class="p">}</span>
-
-<span class="p">}</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">Creator</span><span class="p">,</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">exec</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs-extra&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">inquirer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;inquirer&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ora</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ora&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">userName</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;git-user-name&#39;</span><span class="p">)()</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">userEmail</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./vendor&#39;</span><span class="p">)()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">getRootPath</span><span class="p">,</span> <span class="nx">shouldUseYarn</span><span class="p">,</span> <span class="nx">shouldUseCnpm</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../util&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">fetchTemplate</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./fetch-template&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">generatorFile</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./generator&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Creator</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span> <span class="p">({</span> <span class="nx">projectName</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">rootPath</span><span class="o">:</span> <span class="nx">getRootPath</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">projectName</span><span class="o">:</span> <span class="nx">projectName</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">create</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">ask</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;创建项目失败: &#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">ask</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">projectName</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">projectNameAnswer</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">inquirer</span><span class="p">.</span><span class="nx">prompt</span><span class="p">([{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;input&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;projectName&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请输入项目名&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}])</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">projectName</span> <span class="o">=</span> <span class="nx">projectNameAnswer</span><span class="p">.</span><span class="nx">projectName</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">validateProjectName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">askTemplate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">askCss</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">askTypeScript</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">askDescription</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">askAuthorInfo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">answers</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">inquirer</span><span class="p">.</span><span class="nx">prompt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">,</span> <span class="p">...</span><span class="nx">answers</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">askTemplate</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;template&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请选择下载的模板&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">choices</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;react-admin-template&#39;</span><span class="p">,</span> <span class="s1">&#39;storybook-template&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;react-admin-template&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">askCss</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;css&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请选择所使用的css预处理器&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">choices</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;less&#39;</span><span class="p">,</span> <span class="s1">&#39;scss&#39;</span><span class="p">,</span> <span class="s1">&#39;stylus&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;less&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">askTypeScript</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;confirm&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;typescript&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;是否使用TypeScript&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">askDescription</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;input&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请输入项目介绍&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">askAuthorInfo</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">prompts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;input&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;author&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;请输入作者信息&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">userName</span><span class="si">}</span><span class="sb">&lt;</span><span class="si">${</span><span class="nx">userEmail</span><span class="si">}</span><span class="sb">&gt;`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">validateProjectName</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">exists</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">projectName</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;无效的项目名&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">exists</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="sb">`项目 </span><span class="si">${</span><span class="nx">projectName</span><span class="si">}</span><span class="sb"> 已经存在，请换一个项目名`</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Creator</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面这一段代码的作用</p>
 <p>1.在构造函数中初始化整个项目的配置对象<code>config</code>，里面会保留脚手架运行的根目录、一开始调用命令时传入的项目名<code>new Creator({ projectName: commands[0] })</code>，<code>prompts</code>则保存所有的问题集合</p>
@@ -411,23 +410,23 @@
 <p>util.js中的<code>getRootPath</code>方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// util下的getRootPath
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">getRootPath</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// util下的getRootPath
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">getRootPath</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>还有就是<code>askAuthorInfo</code>中会询问用户名以及邮箱，默认会返回本地的git配置，至于获取email的方法<code>vendor</code>的实现</p>
 <p><code>vendor.js</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -439,24 +438,24 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">gitconfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;git-config-path&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">parse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;parse-git-config&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">extend</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">gc</span> <span class="o">=</span> <span class="nx">gitconfig</span><span class="p">(</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;global&#39;</span> <span class="p">},</span> <span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">gitconfig</span><span class="p">))</span>
-  <span class="nx">options</span> <span class="o">=</span> <span class="nx">extend</span><span class="p">({</span> <span class="nx">cwd</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="o">:</span> <span class="nx">gc</span> <span class="p">},</span> <span class="nx">options</span><span class="p">)</span>
-  <span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">.</span><span class="nx">sync</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="o">||</span> <span class="p">{}</span>
-  <span class="k">return</span> <span class="nx">config</span><span class="p">.</span><span class="nx">user</span> <span class="o">?</span> <span class="nx">config</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span> <span class="o">:</span> <span class="kc">null</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">gitconfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;git-config-path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">parse</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;parse-git-config&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">extend</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">gc</span> <span class="o">=</span> <span class="nx">gitconfig</span><span class="p">(</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;global&#39;</span> <span class="p">},</span> <span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">gitconfig</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">options</span> <span class="o">=</span> <span class="nx">extend</span><span class="p">({</span> <span class="nx">cwd</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="o">:</span> <span class="nx">gc</span> <span class="p">},</span> <span class="nx">options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">parse</span><span class="p">.</span><span class="nx">sync</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="o">||</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">config</span><span class="p">.</span><span class="nx">user</span> <span class="o">?</span> <span class="nx">config</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span> <span class="o">:</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="3模板的下载">3.模板的下载</h1>
 <h2 id="31create方法的补充">3.1.create方法的补充</h2>
 <p>在询问完用户的问题以后，会进行模板的一个下载，那么在<code>Creator</code>类里的<code>create</code>方法中加上对交互问题的结果处理以及模板下载的一个补充</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -467,16 +466,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">async</span> <span class="nx">create</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">ask</span><span class="p">()</span>
-    <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">template</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
-    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetchTemplate</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">template</span><span class="p">)</span>
-  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;创建项目失败: &#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">))</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="nx">create</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">ask</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">template</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetchTemplate</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;创建项目失败: &#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>现在就是实现<code>fetchTemplate</code>这个方法，如果是一个远程的git仓库模板项目的话，一般会用到<code>download-git-repo</code>这个库</p>
 <p>这个库的提供了一个<code>download</code>方法，如果是传入的配置项含有<code>clone: true</code>，那它的内部则会使用<code>git clone</code>去克隆模板；如果没有，那它的内部则会发起一个<code>http</code>请求去下载这个模板到本地。需要注意一点的是，使用<code>clone</code>方式的话，通常会在url前面加上<code>direct</code>，比如<code>direct:https://github.com/xxxxxx</code></p>
@@ -484,7 +483,7 @@
 <p><code>fetchTemplate</code>方法的实现</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -522,49 +521,47 @@
 </span><span class="lnt">36
 </span><span class="lnt">37
 </span><span class="lnt">38
-</span><span class="lnt">39
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1">&#39;use strict&#39;</span>
-
-<span class="kr">const</span> <span class="nx">ora</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ora&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs-extra&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">download</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;download-git-repo&#39;</span><span class="p">)</span>
-
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">DOWNLOAD_BASE_URL</span><span class="p">,</span> <span class="nx">REMOTE_URL</span><span class="p">,</span> <span class="nx">TEMP_DOWNLOAD_FLODER</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../config&#39;</span><span class="p">)</span>
-
-<span class="nx">async</span> <span class="kd">function</span> <span class="nx">fetchTemplate</span> <span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">tempalte</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">tempPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">TEMP_DOWNLOAD_FLODER</span><span class="p">)</span>
-  <span class="kr">const</span> <span class="nx">remoteUrl</span> <span class="o">=</span> <span class="nx">DOWNLOAD_BASE_URL</span> <span class="o">+</span> <span class="nx">REMOTE_URL</span><span class="p">[</span><span class="nx">tempalte</span><span class="p">]</span>
-
-  <span class="c1">// 下载文件的缓存目录
-</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">))</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span>
-
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">spinner</span> <span class="o">=</span> <span class="nx">ora</span><span class="p">(</span><span class="s1">&#39;正在拉取远程模板...&#39;</span><span class="p">).</span><span class="nx">start</span><span class="p">()</span>
-    <span class="nx">download</span><span class="p">(</span><span class="nx">remoteUrl</span><span class="p">,</span> <span class="nx">tempPath</span><span class="p">,</span> <span class="p">{</span> <span class="nx">clone</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-        <span class="nx">spinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-        <span class="nx">spinner</span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;拉取远程模板仓库失败！&#39;</span><span class="p">))</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span>
-        <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="k">return</span>
-      <span class="p">}</span>
-      <span class="nx">spinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
-      <span class="nx">spinner</span><span class="p">.</span><span class="nx">succeed</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s1">&#39;拉取远程模板仓库成功！&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
-      <span class="nx">resolve</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span>
-    <span class="p">})</span>
-  <span class="p">})</span>
-<span class="p">}</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">fetchTemplate</span><span class="p">,</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="s1">&#39;use strict&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ora</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ora&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs-extra&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">download</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;download-git-repo&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">DOWNLOAD_BASE_URL</span><span class="p">,</span> <span class="nx">REMOTE_URL</span><span class="p">,</span> <span class="nx">TEMP_DOWNLOAD_FLODER</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../config&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">fetchTemplate</span> <span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">tempalte</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">tempPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">TEMP_DOWNLOAD_FLODER</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">remoteUrl</span> <span class="o">=</span> <span class="nx">DOWNLOAD_BASE_URL</span> <span class="o">+</span> <span class="nx">REMOTE_URL</span><span class="p">[</span><span class="nx">tempalte</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 下载文件的缓存目录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">))</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">spinner</span> <span class="o">=</span> <span class="nx">ora</span><span class="p">(</span><span class="s1">&#39;正在拉取远程模板...&#39;</span><span class="p">).</span><span class="nx">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">download</span><span class="p">(</span><span class="nx">remoteUrl</span><span class="p">,</span> <span class="nx">tempPath</span><span class="p">,</span> <span class="p">{</span> <span class="nx">clone</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">spinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">spinner</span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;拉取远程模板仓库失败！&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">spinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">spinner</span><span class="p">.</span><span class="nx">succeed</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="s1">&#39;拉取远程模板仓库成功！&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">resolve</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fetchTemplate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述获取模板的一个流程大致是：</p>
 <p>1.先拼凑一个缓存目录<code>tempPath</code>，用于存储临时文件</p>
@@ -575,7 +572,7 @@
 <p>现在的流程已经将下载的模板的缓存路径返回，接下来就是生成我们自己的项目文件，那再完善一下<code>Create</code>方法，加上一个<code>write</code>方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -587,23 +584,23 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">async</span> <span class="nx">create</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">ask</span><span class="p">()</span>
-    <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">template</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
-    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetchTemplate</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">template</span><span class="p">)</span>
-    <span class="nx">res</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
-  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;创建项目失败: &#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">))</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="nx">create</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">ask</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">template</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetchTemplate</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;创建项目失败: &#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>write</code>方法</p>
 <p>write方法的作用就是获取与用户交互的答案，然后传入generatorFile方法去生成真正的文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -616,18 +613,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">write</span> <span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="p">{</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
-  <span class="nx">generatorFile</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">,</span> <span class="p">(</span><span class="nx">logs</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">()</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">(</span><span class="s1">&#39;✔ &#39;</span><span class="p">)</span><span class="si">}${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="sb">`创建项目: </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">projectName</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
-    <span class="nx">logs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">log</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">log</span><span class="p">))</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">()</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">initProject</span><span class="p">()</span>
-  <span class="p">})</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">write</span> <span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">generatorFile</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">,</span> <span class="p">(</span><span class="nx">logs</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">(</span><span class="s1">&#39;✔ &#39;</span><span class="p">)</span><span class="si">}${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="sb">`创建项目: </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">projectName</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">logs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">log</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">log</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span><span class="p">(</span><span class="nx">tempPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">initProject</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>generator</code>的实现</p>
 <p><code>generatorFile</code>会去递归遍历每个缓存文件，然后生成到目标目录</p>
@@ -635,7 +632,7 @@
 <p>最后还是那个问题，为了控制台打印信息的美观，还要加上一些<code>chalk</code>信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -686,68 +683,66 @@
 </span><span class="lnt">49
 </span><span class="lnt">50
 </span><span class="lnt">51
-</span><span class="lnt">52
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs-extra&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">ejs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ejs&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">)</span>
-
-<span class="kd">function</span> <span class="nx">createFile</span> <span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="nx">templatePath</span><span class="p">,</span> <span class="nx">destPath</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">copyFileSync</span><span class="p">(</span><span class="nx">templatePath</span><span class="p">,</span> <span class="nx">destPath</span><span class="p">)</span>
-
-  <span class="k">if</span> <span class="p">([</span><span class="s1">&#39;package.json&#39;</span><span class="p">].</span><span class="nx">includes</span><span class="p">(</span><span class="nx">item</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nx">ejs</span><span class="p">.</span><span class="nx">renderFile</span><span class="p">(</span><span class="nx">destPath</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-        <span class="k">return</span>
-      <span class="p">}</span>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="nx">destPath</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
-    <span class="p">})</span>
-  <span class="p">}</span>
-
-  <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">(</span><span class="s1">&#39;✔ &#39;</span><span class="p">)</span><span class="si">}${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="sb">`创建文件: </span><span class="si">${</span><span class="nx">destPath</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">generatorFile</span> <span class="p">(</span><span class="nx">tempFilePath</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">config</span>
-  <span class="kr">const</span> <span class="nx">destPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span><span class="p">)</span>
-  <span class="kr">const</span> <span class="nx">logs</span> <span class="o">=</span> <span class="p">[]</span>
-
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">destPath</span><span class="p">)</span>
-
-  <span class="kr">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">dirs</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span>
-    <span class="nx">dirs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">async</span> <span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="kr">const</span> <span class="nx">curPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span>
-      <span class="kr">const</span> <span class="nx">curDestPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span>
-      <span class="kr">const</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">curPath</span><span class="p">)</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="nx">temp</span><span class="p">.</span><span class="nx">isFile</span><span class="p">())</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="nx">log</span> <span class="o">=</span> <span class="nx">createFile</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="nx">curPath</span><span class="p">,</span> <span class="nx">curDestPath</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span>
-        <span class="nx">log</span> <span class="o">&amp;&amp;</span> <span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">log</span><span class="p">)</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">temp</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">curDestPath</span><span class="p">)</span>
-        <span class="nx">map</span><span class="p">(</span><span class="nx">curPath</span><span class="p">,</span> <span class="nx">curDestPath</span><span class="p">)</span>
-      <span class="p">}</span>
-    <span class="p">})</span>
-  <span class="p">}</span>
-  <span class="nx">map</span><span class="p">(</span><span class="nx">tempFilePath</span><span class="p">,</span> <span class="nx">destPath</span><span class="p">)</span>
-  <span class="nx">cb</span> <span class="o">&amp;&amp;</span> <span class="nx">cb</span><span class="p">(</span><span class="nx">logs</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">generatorFile</span><span class="p">,</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs-extra&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ejs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ejs&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">createFile</span> <span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="nx">templatePath</span><span class="p">,</span> <span class="nx">destPath</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fs</span><span class="p">.</span><span class="nx">copyFileSync</span><span class="p">(</span><span class="nx">templatePath</span><span class="p">,</span> <span class="nx">destPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">([</span><span class="s1">&#39;package.json&#39;</span><span class="p">].</span><span class="nx">includes</span><span class="p">(</span><span class="nx">item</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ejs</span><span class="p">.</span><span class="nx">renderFile</span><span class="p">(</span><span class="nx">destPath</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="nx">destPath</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">(</span><span class="s1">&#39;✔ &#39;</span><span class="p">)</span><span class="si">}${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span><span class="p">(</span><span class="sb">`创建文件: </span><span class="si">${</span><span class="nx">destPath</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">generatorFile</span> <span class="p">(</span><span class="nx">tempFilePath</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">config</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">destPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">logs</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">destPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">dest</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">dirs</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">dirs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kr">async</span> <span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">curPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">curDestPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">curPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">temp</span><span class="p">.</span><span class="nx">isFile</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">log</span> <span class="o">=</span> <span class="nx">createFile</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="nx">curPath</span><span class="p">,</span> <span class="nx">curDestPath</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">log</span> <span class="o">&amp;&amp;</span> <span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">log</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">temp</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">curDestPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">map</span><span class="p">(</span><span class="nx">curPath</span><span class="p">,</span> <span class="nx">curDestPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">map</span><span class="p">(</span><span class="nx">tempFilePath</span><span class="p">,</span> <span class="nx">destPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cb</span> <span class="o">&amp;&amp;</span> <span class="nx">cb</span><span class="p">(</span><span class="nx">logs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">generatorFile</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="4项目的初始化">4.项目的初始化</h1>
 <p>模板生成到目标路径以后，就是项目的初始化了，也就是<code>create</code>方法中的<code>initProject</code>实现。其主要内容就是node进程进入到模板目录，然后初始化git信息，以及安装依赖，然后就是一个<code>confirmInfo</code>提示。当然其中还是少不了控制台信息的美化</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -758,27 +753,25 @@
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">async</span> <span class="nx">initProject</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
-  <span class="kr">const</span> <span class="nx">destPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span><span class="p">)</span>
-
-  <span class="nx">process</span><span class="p">.</span><span class="nx">chdir</span><span class="p">(</span><span class="nx">destPath</span><span class="p">)</span>
-
-  <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">gitInit</span><span class="p">()</span>
-  <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">installDenpendence</span><span class="p">()</span>
-
-  <span class="k">this</span><span class="p">.</span><span class="nx">confirmInfo</span><span class="p">()</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="nx">initProject</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">destPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">rootPath</span><span class="p">,</span> <span class="nx">projectName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">process</span><span class="p">.</span><span class="nx">chdir</span><span class="p">(</span><span class="nx">destPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">gitInit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">installDenpendence</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">confirmInfo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="41初始化git信息">4.1.初始化git信息</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -797,30 +790,30 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">gitInit</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="p">{</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
-    <span class="kr">const</span> <span class="nx">gitInitSpinner</span> <span class="o">=</span> <span class="nx">ora</span><span class="p">(</span><span class="sb">`cd </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">cyan</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">projectName</span><span class="p">)</span><span class="si">}</span><span class="sb">, 执行 </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">cyan</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="s1">&#39;git init&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">).</span><span class="nx">start</span><span class="p">()</span>
-    <span class="kr">const</span> <span class="nx">gitInit</span> <span class="o">=</span> <span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;git init&#39;</span><span class="p">)</span>
-    <span class="nx">gitInit</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">code</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">gitInitSpinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
-        <span class="nx">gitInitSpinner</span><span class="p">.</span><span class="nx">succeed</span><span class="p">(</span><span class="nx">gitInit</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">read</span><span class="p">())</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">gitInitSpinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-        <span class="nx">gitInitSpinner</span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="nx">gitInit</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">read</span><span class="p">())</span>
-      <span class="p">}</span>
-      <span class="nx">resolve</span><span class="p">()</span>
-    <span class="p">})</span>
-  <span class="p">})</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">gitInit</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">gitInitSpinner</span> <span class="o">=</span> <span class="nx">ora</span><span class="p">(</span><span class="sb">`cd </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">cyan</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">projectName</span><span class="p">)</span><span class="si">}</span><span class="sb">, 执行 </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">cyan</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="s1">&#39;git init&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">).</span><span class="nx">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">gitInit</span> <span class="o">=</span> <span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;git init&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">gitInit</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">code</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">gitInitSpinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">gitInitSpinner</span><span class="p">.</span><span class="nx">succeed</span><span class="p">(</span><span class="nx">gitInit</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">gitInitSpinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">gitInitSpinner</span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="nx">gitInit</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">resolve</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="42安装依赖">4.2.安装依赖</h2>
 <p>安装node依赖的时候，会优先使用<code>yarn install</code>、<code>cnpm install</code>，然后才是<code>npm install</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -847,37 +840,37 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">installDenpendence</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">command</span> <span class="o">=</span> <span class="s1">&#39;npm install&#39;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">shouldUseYarn</span><span class="p">())</span> <span class="p">{</span>
-      <span class="nx">command</span> <span class="o">=</span> <span class="s1">&#39;yarn install&#39;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">shouldUseCnpm</span><span class="p">())</span> <span class="p">{</span>
-      <span class="nx">command</span> <span class="o">=</span> <span class="s1">&#39;cnpm install&#39;</span>
-    <span class="p">}</span>
-    <span class="kr">const</span> <span class="nx">installSpinner</span> <span class="o">=</span> <span class="nx">ora</span><span class="p">(</span><span class="sb">`执行安装项目依赖 </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">cyan</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">command</span><span class="p">)</span><span class="si">}</span><span class="sb">, 需要一会儿...`</span><span class="p">).</span><span class="nx">start</span><span class="p">()</span>
-    <span class="nx">exec</span><span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">installSpinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-        <span class="nx">installSpinner</span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;安装项目依赖失败，请自行重新安装！&#39;</span><span class="p">))</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">installRes</span> <span class="o">=</span> <span class="kc">false</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">installSpinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
-        <span class="nx">installSpinner</span><span class="p">.</span><span class="nx">succeed</span><span class="p">(</span><span class="s1">&#39;安装成功&#39;</span><span class="p">)</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">stderr</span><span class="si">}${</span><span class="nx">stdout</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">installRes</span> <span class="o">=</span> <span class="kc">true</span>
-      <span class="p">}</span>
-      <span class="nx">resolve</span><span class="p">()</span>
-    <span class="p">})</span>
-  <span class="p">})</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">installDenpendence</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">command</span> <span class="o">=</span> <span class="s1">&#39;npm install&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">shouldUseYarn</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">command</span> <span class="o">=</span> <span class="s1">&#39;yarn install&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">shouldUseCnpm</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">command</span> <span class="o">=</span> <span class="s1">&#39;cnpm install&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">installSpinner</span> <span class="o">=</span> <span class="nx">ora</span><span class="p">(</span><span class="sb">`执行安装项目依赖 </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">cyan</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">command</span><span class="p">)</span><span class="si">}</span><span class="sb">, 需要一会儿...`</span><span class="p">).</span><span class="nx">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">exec</span><span class="p">(</span><span class="nx">command</span><span class="p">,</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">installSpinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">installSpinner</span><span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;安装项目依赖失败，请自行重新安装！&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">installRes</span> <span class="o">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">installSpinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">installSpinner</span><span class="p">.</span><span class="nx">succeed</span><span class="p">(</span><span class="s1">&#39;安装成功&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">stderr</span><span class="si">}${</span><span class="nx">stdout</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">installRes</span> <span class="o">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">resolve</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>shouldUseYarn</code>以及<code>shouldUseCnpm</code>的实现，无非就是判断下命令是否存在</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -896,31 +889,31 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">shouldUseYarn</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="nx">execSync</span><span class="p">(</span><span class="s1">&#39;yarn --version&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">stdio</span><span class="o">:</span> <span class="s1">&#39;ignore&#39;</span> <span class="p">})</span>
-    <span class="k">return</span> <span class="kc">true</span>
-  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">false</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">shouldUseCnpm</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="nx">execSync</span><span class="p">(</span><span class="s1">&#39;cnpm --version&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">stdio</span><span class="o">:</span> <span class="s1">&#39;ignore&#39;</span> <span class="p">})</span>
-    <span class="k">return</span> <span class="kc">true</span>
-  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">false</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">shouldUseYarn</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">execSync</span><span class="p">(</span><span class="s1">&#39;yarn --version&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">stdio</span><span class="o">:</span> <span class="s1">&#39;ignore&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">shouldUseCnpm</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">execSync</span><span class="p">(</span><span class="s1">&#39;cnpm --version&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">stdio</span><span class="o">:</span> <span class="s1">&#39;ignore&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="43最终的提示信息">4.3.最终的提示信息</h2>
 <p>当一切准备就绪以后，就是一个安装成功的提示了</p>
 <p><code>confirmInfo</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -929,14 +922,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">confirmInfo</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">installRes</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="p">{</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">(</span><span class="sb">`创建项目 </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">projectName</span><span class="p">)</span><span class="si">}</span><span class="sb"> 成功！`</span><span class="p">))</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">(</span><span class="sb">`请进入项目 </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">projectName</span><span class="p">)</span><span class="si">}</span><span class="sb"> 开始工作吧！😝`</span><span class="p">))</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">confirmInfo</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">installRes</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">projectName</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">config</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">(</span><span class="sb">`创建项目 </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">projectName</span><span class="p">)</span><span class="si">}</span><span class="sb"> 成功！`</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">(</span><span class="sb">`请进入项目 </span><span class="si">${</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span><span class="p">.</span><span class="nx">bold</span><span class="p">(</span><span class="nx">projectName</span><span class="p">)</span><span class="si">}</span><span class="sb"> 开始工作吧！😝`</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>到此，一个基本的脚手架的开发就完成了，它的工作流程就是：</p>
 <blockquote>
@@ -947,15 +940,15 @@
 <p>2.将脚手架项目<code>npm link</code>到全局，然后控制台直接调用相应的命令，前提是，要在<code>package.json</code>中定义好入口文件。比如加上配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s2">&#34;bin&#34;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s2">&#34;node-cli&#34;</span><span class="o">:</span> <span class="s2">&#34;lib/index.js&#34;</span>
-<span class="p">},</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="s2">&#34;bin&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;node-cli&#34;</span><span class="o">:</span> <span class="s2">&#34;lib/index.js&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>npm link </code>全局以后，直接使用命令<code>node-cli projectName</code></p>
 <p>3.部署到<code>verdaccio</code>，关于如何部署以及本地安装依赖测试，可以参考之前的文章<code>StoryBook + Lerna 开发自己的UI组件库(二)</code></p>
@@ -974,7 +967,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" data-title="从0构建一个Nodejs脚手架"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" data-title="从0构建一个Nodejs脚手架"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" data-title="从0构建一个Nodejs脚手架"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.com/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" data-title="从0构建一个Nodejs脚手架"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" data-title="从0构建一个Nodejs脚手架"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" data-title="从0构建一个Nodejs脚手架"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" data-title="从0构建一个Nodejs脚手架"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/" data-title="从0构建一个Nodejs脚手架"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
