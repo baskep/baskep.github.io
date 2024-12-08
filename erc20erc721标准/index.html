@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>ERC20、ERC721标准 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="ERC20、ERC721标准">
+  <meta property="og:description" content="1.描述 以太坊上运行的合约或者说运用，遵循着官方或者社区提出的各种标准，这些标准分为EIP或者ERC。EIP全称 Ethereum Improvement Proposals(以太">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-10-24T14:35:12+08:00">
+    <meta property="article:modified_time" content="2022-10-24T14:35:12+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="ERC20、ERC721标准">
+  <meta name="twitter:description" content="1.描述 以太坊上运行的合约或者说运用，遵循着官方或者社区提出的各种标准，这些标准分为EIP或者ERC。EIP全称 Ethereum Improvement Proposals(以太">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/" /><link rel="prev" href="https://baskep.top/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ERC20、ERC721标准",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/erc20erc721%E6%A0%87%E5%87%86\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  7020 ,
+        "url": "https:\/\/baskep.top\/erc20erc721%E6%A0%87%E5%87%86\/","datePublished": "2022-10-24T14:35:12+08:00","dateModified": "2022-10-24T14:35:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">ERC20、ERC721标准</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-24">2022-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7020 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 15 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1描述">1.描述</a></li>
+    <li><a href="#2erc20">2.ERC20</a>
+      <ul>
+        <li><a href="#21代币信息">2.1.代币信息</a></li>
+        <li><a href="#22ierc20">2.2.IERC20</a></li>
+        <li><a href="#23erc20实现">2.3.ERC20实现</a></li>
+        <li><a href="#24状态变量">2.4.状态变量</a></li>
+        <li><a href="#32函数的实现">3.2.函数的实现</a>
+          <ul>
+            <li><a href="#321构造函数">3.2.1.构造函数</a></li>
+            <li><a href="#322totalsupply">3.2.2.totalSupply</a></li>
+            <li><a href="#323balanceof">3.2.3.balanceOf</a></li>
+            <li><a href="#324transfer">3.2.4.transfer</a></li>
+            <li><a href="#325allowance">3.2.5.allowance</a></li>
+            <li><a href="#326approve">3.2.6.approve</a></li>
+            <li><a href="#327transferfrom">3.2.7.transferFrom</a></li>
+            <li><a href="#328其它函数">3.2.8.其它函数</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3erc721">3.ERC721</a>
+      <ul>
+        <li><a href="#31ierc721metadata">3.1.IERC721Metadata</a></li>
+        <li><a href="#32ierc165">3.2.IERC165</a></li>
+        <li><a href="#33ierc721receiver">3.3.IERC721Receiver</a></li>
+        <li><a href="#34ierc721">3.4.IERC721</a></li>
+        <li><a href="#35erc721实现">3.5.ERC721实现</a></li>
+        <li><a href="#36状态变量">3.6.状态变量</a></li>
+        <li><a href="#37函数的实现">3.7.函数的实现</a>
+          <ul>
+            <li><a href="#371构造函数">3.7.1.构造函数</a></li>
+            <li><a href="#372supportsinterface">3.7.2.supportsInterface</a></li>
+            <li><a href="#373balanceof">3.7.3.balanceOf</a></li>
+            <li><a href="#374ownerof">3.7.4.ownerOf</a></li>
+            <li><a href="#375name--symbol">3.7.5.name &amp;&amp; symbol</a></li>
+            <li><a href="#376tokenuri">3.7.6.tokenURI</a></li>
+            <li><a href="#377approve">3.7.7.approve</a></li>
+            <li><a href="#378getapproved">3.7.8.getApproved</a></li>
+            <li><a href="#379setapprovalforall">3.7.9.setApprovalForAll</a></li>
+            <li><a href="#3710isapprovedforall">3.7.10.isApprovedForAll</a></li>
+            <li><a href="#3711transferfrom">3.7.11.transferFrom</a></li>
+            <li><a href="#3712safetransferfrom">3.7.12.safeTransferFrom</a></li>
+            <li><a href="#3713其它函数">3.7.13.其它函数</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#4总结">4.总结</a></li>
+    <li><a href="#5参考链接">5.参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1描述">1.描述</h1>
+<p>以太坊上运行的合约或者说运用，遵循着官方或者社区提出的各种标准，这些标准分为<code>EIP</code>或者<code>ERC</code>。<code>EIP</code>全称 <code>Ethereum Improvement Proposals</code>(以太坊改进建议)，是以太坊开发者社区提出的改进建议，是一系列以编号排定的文件，可以在<a href="https://eips.ethereum.org/all" target="_blank" rel="noopener noreffer">此处</a>找到各种提议；<code>ERC</code>全称<code>Ethereum Request For Comment</code> (以太坊意见征求稿)，用以记录以太坊上应用级的各种开发标准和协议。<code>ERC</code>相关标准可以认为正式施行的标准，<code>EIP</code>中是包含<code>ERC</code>的</p>
+<p>这里记录下<code>ERC20</code>、<code>ERC721</code>三个标准的实现，这也是之前我们团队的应用所涉及到的</p>
+<h1 id="2erc20">2.ERC20</h1>
+<p><code>ERC20</code>是以太坊上的代币标准，来自2015年11月V神参与的<a href="https://eips.ethereum.org/EIPS/eip-20" target="_blank" rel="noopener noreffer"><code>EIP20</code></a>。基于以太坊区块链上的特定类型的加密货币、代币都要实现该标准中定义的事件和函数，同样通过遵守该标准，开发人员可以确保不同代币中的互换；亦或是在基于以太坊区块链的去中心化应用(DApp)中使用</p>
+<p><code>ERC20</code>中，实现了代币的基本属性定义以及转账逻辑：</p>
+<h2 id="21代币信息">2.1.代币信息</h2>
+<p>包含了名称(name)、标识(symbol)、代币的小数位数(decimals)，这些可在合约的构造函数中指定</p>
+<h2 id="22ierc20">2.2.IERC20</h2>
+<p><code>IERC20</code>是<code>ERC20</code>代币标准的接口合约，规定了<code>ERC20</code>代币需要实现的函数和事件。 实际<code>ERC20</code>合约实现的时候则是继承<code>IERC20</code>，然后实现里面的函数和事件，正因为如此，不同标准的合约有着不同的实现方式，但还是建议按照官方的建议去定义参数、增加错误处理、实现逻辑。<code>IERC20</code>包含2个事件以及6个函数：</p>
+<p>2个事件：<code>Transfer</code>、<code>Approval</code>，分别在转账和授权时被释放</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// `value` 单位的货币从账户 (`from`) 转账到另一账户 (`to`)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">event</span> <span class="nc">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 当 `value` 单位的货币从账户 (`owner`) 授权给另一账户 (`spender`)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">event</span> <span class="nc">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>6个函数：<code>totalSupply()</code>返回代币总供给、<code>balanceOf()</code>返回账户余额、<code>transfer()</code>转账、<code>allowance()</code>返回授权额度、<code>approve()</code>授权、<code>transferFrom()</code>授权转账，其接口定义为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">totalSupply</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="23erc20实现">2.3.ERC20实现</h2>
+<p>这里直接读<a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol" target="_blank" rel="noopener noreffer">OpenZeppelin</a>的实现，注意<code>OpenZeppelin</code>定义的是<code>abstract</code>，抽象合约，也就是说它写的合约虽然是实现了<code>ERC20</code>的标准，但实际没实现继承的<code>IERC20</code>接口定义的那些函数，因为它定义的那些函数没有<code>override</code>关键字。这些交由你去实现</p>
+<h2 id="24状态变量">2.4.状态变量</h2>
+<p>这里定义了几个状态变量来记录账户余额，授权额度、代币信息、总供给、name、symbol等数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">private</span> <span class="n">_balances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span> <span class="o">=&gt;</span> <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">))</span> <span class="k">private</span> <span class="n">_allowances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="k">private</span> <span class="n">_totalSupply</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">string</span> <span class="k">private</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">string</span> <span class="k">private</span> <span class="n">_symbol</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="32函数的实现">3.2.函数的实现</h2>
+<h3 id="321构造函数">3.2.1.构造函数</h3>
+<p>首先是构造函数初始化name、symbol属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name_</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_name</span> <span class="o">=</span> <span class="n">name_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_symbol</span> <span class="o">=</span> <span class="n">symbol_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同时，对外暴露了<code>name()</code>、<code>symbol()</code>函数，来读取内部变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">name</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">symbol</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_symbol</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当然，还有个<code>decimals()</code>函数返回小数位数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">decimals</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="322totalsupply">3.2.2.totalSupply</h3>
+<p>返回代币总供给，其实也可以将<code>totalSupply</code>重写为一个状态变量：<code>uint256 public override totalSupply</code>，不过<code>OpenZeppelin</code>选择的是最标准的实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">totalSupply</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_totalSupply</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="323balanceof">3.2.3.balanceOf</h3>
+<p>返回某个账户的代币余额，读取的状态变量<code>_balances</code>里面的值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_balances</span><span class="p">[</span><span class="n">account</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="324transfer">3.2.4.transfer</h3>
+<p>也就是转移代币的函数，传入目标地址以及转账数目</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">owner</span> <span class="o">=</span> <span class="n">_msgSender</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_transfer</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的<code>_msgSender</code>函数，实际就是返回当前合约的调用者<code>msg.sender</code>，就不详情描述</p>
+<p>而<code>_transfer</code>私有函数则是实际执行转账逻辑的函数，可以看到它对发送方和接收方的地址都做了<code>零地址</code>的错误校验，然后调用<code>_update</code>函数更新余额</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">from</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC20InvalidSender</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC20InvalidReceiver</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_update</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>_update</code>函数</p>
+<p>首先是对发送方的地址进行了校验，如果是无效地址，说明调用时是做的<code>mint</code>操作，所以总供给加上对应<code>value</code>；如果是有效地址，则判断余额是否足够转账吗，足够则更新发送方的余额，不够则抛出对应错误</p>
+<p>然后是对接收方的地址进行校验，无效地址为<code>burn</code>操作，同样是更新总供给、接收方的余额</p>
+<p>最后触发<code>Transfer</code>事件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">	<span class="kd">function</span> <span class="nf">_update</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">from</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_totalSupply</span> <span class="o">+=</span> <span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">fromBalance</span> <span class="o">=</span> <span class="n">_balances</span><span class="p">[</span><span class="k">from</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">fromBalance</span> <span class="o">&lt;</span> <span class="nb">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">revert</span> <span class="n">ERC20InsufficientBalance</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">fromBalance</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_balances</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">=</span> <span class="n">fromBalance</span> <span class="o">-</span> <span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_totalSupply</span> <span class="o">-=</span> <span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_balances</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">Transfer</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 	<span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="325allowance">3.2.5.allowance</h3>
+<p>返回<code>owner</code>对<code>spender</code>的授权总额</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">allowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_allowances</span><span class="p">[</span><span class="n">owner</span><span class="p">][</span><span class="n">spender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="326approve">3.2.6.approve</h3>
+<p>将合约调用方指定数目的代币授权给<code>spender</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">owner</span> <span class="o">=</span> <span class="n">_msgSender</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_approve</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">spender</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>私有函数<code>_approve</code>的实现，对授权方和接收方的地址作校验，然后更新<code>_allowances</code>授权映射的数据，如果第四个参数<code>emitEvent</code>为<code>true</code>，则触发<code>Approval</code>事件，这是为了作一些特殊处理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">emitEvent</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">owner</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC20InvalidApprover</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">spender</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC20InvalidSpender</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_allowances</span><span class="p">[</span><span class="n">owner</span><span class="p">][</span><span class="n">spender</span><span class="p">]</span> <span class="o">=</span> <span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">emitEvent</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emit</span> <span class="n">Approval</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">spender</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="327transferfrom">3.2.7.transferFrom</h3>
+<p>授权安全转账，在转账之前要先调用<code>_spendAllowance</code>函数判断转账金额是否小于授权金额，并且还要更新allowance</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">spender</span> <span class="o">=</span> <span class="n">_msgSender</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_spendAllowance</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">spender</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_transfer</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>_spendAllowance</code>函数定义，注意<code>currentAllowance &lt; type(uint256).max</code>，意思是授权额必须小于<code>uint256</code>的最大值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">_spendAllowance</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">currentAllowance</span> <span class="o">=</span> <span class="n">allowance</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">spender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">currentAllowance</span> <span class="o">&lt;</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">currentAllowance</span> <span class="o">&lt;</span> <span class="nb">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">revert</span> <span class="n">ERC20InsufficientAllowance</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="n">currentAllowance</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_approve</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">spender</span><span class="p">,</span> <span class="n">currentAllowance</span> <span class="o">-</span> <span class="nb">value</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="328其它函数">3.2.8.其它函数</h3>
+<p>该合约还实现了<code>_mint</code>和<code>_burn</code>私有函数，以提供mint代币和销毁代币的能力</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">_mint</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">account</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC20InvalidReceiver</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_update</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">account</span><span class="p">,</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_burn</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">account</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC20InvalidSender</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_update</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而对于上面出现的<code>ERC20InvalidSender</code>错误事件，其实并不重要，你完全可以自定义一个错误描述</p>
+<p>以上就是<code>ERC20</code>的实现。值得一提的是，<code>ETH</code>为了提高区块链之间的操作性，并使<code>ETH</code>可用于DApp，于是推出了<code>ERC20</code>版本的<code>WETH</code>，与<code>ETH</code>1:1兑换</p>
+<h1 id="3erc721">3.ERC721</h1>
+<p><code>ERC721</code>指的非同质化代币标准，什么叫非同质化代币？画作、声音、图片、房产、古董、数字藏品等抽象事物，无法用某一特定标准的代币去描述。于是推出了<code>ERC721</code>来抽象，这些产品也被称为<code>NFT(Non-Fungible Token)</code>，非同质化代币</p>
+<p><code>NFT</code>本质是存在区块链上的数据单位，虽然本身是可以无限复制的，但这些代表它们的代币在其底层区块链上能被完整追踪，故能为买家提供所有权证明，它也就代表独一无二的资产，有着独特的价值。基于<code>NFT</code>有着各种各样的产品，最出名的则是<code>OpenSea</code>，以太坊上最大的<code>NFT</code>交易所，当然这一切离不开最底层的<code>ERC721</code>标准</p>
+<p>实现<code>ERC721</code>之前有必要了解几个基础接口</p>
+<h2 id="31ierc721metadata">3.1.IERC721Metadata</h2>
+<p><code>IERC721Metadata</code>是<code>ERC721</code>的拓展接口，也是<code>ERC721</code>要实现的最基本的接口，它实现了3个查询<code>metadata</code>元数据的常用函数：</p>
+<p><code>name()</code>：返回代币名称</p>
+<p><code>symbol()</code>：返回代币代号</p>
+<p><code>tokenURI()</code>：通过<code>tokenId</code>查询<code>metadata</code>的链接<code>url</code>，<code>ERC721</code>特有的函数</p>
+<h2 id="32ierc165">3.2.IERC165</h2>
+<p><code>IERC165 </code>接口中只定义了一个函数<code>supportsInterface</code>，这个函数的作用就是提供给外部，让外部检查当前合约是否符合XXX标准，它的定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC165</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="nb">interfaceId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>实际继承<code>IERC165</code>并实现<code>supportsInterface</code>的时候，传入要查询的<code>interfaceId</code>接口id，若合约实现了该接口id，则返回<code>true</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">   <span class="kd">function</span> <span class="nf">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="nb">interfaceId</span><span class="p">)</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">interfaceId</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="nc">IERC721</span><span class="p">).</span><span class="nb">interfaceId</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">interfaceId</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="nc">IERC165</span><span class="p">).</span><span class="nb">interfaceId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="33ierc721receiver">3.3.IERC721Receiver</h2>
+<p>在对某个合约进行转账时，如果该合约没有实现<code>ERC721</code>的相关函数，转入的<code>NFT</code>就进了黑洞，为了防止误转账，<code>ERC721</code>实现了<code>safeTransferFrom()</code>(这个后面再说)安全转账函数，目标合约<strong>必须实现</strong>了<code>IERC721Receiver</code>接口才能接收<code>ERC721</code>代币，不然会<code>revert</code></p>
+<p><code>IERC721Receiver</code>接口只包含一个<code>onERC721Received()</code>函数，最后返回一个函数选择器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC721Receiver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">onERC721Received</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="k">from</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">tokenId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在实现<code>onERC721Received</code>时，你可以对一些边界数据、异常状态做处理，然后返回一个<code>onERC721Received</code>的函数选择器，下面是一个<code>onERC721Received</code>的实现例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">onERC721Received</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">IERC721Receiver</span><span class="p">.</span><span class="n">onERC721Received</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="34ierc721">3.4.IERC721</h2>
+<p>下面才是<code>IERC721</code>标准接口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC721</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">event</span> <span class="nc">Transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">event</span> <span class="nc">Approval</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">approved</span><span class="p">,</span> <span class="kt">uint256</span> <span class="k">indexed</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">event</span> <span class="nc">ApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="k">indexed</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">approved</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="nb">balance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">ownerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">approved</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getApproved</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">isApprovedForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">operator</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到接口中用<code>tokenId</code>来标识代币的授权、转账，而<code>ERC20</code>则是用的数目直接表示代币的数量</p>
+<p>其中有三个事件：</p>
+<ul>
+<li><code>Transfer</code>事件：在转账时被释放，记录代币的发出地址<code>from</code>，接收地址<code>to</code>和<code>tokenId</code></li>
+<li><code>Approval</code>事件：在授权时释放，记录授权地址<code>owner</code>，被授权地址<code>approved</code>和<code>tokenId</code></li>
+<li><code>ApprovalForAll</code>事件：在批量授权时释放，记录批量授权的发出地址<code>owner</code>，被授权地址<code>operator</code>和授权与否的<code>approved</code></li>
+</ul>
+<p>九个函数：</p>
+<ul>
+<li><code>balanceOf</code>：返回某地址的NFT持有量<code>balance</code></li>
+<li><code>ownerOf</code>：返回某<code>tokenId</code>的主人<code>owner</code></li>
+<li><code>transferFrom</code>：普通转账，参数为转出地址<code>from</code>，接收地址<code>to</code>和<code>tokenId</code></li>
+<li><code>safeTransferFrom</code>：安全转账（如果接收方是合约地址，会要求实现<code>ERC721Receiver</code>接口）。参数为转出地址<code>from</code>，接收地址<code>to</code>和<code>tokenId</code></li>
+<li><code>approve</code>：授权另一个地址使用你的NFT。参数为被授权地址<code>approve</code>和<code>tokenId</code></li>
+<li><code>getApproved</code>：查询<code>tokenId</code>被批准给了哪个地址</li>
+<li><code>setApprovalForAll</code>：将自己持有的该系列NFT批量授权给某个地址<code>operator</code></li>
+<li><code>isApprovedForAll</code>：查询某地址的NFT是否批量授权给了另一个<code>operator</code>地址</li>
+<li><code>safeTransferFrom</code>：安全转账的重载函数，参数里面包含了<code>data</code></li>
+</ul>
+<h2 id="35erc721实现">3.5.ERC721实现</h2>
+<p>这里同样贴<a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol" target="_blank" rel="noopener noreffer">OpenZeppelin</a>的实现，首先在<code>IERC721</code>接口中，继承了<code>IERC165</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC721</span> <span class="k">is</span> <span class="n">IERC165</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="36状态变量">3.6.状态变量</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// token name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">string</span> <span class="k">private</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// token symbol
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">string</span> <span class="k">private</span> <span class="n">_symbol</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// tokenId 到 owner address 的持有人映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span> <span class="o">=&gt;</span> <span class="kt">address</span><span class="p">)</span> <span class="k">private</span> <span class="n">_owners</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// address 到 持仓数量 的持仓量映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">private</span> <span class="n">_balances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// tokenId 到 授权地址 的授权映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span> <span class="o">=&gt;</span> <span class="kt">address</span><span class="p">)</span> <span class="k">private</span> <span class="n">_tokenApprovals</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//  owner是否批量授权给operator代币操作权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span> <span class="o">=&gt;</span> <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">))</span> <span class="k">private</span> <span class="n">_operatorApprovals</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="37函数的实现">3.7.函数的实现</h2>
+<h3 id="371构造函数">3.7.1.构造函数</h3>
+<p>构造函数对代币的<code>name</code>、<code>symbol</code>属性进行了初始化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="n">name_</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_name</span> <span class="o">=</span> <span class="n">name_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_symbol</span> <span class="o">=</span> <span class="n">symbol_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="372supportsinterface">3.7.2.supportsInterface</h3>
+<p>在<code>IERC721</code>中，实际上是继承了<code>IERC165</code>的，所以我们在合约开发时，需要实现<code>supportsInterface</code>函数，也就是告知调用者当前合约支持哪些标准</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">supportsInterface</span><span class="p">(</span><span class="kt">bytes4</span> <span class="nb">interfaceId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">override</span><span class="p">(</span><span class="n">ERC165</span><span class="p">,</span> <span class="n">IERC165</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">interfaceId</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="nc">IERC721</span><span class="p">).</span><span class="nb">interfaceId</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">interfaceId</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="nc">IERC721Metadata</span><span class="p">).</span><span class="nb">interfaceId</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">super</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="nb">interfaceId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="373balanceof">3.7.3.balanceOf</h3>
+<p>对传入的参数地址进行了校验，如果是零地址，则抛错，当然这个抛错我们开发的时候可以自定义一个；否则返回owner的余额</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">owner</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC721InvalidOwner</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_balances</span><span class="p">[</span><span class="n">owner</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="374ownerof">3.7.4.ownerOf</h3>
+<p>返回某个<code>tokenId</code>的<code>owner</code>地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">ownerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_requireOwned</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意它里面调用了<code>_requireOwned</code>函数，<code>_requireOwned</code>内调用了<code>_ownerOf</code>返回token拥有者地址后，再对地址的有效性进行了校验，如果是一个正确的地址才返回，否则抛错</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_requireOwned</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">owner</span> <span class="o">=</span> <span class="n">_ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">owner</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC721NonexistentToken</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而<code>_ownerOf</code>才是真正读状态变量<code>_owners</code>返回对应地址的函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">_ownerOf</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_owners</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由此可见，<code>OpenZeppelin</code>的实现还是很严谨的，对各种边界情况都有所考虑</p>
+<h3 id="375name--symbol">3.7.5.name &amp;&amp; symbol</h3>
+<p>即返回代币<code>name</code>、<code>symbol</code>标识的函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">name</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">symbol</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_symbol</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="376tokenuri">3.7.6.tokenURI</h3>
+<p>返回<code>tokenURI</code>，属于元数据中的一种，值得一提的是，<code>OpenZeppelin</code>的实现还使用<code>_requireOwned</code>了对<code>tokenId</code>的有效性做了校验</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">   <span class="kd">function</span> <span class="nf">tokenURI</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_requireOwned</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="k">memory</span> <span class="n">baseURI</span> <span class="o">=</span> <span class="n">_baseURI</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">bytes</span><span class="p">(</span><span class="n">baseURI</span><span class="p">).</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="kt">string</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span><span class="n">baseURI</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">.</span><span class="n">toString</span><span class="p">())</span> <span class="o">:</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// _baseURI根据需要自定义实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">_baseURI</span><span class="p">()</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="377approve">3.7.7.approve</h3>
+<p>将<code>tokenId</code>授权给指定地址使用，<code>_msgSender</code>返回的就是合约调用者<code>msg.sender</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_approve</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">_msgSender</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于<code>_approve</code>，在最开头它会对授权数据进行判断，如果<code>msg.sender</code>非<code>tokenId</code>的<code>owner</code> &amp;&amp; <code>tokenId</code>真正的<code>owner</code>没有将<code>token</code>完全授权给<code>msg.sender</code>，那么就会抛错。如果全部校验通过，更新<code>_tokenApprovals</code>数据，也就是<code>token</code>授权映射的数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">auth</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">emitEvent</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">emitEvent</span> <span class="o">||</span> <span class="n">auth</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span> <span class="n">owner</span> <span class="o">=</span> <span class="n">_requireOwned</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">auth</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">owner</span> <span class="o">!=</span> <span class="n">auth</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isApprovedForAll</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">auth</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">revert</span> <span class="n">ERC721InvalidApprover</span><span class="p">(</span><span class="n">auth</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">emitEvent</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">emit</span> <span class="n">Approval</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">_tokenApprovals</span><span class="p">[</span><span class="n">tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">to</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="378getapproved">3.7.8.getApproved</h3>
+<p>获取<code>tokenId</code>的授权数据，首先依旧使用<code>_requireOwned</code>对<code>tokenId</code>的有效性做了校验，然后调用私有函数<code>_getApproved</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getApproved</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_requireOwned</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_getApproved</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>_getApproved</code>直接返回授权映射数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">   <span class="kd">function</span> <span class="nf">_getApproved</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_tokenApprovals</span><span class="p">[</span><span class="n">tokenId</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="379setapprovalforall">3.7.9.setApprovalForAll</h3>
+<p>可以将<code>msg.sender</code>的<code>token</code>全部授权给指定<code>operator</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">setApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">approved</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_setApprovalForAll</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="n">operator</span><span class="p">,</span> <span class="n">approved</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>_setApprovalForAll</code>对<code>operator</code>的地址有效性进行了校验，然后更新全部授权映射的数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_setApprovalForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">approved</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">operator</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC721InvalidOperator</span><span class="p">(</span><span class="n">operator</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_operatorApprovals</span><span class="p">[</span><span class="n">owner</span><span class="p">][</span><span class="n">operator</span><span class="p">]</span> <span class="o">=</span> <span class="n">approved</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">ApprovalForAll</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">approved</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3710isapprovedforall">3.7.10.isApprovedForAll</h3>
+<p>比较简单的函数，返回<code>owner</code>是否将<code>token</code>全部授权给<code>operator</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">   <span class="kd">function</span> <span class="nf">isApprovedForAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">operator</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_operatorApprovals</span><span class="p">[</span><span class="n">owner</span><span class="p">][</span><span class="n">operator</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3711transferfrom">3.7.11.transferFrom</h3>
+<p><code>ERC721</code>核心的转账函数，首先依旧是对接收方<code>to</code>的地址进行校验，零地址就抛错</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC721InvalidReceiver</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">previousOwner</span> <span class="o">=</span> <span class="n">_update</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">_msgSender</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">previousOwner</span> <span class="o">!=</span> <span class="k">from</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC721IncorrectOwner</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="n">previousOwner</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>_update</code>是<code>transferFrom</code>的核心函数，它的作用就是将<code>owner</code>的<code>tokenId</code>转账给接收方<code>to</code>。在这之前它会获取<code>tokenId</code>的<code>owner</code>，定义为<code>from</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">   <span class="kd">function</span> <span class="nf">_update</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">auth</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="k">from</span> <span class="o">=</span> <span class="n">_ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">auth</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_checkAuthorized</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">from</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_balances</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">to</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_balances</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">_owners</span><span class="p">[</span><span class="n">tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">to</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">Transfer</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">from</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后它会对函数调用者<code>msg.sender</code>做校验<code>_checkAuthorized</code></p>
+<p><code>_checkAuthorized</code> 以及 <code>_isAuthorized</code>对<code>msg.sender</code>的地址有效性作了校验，并且判断<code>tokenId</code>的<code>owner</code>对<code> msg.sender</code>是否授权过，如果判断失败，整个转账就停止</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">_checkAuthorized</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_isAuthorized</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">spender</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">owner</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">revert</span> <span class="n">ERC721NonexistentToken</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">revert</span> <span class="n">ERC721InsufficientApproval</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">_isAuthorized</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">            <span class="n">spender</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="n">owner</span> <span class="o">==</span> <span class="n">spender</span> <span class="o">||</span> <span class="n">isApprovedForAll</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">spender</span><span class="p">)</span> <span class="o">||</span> <span class="n">_getApproved</span><span class="p">(</span><span class="n">tokenId</span><span class="p">)</span> <span class="o">==</span> <span class="n">spender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>回到<code>_update</code>方法，如果授权校验通过，那么就是更新<code>_blance</code>、<code>_owners</code>等信息，以及触发<code>Transfer</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">   <span class="kd">function</span> <span class="nf">_update</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span> <span class="n">auth</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">address</span> <span class="k">from</span> <span class="o">=</span> <span class="n">_ownerOf</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">auth</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_checkAuthorized</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">auth</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">from</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_balances</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">to</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">unchecked</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">_balances</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">_owners</span><span class="p">[</span><span class="n">tokenId</span><span class="p">]</span> <span class="o">=</span> <span class="n">to</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">Transfer</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">from</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3712safetransferfrom">3.7.12.safeTransferFrom</h3>
+<p>安全转账函数，<code>safeTransferFrom</code>使用重载定义了两个不同参数的函数，实际调用<code>safeTransferFrom</code>都会去调用后者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">   <span class="kd">function</span> <span class="nf">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">safeTransferFrom</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">transferFrom</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 检查onERC721Received
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">ERC721Utils</span><span class="p">.</span><span class="n">checkOnERC721Received</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="nb">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而<code>safeTransferFrom</code>，就是会去检查是否实现了<code>IERC721Receiver</code>的<code>onERC721Received</code>方法，以确保能顺利转账</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">checkOnERC721Received</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">operator</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="k">from</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">to</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="n">IERC721Receiver</span><span class="p">(</span><span class="n">to</span><span class="p">).</span><span class="n">onERC721Received</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="k">from</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="nb">data</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span> <span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">retval</span> <span class="o">!=</span> <span class="n">IERC721Receiver</span><span class="p">.</span><span class="n">onERC721Received</span><span class="p">.</span><span class="nb">selector</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nb">revert</span> <span class="n">IERC721Errors</span><span class="p">.</span><span class="n">ERC721InvalidReceiver</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">reason</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">reason</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nb">revert</span> <span class="n">IERC721Errors</span><span class="p">.</span><span class="n">ERC721InvalidReceiver</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">assembly</span> <span class="p">(</span><span class="s">&#34;memory-safe&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">revert</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">reason</span><span class="p">),</span> <span class="nf">mload</span><span class="p">(</span><span class="n">reason</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3713其它函数">3.7.13.其它函数</h3>
+<p><code>OpenZeppelin</code>实现的<code>ERC721</code>标准里面，同样提供了<code>_mint</code>和<code>_burn</code>私有函数，以提供mint代币和销毁代币的能力</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_mint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC721InvalidReceiver</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">previousOwner</span> <span class="o">=</span> <span class="n">_update</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">previousOwner</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC721InvalidSender</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_safeMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_safeMint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_safeMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">data</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ERC721Utils</span><span class="p">.</span><span class="n">checkOnERC721Received</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">(),</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">to</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">,</span> <span class="nb">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_burn</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">previousOwner</span> <span class="o">=</span> <span class="n">_update</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">previousOwner</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">revert</span> <span class="n">ERC721NonexistentToken</span><span class="p">(</span><span class="n">tokenId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4总结">4.总结</h1>
+<p>以上就是<code>ERC20</code>、<code>ERC721</code>的标准实现内容，都是基于<code>OpenZeppelin</code>，完整的源码可以直接去<code>OpenZeppelin</code>上查看。<code>ERC20</code>是以太坊上最基础的代币标准，而<code>ERC721</code>则是<code>NFT</code>最基础的依赖。当然还有很多其它标准的内容，这里就不一一阐述</p>
+<h1 id="5参考链接">5.参考链接</h1>
+<p><a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol" target="_blank" rel="noopener noreffer">OpenZeppelin</a></p>
+<p><a href="https://eips.ethereum.org/EIPS/eip-721" target="_blank" rel="noopener noreffer">ERC-721</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-10-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/" data-title="ERC20、ERC721标准"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/" data-title="ERC20、ERC721标准"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/" data-title="ERC20、ERC721标准"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/" data-title="ERC20、ERC721标准"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/" class="prev" rel="prev" title="Web端性能监控"><i class="fas fa-angle-left fa-fw"></i>Web端性能监控</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
