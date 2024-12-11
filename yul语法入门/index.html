@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Yul语法入门 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Yul语法入门">
+  <meta property="og:description" content="1.描述 Yul是一种中间编程语言，可以用来在智能合约中编写汇编语言，这样对EVM有更细粒度的控制，学会用Yul可以了解底层运行的一些原理，反">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-11-01T14:35:12+08:00">
+    <meta property="article:modified_time" content="2022-11-01T14:35:12+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="Yul语法入门">
+  <meta name="twitter:description" content="1.描述 Yul是一种中间编程语言，可以用来在智能合约中编写汇编语言，这样对EVM有更细粒度的控制，学会用Yul可以了解底层运行的一些原理，反">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/" /><link rel="prev" href="https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Yul语法入门",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5829 ,
+        "url": "https:\/\/baskep.top\/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8\/","datePublished": "2022-11-01T14:35:12+08:00","dateModified": "2022-11-01T14:35:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Yul语法入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-11-01">2022-11-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5829 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1描述">1.描述</a></li>
+    <li><a href="#2yul内置的方法">2.Yul内置的方法</a></li>
+    <li><a href="#3基础语法">3.基础语法</a>
+      <ul>
+        <li><a href="#31声明与赋值">3.1.声明与赋值</a></li>
+        <li><a href="#32条件判断">3.2.条件判断</a></li>
+        <li><a href="#33for循环语句">3.3.for循环语句</a></li>
+        <li><a href="#34函数的定义">3.4.函数的定义</a></li>
+      </ul>
+    </li>
+    <li><a href="#4存储">4.存储</a>
+      <ul>
+        <li><a href="#41存储的基本概念">4.1.存储的基本概念</a></li>
+        <li><a href="#42关于插槽的一些基本语法">4.2.关于插槽的一些基本语法</a></li>
+        <li><a href="#43读取插槽存储的数据">4.3.读取插槽存储的数据</a></li>
+      </ul>
+    </li>
+    <li><a href="#5读取打包的变量">5.读取打包的变量</a></li>
+    <li><a href="#6内存">6.内存</a></li>
+    <li><a href="#7合约调用">7.合约调用</a></li>
+    <li><a href="#8总结">8.总结</a></li>
+    <li><a href="#9参考链接">9.参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1描述">1.描述</h1>
+<p><code>Yul</code>是一种中间编程语言，可以用来在智能合约中编写汇编语言，这样对<code>EVM</code>有更细粒度的控制，学会用<code>Yul</code>可以了解底层运行的一些原理，反过来也可以节省<code>gas</code>费</p>
+<h1 id="2yul内置的方法">2.Yul内置的方法</h1>
+<p><code>Yul</code>内部内置了很多方法，包含了加减乘除、位运算、访问内存数据、插槽等等，具体可以看一下这个<a href="https://docs.soliditylang.org/zh/latest/yul.html" target="_blank" rel="noopener noreffer">文档</a></p>
+<h1 id="3基础语法">3.基础语法</h1>
+<p>在函数中要插入<code>Yul</code>的汇编语法，要用<code>assembly</code>关键字去指定代码块，然后才写具体的逻辑</p>
+<h2 id="31声明与赋值">3.1.声明与赋值</h2>
+<p>声明变量: 使用<code>let</code>声明，赋值则是使用<code>:=</code>，而不是<code>=</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="ow">let</span> <span class="nv">x</span> <span class="o">:=</span> <span class="mi">2</span>  <span class="c1">// 声明 x，赋值为2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="ow">let</span> <span class="nv">y</span>       <span class="c1">// 声明 y，初始化为 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">y</span> <span class="o">:=</span> <span class="mi">5</span>      <span class="c1">// 赋值 y 为5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="ow">let</span> <span class="nv">a</span> <span class="o">:=</span> <span class="mh">0x123</span> <span class="c1">// 16进制
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="ow">let</span> <span class="nv">b</span> <span class="o">:=</span> <span class="mi">42</span> <span class="c1">// 10进制
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="ow">let</span> <span class="nv">c</span> <span class="o">:=</span> <span class="s">&#34;hello world&#34;</span> <span class="c1">// 字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="ow">let</span> <span class="nv">d</span> <span class="o">:=</span> <span class="s">&#34;very long string more than 32 bytes&#34;</span> <span class="c1">// 长度 35 的 字符串，会报错
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="32条件判断">3.2.条件判断</h2>
+<p><code>if</code>语句：只有<code>if</code> ，没有<code>else</code>；<code>if</code> 语句强制要求代码块使用大括号，<code>{}</code>不允许省略</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// success
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">if</span> <span class="nf">iszero</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">:=</span> <span class="nf">sub</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// fail: 没有使用 {} 包裹代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// if iszero(x) revert(0, 0)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>switch</code>语句：switch 语句支持 一个默认分支 default，当表达式的值不匹配任何其他分支条件时，将 执行默认分支的代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">switch</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">    <span class="n">case</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">:=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">case</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">:=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">:=</span> <span class="nf">mul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="33for循环语句">3.3.for循环语句</h2>
+<p>for 循环也包含3块内容：初始化、执行条件、迭代后续步骤。同时在<code>for</code>语句中，也支持<code>continue</code>以及<code>break</code>关键字</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">for</span> <span class="p">{</span> <span class="ow">let</span> <span class="nv">i</span> <span class="o">:=</span> <span class="mi">0</span> <span class="p">}</span> <span class="nf">lt</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">leng</span><span class="p">)</span> <span class="p">{</span> <span class="n">i</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">mstore</span><span class="p">(</span><span class="mh">0x0</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">return</span><span class="p">(</span><span class="mh">0x0</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="34函数的定义">3.4.函数的定义</h2>
+<p>函数的定义规范为<code>function f(x, y) -&gt; a, b { /* ... */ }，和</code>solidity`一样，返回参数可以声明名称，然后在函数体里面操作最后返回</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 函数定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">function</span> <span class="n">allocate</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="err">-&gt;</span> <span class="n">pos</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pos</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="mh">0x40</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果该函数有多个返回值，则声明多个变量去初始化返回参数，比如<code>let x, y := f(1, mload(0))</code></p>
+<h1 id="4存储">4.存储</h1>
+<h2 id="41存储的基本概念">4.1.存储的基本概念</h2>
+<p>合约中的变量会涉及存储、读取，存储是由一系列的槽组成的。一个智能合约有2²⁵⁶个槽位，在声明变量时，我们从槽0开始，然后从那里递增。每个槽的长度为256 比特（32字节），所以可想而知整个合约可用的存储还是挺大的</p>
+<p>通常来说<code>uint256</code>、<code>address</code>、<code>bytes32</code>声明的变量都是占完整的一个插槽存储，也就是32字节。但有时也有特殊情况，比如<code>uint128</code>，为了节约空间，它不会占一整个插槽，而是16字节，半个插槽</p>
+<p>请看一下变量声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// slot 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">uint256</span> <span class="n">var1</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// slot 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">address</span> <span class="n">var2</span> <span class="o">=</span> <span class="mh">0x9ACc1d6Aa9b846083E8a497A661853aaE07F0F00</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// slot 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bytes32</span> <span class="n">var3</span> <span class="o">=</span> <span class="mh">0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// slot 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">uint128</span> <span class="n">var4</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint128</span> <span class="n">var5</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>var1</code>：由于<code>uint256</code>变量等于32字节，<code>var1</code>占据了整个0槽。下面是0号槽中存储的内容： <code>0x00000000000000000000000000000000000000000000000000000000000000000000000000000100</code></p>
+<p><code>var2</code>：地址稍微复杂一些。由于它们只占用20个字节的存储空间，地址的左边被填充了0。下面是存储在槽1中的内容：<code>0x00000000000000009acc1d6aa9b846083e8a497a661853aae07f0f00</code></p>
+<p><code>var3</code>：这个看起来很简单，槽位2被<code>bytes32</code>变量的全部内容所消耗</p>
+<p><code>var4</code> &amp; <code>var5</code>： <code>uint128</code>各占16字节，所以两个变量加起来占完整的32字节</p>
+<p>插槽3存储的内容：<code>0x0000000000000000000000000000000200000000000000000000000000000001</code></p>
+<p>其中<code>0x000000000000000000000000000002</code> 和 <code>0x000000000000000000000000000001</code> 分别代表两个变量的存储</p>
+<p>也可以看出，存储先从插槽的右侧起，左边空余的内容补0。下面所展示的例子以这些定义的变量为基础</p>
+<h2 id="42关于插槽的一些基本语法">4.2.关于插槽的一些基本语法</h2>
+<p>以上面定义的<code>var1 ~ var5</code>变量为基础</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 获得 var5 的槽位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">let</span> <span class="n">slot</span> <span class="o">:=</span> <span class="n">var5</span><span class="p">.</span><span class="n">slot</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 获得 var5 的槽位偏移
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">let</span> <span class="n">offset</span> <span class="o">:=</span> <span class="n">var5</span><span class="p">.</span><span class="n">offset</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 赋值给 solidity 中的变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">x</span> <span class="o">:=</span> <span class="n">slot</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">:=</span> <span class="n">offset</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 在槽0上保存 1 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">sstore</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 加载 槽0 的值赋值给 z 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">z</span> <span class="o">:=</span> <span class="n">sload</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最终<code>x</code> = 3，<code>y</code> = 16，<code>z</code> = 1</p>
+<p>首先是<code>x</code>，<code>x</code>实际被赋值为<code>var5.slot</code>，这是获取变量<code>var5</code>所在插槽的语法，<code>var5</code>所在插槽为3</p>
+<p>其次是<code>y</code>，<code>var5.offset</code>获取<code>var5</code>所在插槽的偏移量，因为<code>var4</code>占据了3号槽的一半。由于变量是从右到左打包的，所以16就是<code>var5</code>的起始索引</p>
+<p>最后是<code>z</code>，<code>sstore(0,1)</code>把插槽0的值改为1，<code>sload</code>读取某个插槽索引的值，也就是前面存储的1，所以<code>z=1</code></p>
+<h2 id="43读取插槽存储的数据">4.3.读取插槽存储的数据</h2>
+<p>例子1：读取定长数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// slot 4 &amp; 5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">uint128</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">var6</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">getValInHex</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">y</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bytes32</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">assembly</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">:=</span> <span class="nf">sload</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">  <span class="nf">return</span> <span class="n">x</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里定义<code>var6</code>，定长<code>uint128数组</code>，其中元素<code>0,1</code>存储到插槽4，<code>2,3</code>存储到插槽5，当我们调用<code>getValInHex(4)</code>，返回的结果就是<code>0x0000000000000000000000000000000100000000000000000000000000000000</code>，从右到左读，也就是值0和值1</p>
+<p>例子2：读取动态数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 起始索引 slot 6
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">uint256</span><span class="p">[]</span> <span class="n">var7</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">getValFromDynamicArray</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">targetIndex</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">slot</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slot</span> <span class="o">:=</span> <span class="n">var7</span><span class="err">.</span><span class="n">slot</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">bytes32</span> <span class="n">startIndex</span> <span class="err">=</span> <span class="nf">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="err">.</span><span class="n">encode</span><span class="p">(</span><span class="n">slot</span><span class="p">))</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">uint256</span> <span class="n">ans</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ans</span> <span class="o">:=</span> <span class="nf">sload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">startIndex</span><span class="p">,</span> <span class="n">targetIndex</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nf">return</span> <span class="n">ans</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于动态数组的读取，首先是获取它的插槽位置<code>slot</code>，然后当前存储槽（槽6）的keccak256 哈希值被用来作为数组的起始索引</p>
+<p>当我们获取<code>getValFromDynamicArray(3)</code>(前提是有值的情况下)，则计算数组索引<code>3</code>位置的插槽<code>add(startIndex, targetIndex)</code>，最后用<code>sload</code>读取改插槽的值，这里我们要理解的核心是，<code>keccak256(abi.encode(slot))</code>计算插槽的起始位置</p>
+<p>例子3：读取映射的数据</p>
+<p>映射不储存任何键（<code>Key</code>）的资讯，也没有length的资讯，它反映的就是链上<code>插槽</code>所对应值的一个<code>map</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// slot 7
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="n">var8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">getMappedValue</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">key</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">slot</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">slot</span> <span class="o">:=</span> <span class="n">var8</span><span class="err">.</span><span class="n">slot</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">bytes32</span> <span class="n">location</span> <span class="err">=</span> <span class="nf">keccak256</span><span class="p">(</span><span class="n">abi</span><span class="err">.</span><span class="n">encode</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">slot</span><span class="p">))</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">uint256</span> <span class="n">ans</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="n">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ans</span> <span class="o">:=</span> <span class="nf">sload</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nf">return</span> <span class="n">ans</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当我们去读取某个<code>key</code>的值的时候，实际就是将该<code>mapping</code>的<code>key</code>与其<code>slot</code>做散列，得到的hash就是存储的插槽位置，最后<code>sload</code>读取值，这也就是<code>mapping</code>的存储原理</p>
+<h1 id="5读取打包的变量">5.读取打包的变量</h1>
+<p><strong>读取打包的变量</strong>指的读取<code>uint128</code>这种打包到一个插槽的占不满32字节的变量，其核心原理就是使用<code>shr</code>、<code>shl</code>内置方法移动当前存储位置，然后读取对应的值</p>
+<p>对于<code>shr</code>、<code>shl</code>的定义：</p>
+<p><code>shl(x, y)</code>：将 y 逻辑左移 x 位的值</p>
+<p><code>shr(x，y)</code>：将 y 逻辑右移 x 位的值</p>
+<p>所谓逻辑位移，指的是将该值转为二进制后，进行移位，缺位补0</p>
+<p>例子1：读取<code>var4</code>、<code>var5</code>变量的值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">readVar4AndVar5</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint128</span><span class="p">,</span> <span class="kt">uint128</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="kt">uint128</span> <span class="n">readVar4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint128</span> <span class="n">readVar5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="n">mask</span> <span class="o">=</span> <span class="mh">0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">            <span class="ow">let</span> <span class="nv">slot3</span> <span class="o">:=</span> <span class="nf">sload</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">            <span class="n">readVar4</span> <span class="o">:=</span> <span class="nf">and</span><span class="p">(</span><span class="n">slot3</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">            <span class="n">readVar5</span> <span class="o">:=</span> <span class="n">shr</span><span class="p">(</span> <span class="nf">mul</span><span class="p">(</span> <span class="n">var5</span><span class="err">.</span><span class="n">offset</span><span class="p">,</span> <span class="mi">8</span> <span class="p">),</span> <span class="n">slot3</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nf">return</span> <span class="p">(</span><span class="n">readVar4</span><span class="p">,</span> <span class="n">readVar5</span><span class="p">)</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先是读取<code>var4</code>变量的值：因为<code>var4</code>、<code>var5</code>存储在插槽3，从右往左读，所以设置了一个掩码<code>0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff</code>，然后对其做<code>逻辑与(and)</code>操作，<code>and(slot3, mask)</code>，最终得到的值就是准确的<code>var4</code>的值<code>0x0000000000000000000000000000000000000000000000000000000000000001</code></p>
+<p>然后是读取<code>var5</code>变量的值：其核心是理解<code>shr( mul( var5.offset, 8 ), slot3 )</code>，<code> var5.offset</code>获取<code>var5</code>变量在存储中的偏移字节的索引，<code>mul( var5.offset, 8)</code>就是计算<code>当前的指针</code>从<code>插槽起始位置</code>移到<code>var5存储位置</code>所需要的位数，所以<code>shr(mul( var5.offset, 8 ), slot3 )</code>总体就是获取<code>插槽</code>移到<code>var5</code>位置后的值</p>
+<p>例子2：修改<code>var5</code>的值</p>
+<p>修改插槽上某个打包变量的值，基本原理为：读取旧有的其它值，设置该变量新的值，然后按顺序做<code>逻辑或(or)</code>操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">writeVar5</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">newVal</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">slot3</span> <span class="o">:=</span> <span class="nf">sload</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">mask</span> <span class="o">:=</span> <span class="mh">0x00000000000000000000000000000000ffffffffffffffffffffffffffffffff</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">clearedVar5</span> <span class="o">:=</span> <span class="nf">and</span><span class="p">(</span><span class="n">slot3</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">shiftedVal</span> <span class="o">:=</span> <span class="n">shl</span><span class="p">(</span> <span class="nf">mul</span><span class="p">(</span> <span class="n">var5</span><span class="err">.</span><span class="n">offset</span><span class="p">,</span> <span class="mi">8</span> <span class="p">),</span> <span class="n">newVal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">newSlot3</span> <span class="o">:=</span> <span class="nf">or</span><span class="p">(</span><span class="n">shiftedVal</span><span class="p">,</span> <span class="n">clearedVar5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nf">sstore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">newSlot3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先同样是获取<code>var4</code>的值：<code>clearedVar5 := and(slot3, mask)</code>，得到<code>0x0000000000000000000000000000000000000000000000000000000000000001</code></p>
+<p>然后设置新的<code>var5</code>的值：如果我们传参是4，也就是<code>writeVar5(4)</code>，<code>shl(mul( var5.offset, 8 ), 4)</code>，为什么是直接对<code>newVal</code>进行处理，其内部首先会将<code>newVal</code>格式化为<code>0x0000000000000000000000000000000000000000000000000000000000000004</code>，然后将该值向左逻辑移动128位(16 * 8)。得到<code>0x0000000000000000000000000000000400000000000000000000000000000000</code></p>
+<p>最后两个值做<code>or</code>操作：得到<code>0x0000000000000000000000000000000400000000000000000000000000000001</code>，存储在插槽3上<code>sstore(3, newSlot3)</code>，也就是全新的<code>var5</code>值</p>
+<h1 id="6内存">6.内存</h1>
+<p>内存的行为与存储不同，内存是不持久的。这意味着一旦函数执行完毕，所有的变量都会被清除。<code>EVM</code>上的内存是以每32个字节的序列排布的，它的地址就是<code>0x00~0x20</code>，<code>0x20~0x40</code>等等这样去排列的。关于这些内存的描述：</p>
+<img src="https://ice.frostsky.com/2024/12/10/41288235e60c872ac182005286834ef5.webp" align="center"/>
+<p><code>0x00~0x40</code>：这64个字节为<code>scratch space</code>，被称为<code>暂存空间</code>，是用来存储数据的临时存储区域。要细分的话也就是<code>0x00~0x20</code>、<code>0x20~0x40</code></p>
+<p><code>0x40~0x5f </code>：这32个字节为当前分配的内存大小（又称空闲内存指针）</p>
+<p><code>0x60~0x7f</code>：这32个字节是空的，被称为0值插槽，0 值插槽则用来对动态内存数组进行初始化，且永远不会写入数据</p>
+<p><code>0x80~0xc0</code>：这64个字节用于存储结构体的值</p>
+<p><code>0xc0</code>：这代表新的空闲内存指针</p>
+<p>结构体就是<code>solidity</code>中的<code>struct</code>类型，举个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">struct</span> <span class="nc">Var10</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">subVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">subVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">getStructValues</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Var10</span> <span class="k">memory</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">.</span><span class="n">subVar1</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">.</span><span class="n">subVar2</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">return</span><span class="p">(</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xc0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code> return( 0x80, 0xc0 )</code>即返回了上面的<code>subVar1</code>、<code>subVar2</code>存储的值，如果还有<code>subVar3</code>、<code>subVar4</code>需要返回怎么办，这里只要<code>returns</code>声明出变量就行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">getStructValues</span><span class="p">()</span> <span class="k">external</span> <span class="k">pure</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Var10</span> <span class="k">memory</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">.</span><span class="n">subVar1</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">.</span><span class="n">subVar2</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">.</span><span class="n">subVar3</span> <span class="o">=</span> <span class="mi">128</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">return</span><span class="p">(</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xc0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所以我们要明确一个概念：<strong>内存中的变量存储与链上的状态变量存储是不一样的</strong>，同样是<code>uint256</code>状态变量和内存中的存储是有所不同的</p>
+<p>例子1：修改动态数组的值</p>
+<p>我们要写一个方法，传入一个动态数组<code>[0, 1, 2, 3]</code>，并且在这个动态数据后面增加一个元素<code>4</code>，使其变为<code>[0, 1, 2, 3, 4]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">getDynamicArray</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">arr</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">location</span> <span class="o">:=</span> <span class="n">arr</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">length</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">nextMemoryLocation</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span> <span class="nf">add</span><span class="p">(</span> <span class="n">location</span><span class="p">,</span> <span class="mh">0x20</span> <span class="p">),</span> <span class="nf">mul</span><span class="p">(</span> <span class="n">length</span><span class="p">,</span> <span class="mh">0x20</span> <span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nf">mstore</span><span class="p">(</span><span class="n">nextMemoryLocation</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="n">length</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span> <span class="n">length</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nf">mstore</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nf">mstore</span><span class="p">(</span><span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x140</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nf">return</span> <span class="p">(</span> <span class="nf">add</span><span class="p">(</span> <span class="n">location</span><span class="p">,</span> <span class="mh">0x20</span> <span class="p">)</span> <span class="p">,</span> <span class="nf">mul</span><span class="p">(</span> <span class="n">length</span><span class="p">,</span> <span class="mh">0x20</span> <span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这段代码怎么理解</p>
+<p>1.传入的<code>arr</code>，在<code>Yul</code>中读取的是它存储的位置，赋值给<code>location</code></p>
+<p>2.<code>mload</code>，该方法读取传入某个<strong>存储位置起的32个字节数据</strong>，比如<code>mload(arr)</code>，就是查找<code>arr</code>存储的前三个字节数据，但是它赋值定义的是<code>length</code>，也就是数组长度，所以我们要理解一点：带有<code>memory</code>关键字定义的变量、传参，前32个字节数据实际是存的该数据的长度</p>
+<p>3.<code> let nextMemoryLocation := add( add( location, 0x20 ), mul( length, 0x20 ))</code>计算出了该数组新增元素时的内存地址</p>
+<p>4.<code>  mstore(nextMemoryLocation, 4)</code>增加元素<code>4</code>到数组末尾，<code>length := add( length, 1 )</code>计算新的<code>length</code>值，<code>  mstore(location, length)</code>把这个新的<code>length</code>重新存储到<code>arr</code>的内存起点位置，方面下次读取</p>
+<p>5.<code>mstore(0x40, 0x140)</code>更新空闲内存指针</p>
+<p>6.返回对应内存的值</p>
+<p>例子2：通过ECDSA<code>椭圆曲线数字签名算法</code>，验证签名地址是否正确</p>
+<p><code>solidity</code>中内置了<code>ecrecover</code>方法，该方法能够通过消息hash、钱包签名来返回一个公钥，能验证是否由我们的钱包签发的消息，以下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"> <span class="kd">function</span> <span class="nf">recoverSigner</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_msgHash</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_signature</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">require</span><span class="p">(</span><span class="n">_signature</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">65</span><span class="p">,</span> <span class="s">&#34;invalid signature length&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   	<span class="kt">bytes32</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  	<span class="kt">bytes32</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8</span> <span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v</span> <span class="o">:=</span> <span class="nf">byte</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">return</span> <span class="n">ecrecover</span><span class="p">(</span><span class="n">_msgHash</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里就不详细阐述消息<code>_msgHash</code>、签名<code>_signature</code>是怎么生成的，主要是理解<code>r := mload(add(_signature, 0x20))</code>，这当然还是因为动态数组<code>memory</code>前32个字节存的是长度数据，所以要<code>add(_signature, 0x20)</code>从32字节后算</p>
+<h1 id="7合约调用">7.合约调用</h1>
+<p><code>Yul</code>也是可以直接实现合约以及调用合约方法的，以下是一些<code>Yul</code>内置的合约方法</p>
+<img src="https://ice.frostsky.com/2024/12/11/beb066e1ae30ee83af6b9c0e00da787e.webp" align="center"/>
+<p>下面看一个例子：</p>
+<p>定义了这样一个合约，这个合约有两个存储变量<code>var1</code>和<code>var2</code>，分别存储在存储槽1和2中。函数<code>a()</code>要求用户至少发送1个以太币给合约，否则它就会还原</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">CallMe</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">var1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">var2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">a</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_var1</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_var2</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="n">var1</span> <span class="o">=</span> <span class="n">_var1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">var2</span> <span class="o">=</span> <span class="n">_var2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">var1</span><span class="p">,</span> <span class="n">var2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">       
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">b</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">var1</span><span class="p">,</span> <span class="n">var2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而<code>a</code>、<code>b</code>的函数选择器分别为<code>0x773d45e0</code>、<code>0x4df7e3d0</code></p>
+<p>用合约实现一个<code>staticcall</code>去调用<code>Callme</code>合约里的方法<code>b</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">getVars</span><span class="p">(</span><span class="kt">address</span> <span class="n">_callMe</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">slot2</span> <span class="o">:=</span> <span class="nf">sload</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">funcSelector</span> <span class="o">:=</span> <span class="n">shr</span><span class="p">(</span> <span class="mi">32</span><span class="p">,</span> <span class="n">slot2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nf">mstore</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">funcSelector</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="ow">let</span> <span class="nv">result</span> <span class="o">:=</span> <span class="nf">staticcall</span><span class="p">(</span><span class="nf">gas</span><span class="p">(),</span> <span class="n">_callMe</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="n">if</span> <span class="nf">iszero</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">revert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nf">return</span> <span class="p">(</span><span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xc0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>1.是从存储空间中获取<code>b()</code>的函数选择器</p>
+<p>2.通过加载<code>slot2</code>来完成这个任务（两个选择器都装在一个槽里）</p>
+<p>3.然后右移4个字节（逻辑32位）来隔离<code>selectorB</code>，<code>let funcSelector := shr( 32, slot2)</code></p>
+<p>3.接下来将把函数选择器存储在内存的<code>scratch space</code>，然后进行静态调用。在这些例子中，传入了<code>gas()</code>，参数<code>_callMe</code>为合约地址，<code>0x1c</code>和<code>0x20</code>说的是要把存储的最后4个字节传到<code>scratch space</code>。因为函数选择器是4个字节，但内存是以32个字节为一个系列工作的</p>
+<p>4.<code>staticcall()</code>的最后两个参数指定我们要将返回数据存储在内存位置<code>0x80</code>-<code>0xc0</code>。接下来，我们检查函数调用是否成功，否则返回就不包含数据。记住，成功的调用将返回1。最后，我们从内存中返回数据，并看到数值1和2</p>
+<h1 id="8总结">8.总结</h1>
+<p>以上就是<code>Yul</code>的一些基本语法以及实操例子。但总的来说内联汇编是一种在底层访问<code>EVM</code>的语言，所以编译器无法对汇编语法进行检查，于是<code>solidity</code>提供的很多重要安全特性都没办法作用于汇编</p>
+<p>写汇编代码相对比较困难，很多时候只有在处理一些相对复杂的问题时才需要使用它，比如通过消息、签名验证公钥。所以通常来说内联汇编应用在编写库函数，写具体的方法以及合约开发时，一般的开发人员效率还是没有直接用<code>solidity</code>语法快</p>
+<h1 id="9参考链接">9.参考链接</h1>
+<p>1.<a href="https://docs.soliditylang.org/zh/latest/yul.html#" target="_blank" rel="noopener noreffer">Yul语法入门</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-11-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/" data-title="Yul语法入门"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/" data-title="Yul语法入门"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/" data-title="Yul语法入门"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/" data-title="Yul语法入门"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/erc20erc721%E6%A0%87%E5%87%86/" class="prev" rel="prev" title="ERC20、ERC721标准"><i class="fas fa-angle-left fa-fw"></i>ERC20、ERC721标准</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,9 +3,16 @@
         <title>早起的老年人の博客</title>
         <link>https://baskep.top/</link>
         <description>早起的老年人做的网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 24 Oct 2022 14:35:12 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 01 Nov 2022 14:35:12 &#43;0800</lastBuildDate>
             <atom:link href="https://baskep.top/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Yul语法入门</title>
+    <link>https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</link>
+    <pubDate>Tue, 01 Nov 2022 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</guid>
+    <description><![CDATA[1.描述 Yul是一种中间编程语言，可以用来在智能合约中编写汇编语言，这样对EVM有更细粒度的控制，学会用Yul可以了解底层运行的一些原理，反]]></description>
+</item><item>
     <title>ERC20、ERC721标准</title>
     <link>https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/</link>
     <pubDate>Mon, 24 Oct 2022 14:35:12 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://baskep.top/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E7%9A%84%E4%BB%8B%E7%BB%8D/</guid>
     <description><![CDATA[1.简介 程序最终都是以二进制的形式存在计算底层，也就是以0、1这样的字符排列组成程序运行的信息。我们知道计算机最小的存储单位叫做bit(位)]]></description>
-</item><item>
-    <title>StoryBook &#43; Lerna 开发自己的UI组件库(二)</title>
-    <link>https://baskep.top/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</link>
-    <pubDate>Sat, 28 Aug 2021 14:47:27 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/storybook--lerna-%E5%BC%80%E5%8F%91%E8%87%AA%E5%B7%B1%E7%9A%84ui%E7%BB%84%E4%BB%B6%E5%BA%93%E4%BA%8C/</guid>
-    <description><![CDATA[上一篇已经介绍了storybook项目的基本搭建，现在我们要做的是将这个组件库发布，以及从公共仓库中拉取组件库代码。组件库发布，可以选择使用]]></description>
 </item></channel>
 </rss>
