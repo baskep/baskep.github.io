@@ -3,7 +3,14 @@
         <title>日常学习 - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
         <description>日常学习 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 01 Nov 2022 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 10 Dec 2022 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>以太坊中数字签名、消息的概念</title>
+    <link>https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/</link>
+    <pubDate>Sat, 10 Dec 2022 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/</guid>
+    <description><![CDATA[1.消息 1.1.基本概念 消息在以太坊的ECDSA标准中，是一组keccak256哈希数据，为bytes32类型。我们可以把任何想要签名的内容]]></description>
+</item><item>
     <title>Yul语法入门</title>
     <link>https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</link>
     <pubDate>Tue, 01 Nov 2022 14:35:12 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.top/%E5%89%8D%E7%AB%AF%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E7%AE%80%E8%BF%B0%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAumd-loader%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[现在的前端开发中根本离不开组件化、模块化的开发方式，这些模块有各种各样的规范，比如： 1.CommonJS 规范 主要用在与 Nodejs 服务端，在服务器端，模块的加载是运行时]]></description>
-</item><item>
-    <title>Flutter各种踩坑心得</title>
-    <link>https://baskep.top/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/</link>
-    <pubDate>Sat, 05 Dec 2020 16:06:56 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/flutter%E5%90%84%E7%A7%8D%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/</guid>
-    <description><![CDATA[1.安卓开发环境的基本配置 首先修改你创建的项目中的/android/build.gradle文件，修改buildscript以及allpro]]></description>
 </item></channel>
 </rss>

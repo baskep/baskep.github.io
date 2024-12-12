@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>以太坊中数字签名、消息的概念 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="以太坊中数字签名、消息的概念">
+  <meta property="og:description" content="1.消息 1.1.基本概念 消息在以太坊的ECDSA标准中，是一组keccak256哈希数据，为bytes32类型。我们可以把任何想要签名的内容">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-12-10T14:35:12+08:00">
+    <meta property="article:modified_time" content="2022-12-10T14:35:12+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="以太坊中数字签名、消息的概念">
+  <meta name="twitter:description" content="1.消息 1.1.基本概念 消息在以太坊的ECDSA标准中，是一组keccak256哈希数据，为bytes32类型。我们可以把任何想要签名的内容">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/" /><link rel="prev" href="https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "以太坊中数字签名、消息的概念",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2077 ,
+        "url": "https:\/\/baskep.top\/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5\/","datePublished": "2022-12-10T14:35:12+08:00","dateModified": "2022-12-10T14:35:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">以太坊中数字签名、消息的概念</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-12-10">2022-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2077 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1消息">1.消息</a>
+      <ul>
+        <li><a href="#11基本概念">1.1.基本概念</a></li>
+        <li><a href="#12以太坊签名消息">1.2.以太坊签名消息</a></li>
+      </ul>
+    </li>
+    <li><a href="#2签名">2.签名</a>
+      <ul>
+        <li><a href="#21基本概念">2.1.基本概念</a></li>
+        <li><a href="#22生成方式">2.2.生成方式</a>
+          <ul>
+            <li><a href="#221使用metamask内置方法">2.2.1.使用metamask内置方法</a></li>
+            <li><a href="#222使用ethersjs发起签名方法">2.2.2.使用ethers.js发起签名方法</a></li>
+            <li><a href="#223使用第三方库的api">2.2.3.使用第三方库的api</a></li>
+          </ul>
+        </li>
+        <li><a href="#23签名结果">2.3.签名结果</a></li>
+      </ul>
+    </li>
+    <li><a href="#3ecdsa合约相关内容">3.ECDSA合约相关内容</a>
+      <ul>
+        <li><a href="#31基本概念">3.1.基本概念</a></li>
+        <li><a href="#32创建签名前要创建消息合约中">3.2.创建签名前要创建消息(合约中)</a></li>
+        <li><a href="#33验证签名">3.3.验证签名</a></li>
+      </ul>
+    </li>
+    <li><a href="#4使用场景">4.使用场景</a></li>
+    <li><a href="#5总结">5.总结</a></li>
+    <li><a href="#6参考链接">6.参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1消息">1.消息</h1>
+<h2 id="11基本概念">1.1.基本概念</h2>
+<p><code>消息</code>在以太坊的<code>ECDSA</code>标准中，是一组<code>keccak256</code>哈希数据，为<code>bytes32</code>类型。我们可以把任何想要签名的内容利用<code>abi.encodePacked()</code>函数打包，然后用<code>keccak256()</code>计算哈希，作为<code>消息</code>，举个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意不要搞混了，这是消息的计算方式，不是合约交互中的<code>calldata</code>计算方式</p>
+<h2 id="12以太坊签名消息">1.2.以太坊签名消息</h2>
+<p><a href="https://eips.ethereum.org/EIPS/eip-191" target="_blank" rel="noopener noreffer">EIP191</a>中提倡了在<code>消息</code>前加上<code>&quot;\x19Ethereum Signed Message:\n32&quot;</code>字符，并再做一次<code>keccak256</code>哈希，作为<code>以太坊签名消息</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x19</span><span class="s">Ethereum Signed Message:</span><span class="se">\n</span><span class="s">32&#34;</span><span class="p">,</span> <span class="n">hash</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这种处理过后的消息则<strong>不能用于执行交易</strong>，可以用在数据验证的维度上</p>
+<h1 id="2签名">2.签名</h1>
+<h2 id="21基本概念">2.1.基本概念</h2>
+<p>以太坊使用的数字签名算法叫双椭圆曲线数字签名算法（<code>ECDSA</code>），基于双椭圆曲线“私钥-公钥”对的数字签名算法。他主要起到了3个作用：</p>
+<p><strong>身份认证</strong>：证明签名方是私钥的持有人；<strong>不可否认</strong>：发送方不能否认发送过这个消息；<strong>完整性</strong>：通过验证针对传输消息生成的数字签名，可以验证消息是否在传输过程中被篡改</p>
+<h2 id="22生成方式">2.2.生成方式</h2>
+<h3 id="221使用metamask内置方法">2.2.1.使用metamask内置方法</h3>
+<p><code>metamask</code>的<code>personal_sign</code>方法会自动把<code>消息</code>转换为<code>以太坊签名消息</code>，然后发起签名，所以我们只需要输入<code>消息</code>和<code>签名者钱包account</code>即可。需要注意的是输入的<code>签名者钱包account</code>需要和<code>metamask</code>当前连接的<code>account</code>一致才能使用</p>
+<p>在一个连接了钱包的网站浏览器<code>Console</code>输入以下指令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">ethereum</span><span class="p">.</span><span class="nx">enable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">account</span> <span class="o">=</span> <span class="s2">&#34;0xe16C1623c1AA7D919cd2241d8b36d9E79C1Be2A2&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hash</span> <span class="o">=</span> <span class="s2">&#34;0x1bf2c0ce4546651a1a2feb457b39d891a6b83931cc2454434f39961345ac378c&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ethereum</span><span class="p">.</span><span class="nx">request</span><span class="p">({</span><span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;personal_sign&#34;</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">[</span><span class="nx">account</span><span class="p">,</span> <span class="nx">hash</span><span class="p">]})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="222使用ethersjs发起签名方法">2.2.2.使用ethers.js发起签名方法</h3>
+<p>1.首先<code>ethers</code>提供了<code>solidityPackedKeccak256</code>打包生成<code>keccak256</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">msgHash</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">solidityPackedKeccak256</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="s1">&#39;uint256&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">account</span><span class="p">,</span> <span class="nx">tokenId</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.注意如果要生成<code>以太坊签名消息</code>，就要再做一次<code>solidityPackedKeccak256</code>打包操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">_msgHash</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">solidityPackedKeccak256</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;bytes32&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="s1">&#39;\x19Ethereum Signed Message:\n32&#39;</span><span class="p">,</span> <span class="nx">msgHash</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.然后调用<code>signer.signMessage</code>去生成签名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">messageHashBytes</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">getBytes</span><span class="p">(</span><span class="nx">_msgHash</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">signer</span><span class="p">.</span><span class="nx">signMessage</span><span class="p">(</span><span class="nx">messageHashBytes</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Signer</code>也就是是以太坊账户的抽象，可以用来签名消息和交易，如将签名的交易发送到以太坊网络以执行状态更改，但它不可实例化。<code>Wallet</code>也就是继承<code>Signer</code>的一个子类，可以实例化，然后做其它操作。上面的<code>signer</code>可以用<code>JsonRpcSigner</code>去获取</p>
+<p>总之，以上代码则可以实现用钱包去签名一个消息</p>
+<h3 id="223使用第三方库的api">2.2.3.使用第三方库的api</h3>
+<p>如果你使用的是<code>wagmi</code>，那它也提供了一个方法<code>useSignMessage</code>去做签名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useSignMessage</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;wagmi&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">signMessage</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useSignMessage</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">signMessage</span><span class="p">({</span> <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello world&#39;</span> <span class="p">})}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">Sign</span> <span class="nx">message</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当然这是写法不同，其底层的逻辑是一样的</p>
+<h2 id="23签名结果">2.3.签名结果</h2>
+<p>以下就是一个签名的基本页面(这里是用的<code>Hardhat</code>做测试)</p>
+<img src="https://ice.frostsky.com/2024/12/12/42af63b8ed2bd079946f39a78622e827.jpeg" align="center" />
+<p>日常操作中，大部分用户都是通过这种方式进行签名。一般来说先获取到需要签名的消息之后，再使用<code>metamask</code>钱包进行签名，最后用签名做其它交互。最终返回的结果为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="mh">0x390d704d7ab732ce034203599ee93dd5d3cb0d4d1d7c600ac11726659489773d559b12d220f99f41d17651b0c1c6a669d346a397f8541760d6b32a5725378b241c</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>签名的长度也就是65字节</p>
+<h1 id="3ecdsa合约相关内容">3.ECDSA合约相关内容</h1>
+<h2 id="31基本概念">3.1.基本概念</h2>
+<p>ECDSA标准中包含两个部分：创建签名以及验证签名</p>
+<h2 id="32创建签名前要创建消息合约中">3.2.创建签名前要创建消息(合约中)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x19</span><span class="s">Ethereum Signed Message:</span><span class="se">\n</span><span class="s">32&#34;</span><span class="p">,</span> <span class="n">hash</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建签名也就是客户端的操作，上面也有</p>
+<h2 id="33验证签名">3.3.验证签名</h2>
+<p>验证签名首先要还原公钥的信息，用的是<code>solidity</code>提供的<code>ecrecover</code>方法。<code>ecrecover(_msgHash, v, r, s)</code>，传入消息hash、签名的<code>v、r、s</code>数据。<code>v</code>代表签名的最后一字节数据，<code>r</code>代表签名前32字节的数据，<code>s</code>代表签名的后32字节数据。而<code>v、r、s</code>数据的获取只能是通过<code>Yul</code>去内存中读取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v</span> <span class="o">:=</span> <span class="nf">byte</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关于<code>Yul</code>的语法这里就不详细阐述，完整的还原公钥(钱包地址)的核心代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">bytes32</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">bytes32</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint8</span> <span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// _signature 签名数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">r</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v</span> <span class="o">:=</span> <span class="nf">byte</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nf">return</span> <span class="n">ecrecover</span><span class="p">(</span><span class="n">_msgHash</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="err">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后返回的公钥地址与传入的地址做对比，看是否验证成功</p>
+<p>完整代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">verify</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_msgHash</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_signature</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_signer</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">recoverSigner</span><span class="p">(</span><span class="n">_msgHash</span><span class="p">,</span> <span class="n">_signature</span><span class="p">)</span> <span class="o">==</span> <span class="n">_signer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">recoverSigner</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_msgHash</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_signature</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 检查签名长度，65是标准r,s,v签名的长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">require</span><span class="p">(</span><span class="n">_signature</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">65</span><span class="p">,</span> <span class="s">&#34;invalid signature length&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes32</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes32</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8</span> <span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span> <span class="o">:=</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v</span> <span class="o">:=</span> <span class="nf">byte</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">mload</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">_signature</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">return</span> <span class="n">ecrecover</span><span class="p">(</span><span class="n">_msgHash</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4使用场景">4.使用场景</h1>
+<p><code>签名的验证</code>我们可以拿这个特性做<code>NFT</code>空投的白名单</p>
+<p>第一种方式是维护一个白名单映射或者数组：客户端链下将钱包地址、<code>tokenId</code>打包消息、做签名，传给合约。合约中还原钱包地址(公钥)后与白名单作对比，包含在内就空投<code>token</code>。这种的方式的缺点在于白名单要在合约里面写死，由合约完全验证</p>
+<p>第二种方式有点中心化：客户端调用中心化接口去获取签名，后端接口中会对钱包地址白名单做判断返回签名，再由合约做签名的有效性验证，最后空投。这种方式好处就是白名单可以维护到具体的数据库中，可配置。只是有点违背<code>去中心化</code>这个理念</p>
+<p>不管怎么说生成签名的过程在客户端、链下，对项目方来说比较经济</p>
+<h1 id="5总结">5.总结</h1>
+<p>以上就是消息、签名的基本概念，虽然平常我们大部分时间接触的是与合约其他方法的交互，但是了解下消息、签名的概念也是有必要的</p>
+<h1 id="6参考链接">6.参考链接</h1>
+<p>1.<a href="https://github.com/WTFAcademy/WTF-Ethers/tree/main/18_Signature" target="_blank" rel="noopener noreffer">Signature</a></p>
+<p>2.<a href="https://docs.ethers.org/v6/api/providers/#Signer-signMessage" target="_blank" rel="noopener noreffer">ethers-signMessage</a></p>
+<p>3.<a href="https://wagmi.sh/react/api/hooks/useSignMessage" target="_blank" rel="noopener noreffer">useSignMessage</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-12-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/" data-title="以太坊中数字签名、消息的概念"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/" data-title="以太坊中数字签名、消息的概念"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/" data-title="以太坊中数字签名、消息的概念"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/" data-title="以太坊中数字签名、消息的概念"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/" class="prev" rel="prev" title="Yul语法入门"><i class="fas fa-angle-left fa-fw"></i>Yul语法入门</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
