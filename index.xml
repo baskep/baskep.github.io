@@ -3,9 +3,16 @@
         <title>早起的老年人の博客</title>
         <link>https://baskep.top/</link>
         <description>早起的老年人做的网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 10 Dec 2022 14:35:12 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 18 Jan 2023 14:35:12 &#43;0800</lastBuildDate>
             <atom:link href="https://baskep.top/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Merkle Tree的介绍</title>
+    <link>https://baskep.top/merkle-tree/</link>
+    <pubDate>Wed, 18 Jan 2023 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/merkle-tree/</guid>
+    <description><![CDATA[1.简介 Merkle Tree也叫默克尔树或哈希树，是区块链的底层加密技术，被比特币和以太坊区块链广泛采用。Merkle Tree是一种自下而上构建的加密]]></description>
+</item><item>
     <title>以太坊中数字签名、消息的概念</title>
     <link>https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/</link>
     <pubDate>Sat, 10 Dec 2022 14:35:12 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://baskep.top/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</guid>
     <description><![CDATA[搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通]]></description>
-</item><item>
-    <title>useEffect的使用</title>
-    <link>https://baskep.top/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
-    <pubDate>Mon, 15 Nov 2021 22:41:34 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/useeffect%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
-    <description><![CDATA[react hooks中的useEffect是用的最频繁，也是需要&rsquo;&lsquo;小心&rsquo;&lsquo;的的hooks，因为一时]]></description>
 </item></channel>
 </rss>

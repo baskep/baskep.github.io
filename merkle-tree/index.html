@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Merkle Tree的介绍 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/merkle-tree/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Merkle Tree的介绍">
+  <meta property="og:description" content="1.简介 Merkle Tree也叫默克尔树或哈希树，是区块链的底层加密技术，被比特币和以太坊区块链广泛采用。Merkle Tree是一种自下而上构建的加密">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-01-18T14:35:12+08:00">
+    <meta property="article:modified_time" content="2023-01-18T14:35:12+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="Merkle Tree的介绍">
+  <meta name="twitter:description" content="1.简介 Merkle Tree也叫默克尔树或哈希树，是区块链的底层加密技术，被比特币和以太坊区块链广泛采用。Merkle Tree是一种自下而上构建的加密">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/merkle-tree/" /><link rel="prev" href="https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Merkle Tree的介绍",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/merkle-tree\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2266 ,
+        "url": "https:\/\/baskep.top\/merkle-tree\/","datePublished": "2023-01-18T14:35:12+08:00","dateModified": "2023-01-18T14:35:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Merkle Tree的介绍</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-01-18">2023-01-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2266 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1简介">1.简介</a></li>
+    <li><a href="#2用途">2.用途</a></li>
+    <li><a href="#3验证过程">3.验证过程</a></li>
+    <li><a href="#4使用merkle-tree对白名单做校验">4.使用Merkle Tree对白名单做校验</a></li>
+    <li><a href="#5利用merkle-tree发放nft白名单">5.利用Merkle Tree发放NFT白名单</a></li>
+    <li><a href="#6总结">6.总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1简介">1.简介</h1>
+<p><code>Merkle Tree</code>也叫默克尔树或哈希树，是区块链的底层加密技术，被比特币和以太坊区块链广泛采用。<code>Merkle Tree</code>是一种自下而上构建的加密树，每个叶子是对应数据的哈希，而每个非叶子为它的2个子节点的哈希。如下图所示：</p>
+<img src="https://ice.frostsky.com/2024/12/15/f3e59f14c1912db4f84de1a9d7ca5b6f.png" align="center" />
+<h1 id="2用途">2.用途</h1>
+<p><code>Merkle Tree</code>允许对大型数据结构的内容进行有效和安全的验证（<code>Merkle Proof</code>）</p>
+<p>对于有<code>N</code>个叶子结点的<code>Merkle Tree</code>，在已知<code>root</code>根值的情况下，验证某个数据是否有效（属于<code>Merkle Tree</code>叶子结点）只需要<code>ceil(log₂N)</code>个数据（也叫<code>proof</code>）</p>
+<p>如果数据有误，或者给的<code>proof</code>错误，则无法还原出<code>root</code>根植</p>
+<p>在实际使用中，复杂的<code>Merkle Tree</code>可以利用<code>javascript</code>库<code>merkletreejs</code>来生成和管理，链上只需要存储一个根值，非常节省<code>gas</code>。很多项目比如<code>NFT</code>、<code>Token</code>， 都选择利用<code>Merkle Tree</code>来验证发放白名单然后空投</p>
+<h1 id="3验证过程">3.验证过程</h1>
+<p>查看上图，以基础数据<code>L1</code>节点为例，如果要想验证<code>L1</code>是否在某个<code>Merkle Tree</code>内，那么：</p>
+<p>3.1.首先对<code>L1</code>做<code>keccak256</code>加密，生成<code>hash(L1)</code></p>
+<p>3.2.还需要知道<code>L2</code>的<code>hash(L2)</code>；以及<code>root</code>的子节点<code>hash(1)</code>，它是由<code>L3</code>、<code>L4</code>分别生成的<code>hash</code>，再合并生成的<code>hash(1)</code>。也就是上面说的<code>proof</code></p>
+<p>3.3.这样从<code>hash(L1)</code>往上生成<code>root</code>，与事先初始化好的<code>root</code>做对比，如果相等，那么就是在该<code>root</code>下的<code>Merkle Tree</code>内</p>
+<h1 id="4使用merkle-tree对白名单做校验">4.使用Merkle Tree对白名单做校验</h1>
+<p>我们可以选择用<a href="https://github.com/merkletreejs/merkletreejs" target="_blank" rel="noopener noreffer">merkletreejs</a>来初始化数据</p>
+<p>1.创建白名单地址数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">MerkleTree</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;merkletreejs&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 白名单地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">tokens</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0x5B38Da6a701c568545dCfcB03FcB875f56beddC4&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.将数据进行<code>keccak256</code>哈希，创建叶子结点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">leaf</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">x</span> <span class="p">=&gt;</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">keccak256</span><span class="p">(</span><span class="nx">x</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>题外话：<code>solidity</code>中生成<code>keccak256</code>哈希的方式有所不同，它需要一个<code>memory</code>数据，所以我们要先对数据<code>abi.encodePacked</code>处理，生成字节编码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.创建<code>Merkle Tree</code>，哈希函数仍然选择<code>keccak256</code>，可选参数<code>sortPairs: true</code>（<a href="https://github.com/miguelmota/merkletreejs/blob/master/docs/classes/_src_merkletree_.merkletree.md#constructor" target="_blank" rel="noopener noreffer">constructor函数文档</a>），与<code>Merkle Tree</code>合约处理方式保持一致</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">merkletree</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MerkleTree</span><span class="p">(</span><span class="nx">leaf</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">keccak256</span><span class="p">,</span> <span class="p">{</span> <span class="nx">sortPairs</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>4.获得<code>Merkle Tree</code>的<code>root</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">merkletree</span><span class="p">.</span><span class="nx">getHexRoot</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>5.获得第<code>0</code>个叶子节点的<code>proof</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">proof</span> <span class="o">=</span> <span class="nx">merkletree</span><span class="p">.</span><span class="nx">getHexProof</span><span class="p">(</span><span class="nx">leaf</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>6.完整代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">MerkleTree</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;merkletreejs&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 1. 生成merkle tree
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;\n1. 生成merkle tree&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 白名单地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">tokens</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0x5B38Da6a701c568545dCfcB03FcB875f56beddC4&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// leaf
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">leaf</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">x</span> <span class="p">=&gt;</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">keccak256</span><span class="p">(</span><span class="nx">x</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 完整merkletree
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">merkletree</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MerkleTree</span><span class="p">(</span><span class="nx">leaf</span><span class="p">,</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">keccak256</span><span class="p">,</span> <span class="p">{</span> <span class="nx">sortPairs</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 验证leaf[0]所需要的proof
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">proof</span> <span class="o">=</span> <span class="nx">merkletree</span><span class="p">.</span><span class="nx">getHexProof</span><span class="p">(</span><span class="nx">leaf</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 根节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">merkletree</span><span class="p">.</span><span class="nx">getHexRoot</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Leaf:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">leaf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;\nMerkleTree:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">merkletree</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;\nProof:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">proof</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;\nRoot:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后是合约部分：</p>
+<p>1.验证函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="c1">// 当通过`proof`和`leaf`重建出的`root`与给定的`root`相等时，返回`true`，数据有效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">function</span> <span class="nf">verify</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">proof</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="n">root</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="n">leaf</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">processProof</span><span class="p">(</span><span class="n">proof</span><span class="p">,</span> <span class="n">leaf</span><span class="p">)</span> <span class="o">==</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.对hash进行排序：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">_hashPair</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">a</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">b</span><span class="p">)</span> <span class="k">private</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span> <span class="o">?</span> <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">:</span> <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.构造每次节点的<code>hash</code>：通过Merkle树用<code>leaf</code>和<code>proof</code>计算出<code>root</code>. 当重建出的<code>root</code>和给定的<code>root</code>相同时，<code>proof</code>才是有效的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">processProof</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">proof</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">leaf</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="n">computedHash</span> <span class="o">=</span> <span class="n">leaf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">proof</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">computedHash</span> <span class="o">=</span> <span class="n">_hashPair</span><span class="p">(</span><span class="n">computedHash</span><span class="p">,</span> <span class="n">proof</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">computedHash</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所以验证的时候，调用调用<code>verify</code>的方法即可</p>
+<h1 id="5利用merkle-tree发放nft白名单">5.利用Merkle Tree发放NFT白名单</h1>
+<p>使用<code>Merkle Tree</code>验证白名单，然后空投项目是常见的用途，<code>leaf</code>和<code>proof</code>可以存在后端，链上仅需存储一个<code>root</code>的值，非常节省<code>gas</code></p>
+<p>一个示例合约:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 引入验证合约
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;MerkleProof.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ERC721标准合约
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;ERC721.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">MerkleTree</span> <span class="k">is</span> <span class="n">ERC721</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes32</span> <span class="k">immutable</span> <span class="k">public</span> <span class="n">root</span><span class="p">;</span> <span class="c1">// Merkle树的根
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">mintedAddress</span><span class="p">;</span>   <span class="c1">// 记录已经mint的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 构造函数，初始化NFT合集的名称、代号、Merkle树的根
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">(</span><span class="kt">string</span> <span class="k">memory</span> <span class="nb">name</span><span class="p">,</span> <span class="kt">string</span> <span class="k">memory</span> <span class="n">symbol</span><span class="p">,</span> <span class="kt">bytes32</span> <span class="n">merkleroot</span><span class="p">)</span> <span class="n">ERC721</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">root</span> <span class="o">=</span> <span class="n">merkleroot</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 利用Merkle树验证地址并完成mint
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">mint</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">tokenId</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[]</span> <span class="n">calldata</span> <span class="n">proof</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">_verify</span><span class="p">(</span><span class="n">_leaf</span><span class="p">(</span><span class="n">account</span><span class="p">),</span> <span class="n">proof</span><span class="p">),</span> <span class="s">&#34;Invalid merkle proof&#34;</span><span class="p">);</span> <span class="c1">// Merkle检验通过
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">mintedAddress</span><span class="p">[</span><span class="n">account</span><span class="p">],</span> <span class="s">&#34;Already minted!&#34;</span><span class="p">);</span> <span class="c1">// 地址没有mint过
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_mint</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">tokenId</span><span class="p">);</span> <span class="c1">// mint
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">mintedAddress</span><span class="p">[</span><span class="n">account</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">// 记录mint过的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 计算Merkle树叶子的哈希值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">_leaf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">internal</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">account</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Merkle树验证，调用MerkleProof库的verify()函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">_verify</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">leaf</span><span class="p">,</span> <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">proof</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">MerkleProof</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">proof</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">leaf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>合约中包含的状态变量：</p>
+<p>1.<code>root</code>存储了<code>Merkle Tree</code>的根，部署合约的时候赋值</p>
+<p>2.<code>mintedAddress</code>是一个<code>mapping</code>，记录了已经<code>mint</code>过的地址，某地址mint成功后进行赋值</p>
+<p>函数：</p>
+<ul>
+<li><code>constructor</code>：初始化<code>NFT</code>的名称和代号，还有<code>Merkle Tree</code>的<code>root</code></li>
+<li><code>mint()</code>函数：利用白名单铸造<code>NFT</code>。参数为白名单地址<code>account</code>，铸造的<code>tokenId</code>，和<code>proof</code>。首先验证<code>address</code>是否在白名单中，验证通过则把序号为<code>tokenId</code>的<code>NFT</code>铸造给该地址，并将它记录到<code>mintedAddress</code>，此过程中调用了<code>_leaf()</code>和<code>_verify()</code>函数</li>
+<li><code>_leaf()</code>函数：计算了<code>Merkle Tree</code>的叶子地址的哈希</li>
+<li><code>_verify()</code>函数：调用了<code>MerkleProof</code>库的<code>verify()</code>函数，进行<code>Merkle Tree</code>验证</li>
+</ul>
+<h1 id="6总结">6.总结</h1>
+<p>以上就是<code>Merkle Tree</code>的基本概念和用途。实际我们用它做白名单验证空投时，钱包白名单地址存储在中心化数据库中，由后台管理系统去维护。<code>mint</code>时，由合约验证数据的有效性，合约也只是存储<code>root</code>节点的<code>hash</code></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-01-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/merkle-tree/" data-title="Merkle Tree的介绍"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/merkle-tree/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/merkle-tree/" data-title="Merkle Tree的介绍"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/merkle-tree/" data-title="Merkle Tree的介绍"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/merkle-tree/" data-title="Merkle Tree的介绍"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/" class="prev" rel="prev" title="以太坊中数字签名、消息的概念"><i class="fas fa-angle-left fa-fw"></i>以太坊中数字签名、消息的概念</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
