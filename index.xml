@@ -3,9 +3,16 @@
         <title>早起的老年人の博客</title>
         <link>https://baskep.top/</link>
         <description>早起的老年人做的网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 18 Jan 2023 14:35:12 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 07 Feb 2023 14:35:12 &#43;0800</lastBuildDate>
             <atom:link href="https://baskep.top/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>NFT市场的概况</title>
+    <link>https://baskep.top/nft%E5%B8%82%E5%9C%BA%E7%9A%84%E6%A6%82%E5%86%B5/</link>
+    <pubDate>Tue, 07 Feb 2023 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/nft%E5%B8%82%E5%9C%BA%E7%9A%84%E6%A6%82%E5%86%B5/</guid>
+    <description><![CDATA[1.前言 2022年，我第一次踏入Web3这个行业，随着2022年的过去，我们公司运营的NFT交易所也走向了末尾，面临着停止运营的窘境。回顾这]]></description>
+</item><item>
     <title>Merkle Tree的介绍</title>
     <link>https://baskep.top/merkle-tree/</link>
     <pubDate>Wed, 18 Jan 2023 14:35:12 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://baskep.top/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</guid>
     <description><![CDATA[1.vite的基本介绍 vite是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成： 一个开发服务器，它基于原生ES模块提供了]]></description>
-</item><item>
-    <title>从0构建一个Nodejs脚手架</title>
-    <link>https://baskep.top/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</link>
-    <pubDate>Sun, 12 Dec 2021 01:54:55 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/%E4%BB%8E0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AAnodejs%E8%84%9A%E6%89%8B%E6%9E%B6/</guid>
-    <description><![CDATA[搭建脚手架的目的是为了快速搭建项目、按照一定的规范提供相应的项目模板，比如常见的 vue-cli、create-react-app，这些都是通]]></description>
 </item></channel>
 </rss>
