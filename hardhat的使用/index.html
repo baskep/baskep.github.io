@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Hardhat的使用 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Hardhat的使用">
+  <meta property="og:description" content="1.前言 开发以太坊合约，基础语言为Solidity，但是在技术栈的选择上却有很多种 比如直接用Remix直接手撸，Remix是以太坊官方推荐的">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-07-25T14:35:12+08:00">
+    <meta property="article:modified_time" content="2023-07-25T14:35:12+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="Hardhat的使用">
+  <meta name="twitter:description" content="1.前言 开发以太坊合约，基础语言为Solidity，但是在技术栈的选择上却有很多种 比如直接用Remix直接手撸，Remix是以太坊官方推荐的">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://baskep.top/uniswap%E4%BB%8B%E7%BB%8D/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hardhat的使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  6677 ,
+        "url": "https:\/\/baskep.top\/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8\/","datePublished": "2023-07-25T14:35:12+08:00","dateModified": "2023-07-25T14:35:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Hardhat的使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际应用</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-07-25">2023-07-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6677 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1前言">1.前言</a></li>
+    <li><a href="#2hardhat介绍">2.Hardhat介绍</a></li>
+    <li><a href="#3初始化项目">3.初始化项目</a>
+      <ul>
+        <li><a href="#31init">3.1.init</a></li>
+        <li><a href="#32目录文件说明">3.2.目录文件说明</a></li>
+        <li><a href="#33需要安装的devdependencies说明">3.3.需要安装的<code>devDependencies</code>说明</a></li>
+        <li><a href="#34其它配置文件的说明">3.4.其它配置文件的说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#4hardhatconfigts">4.hardhat.config.ts</a>
+      <ul>
+        <li><a href="#41基本内置对象解释">4.1.基本内置对象解释</a></li>
+        <li><a href="#42插件的引入">4.2.插件的引入</a></li>
+        <li><a href="#43插件的配置">4.3.插件的配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#5合约开发">5.合约开发</a></li>
+    <li><a href="#6联调">6.联调</a>
+      <ul>
+        <li><a href="#61npx-hardhat-node">6.1.npx hardhat node</a></li>
+        <li><a href="#62将合约部署到本地">6.2.将合约部署到本地</a></li>
+        <li><a href="#63hardhat--remix联调">6.3.Hardhat + Remix联调</a></li>
+        <li><a href="#64输出abi等文件">6.4.输出ABI等文件</a></li>
+        <li><a href="#65测试钱包的导入">6.5.测试钱包的导入</a></li>
+        <li><a href="#66本地调试存在的问题">6.6.本地调试存在的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#7部署">7.部署</a></li>
+    <li><a href="#8总结">8.总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1前言">1.前言</h1>
+<p>开发以太坊合约，基础语言为<code>Solidity</code>，但是在技术栈的选择上却有很多种</p>
+<p>比如直接用<code>Remix</code>直接手撸，<code>Remix</code>是以太坊官方推荐的一款开发以太坊智能合约的IDE(集成开发环境)，它内置了一套<code>EVM</code>以及<code>钱包账户</code>，也提供了各种调试功能以及日志输出功能。但社区还有很多第三方合约开发框架，比如<code>Truffle</code>、<code>Foundry</code>、<code>Hardhat</code>，可以结合<code>VSCode</code>进行开发</p>
+<h1 id="2hardhat介绍">2.Hardhat介绍</h1>
+<p><code>Hardhat</code>是一个基于<code>Nodejs</code>和<code>Solidity</code>的开发框架。它用于编辑、编译、调试和部署智能合约，其内部拆分成了不同的组件，所有这些组件共同构成了一个完整的开发环境</p>
+<p><strong>Hardhat是围绕任务</strong>和<strong>插件</strong>的概念设计的，每次从命令行运行<code>hardhat</code> 时，都在运行一项任务。例如，<code>npx hardhat compile</code>运行内置<code>compile</code>任务；<code>npx hardhat accounts</code>获取当前<code>EVM</code>的一些账户信息。任务可以调用其他任务，从而允许定义复杂的工作流程</p>
+<p>而Hardhat里面又包含了很多插件，比如<code>部署合约</code>、<code>钱包管理</code>、<code>区块链网络控制</code>等等插件，官方也专门罗列了一些<a href="https://hardhat.org/hardhat-runner/plugins" target="_blank" rel="noopener noreffer">插件集</a></p>
+<p>关于<code>Hardhat</code>的优点：</p>
+<p>1.拥有大量插件，并允许自定义、灵活性和可扩展性</p>
+<p>2.提供了console.log() 调试能力，会在调试时提供代码中发生的堆栈跟踪</p>
+<p>3.提供原生<code>Typescript</code>支持，并且支持更多<code>VSCode</code>插件协作开发</p>
+<p>4.Hardhat带有一个内置的本地以太坊网络，称为<code>Hardhat Network</code>，用于在本地机器上运行和部署智能合约，是一个专为开发而设计的本地以太坊网络节点</p>
+<p>5.提供内置的钱包账户管理，与本地以太坊网络胚胎使用</p>
+<h1 id="3初始化项目">3.初始化项目</h1>
+<h2 id="31init">3.1.init</h2>
+<p>首先<code>npm init</code>初始化一个<code>npm</code>仓库，然后运行<code>npx hardhat init</code>去初始化一个<code>Hardhat</code>工程</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://ice.frostsky.com/2024/12/26/723fb770f75f2bb5fc96efd5cdbb73af.jpeg"
+        data-srcset="https://ice.frostsky.com/2024/12/26/723fb770f75f2bb5fc96efd5cdbb73af.jpeg, https://ice.frostsky.com/2024/12/26/723fb770f75f2bb5fc96efd5cdbb73af.jpeg 1.5x, https://ice.frostsky.com/2024/12/26/723fb770f75f2bb5fc96efd5cdbb73af.jpeg 2x"
+        data-sizes="auto"
+        alt="https://ice.frostsky.com/2024/12/26/723fb770f75f2bb5fc96efd5cdbb73af.jpeg"
+        title="723fb770f75f2bb5fc96efd5cdbb73af.jpeg" /></p>
+<p>这里你可以根据自己的需求去创建想要的项目类型，这里我选择创建一个<code>ts</code>类型的项目，此时项目的目录为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hardhat-test
+</span></span><span class="line"><span class="cl">├─.gitignore
+</span></span><span class="line"><span class="cl">├─.npmrc
+</span></span><span class="line"><span class="cl">├─README.md
+</span></span><span class="line"><span class="cl">├─hardhat.config.ts
+</span></span><span class="line"><span class="cl">├─package-lock.json
+</span></span><span class="line"><span class="cl">├─package.json
+</span></span><span class="line"><span class="cl">├─tsconfig.json
+</span></span><span class="line"><span class="cl">├─test
+</span></span><span class="line"><span class="cl">|  └Lock.ts
+</span></span><span class="line"><span class="cl">├─ignition
+</span></span><span class="line"><span class="cl">|    ├─modules
+</span></span><span class="line"><span class="cl">|    |    └Lock.ts
+</span></span><span class="line"><span class="cl">├─contracts
+</span></span><span class="line"><span class="cl">|     └Lock.sol
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="32目录文件说明">3.2.目录文件说明</h2>
+<p><code>hardhat.config.ts</code>：Hardhat的配置文件，前面说过Hardhat是围绕插件以及任务设计的，所以这个配置文件里可以定义运行的任务、引用额外的插件以及配置插件的用法</p>
+<p><code>tsconfig.json</code>：ts的配置文件</p>
+<p><code>test</code>：合约单元测试目录，Hardhat采用<code>chai</code>断言库去写单元测试</p>
+<p><code>ignition</code>：最新的<code>Hardhat</code>采用的<code>@nomicfoundation/hardhat-ignition</code>插件去实现的合约的验证及部署，<code>ignition</code>目录下放的就是合约打包部署的配置，这样当你有多个合约需要部署时，就可以新建多个模块的构建配置，然后run <code>npx hardhat ignition deploy 指定目录</code>去部署指定合约，<a href="https://hardhat.org/ignition/docs/getting-started" target="_blank" rel="noopener noreffer">ignition说明</a></p>
+<p><code>contracts</code>：实际合约文件存放目录</p>
+<h2 id="33需要安装的devdependencies说明">3.3.需要安装的<code>devDependencies</code>说明</h2>
+<p>以下是一些基本的<code>npm devDependencies</code></p>
+<p><code>@eslint/js</code>：可以理解为一个集成的<code>eslint</code>工具库，它提供了完整的<code>eslint</code>配置选项供你自己选择使用</p>
+<p><code>@nomicfoundation/hardhat-chai-matchers</code>：为<code>chai</code>断言库提供拓展，添加了一些特定的语法，让合约测试易于编写和阅读，<a href="https://hardhat.org/hardhat-chai-matchers/docs/overview" target="_blank" rel="noopener noreffer">官方说明</a></p>
+<p><code>@nomicfoundation/hardhat-ethers</code>：Hardhat中对<code>ethers</code>的支持，引入这个插件后，可以在hardhat运行环境中直接使用<code>ethers</code>，<a href="https://www.npmjs.com/package/@nomiclabs/hardhat-ethers" target="_blank" rel="noopener noreffer">文档说明</a></p>
+<p><code>@nomicfoundation/hardhat-ignition</code>：ignition插件，提供构建部署合约的能力</p>
+<p><code>@nomicfoundation/hardhat-ignition-ethers</code>：使用ignition插件时，提供使用<code>ethers</code>、<code>viem</code>的能力</p>
+<p><code>@nomicfoundation/hardhat-ledger</code>：提供对硬件钱包的支持，硬件钱包的账户信息可以直接配置在<code>hardhat.config.ts</code>中</p>
+<p><code>@nomicfoundation/hardhat-network-helpers</code>：Hardhat本地以太坊网络支持插件，可以拿到本地以太坊网络的<code>区块</code>、<code>网络</code>、<code>余额</code>、<code>Gas</code>费等等信息，方便调试，也提供了api去改变这些值，<a href="https://hardhat.org/hardhat-network/docs/reference#hardhat-network-methods" target="_blank" rel="noopener noreffer">官方说明</a></p>
+<p><code>@nomicfoundation/hardhat-verify</code>：可验证合约源代码，当知道合约部署地址和构造函数参数，插件就可以在本地检测要验证哪个合约。主要用来检测合约或者函数的有效性</p>
+<p><code>@openzeppelin/contracts</code>：<code>openzeppelin</code>提供的开源合约，<code>import</code>即使用，提高开发的一些效率</p>
+<p><code>chai</code>：断言库，具体使用语法参考<a href="https://www.chaijs.com/api/plugins/" target="_blank" rel="noopener noreffer">官方说明</a></p>
+<p><code>hardhat-abi-exporter</code>：Hardhat在编译时可以导出合约的ABI文件，具体也是在<code>hardhat.config.ts</code>里配置<code>hardhat-abi-exporter</code>的导出规则</p>
+<p><code>hardhat-contract-sizer</code>：提供输出合约文件大小的能力，需要配置命令<code>npx hardhat size-contracts</code></p>
+<p><code>hardhat-gas-reporter</code>：与<code>hardhat-contract-sizer</code>类似，提供输出合约<code>Gas</code>费的能力，<a href="https://www.npmjs.com/package/hardhat-gas-reporter" target="_blank" rel="noopener noreffer">详细说明</a></p>
+<p><code>solhint</code>：对<code>Solidity</code>语法做lint操作的插件，有点类似于<code>eslint</code>，但实际用起来发现它是有一些迟钝的感觉，不能及时去提示语法的问题，另外在<code>VSCode</code>开发环境下，推荐使用插件<a href="https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity" target="_blank" rel="noopener noreffer">solidity</a>来配套使用</p>
+<p><code>solidity-coverage</code>：获取合约测试覆盖率插件</p>
+<p>完整的<code>devDependencies</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="s2">&#34;devDependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@eslint/js&#34;</span><span class="o">:</span> <span class="s2">&#34;^9.15.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@nomicfoundation/hardhat-chai-matchers&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.0.8&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@nomicfoundation/hardhat-ethers&#34;</span><span class="o">:</span> <span class="s2">&#34;^3.0.8&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@nomicfoundation/hardhat-ignition&#34;</span><span class="o">:</span> <span class="s2">&#34;^0.15.7&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@nomicfoundation/hardhat-ignition-ethers&#34;</span><span class="o">:</span> <span class="s2">&#34;^0.15.7&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@nomicfoundation/hardhat-ledger&#34;</span><span class="o">:</span> <span class="s2">&#34;^1.0.3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@nomicfoundation/hardhat-network-helpers&#34;</span><span class="o">:</span> <span class="s2">&#34;^1.0.12&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@nomicfoundation/hardhat-verify&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.0.12&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@openzeppelin/contracts&#34;</span><span class="o">:</span> <span class="s2">&#34;^5.1.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@types/chai&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.3.20&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@types/mocha&#34;</span><span class="o">:</span> <span class="s2">&#34;^10.0.10&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@types/node&#34;</span><span class="o">:</span> <span class="s2">&#34;^22.9.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;chai&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.5.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;eslint&#34;</span><span class="o">:</span> <span class="s2">&#34;^9.15.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;eslint-config-prettier&#34;</span><span class="o">:</span> <span class="s2">&#34;^9.1.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;ethers&#34;</span><span class="o">:</span> <span class="s2">&#34;^6.13.4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;hardhat&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.22.16&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;hardhat-abi-exporter&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.10.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;hardhat-contract-sizer&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.10.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;hardhat-gas-reporter&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.2.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;prettier&#34;</span><span class="o">:</span> <span class="s2">&#34;^3.3.3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;prettier-plugin-solidity&#34;</span><span class="o">:</span> <span class="s2">&#34;^1.4.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;solhint&#34;</span><span class="o">:</span> <span class="s2">&#34;^5.0.3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;solidity-coverage&#34;</span><span class="o">:</span> <span class="s2">&#34;^0.8.13&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;ts-node&#34;</span><span class="o">:</span> <span class="s2">&#34;^10.9.2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;typescript&#34;</span><span class="o">:</span> <span class="s2">&#34;^5.6.3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;typescript-eslint&#34;</span><span class="o">:</span> <span class="s2">&#34;^8.15.0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="34其它配置文件的说明">3.4.其它配置文件的说明</h2>
+<p>1.根目录下新建<code>eslint.config</code>，作为<code>eslint</code>配置文件，配置规则就用<code>@eslint/js</code>所封装完成的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="cm">/* eslint-disable @typescript-eslint/no-require-imports */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">eslint</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;@eslint/js&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">tseslint</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;typescript-eslint&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">eslintConfigPrettier</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;eslint-config-prettier&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* eslint-enable @typescript-eslint/no-require-imports */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">tseslint</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">files</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;**/*.{js,ts}&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">extends</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">eslint</span><span class="p">.</span><span class="nx">configs</span><span class="p">.</span><span class="nx">recommended</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">tseslint</span><span class="p">.</span><span class="nx">configs</span><span class="p">.</span><span class="nx">recommended</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">tseslint</span><span class="p">.</span><span class="nx">configs</span><span class="p">.</span><span class="nx">stylistic</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">eslintConfigPrettier</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">plugins</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;@typescript-eslint&#34;</span><span class="o">:</span> <span class="nx">tseslint</span><span class="p">.</span><span class="nx">plugin</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">languageOptions</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">ecmaVersion</span><span class="o">:</span> <span class="s2">&#34;latest&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">parser</span><span class="o">:</span> <span class="nx">tseslint</span><span class="p">.</span><span class="nx">parser</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">parserOptions</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">project</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ignores</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;node_modules/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;pnpm-lock.yaml&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;lib/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;cache/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;cache_hardhat/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;cache_hardhat-zk/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;artifacts/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;artifacts-zk/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;typechain-types/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;coverage/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;deployments/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;deployments-zk/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;deployments_tenderly/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;forge-artifacts/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;bin/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;out/**&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.根目录下新建<code>.solcover.js</code>，配置<code>solidity-coverage</code>插件所需要的规则，来生成测试覆盖率</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">skipFiles</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;mocks/&#34;</span><span class="p">,</span> <span class="s2">&#34;lib/&#34;</span><span class="p">,</span> <span class="s2">&#34;test/&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.根目录下新建<code>.solhint.json</code>，设置<code>solhint</code>规则，校验<code>Solidity</code>语法的正确性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;extends&#34;</span><span class="o">:</span> <span class="s2">&#34;solhint:recommended&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;rules&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;func-visibility&#34;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;warn&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&#34;ignoreConstructors&#34;</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;no-empty-blocks&#34;</span><span class="o">:</span> <span class="s2">&#34;off&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;no-global-import&#34;</span><span class="o">:</span> <span class="s2">&#34;off&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;custom-errors&#34;</span><span class="o">:</span> <span class="s2">&#34;off&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>完整规则参考<a href="https://protofire.github.io/solhint/docs/rules.html" target="_blank" rel="noopener noreffer">官方文档</a></p>
+<p>此时整个项目的目录为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hardhat-test
+</span></span><span class="line"><span class="cl">├─.gitignore
+</span></span><span class="line"><span class="cl">├─.npmrc
+</span></span><span class="line"><span class="cl">├─.prettierignore
+</span></span><span class="line"><span class="cl">├─.prettierrc.yml
+</span></span><span class="line"><span class="cl">├─.solcover.js
+</span></span><span class="line"><span class="cl">├─.solhint.json
+</span></span><span class="line"><span class="cl">├─.solhintignore
+</span></span><span class="line"><span class="cl">├─README.md
+</span></span><span class="line"><span class="cl">├─eslint.config.js
+</span></span><span class="line"><span class="cl">├─hardhat.config.ts
+</span></span><span class="line"><span class="cl">├─package-lock.json
+</span></span><span class="line"><span class="cl">├─package.json
+</span></span><span class="line"><span class="cl">├─slither.config.json
+</span></span><span class="line"><span class="cl">├─tsconfig.json
+</span></span><span class="line"><span class="cl">├─test
+</span></span><span class="line"><span class="cl">├─ignition
+</span></span><span class="line"><span class="cl">├─contracts
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4hardhatconfigts">4.hardhat.config.ts</h1>
+<p><code>hardhat.config.ts</code>作为<code>Hardhat</code>核心的配置文件，里面定义了所有插件以及任务的使用，所以有必要详细说明</p>
+<h2 id="41基本内置对象解释">4.1.基本内置对象解释</h2>
+<p>首先<code>import { HardhatUserConfig, task, vars } from &quot;hardhat/config&quot;</code></p>
+<p><code>HardhatUserConfig</code>：是hardhat config的ts类型声明对象</p>
+<p><code>task</code>：Hardhat中的任务对象，任务是带有一些相关元数据的 js 异步函数，运行在Nodejs环境，其基本定义为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">task</span><span class="o">&lt;</span><span class="nx">TaskArgumentsT</span> <span class="kr">extends</span> <span class="nx">TaskArguments</span><span class="o">&gt;</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span><span class="o">?:</span> <span class="nx">string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">action</span><span class="o">?:</span> <span class="nx">ActionType</span><span class="o">&lt;</span><span class="nx">TaskArgumentsT</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="nx">ConfigurableTaskDefinition</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>声明任务的名称、描述以及它的回调函数，在任务里，你可以读取本地Hardhat网络的数据、钱包的信息等等操作，比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 输出所有账户
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">task</span><span class="p">(</span><span class="s2">&#34;accounts&#34;</span><span class="p">,</span> <span class="s2">&#34;Prints the list of accounts&#34;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">hre</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">accounts</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">hre</span><span class="p">.</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">getSigners</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">account</span> <span class="k">of</span> <span class="nx">accounts</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 访问EVM的版本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">task</span><span class="p">(</span><span class="s2">&#34;evm&#34;</span><span class="p">,</span> <span class="s2">&#34;Prints the configured EVM version&#34;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">hre</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hre</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">solidity</span><span class="p">.</span><span class="nx">compilers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">settings</span><span class="p">.</span><span class="nx">evmVersion</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 获取每个账户的地址以及余额信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">task</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;balances&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;Prints the list of accounts and their balances&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">hre</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">accounts</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">hre</span><span class="p">.</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">getSigners</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">account</span> <span class="k">of</span> <span class="nx">accounts</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">account</span><span class="p">.</span><span class="nx">address</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34; &#34;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="kr">await</span> <span class="nx">hre</span><span class="p">.</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">provider</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">account</span><span class="p">.</span><span class="nx">address</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这其中又牵扯到<code>hre</code>这个对象</p>
+<p><code>hre</code>：这是<code>Hardhat</code>运行时环境的一个实例，它包含了Hardhat在运行任务、测试或脚本时公开的所有功能。在初始化期间，Hardhat配置文件实质上会构建要添加到hre的内容列表，这包括任务、配置和插件。然后当任务、测试或脚本运行时，hre可以访问整个系统的所有的内容，hre的作用是集中协调所有插件、任务、变量配置</p>
+<p><code>vars</code>：在<code>Hardhat</code>可以配置很多特定值或不应包含在代码存储库中的数据，当通过<code>vars</code>对象的<code>set</code>方法设置变量后，在运行时，就可通过<code>vars</code>的<code>get</code>方法获取变量值，并且更新配置。比如控制台设置一个变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">$</span> <span class="n">npx</span> <span class="n">hardhat</span> <span class="n">vars</span> <span class="n">set</span> <span class="n">INFURA_API_KEY</span>
+</span></span><span class="line"><span class="cl"><span class="err">✔</span> <span class="n">Enter</span> <span class="n">value</span><span class="p">:</span> <span class="o">********************************</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>hardhat.config.ts</code>配置中获取这个变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">onst</span> <span class="nx">INFURA_API_KEY</span> <span class="o">=</span> <span class="nx">vars</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;INFURA_API_KEY&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">networks</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sepolia</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">url</span><span class="o">:</span> <span class="sb">`https://sepolia.infura.io/v3/</span><span class="si">${</span><span class="nx">INFURA_API_KEY</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>vars.get</code>方法可以传递第二个参数，作为变量的默认值，比如我这里配置一个硬件钱包地址、一个私钥、eth 主链的url地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ethMainnetUrl</span> <span class="o">=</span> <span class="nx">vars</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;ETH_MAINNET_URL&#34;</span><span class="p">,</span> <span class="s2">&#34;https://rpc.ankr.com/eth&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">accounts</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">vars</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;PRIVATE_KEY&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;xxxx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ledgerAccounts</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">vars</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;LEDGER_ACCOUNT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;xxx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="42插件的引入">4.2.插件的引入</h2>
+<p>上面已经解释插件内容，按需引入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-ethers&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-verify&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-ledger&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-chai-matchers&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-ignition-ethers&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@typechain/hardhat&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;hardhat-gas-reporter&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;hardhat-abi-exporter&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;solidity-coverage&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;hardhat-contract-sizer&#34;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="43插件的配置">4.3.插件的配置</h2>
+<p>插件引入后，还需要额外的配置，比如上面引入的插件还需要配置：</p>
+<p><code>contractSizer</code>：对应<code>hardhat-contract-sizer</code>插件的配置，详细说明查看官方文档</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">contractSizer</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">alphaSort</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">runOnCompile</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">disambiguatePaths</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">strict</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">only</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">except</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;CreateX&#34;</span><span class="p">,</span> <span class="s2">&#34;Create2DeployerLocal&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>gasReporter</code>：<code>hardhat-gas-reporter</code>配置，分析合约gas费</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">gasReporter</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">enabled</span><span class="o">:</span> <span class="nx">vars</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s2">&#34;REPORT_GAS&#34;</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">currency</span><span class="o">:</span> <span class="s2">&#34;USD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>abiExporter</code>：<code>abi</code>导出配置，配置<code>abi</code>文件输出路径、具体<code>abi</code>的文件格式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">abiExporter</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">path</span><span class="o">:</span> <span class="s2">&#34;./abis&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">runOnCompile</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">clear</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">flat</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">only</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">spacing</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pretty</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其它的，比如基本的<strong>合约存放路径</strong>、<strong>Solidity编译版本</strong>、<strong>networks</strong>配置</p>
+<p>其中<code>networks</code>里面包含了上面创建的<code>ethMainnetUrl</code>、<code>accounts</code>、<code>ledgerAccounts</code>变量，指定了<code>eth</code>主链的url、账户等信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">  <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sources</span><span class="o">:</span> <span class="s2">&#34;./contracts/src&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">solidity</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">version</span><span class="o">:</span> <span class="s2">&#34;0.8.28&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">settings</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">optimizer</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">enabled</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">runs</span><span class="o">:</span> <span class="mi">999_999</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">evmVersion</span><span class="o">:</span> <span class="s2">&#34;cancun&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">networks</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ethMain</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">chainId</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">url</span><span class="o">:</span> <span class="nx">ethMainnetUrl</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">accounts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">ledgerAccounts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sepolia</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">chainId</span><span class="o">:</span> <span class="mi">11155111</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;https://eth-sepolia.g.alchemy.com/v2/4Y0PB8rrniQhVx-Oq1N1xhMudybbayTa&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">accounts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时<code>hardhat.config.ts</code>完整内容为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">HardhatUserConfig</span><span class="p">,</span> <span class="nx">task</span><span class="p">,</span> <span class="nx">vars</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;hardhat/config&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-ethers&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-verify&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-ledger&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-chai-matchers&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@nomicfoundation/hardhat-ignition-ethers&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;@typechain/hardhat&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;hardhat-gas-reporter&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;hardhat-abi-exporter&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;solidity-coverage&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s2">&#34;hardhat-contract-sizer&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">task</span><span class="p">(</span><span class="s2">&#34;accounts&#34;</span><span class="p">,</span> <span class="s2">&#34;Prints the list of accounts&#34;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">hre</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">accounts</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">hre</span><span class="p">.</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">getSigners</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">account</span> <span class="k">of</span> <span class="nx">accounts</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">task</span><span class="p">(</span><span class="s2">&#34;evm&#34;</span><span class="p">,</span> <span class="s2">&#34;Prints the configured EVM version&#34;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">hre</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hre</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">solidity</span><span class="p">.</span><span class="nx">compilers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">settings</span><span class="p">.</span><span class="nx">evmVersion</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">task</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;balances&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;Prints the list of accounts and their balances&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">hre</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">accounts</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">hre</span><span class="p">.</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">getSigners</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">account</span> <span class="k">of</span> <span class="nx">accounts</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">account</span><span class="p">.</span><span class="nx">address</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34; &#34;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="kr">await</span> <span class="nx">hre</span><span class="p">.</span><span class="nx">ethers</span><span class="p">.</span><span class="nx">provider</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">account</span><span class="p">.</span><span class="nx">address</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ethMainnetUrl</span> <span class="o">=</span> <span class="nx">vars</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;ETH_MAINNET_URL&#34;</span><span class="p">,</span> <span class="s2">&#34;https://rpc.ankr.com/eth&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">accounts</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">vars</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;PRIVATE_KEY&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;xxx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ledgerAccounts</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">vars</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;LEDGER_ACCOUNT
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;</span><span class="nx">xxx</span><span class="s2">&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">  ),
+</span></span></span><span class="line"><span class="cl"><span class="s2">];
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">const config: HardhatUserConfig = {
+</span></span></span><span class="line"><span class="cl"><span class="s2">  paths: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    sources: &#34;</span><span class="p">.</span><span class="o">/</span><span class="nx">contracts</span><span class="o">/</span><span class="nx">src</span><span class="s2">&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">  },
+</span></span></span><span class="line"><span class="cl"><span class="s2">  solidity: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    version: &#34;</span><span class="mf">0.8</span><span class="p">.</span><span class="mi">28</span><span class="s2">&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    settings: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">      optimizer: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">        enabled: true,
+</span></span></span><span class="line"><span class="cl"><span class="s2">        runs: 999_999,
+</span></span></span><span class="line"><span class="cl"><span class="s2">      },
+</span></span></span><span class="line"><span class="cl"><span class="s2">      evmVersion: &#34;</span><span class="nx">cancun</span><span class="s2">&#34;, 
+</span></span></span><span class="line"><span class="cl"><span class="s2">    },
+</span></span></span><span class="line"><span class="cl"><span class="s2">  },
+</span></span></span><span class="line"><span class="cl"><span class="s2">  networks: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    ethMain: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">      chainId: 1,
+</span></span></span><span class="line"><span class="cl"><span class="s2">      url: ethMainnetUrl,
+</span></span></span><span class="line"><span class="cl"><span class="s2">      accounts,
+</span></span></span><span class="line"><span class="cl"><span class="s2">      ledgerAccounts,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    },
+</span></span></span><span class="line"><span class="cl"><span class="s2">    sepolia: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">      chainId: 11155111,
+</span></span></span><span class="line"><span class="cl"><span class="s2">      url: &#34;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//eth-sepolia.g.alchemy.com/v2/4Y0PB8rrniQhVx-Oq1N1xhMudybbayTa&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">accounts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">contractSizer</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">alphaSort</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">runOnCompile</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">disambiguatePaths</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">strict</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">only</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">except</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;CreateX&#34;</span><span class="p">,</span> <span class="s2">&#34;Create2DeployerLocal&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">gasReporter</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">enabled</span><span class="o">:</span> <span class="nx">vars</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s2">&#34;REPORT_GAS&#34;</span><span class="p">)</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">currency</span><span class="o">:</span> <span class="s2">&#34;USD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">abiExporter</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span><span class="o">:</span> <span class="s2">&#34;./abis&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">runOnCompile</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">clear</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">flat</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">only</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">spacing</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">pretty</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">config</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5合约开发">5.合约开发</h1>
+<p>上面的<code>contracts</code>目录已经说明，是存放合约的文件目录，这里我在<code>contracts</code>下新建一个<code>ERC20</code>文件夹，存放<code>ERC20</code>标准实现的合约</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ERC20
+</span></span><span class="line"><span class="cl">├─ERC20.sol
+</span></span><span class="line"><span class="cl">└IERC20.sol
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体源码就不说了，总之就可以正式开发合约了 ，同时因为集成了<code>solhint</code>，在<code>VScode</code>里开发还会有语法警告、错误提示</p>
+<h1 id="6联调">6.联调</h1>
+<p>合约开发完之后即可与前端进行联调，你可以选择直接将合约部署到<code>Sepolia</code>上，然后购买自定义的<code>ENS</code>服务给前端联调。这种方式的缺点在于：当出现错误时，链上给的错误提示有些时候并不好排查，其次修复问题后还需要重新部署，虽然是测试链，但也比较繁琐</p>
+<p>Hardhat是有自己本地的以太坊网络的，所以我们可以选择直接在本地联调后端，这种方式当然更适合那种全栈，亦或是同一局域网下面的开发人员</p>
+<h2 id="61npx-hardhat-node">6.1.npx hardhat node</h2>
+<p>该命令可以起一个本地以太坊网络服务</p>
+<h2 id="62将合约部署到本地">6.2.将合约部署到本地</h2>
+<p>官方的<a href="https://hardhat.org/ignition/docs/getting-started#overview" target="_blank" rel="noopener noreffer">Ignition模块介绍</a></p>
+<p>打开一个新终端使用<code>Hardhat Ignition</code>模块去部署合约，这里是部署到本地的话，那么就是</p>
+<p><code>npx hardhat ignition deploy ./ignition/modules/ERC20.ts --network localhost</code></p>
+<p>其中<code>ERC20.ts</code>即是你写的合约部署文件，比如部署一个<code>ERC20</code>合约的内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">buildModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;@nomicfoundation/hardhat-ignition/modules&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// buildModule 可以自定义名称
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">LockModule</span> <span class="o">=</span> <span class="nx">buildModule</span><span class="p">(</span><span class="s2">&#34;LockModule&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">m</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">getParameter</span><span class="p">(</span><span class="s2">&#34;_name&#34;</span><span class="p">,</span> <span class="s2">&#34;ERC20_TEST&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">symbol</span> <span class="o">=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">getParameter</span><span class="p">(</span><span class="s2">&#34;_symbol&#34;</span><span class="p">,</span> <span class="s2">&#34;ERC20_TEST&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">ERC20</span> <span class="o">=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="s2">&#34;ERC20&#34;</span><span class="p">,</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">symbol</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span> <span class="nx">ERC20</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">LockModule</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>m.getParameter</code>也是获取参数值的方法，上面获取了<code>name</code>、<code>symbol</code>，并在部署时作为参数传给合约，由合约中的<code>constructor</code>函数初始化</p>
+<p>部署完成后会生成一个合约地址，就可以拿这个合约地址去做交互了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://ice.frostsky.com/2024/12/26/ef4c1ad866b866a2ef565b3eb762d339.png"
+        data-srcset="https://ice.frostsky.com/2024/12/26/ef4c1ad866b866a2ef565b3eb762d339.png, https://ice.frostsky.com/2024/12/26/ef4c1ad866b866a2ef565b3eb762d339.png 1.5x, https://ice.frostsky.com/2024/12/26/ef4c1ad866b866a2ef565b3eb762d339.png 2x"
+        data-sizes="auto"
+        alt="https://ice.frostsky.com/2024/12/26/ef4c1ad866b866a2ef565b3eb762d339.png"
+        title="ef4c1ad866b866a2ef565b3eb762d339.png" /></p>
+<h2 id="63hardhat--remix联调">6.3.Hardhat + Remix联调</h2>
+<p><code>npx hardhat node</code>运行一个本地以太坊网络，如上面所说你可以选择将合约部署到以太坊网络然后联调。除此之外，还可以借助<code>Remix</code>去部署合约，<code>Remix</code>也集成了一套本地以太坊网络，并且在<code>IDE</code>上debug 更加直观也方便，我们完全可以用<code>Remix</code>导入项目后，编译部署到<code>hardhat</code>网络上</p>
+<p>本地以太坊网络运行起来之后，会给一个地址以及一些默认的钱包地址，这些默认的钱包账户都有虚拟的10000ETH余额</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://ice.frostsky.com/2024/12/26/5c9b8b8ae457fc1335c4ebe66bd8a4bd.jpeg"
+        data-srcset="https://ice.frostsky.com/2024/12/26/5c9b8b8ae457fc1335c4ebe66bd8a4bd.jpeg, https://ice.frostsky.com/2024/12/26/5c9b8b8ae457fc1335c4ebe66bd8a4bd.jpeg 1.5x, https://ice.frostsky.com/2024/12/26/5c9b8b8ae457fc1335c4ebe66bd8a4bd.jpeg 2x"
+        data-sizes="auto"
+        alt="https://ice.frostsky.com/2024/12/26/5c9b8b8ae457fc1335c4ebe66bd8a4bd.jpeg"
+        title="5c9b8b8ae457fc1335c4ebe66bd8a4bd.jpeg" /></p>
+<p>然后我们用<code>Remix</code>打开该项目，在部署合约测试时选择<code>Hardhat Provider</code></p>
+<img src="https://ice.frostsky.com/2024/12/26/d609396804d68f7d8b099d53abc472d6.png" alt="d609396804d68f7d8b099d53abc472d6.png" style="zoom:50%;" />
+<p>弹出的窗口里输入<code>Hardhat</code> RPC地址</p>
+<img src="https://ice.frostsky.com/2024/12/26/e793e1a49627fe9934c0d3821beeb82b.png" alt="e793e1a49627fe9934c0d3821beeb82b.png" style="zoom:50%;" />
+<p>这样就完成了合约的本地部署。以上这两种方式都可以拿来联调测试，看个人选择和喜好</p>
+<h2 id="64输出abi等文件">6.4.输出ABI等文件</h2>
+<p>与前端联调，必不可少的就是<code>ABI</code>文件，<code>Hardhat</code>也提供了输出<code>ABI</code>的任务命令<code>npx hardhat compile</code>，运行后会输出<code>abi</code>文件夹到根目录，而编译的版本可以在<code>hardhat.config.ts</code>中去指定</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">solidity</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">version</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="c1">// 编译版本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">settings</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">optimizer</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">enabled</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">runs</span><span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://hardhat.org/hardhat-runner/docs/guides/compile-contracts" target="_blank" rel="noopener noreffer">官方说明</a></p>
+<h2 id="65测试钱包的导入">6.5.测试钱包的导入</h2>
+<p><code>Hardhat</code>网络提供了几个默认的钱包，如上图所示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">Account #0: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
+</span></span><span class="line"><span class="cl">Private Key: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Account #1: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 (10000 ETH)
+</span></span><span class="line"><span class="cl">Private Key: 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Account #2: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC (10000 ETH)
+</span></span><span class="line"><span class="cl">Private Key: 0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a
+</span></span><span class="line"><span class="cl">......
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们可以把这些钱包导入到<code>MetaMask</code>、<code>CoinBase</code>等外部钱包中，这样在本地联调时就有虚拟的ETH余额，比如上面的<code>0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266</code>钱包地址</p>
+<img src="https://ice.frostsky.com/2024/12/26/00064691c70aa1872f17b0627192ea53.png" alt="00064691c70aa1872f17b0627192ea53.png" style="zoom:50%;" />
+<p>注意，该钱包RPC URL为本地服务地址</p>
+<img src="https://ice.frostsky.com/2024/12/26/16ab634a1d4709fba678206e2a499029.png" alt="16ab634a1d4709fba678206e2a499029.png" style="zoom:50%;" />
+<p>在前端应用中，就可以用这个测试钱包联调合约。传统的合约联调方式是部署到<code>Sepolia</code>这样的测试网，然后我们再去水龙头获取一些测试代币才能进行合约的调试，所以本地联调这种方式会相对方便一些，但让你也可以选择部署合约到链上去调试</p>
+<h2 id="66本地调试存在的问题">6.6.本地调试存在的问题</h2>
+<p>1.合约服务必须时刻存在，也就是必须有一个单独的环境配合</p>
+<p>2.本地的以太坊网络因为不存在其它人的链上操作，所以每次请求的<code>nonce</code>应该是递增的，<code>nonce</code>如果不对那么处理的区块就对不上，调用就会失败</p>
+<p>3.本地的环境毕竟是一个模拟的环境，它的<code>Gas</code>费以及内部处理与链上会有差别，所以正式部署前，还需要在链上再进行完整的测试</p>
+<h1 id="7部署">7.部署</h1>
+<p>其实上面已经提到了合约部署。部署时，需要指定部署的网络、使用的钱包(钱包必须准备足够的余额)，比如还是上面的<code>ERC20 module</code>部署：</p>
+<p>本地环境：<code>npx hardhat ignition deploy ./ignition/modules/ERC20.ts --network localhost</code></p>
+<p><code>Sepolia</code>：<code>npx hardhat ignition deploy ./ignition/modules/ERC20.ts --network sepolia</code></p>
+<p><code>EthMain</code>：<code>npx hardhat ignition deploy ./ignition/modules/ERC20.ts --network ethMain</code></p>
+<p>而<code>sepolia</code>、<code>ethMain</code>必须在<code>hardhat.config.ts</code>中指定</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">  <span class="nx">ethMain</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">chainId</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span><span class="o">:</span> <span class="nx">ethMainnetUrl</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">accounts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ledgerAccounts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sepolia</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">chainId</span><span class="o">:</span> <span class="mi">11155111</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span><span class="o">:</span> <span class="s2">&#34;https://eth-sepolia.g.alchemy.com/v2/4Y0PB8rrniQhVx-Oq1N1xhMudybbayTa&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">accounts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="8总结">8.总结</h1>
+<p><code>Hardhat</code>能让我们结合前端工程去实现开发合约的功能，同时他提供了丰富的插件、任务拓展来协助开发，并且还支持完整的本地测试网络。越来越多的主流项目也选择使用<code>Hardhat</code>去开发合约，所以还是有必要了解的</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-07-25</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="Hardhat的使用"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="Hardhat的使用"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="Hardhat的使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/" data-title="Hardhat的使用"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/uniswap%E4%BB%8B%E7%BB%8D/" class="prev" rel="prev" title="Uniswap介绍"><i class="fas fa-angle-left fa-fw"></i>Uniswap介绍</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,7 +3,14 @@
         <title>所有文章 - 早起的老年人の博客</title>
         <link>https://baskep.top/posts/</link>
         <description>所有文章 | 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 02 Apr 2023 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 25 Jul 2023 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Hardhat的使用</title>
+    <link>https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Tue, 25 Jul 2023 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+    <description><![CDATA[1.前言 开发以太坊合约，基础语言为Solidity，但是在技术栈的选择上却有很多种 比如直接用Remix直接手撸，Remix是以太坊官方推荐的]]></description>
+</item><item>
     <title>Uniswap介绍</title>
     <link>https://baskep.top/uniswap%E4%BB%8B%E7%BB%8D/</link>
     <pubDate>Sun, 02 Apr 2023 14:35:12 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.top/graphql%E7%9A%84%E5%85%A5%E9%97%A8/</guid>
     <description><![CDATA[GraphQL 既是一种用于 API 的查询语言，它对API中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更]]></description>
-</item><item>
-    <title>React18的新特性</title>
-    <link>https://baskep.top/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</link>
-    <pubDate>Wed, 13 Apr 2022 23:00:36 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</guid>
-    <description><![CDATA[1.自动批处理 批处理是指React将多个状态更新分组到一个重新渲染中，以获得更好的性能。如果没有自动批处理，我们只对React事件处理程序内]]></description>
 </item></channel>
 </rss>

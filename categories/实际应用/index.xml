@@ -3,7 +3,14 @@
         <title>实际应用 - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.top/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
         <description>实际应用 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 30 Dec 2021 14:13:30 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 25 Jul 2023 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>Hardhat的使用</title>
+    <link>https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Tue, 25 Jul 2023 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+    <description><![CDATA[1.前言 开发以太坊合约，基础语言为Solidity，但是在技术栈的选择上却有很多种 比如直接用Remix直接手撸，Remix是以太坊官方推荐的]]></description>
+</item><item>
     <title>使用Vite去构建React应用</title>
     <link>https://baskep.top/%E4%BD%BF%E7%94%A8vite%E5%8E%BB%E6%9E%84%E5%BB%BAreact%E5%BA%94%E7%94%A8/</link>
     <pubDate>Thu, 30 Dec 2021 14:13:30 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.top/%E6%9C%80%E8%BF%91%E4%B8%80%E4%BA%9B%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
     <description><![CDATA[楼层定位效果 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 const leftNav]]></description>
-</item><item>
-    <title>使用文本过滤的方式防御XSS</title>
-    <link>https://baskep.top/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</link>
-    <pubDate>Mon, 15 Jul 2019 19:12:19 &#43;0700</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/%E6%96%87%E6%9C%AC%E8%BF%87%E6%BB%A4%E7%9A%84%E6%96%B9%E5%BC%8F%E9%98%B2%E5%BE%A1xss/</guid>
-    <description><![CDATA[​ 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其]]></description>
 </item></channel>
 </rss>
