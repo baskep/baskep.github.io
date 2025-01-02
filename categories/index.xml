@@ -3,19 +3,19 @@
         <title>Categories - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.top/categories/</link>
         <description>Categories - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 25 Jul 2023 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>实际应用</title>
-    <link>https://baskep.top/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
-    <pubDate>Tue, 25 Jul 2023 14:35:12 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Feb 2024 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/" rel="self" type="application/rss+xml" /><item>
     <title>日常学习</title>
     <link>https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
-    <pubDate>Sun, 02 Apr 2023 14:35:12 &#43;0800</pubDate>
+    <pubDate>Mon, 26 Feb 2024 14:35:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>实际应用</title>
+    <link>https://baskep.top/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</link>
+    <pubDate>Sat, 25 Nov 2023 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/categories/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>源码理解</title>

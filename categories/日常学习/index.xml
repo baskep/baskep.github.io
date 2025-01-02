@@ -3,45 +3,52 @@
         <title>日常学习 - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
         <description>日常学习 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 02 Apr 2023 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
-    <title>Uniswap介绍</title>
-    <link>https://baskep.top/uniswap%E4%BB%8B%E7%BB%8D/</link>
-    <pubDate>Sun, 02 Apr 2023 14:35:12 &#43;0800</pubDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Feb 2024 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>Wagmi Hooks</title>
+    <link>https://baskep.top/wagmi-hooks/</link>
+    <pubDate>Mon, 26 Feb 2024 14:35:12 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://baskep.top/uniswap%E4%BB%8B%E7%BB%8D/</guid>
-    <description><![CDATA[1.Uniswap简介 Uniswap是以太坊的去中心化交易所(DEX)，自2018年发布以来，它已经成为了去中心化金融DeFi领域的重要组成]]></description>
+    <guid>https://baskep.top/wagmi-hooks/</guid>
+    <description><![CDATA[1.wagmi &amp;&amp; viem基本介绍 viem是ethers.js的替代品，相比后者，viem具有更小的软件包和更佳的性能，由于超高的性能，目前已经被各种头部]]></description>
 </item><item>
     <title>NFT市场的概况</title>
     <link>https://baskep.top/nft%E5%B8%82%E5%9C%BA%E7%9A%84%E6%A6%82%E5%86%B5/</link>
-    <pubDate>Tue, 07 Feb 2023 14:35:12 &#43;0800</pubDate>
+    <pubDate>Mon, 07 Aug 2023 14:35:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://baskep.top/nft%E5%B8%82%E5%9C%BA%E7%9A%84%E6%A6%82%E5%86%B5/</guid>
     <description><![CDATA[1.前言 2022年，我第一次踏入Web3这个行业，随着2022年的过去，我们公司运营的NFT交易所也走向了末尾，面临着停止运营的窘境。回顾这]]></description>
 </item><item>
+    <title>Uniswap介绍</title>
+    <link>https://baskep.top/uniswap%E4%BB%8B%E7%BB%8D/</link>
+    <pubDate>Tue, 02 May 2023 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/uniswap%E4%BB%8B%E7%BB%8D/</guid>
+    <description><![CDATA[1.Uniswap简介 Uniswap是以太坊的去中心化交易所(DEX)，自2018年发布以来，它已经成为了去中心化金融DeFi领域的重要组成]]></description>
+</item><item>
     <title>Merkle Tree介绍</title>
     <link>https://baskep.top/merkle-tree/</link>
-    <pubDate>Wed, 18 Jan 2023 14:35:12 &#43;0800</pubDate>
+    <pubDate>Tue, 18 Apr 2023 14:35:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://baskep.top/merkle-tree/</guid>
     <description><![CDATA[1.简介 Merkle Tree也叫默克尔树或哈希树，是区块链的底层加密技术，被比特币和以太坊区块链广泛采用。Merkle Tree是一种自下而上构建的加密]]></description>
 </item><item>
     <title>以太坊中数字签名、消息的概念</title>
     <link>https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/</link>
-    <pubDate>Sat, 10 Dec 2022 14:35:12 &#43;0800</pubDate>
+    <pubDate>Fri, 10 Mar 2023 14:35:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/</guid>
     <description><![CDATA[1.消息 1.1.基本概念 消息在以太坊的ECDSA标准中，是一组keccak256哈希数据，为bytes32类型。我们可以把任何想要签名的内容]]></description>
 </item><item>
     <title>Yul语法入门</title>
     <link>https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</link>
-    <pubDate>Tue, 01 Nov 2022 14:35:12 &#43;0800</pubDate>
+    <pubDate>Mon, 02 Jan 2023 14:35:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</guid>
     <description><![CDATA[1.描述 Yul是一种中间编程语言，可以用来在智能合约中编写汇编语言，这样对EVM有更细粒度的控制，学会用Yul可以了解底层运行的一些原理，反]]></description>
 </item><item>
     <title>ERC20、ERC721标准</title>
     <link>https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/</link>
-    <pubDate>Mon, 24 Oct 2022 14:35:12 &#43;0800</pubDate>
+    <pubDate>Thu, 24 Nov 2022 14:35:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/</guid>
     <description><![CDATA[1.描述 以太坊上运行的合约或者说运用，遵循着官方或者社区提出的各种标准，这些标准分为EIP或者ERC。EIP全称 Ethereum Improvement Proposals(以太]]></description>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.top/graphql%E7%9A%84%E5%85%A5%E9%97%A8/</guid>
     <description><![CDATA[GraphQL 既是一种用于 API 的查询语言，它对API中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更]]></description>
-</item><item>
-    <title>React18的新特性</title>
-    <link>https://baskep.top/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</link>
-    <pubDate>Wed, 13 Apr 2022 23:00:36 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/react18%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</guid>
-    <description><![CDATA[1.自动批处理 批处理是指React将多个状态更新分组到一个重新渲染中，以获得更好的性能。如果没有自动批处理，我们只对React事件处理程序内]]></description>
 </item></channel>
 </rss>

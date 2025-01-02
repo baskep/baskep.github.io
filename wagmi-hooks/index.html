@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Wagmi Hooks - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/wagmi-hooks/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Wagmi Hooks">
+  <meta property="og:description" content="1.wagmi &amp;&amp; viem基本介绍 viem是ethers.js的替代品，相比后者，viem具有更小的软件包和更佳的性能，由于超高的性能，目前已经被各种头部">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-02-26T14:35:12+08:00">
+    <meta property="article:modified_time" content="2024-02-26T14:35:12+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="Wagmi Hooks">
+  <meta name="twitter:description" content="1.wagmi &amp;&amp; viem基本介绍 viem是ethers.js的替代品，相比后者，viem具有更小的软件包和更佳的性能，由于超高的性能，目前已经被各种头部">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/wagmi-hooks/" /><link rel="prev" href="https://baskep.top/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Wagmi Hooks",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/wagmi-hooks\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  10913 ,
+        "url": "https:\/\/baskep.top\/wagmi-hooks\/","datePublished": "2024-02-26T14:35:12+08:00","dateModified": "2024-02-26T14:35:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Wagmi Hooks</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-02-26">2024-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10913 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 22 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1wagmi--viem基本介绍">1.wagmi &amp;&amp; viem基本介绍</a></li>
+    <li><a href="#2wagmi-所有hooks">2.wagmi 所有hooks</a>
+      <ul>
+        <li><a href="#21useaccount">2.1.useAccount</a></li>
+        <li><a href="#22useaccounteffect">2.2.useAccountEffect</a></li>
+        <li><a href="#23usebalance">2.3.useBalance</a></li>
+        <li><a href="#24useblocknumber">2.4.useBlockNumber</a></li>
+        <li><a href="#25useblock">2.5.useBlock</a></li>
+        <li><a href="#26useblocktransactioncount">2.6.useBlockTransactionCount</a></li>
+        <li><a href="#27usebytecode">2.7.useBytecode</a></li>
+        <li><a href="#28usecall">2.8.useCall</a></li>
+        <li><a href="#29usechainid">2.9.useChainId</a></li>
+        <li><a href="#210usechains">2.10.useChains</a></li>
+        <li><a href="#211useclient">2.11.useClient</a></li>
+        <li><a href="#212useconfig">2.12.useConfig</a></li>
+        <li><a href="#213useconnect">2.13.useConnect</a></li>
+        <li><a href="#214useconnections">2.14.useConnections</a></li>
+        <li><a href="#215useconnectorclient">2.15.useConnectorClient</a></li>
+        <li><a href="#216useconnectors">2.16.useConnectors</a></li>
+        <li><a href="#217usedeploycontract">2.17.useDeployContract</a></li>
+        <li><a href="#218usedisconnect">2.18.useDisconnect</a></li>
+        <li><a href="#219useensaddress">2.19.useEnsAddress</a></li>
+        <li><a href="#220useensavatar">2.20.useEnsAvatar</a></li>
+        <li><a href="#221useensname">2.21.useEnsName</a></li>
+        <li><a href="#222useensresolver">2.22.useEnsResolver</a></li>
+        <li><a href="#223usefeehistory">2.23.useFeeHistory</a></li>
+        <li><a href="#224useestimatefeespergas">2.24.useEstimateFeesPerGas</a></li>
+        <li><a href="#225useestimategas">2.25.useEstimateGas</a></li>
+        <li><a href="#226useestimatemaxpriorityfeepergas">2.26.useEstimateMaxPriorityFeePerGas</a></li>
+        <li><a href="#227usegasprice">2.27.useGasPrice</a></li>
+        <li><a href="#228usepreparetransactionrequest">2.28.usePrepareTransactionRequest</a></li>
+        <li><a href="#229usereadcontract">2.29.useReadContract</a></li>
+        <li><a href="#230usereadcontracts">2.30.useReadContracts</a></li>
+        <li><a href="#231usereconnect">2.31.useReconnect</a></li>
+        <li><a href="#232usesendtransaction">2.32.useSendTransaction</a></li>
+        <li><a href="#234usesignmessage">2.34.useSignMessage</a></li>
+        <li><a href="#234usesigntypeddata">2.34.useSignTypedData</a></li>
+        <li><a href="#235usestorageat">2.35.useStorageAt</a></li>
+        <li><a href="#236useswitchaccount">2.36.useSwitchAccount</a></li>
+        <li><a href="#237useswitchchain">2.37.useSwitchChain</a></li>
+        <li><a href="#238usetransaction">2.38.useTransaction</a></li>
+        <li><a href="#239usetransactionconfirmations">2.39.useTransactionConfirmations</a></li>
+        <li><a href="#240usetransactioncount">2.40.useTransactionCount</a></li>
+        <li><a href="#241usetransactionreceipt">2.41.useTransactionReceipt</a></li>
+        <li><a href="#242usewaitfortransactionreceipt">2.42.useWaitForTransactionReceipt</a></li>
+        <li><a href="#243useverifymessage">2.43.useVerifyMessage</a></li>
+        <li><a href="#244usewalletclient">2.44.useWalletClient</a></li>
+        <li><a href="#245usewatchasset">2.45.useWatchAsset</a></li>
+        <li><a href="#246usewatchblocks">2.46.useWatchBlocks</a></li>
+        <li><a href="#247usewatchblocknumber">2.47.useWatchBlockNumber</a></li>
+        <li><a href="#248usewatchcontractevent">2.48.useWatchContractEvent</a></li>
+        <li><a href="#249usewatchpendingtransactions">2.49.useWatchPendingTransactions</a></li>
+        <li><a href="#250usewritecontract">2.50.useWriteContract</a></li>
+      </ul>
+    </li>
+    <li><a href="#3参考链接">3.参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1wagmi--viem基本介绍">1.wagmi &amp;&amp; viem基本介绍</h1>
+<p><code>viem</code>是<code>ethers.js</code>的替代品，相比后者，<code>viem</code>具有更小的软件包和更佳的性能，由于超高的性能，目前已经被各种头部项目所采用，相信未来选择<code>viem</code>的项目也会越来越多。但是如果论<code>API</code>的完整性的话，还是<code>ethers</code>会更加丰富一些，所以实际使用过程中，有的项目可能会将两者结合起来使用</p>
+<p><code>wagmi</code>是<code>We are gonna make it</code>的缩写，它是一种与以太坊配合使用的<code>React Hooks</code>和实用程序。wagmi提供了大量易于使用的 API，使区块链交互变得更容易。并且它使用React hooks可以简单地组合复杂的功能，我们也可以根据具体需求定制各种不同的解决方案。事实上wagmi其实就是对 <code>viem</code> 的 <code>hooks</code> 再封装，可以看到它的<code>peerDependency</code>就已经写明了依赖</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="s2">&#34;peerDependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;@tanstack/react-query&#34;</span><span class="o">:</span> <span class="s2">&#34;&gt;=5.0.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;react&#34;</span><span class="o">:</span> <span class="s2">&#34;&gt;=18&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;typescript&#34;</span><span class="o">:</span> <span class="s2">&#34;&gt;=5.0.4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;viem&#34;</span><span class="o">:</span> <span class="s2">&#34;2.x&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="2wagmi-所有hooks">2.wagmi 所有hooks</h1>
+<p><a href="https://wagmi.sh/core/getting-started" target="_blank" rel="noopener noreffer">wagmi</a>官方的<code>Core</code>模块已经罗列出了所有核心方法，比如<code>getAccount</code>、<code>getBalance</code>、这些方法大多是直接基于<code>viem</code>封装的，可以直接拿来使用，或者二次封装成<code>hooks</code>，这里就不过多介绍。这里主要介绍它封装的<code>hooks</code>函数，这些<code>hooks</code>函数都支持<code>config</code>参数，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">account</span> <span class="o">=</span> <span class="nx">useAccount</span><span class="p">({</span> <span class="nx">config</span> <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>config</code>参数默认不传时代表<code>wagmi.ts</code>配置，如果传了就代表本次查询是基于一个自定义的配置</p>
+<h2 id="21useaccount">2.1.useAccount</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useAccount" target="_blank" rel="noopener noreffer">useAccount</a>获取当前钱包账户的基本信息，其返回值包含钱包地址<code>address</code>、使用的区块链信息<code>chain</code>、<code>chainId</code>、连接的钱包信息<code>connector</code>、连接状态<code>isConnecting / isReconnecting / isConnected / isDisconnected</code></p>
+<p>还有一个<code>status</code>，它有4个状态<code>'connecting' | 'reconnecting' | 'connected' | 'disconnected'</code></p>
+<p><code>'connecting'</code>尝试连接到钱包</p>
+<p><code>'reconnecting'</code>尝试重新建立与一个或多个钱包的连接</p>
+<p><code>'connected'</code>至少有一个钱包已连接</p>
+<p><code>'disconnected'</code>未连接至任何钱包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">address</span><span class="p">,</span> <span class="nx">chain</span><span class="p">,</span> <span class="nx">connector</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useAccount</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="22useaccounteffect">2.2.useAccountEffect</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useAccountEffect" target="_blank" rel="noopener noreffer">useAccountEffect</a> 监听钱包账户的连接、断连事件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">useAccountEffect</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onConnect</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Connected!&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onDisconnect</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Disconnected!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>onConnect</code>：当连接至某个钱包时触发，回调函数中的<code>data</code>参数包含了<code>useAccount</code>钩子返回结果的大部分参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">((</span><span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="nx">address</span><span class="o">:</span> <span class="sb">`0x</span><span class="si">${</span><span class="nx">string</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span> <span class="nx">addresses</span><span class="o">:</span> <span class="nx">readonly</span> <span class="p">[</span><span class="sb">`0x</span><span class="si">${</span><span class="nx">string</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="p">...</span><span class="sb">`0x</span><span class="si">${</span><span class="nx">string</span><span class="si">}</span><span class="sb">`</span><span class="p">[]];</span> <span class="nx">chain</span><span class="o">:</span> <span class="nx">Chain</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="nx">chainId</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span> <span class="nx">connector</span><span class="o">:</span> <span class="nx">Connector</span><span class="p">;</span> <span class="nx">isReconnected</span><span class="o">:</span> <span class="kr">boolean</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="kc">undefined</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>onDisconnect</code>：当钱包取消连接时会触发</p>
+<h2 id="23usebalance">2.3.useBalance</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useBalance" target="_blank" rel="noopener noreffer">useBalance</a>获取某个账户、某个链下的余额，入参：</p>
+<p><code>address</code>：这是一个必填项，指的钱包地址。获取该钱包的余额</p>
+<p><code>blockNumber</code>：该区块链下的某个<code>blockNumber</code>。获取处于<code>blockNumber</code>时的钱包余额</p>
+<p><code>blockTag</code>：指定一个<code>blockTag</code>，它有以下分类值<code>'latest' | 'earliest' | 'pending' | 'safe' | 'finalized' | undefined</code>。比如<code>latest</code>，获取最新区块的钱包余额</p>
+<p><code>chainId</code>：指定获取哪个链下的钱包余额</p>
+<p><code>scopeKey</code>：用作缓存的key，如果设置了，并且缓存生效，那么就不会去从链上拿，直到缓存更新。其内部是基于<code>@tanstack/react-query</code>去做的处理，也是基于它实现的缓存</p>
+<p><code>token</code>：指定某个<code>ERC20</code>代币的合约地址，获取该代币的余额</p>
+<p><code>unit</code>：查询结果的单位，<code>'ether' | 'gwei' | 'wei' | number | undefined</code></p>
+<p><code>query</code>：自定义<a href="https://tanstack.com/query/v5/docs/framework/react/reference/useQuery" target="_blank" rel="noopener noreffer">tanstack query</a>的参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useBalance</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0x4557B18E779944BFE9d78A672452331C186a9f48&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：包含了此次查询余额的结果，<code>{ decimals: number; formatted: string; symbol: string; value: bigint; }</code></p>
+<p>其余返回结果可以<a href="https://wagmi.sh/react/api/hooks/useBalance#data" target="_blank" rel="noopener noreffer">查看文档</a>，有的也是<a href="https://tanstack.com/query/v5/docs/framework/react/reference/useQuery" target="_blank" rel="noopener noreffer">tanstack query</a>的定义</p>
+<h2 id="24useblocknumber">2.4.useBlockNumber</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useBlockNumber" target="_blank" rel="noopener noreffer">useBlockNumber</a> 获取最新<code>block number</code>，入参：</p>
+<p><code>cacheTime</code>：以毫秒为单位，设置查询结果缓存的时间</p>
+<p><code>chainId</code>：指定区块链</p>
+<p><code>watch</code>：是否监听区块的变化，获取最新的结果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useBlockNumber</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：即<code>block number</code></p>
+<p>其它返回结果同2.3描述</p>
+<h2 id="25useblock">2.5.useBlock</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useBlock" target="_blank" rel="noopener noreffer">useBlock</a> 获取最新区块的详细信息，其中也包含<code>block number</code>，除此之外，还包含<code>区块hash</code>、<code>chainId</code>、<code>nonce</code>、<code>gasLimit</code>等等信息</p>
+<p>入参：</p>
+<p><code>blockHash</code>：获取指定<code>block hash</code>的信息</p>
+<p><code>blockNumber</code>：同样，获取指定<code>block number</code>的数据</p>
+<p><code>blockTag</code>：<code>'latest' | 'earliest' | 'pending' | 'safe' | 'finalized'</code>，比如<code>latest</code>，获取最新区块的信息</p>
+<p><code>chainId</code>：指定区块链</p>
+<p><code>includeTransactions</code>：是否将交易信息包含在返回结果内，如果为true，那么会将这个区块的所有交易信息也一并返回</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useBlock</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：即区块的详细信息，具体需要打印出来查看</p>
+<p>其它返回结果同2.3描述</p>
+<h2 id="26useblocktransactioncount">2.6.useBlockTransactionCount</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useBlockTransactionCount" target="_blank" rel="noopener noreffer">useBlockTransactionCount</a> 获取某个区块的交易操作的数量，通过<code>block number、hash、block tag</code>查询</p>
+<p>入参：</p>
+<p><code>blockHash</code>：获取指定<code>block hash</code>的信息</p>
+<p><code>blockNumber</code>：获取指定<code>block number</code>的数据</p>
+<p><code>blockTag</code>：<code>'latest' | 'earliest' | 'pending' | 'safe' | 'finalized'</code>，比如<code>latest</code>，获取最新区块的信息</p>
+<p><code>chainId</code>：指定区块链</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useBlockTransactionCount</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：返回该区块的<code>transaction</code>数量</p>
+<p>其它返回结果同2.3描述</p>
+<h2 id="27usebytecode">2.7.useBytecode</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useBytecode" target="_blank" rel="noopener noreffer">useBytecode</a> 获取某个合约的<code>bytecode</code>，<code>bytecode</code>是合约的编译产物</p>
+<p>入参：</p>
+<p><code>address</code>：即合约的地址</p>
+<p><code>blockNumber</code>：查看指定<code>blockNumber</code>的<code>bytecode</code></p>
+<p><code>blockTag</code>：<code>'latest' | 'earliest' | 'pending' | 'safe' | 'finalized' | undefined</code></p>
+<p><code>chainId</code>：指定区块链</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useBytecode</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：返回对应合约的<code>bytecode</code></p>
+<p>其它返回结果同2.3描述</p>
+<h2 id="28usecall">2.8.useCall</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useCall" target="_blank" rel="noopener noreffer">useCall</a> 直接去执行某个操作，这个钩子函数有点类似于合约的<code>call</code>函数</p>
+<p>入参：</p>
+<p><code>account</code>：<code>Account | Address | undefined</code> 可以是一个钱包地址、合约地址</p>
+<p><code>data</code>：对应合约的<code>calldata</code>，<code>calldata</code>是一段hash，由合约的<code>abi.encodeWithSignature</code>、<code>abi.encodeWithSelector</code>生成而来</p>
+<p><code>to</code>：<code>Address | undefined</code>，接受方地址</p>
+<p><code>gas</code>：所提供的<code>gas</code>费</p>
+<p><code>gasPrice</code>：每 gas 支付的价格（单位为 wei），</p>
+<p><code>maxFeePerGas</code>：<strong>最高</strong>每 gas 支付的价格（单位为 wei）</p>
+<p><code>maxPriorityFeePerGas</code>：每 gas <strong>最高优先费</strong>（单位为 wei），设置之后会额外给一笔gas以激励交易更快地成交</p>
+<p><code>nonce</code>：此次操作提供的<code>nonce</code>，代表着交易的标识</p>
+<p><code>value</code>：转账的金额</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useCall</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">account</span><span class="o">:</span> <span class="s1">&#39;0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">to</span><span class="o">:</span> <span class="s1">&#39;0x70997970c51812dc3a010c7d01b50e0d17dc79c8&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：<code>call</code>函数调用成功后的返回值</p>
+<p>其它返回结果同2.3描述</p>
+<h2 id="29usechainid">2.9.useChainId</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useChainId" target="_blank" rel="noopener noreffer">useChainId</a>获取当前的<code>chainId</code>，比较简单的一个方法，其实这些信息在<code>useAccount</code>方法中也有</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">chainId</span> <span class="o">=</span> <span class="nx">useChainId</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：一个<code>chainId</code></p>
+<h2 id="210usechains">2.10.useChains</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useChains" target="_blank" rel="noopener noreffer">useChains</a>获取配置中<code>wagmi</code>配置中关于区块链的信息，可以是自定义的链，也可以是默认的主链、<code>sepolia</code>，具体看怎么配置的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">chains</span> <span class="o">=</span> <span class="nx">useChains</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：所有配置的<code>chain</code>集合</p>
+<h2 id="211useclient">2.11.useClient</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useClient" target="_blank" rel="noopener noreffer">useClient</a>获取一个<code>viem</code>实例，<code>viem</code>实例包含了<code>account</code>、<code>cacheTime</code>、<code>chain</code>、<code>key</code>、<code>name</code>、<code>transport</code>、<code>uid</code>等信息</p>
+<p>入参：</p>
+<p><code>chainId</code>：可以指定一个<code>chainId</code>，最后返回的结果略有不同</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">useClient</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">chainId</span><span class="o">:</span> <span class="nx">mainnet</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：<code>viem</code>实例</p>
+<h2 id="212useconfig">2.12.useConfig</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useConfig" target="_blank" rel="noopener noreffer">https://wagmi.sh/react/api/hooks/useConfig</a>获取最近的<code>WagmiProvider</code>的配置，也就是上面钩子函数中提到的默认<code>config参数</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">useConfig</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：除了<code>wagmi</code>中的配置以外，还包含了一些<code>wagmi</code>内置的属性和方法</p>
+<h2 id="213useconnect">2.13.useConnect</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useConnect" target="_blank" rel="noopener noreffer">useConnect</a>连接钱包的钩子函数</p>
+<p>入参：</p>
+<p><code>mutation</code>：其实也是<a href="https://tanstack.com/query/v5/docs/framework/react/reference/useMutation" target="_blank" rel="noopener noreffer">tankstack query的入参</a>，包含了<code>gcTime</code>、<code>onMutate</code>、<code>onSuccess</code>等等参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">connect</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useConnect</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>connectors</code>：所有配置或者创建好的<code>connectors</code>，通俗点讲就是钱包的集合</p>
+<p><code>connect</code>：连接钱包的方法，调用后，就可以发起连接钱包账户的操作，它可以配置几个入参<code>variables</code>、<code>onSuccess</code>、<code>onError</code>、<code>onSettled</code></p>
+<p><code>variables</code>为连接钱包时的一些自定义参数，包括<code>chainId</code>、<code>connectors</code>，<code>onSuccess &amp;&amp; onError</code>连接成功或者失败的回调函数，<code>onSettled</code>当连接成功或者突然失败会触发，如果发起多个钱包的连接的话，上面<code>onSuccess</code>的回调会在最后一个连接成功时触发</p>
+<p><code>connectAsync</code>：与<code>connect</code>类似，不同的地方在于它返回一个<code>Promise</code>让我们能去做一些状态控制</p>
+<p><code>data</code>：连接成功后，返回连接的钱包地址信息以及<code>chainId</code></p>
+<h2 id="214useconnections">2.14.useConnections</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useConnections" target="_blank" rel="noopener noreffer">useConnections</a>返回当前已连接的钱包账户list</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">connections</span> <span class="o">=</span> <span class="nx">useConnections</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p>一个钱包list，每个元素包含了<code>accounts</code>、<code>chainId</code>、<code>connector</code>属性</p>
+<h2 id="215useconnectorclient">2.15.useConnectorClient</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useConnectorClient" target="_blank" rel="noopener noreffer">useConnectorClient</a> 返回一个<code>viem</code>实例，与<code>useClient</code>不同的是，它返回的结果还包含当前已连接钱包的实例数据。所以为了准确获取<code>connector client</code>，会优先选择<code>useConnectorClient</code></p>
+<p>入参：</p>
+<p><code>account</code>：钱包地址，查询包含该钱包的<code>viem</code>实例，如果未找到，则返回为空</p>
+<p><code>chainId</code>：与上面类似，查询该链的<code>viem</code>实例，这个与当前连接的区块链有关，如果未找到，则返回为空</p>
+<p><code>connector</code>：钱包配置数据，默认为当前钱包</p>
+<p><code>query</code>：<code>tankstack query</code>配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useConnectorClient</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：与<code>useClient</code>不同，<code>useConnectorClient</code>返回的<code>viem</code>实例数据放在了<code>data</code>里面，<code>useClient</code>直接返回的结果直接是一个实例数据</p>
+<h2 id="216useconnectors">2.16.useConnectors</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useConnectorClient" target="_blank" rel="noopener noreffer">useConnectors</a> 获取wagmi配置中的钱包list，包含默认的配置以及自定义的钱包配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">connectors</span> <span class="o">=</span> <span class="nx">useConnectors</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>wagmi</code>钱包配置list</p>
+<h2 id="217usedeploycontract">2.17.useDeployContract</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useDeployContract" target="_blank" rel="noopener noreffer">useDeployContract</a> 通过指定的<code>abi</code>、<code>bytecode</code>、<code>args</code>部署合约，需要注意的是它不是直接部署合约，而是提供部署合约的方法</p>
+<p>入参：</p>
+<p><code>mutation</code>：<code>tankstack mutation</code>参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">deployContract</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useDeployContract</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>deployContract</code>：部署合约的方法，它也有几个额外的参数<code>variables</code>、<code>onSuccess</code>、<code>onError</code>、<code>onSettled</code>，<code>variables</code>为部署合约时传递的额外参数，包含<code>abi</code>、<code>args(合约的constructor参数)</code>、<code>bytecode</code></p>
+<p>所以调用<code>deployContract</code>时，实际为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"> <span class="nx">deployContract</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">abi</span><span class="o">:</span> <span class="nx">wagmiAbi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">args</span><span class="o">:</span> <span class="p">[</span><span class="mi">69420</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">bytecode</span><span class="o">:</span> <span class="s1">&#39;0x608060405260405161083e38038061083e833981016040819052610...&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>至于<code>onSuccess</code>、<code>onError</code>、<code>onSettled</code>，与<code>2.13</code>描述类似</p>
+<p><code>deployContractAsync</code>： 与<code>deployContract</code>类似，不同的地方在于它返回一个<code>Promise</code></p>
+<p><code>data</code>：合约部署成功的<code>hash</code></p>
+<h2 id="218usedisconnect">2.18.useDisconnect</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useDisconnect" target="_blank" rel="noopener noreffer">useDisconnect</a> 用于断开钱包连接的钩子函数</p>
+<p>入参：</p>
+<p><code>mutation</code>：<code>tankstack mutation</code>参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">disconnect</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useDisconnect</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>connectors</code>：当前连接的钱包list，如果断开钱包连接时，<code>connectors</code>为空数组</p>
+<p><code>disconnect</code>：断开钱包链接，包含几个额外参数<code>variables</code>、<code>onSuccess</code>、<code>onError</code>、<code>onSettled</code>，<code>variables</code>也就是viem中disconnect的<a href="https://wagmi.sh/core/api/actions/disconnect#parameters" target="_blank" rel="noopener noreffer">配置</a></p>
+<p><code>disconnectAsync</code>：与<code>disconnect</code>类似，同样也是多了个Promise返回</p>
+<p><code>data</code>：默认为<code>undefined</code>，当触发<code>tankstack mutation</code>时，会返回执行成功对应的结果</p>
+<h2 id="219useensaddress">2.19.useEnsAddress</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useEnsAddress" target="_blank" rel="noopener noreffer">useEnsAddress</a> 通过<code>ENS</code>名去获取对应的钱包地址</p>
+<p>入参：</p>
+<p><code>name</code>：<code>ENS</code>名称，最好先用<code>normalize</code>去格式化Ens让它符合<a href="https://unicode.org/reports/tr46/" target="_blank" rel="noopener noreffer">https://unicode.org/reports/tr46/</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEnsAddress</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;wagmi&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">normalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;viem/ens&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useEnsAddress</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="nx">normalize</span><span class="p">(</span><span class="s1">&#39;wevm.eth&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>blockNumber</code>：获取指定区块的<code>ENS</code>的钱包地址</p>
+<p><code>blockTag</code>：<code>'latest' | 'earliest' | 'pending' | 'safe' | 'finalized' | undefined</code>，<code>latest</code>代表最新区块</p>
+<p><code>chainId</code>：指定在哪个区块链上查询</p>
+<p><code>coinType</code>：指定查询哪种代币的<code>ENS</code>地址，除了<code>ETH</code>以外，<code>Bitcoin</code>、<code>Dogecoin</code>都支持，详见<a href="https://docs.ens.domains/ens-improvement-proposals/ensip-9-multichain-address-resolution" target="_blank" rel="noopener noreffer">ENSIP-9</a></p>
+<p><code>universalResolverAddress</code>：<code>ENS</code>通用解析器合约的地址，指定一个合约地址，调用它去解析<code>ENS</code>地址，详见<a href="https://docs.ens.domains/resolvers/universal" target="_blank" rel="noopener noreffer">文档</a></p>
+<p>返回结果：</p>
+<p><code>data</code>：默认为<code>undefined</code>，当解析成功时返回一个钱包地址</p>
+<h2 id="220useensavatar">2.20.useEnsAvatar</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useEnsAvatar" target="_blank" rel="noopener noreffer">useEnsAvatar</a> 用于获取ENS头像URL</p>
+<p>入参：</p>
+<p><code>name</code>：与<code>useEnsAddress</code>中的描述类似</p>
+<p><code>assetGatewayUrls</code>：用于解析 IPFS 或 Arweave 资产的网关 URL</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useEnsAvatar</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">assetGatewayUrls</span><span class="o">:</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">ipfs</span><span class="o">:</span> <span class="s1">&#39;https://cloudflare-ipfs.com&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="nx">normalize</span><span class="p">(</span><span class="s1">&#39;wevm.eth&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>blockNumber</code>：获取指定区块的<code>ENS</code>的头像URL</p>
+<p><code>blockTag</code>：<code>'latest' | 'earliest' | 'pending' | 'safe' | 'finalized' | undefined</code>，<code>latest</code>代表最新区块</p>
+<p><code>chainId</code>：指定在哪个区块链上查询</p>
+<p><code>gatewayUrls</code>：通用网关解析器数组，用于解析通过 ENS 通用解析器合约发出的 CCIP-Read 请求</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useEnsAvatar</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">gatewayUrls</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;https://cloudflare-ipfs.com&#39;</span><span class="p">]</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="nx">normalize</span><span class="p">(</span><span class="s1">&#39;wevm.eth&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：默认为<code>undefined</code>，当解析成功时返回一个头像URL</p>
+<h2 id="221useensname">2.21.useEnsName</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useEnsName" target="_blank" rel="noopener noreffer">useEnsName</a> 这个函数通过钱包地址获取<code>ENS</code>域名，与<code>useEnsAddress</code>有点反过来的意思</p>
+<p>入参：</p>
+<p><code>address</code>：钱包地址</p>
+<p><code>blockNumber</code>：获取指定区块的<code>ENS Name</code></p>
+<p><code>blockTag</code>：<code>'latest' | 'earliest' | 'pending' | 'safe' | 'finalized' | undefined</code>，<code>latest</code>代表最新区块</p>
+<p><code>chainId</code>：指定在哪个区块链上查询</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useEnsName</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0xd2135CfB216b74109775236E36d4b433F1DF507B&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：ENS 地址</p>
+<h2 id="222useensresolver">2.22.useEnsResolver</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useEnsResolver" target="_blank" rel="noopener noreffer">useEnsResolver</a>与 <code>useEnsName</code>类似</p>
+<h2 id="223usefeehistory">2.23.useFeeHistory</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useFeeHistory" target="_blank" rel="noopener noreffer">useFeeHistory</a> 获取历史<code>gas费</code>数据</p>
+<p>入参：</p>
+<p><code>blockCount</code>：区块数，单个查询中可以请求 1 到 1024 个区块，如果指定的区块数还未生成，那么返回的区块数可能少于请求的区块数</p>
+<p><code>rewardPercentiles</code>：0~100的浮点数，传递一个数组，单调递增的百分位数值列表。交易将按每 gas 的<code>reward</code>升序排序，并根据消耗的 gas 确定百分位对应的<code>reward</code></p>
+<p><code>blockNumber</code>：指定查询某个<code>blockNumber</code>上的数据</p>
+<p><code>blockTag</code>：<code>'latest' | 'earliest' | 'pending' | 'safe' | 'finalized'</code>，比如<code>latest</code>，获取最新区块的信息</p>
+<p><code>chainId</code>：指定查询某个链上的数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useFeeHistory</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">blockCount</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">blockNumber</span><span class="o">:</span> <span class="mi">1551231</span><span class="nx">n</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">rewardPercentiles</span><span class="o">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">75</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：查询的<code>gas</code>费历史数据，比如其中某一次查询</p>
+<h2 id="224useestimatefeespergas">2.24.useEstimateFeesPerGas</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useEstimateFeesPerGas" target="_blank" rel="noopener noreffer">useEstimateFeesPerGas</a> 预估区块中的<code>每gas</code>（以 wei 为单位）的费用值，gas总额 = per gas * gas数量</p>
+<p>入参：</p>
+<p><code>chainId</code>：指定查询某个链上的数据</p>
+<p><code>formatUnits</code>：查询出的<code>gas</code>费单位，<code>'ether' | 'gwei' | 'wei' | number | undefined</code>，默认为<code>ether</code></p>
+<p><code>type</code>：<code>'legacy' | 'eip1559'</code>，默认为<a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1559.md" target="_blank" rel="noopener noreffer">eip1559</a>，指定查询使用哪种标准计算的<code>gas</code>费</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useEstimateFeesPerGas</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：预估的每份gas的费用</p>
+<h2 id="225useestimategas">2.25.useEstimateGas</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useEstimateGas" target="_blank" rel="noopener noreffer">useEstimateGas</a> 预估交易需要支付的gas费</p>
+<p>入参：</p>
+<p><code>accessList</code>：请求时，通过指定已访问 的<code>address</code>、存储插槽<code>storageKeys</code>，达到节省<code>gas</code>的目的，详见说明<a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2930.md" target="_blank" rel="noopener noreffer">eip-2930</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useEstimateGas</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">accessList</span><span class="o">:</span> <span class="p">[{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0x1&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">storageKeys</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;0x1&#39;</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">}],</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">to</span><span class="o">:</span> <span class="s1">&#39;0xd2135CfB216b74109775236E36d4b433F1DF507B&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">value</span><span class="o">:</span> <span class="nx">parseEther</span><span class="p">(</span><span class="s1">&#39;0.01&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>account</code>：指定这次预估交易的钱包地址</p>
+<p><code>chainId</code>：指定某个链上的交易</p>
+<p><code>connector</code>：指定使用哪个钱包配置，如果此时未连接到此钱包，那么会有一个默认的账户</p>
+<p><code>data</code>：合约中的<code>calldata</code></p>
+<p><code>gas</code>：预估交易操作时，所提供的<code>gas</code></p>
+<p><code>gasPrice</code>：每 gas 支付的价格(单位为 wei)，仅适用于<a href="https://viem.sh/docs/glossary/terms.html#legacy-transaction" target="_blank" rel="noopener noreffer">传统交易</a></p>
+<p><code>maxFeePerGas</code>：每 gas最高费用(单位：wei)，含<code>maxPriorityFeePerGas</code>，仅适用于<a href="https://viem.sh/docs/glossary/terms.html#eip-1559-transaction" target="_blank" rel="noopener noreffer">eip-1559 交易</a></p>
+<p><code>maxPriorityFeePerGas</code>：每 gas 最高优先费用(单位：wei)，仅适用于<a href="https://viem.sh/docs/glossary/terms.html#eip-1559-transaction" target="_blank" rel="noopener noreffer">eip-1559 交易</a>。主要是提供给矿工的奖励，也叫小费</p>
+<p><code>nonce</code>：交易的标识以及顺序</p>
+<p><code>to</code>：转账接收方钱包地址</p>
+<p><code>type</code>：指定交易类型，<code>'legacy' | 'eip1559' | 'eip2930' | undefined</code>，指定是传统交易，还是eip1559、eip2930</p>
+<p><code>value</code>：转账金额</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useEstimateGas</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">accessList</span><span class="o">:</span> <span class="p">[{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0x1&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">storageKeys</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;0x1&#39;</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">}],</span> 
+</span></span><span class="line"><span class="cl">  <span class="nx">to</span><span class="o">:</span> <span class="s1">&#39;0xd2135CfB216b74109775236E36d4b433F1DF507B&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">value</span><span class="o">:</span> <span class="nx">parseEther</span><span class="p">(</span><span class="s1">&#39;0.01&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：预估的交易<code>gas</code>费结果</p>
+<h2 id="226useestimatemaxpriorityfeepergas">2.26.useEstimateMaxPriorityFeePerGas</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useEstimateMaxPriorityFeePerGas" target="_blank" rel="noopener noreffer">useEstimateMaxPriorityFeePerGas</a> 与useEstimateGas有些类似，不同的地方在于它预估的是<code>maxPriorityFeePerGas</code>，最高优先费用</p>
+<p>入参：</p>
+<p><code>chainId</code>：指定查询某个链上的数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useEstimateMaxPriorityFeePerGas</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：预估的<code>maxPriorityFeePerGas</code>结果</p>
+<h2 id="227usegasprice">2.27.useGasPrice</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useGasPrice" target="_blank" rel="noopener noreffer">useGasPrice</a> 获取当前<code>gas price</code>的值，也就是每单位 <code>gas</code> 的价格，它只是一个单纯的查询操作</p>
+<p>入参：</p>
+<p><code>chainId</code>：指定查询某个链上的数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useGasPrice</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">chainId</span><span class="o">:</span> <span class="nx">mainnet</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：查询的<code>gas price</code>结果</p>
+<h2 id="228usepreparetransactionrequest">2.28.usePrepareTransactionRequest</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/usePrepareTransactionRequest" target="_blank" rel="noopener noreffer">usePrepareTransactionRequest</a> 模拟交易请求，返回一个<a href="https://github.com/wevm/viem/blob/main/src/types/transaction.ts#L281" target="_blank" rel="noopener noreffer">TransactionRequest</a>类型值</p>
+<p>入参：</p>
+<p><code>account</code>：指定这次交易的钱包地址</p>
+<p><code>to</code>：转账接收方钱包地址</p>
+<p><code>accessList</code>：请求时，通过指定已访问 的<code>address</code>、存储插槽<code>storageKeys</code>，达到节省<code>gas</code>的目的，详见说明[eip-2930](</p>
+<p><code>chainId</code>：指定查询某个链上的交易</p>
+<p><code>connector</code>：指定使用哪个钱包配置，如果此时未连接到此钱包，那么会有一个默认的账户</p>
+<p><code>data</code>：合约中的<code>calldata</code></p>
+<p><code>gasPrice</code>：每 gas 支付的价格(单位为 wei)，仅适用于<a href="https://viem.sh/docs/glossary/terms.html#legacy-transaction" target="_blank" rel="noopener noreffer">传统交易</a></p>
+<p><code>maxFeePerGas</code>：每 gas最高费用(单位：wei)，含<code>maxPriorityFeePerGas</code>，仅适用于<a href="https://viem.sh/docs/glossary/terms.html#eip-1559-transaction" target="_blank" rel="noopener noreffer">eip-1559 交易</a></p>
+<p><code>maxPriorityFeePerGas</code>：每 gas 最高优先费用(单位：wei)，仅适用于<a href="https://viem.sh/docs/glossary/terms.html#eip-1559-transaction" target="_blank" rel="noopener noreffer">eip-1559 交易</a>。主要是提供给矿工的奖励，也叫小费</p>
+<p><code>nonce</code>：交易的标识以及顺序</p>
+<p><code>value</code>：转账金额</p>
+<p><code>parameters</code>：<code>(&quot;fees&quot; | &quot;gas&quot; | &quot;nonce&quot; | &quot;type&quot;)[] | undefined</code>，额外的查询参数，比如传递<code> parameters: ['gas', 'nonce']</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">usePrepareTransactionRequest</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">account</span><span class="o">:</span> <span class="s1">&#39;0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">parameters</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;gas&#39;</span><span class="p">,</span> <span class="s1">&#39;nonce&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">to</span><span class="o">:</span> <span class="s1">&#39;0x70997970c51812dc3a010c7d01b50e0d17dc79c8&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">value</span><span class="o">:</span> <span class="nx">parseEther</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>那么只会提供<code>gas</code>、<code>nonce</code>的准备</p>
+<p>返回结果：</p>
+<p><code>data</code>：<a href="https://viem.sh/docs/glossary/types.html#transactionrequest" target="_blank" rel="noopener noreffer">PrepareTransactionRequestData</a></p>
+<h2 id="229usereadcontract">2.29.useReadContract</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useReadContract" target="_blank" rel="noopener noreffer">useReadContract</a> 调用链上合约中的只读函数，也就是用<code> pure、view</code>关键字表示的合约函数</p>
+<p>入参：</p>
+<p><code>abi</code>：即合约编译的<code>abi</code>数据</p>
+<p><code>account</code>：钱包地址，也是合约中的<code>msg.sender</code></p>
+<p><code>address</code>：合约地址</p>
+<p><code>args</code>：传给合约函数的参数</p>
+<p><code>blockNumber &amp;&amp; blockTag &amp;&amp; chainId</code>：读取指定区块、链的合约函数</p>
+<p><code>functionName</code>：即合约函数名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useReadContract</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">abi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0x6b175474e89094c44da98b954eedeac495271d0f&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">functionName</span><span class="o">:</span> <span class="s1">&#39;balanceOf&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">args</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;0x6b175474e89094c44da98b954eedeac495271d0f&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">account</span><span class="o">:</span> <span class="s1">&#39;0xd2135CfB216b74109775236E36d4b433F1DF507B&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：调用合约函数的结果</p>
+<h2 id="230usereadcontracts">2.30.useReadContracts</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useReadContracts" target="_blank" rel="noopener noreffer">useReadContracts</a> 与useReadContract类似，不同的是它可以读取多个合约函数结果</p>
+<h2 id="231usereconnect">2.31.useReconnect</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useReconnect" target="_blank" rel="noopener noreffer">useReconnect</a> 重新触发一次连接钱包的操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">reconnect</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useReconnect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">reconnect</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">[])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>connectors</code>：全局的钱包配置</p>
+<p><code>reconnect</code>：触发连接钱包的方法</p>
+<p><code>reconnectAsync</code>：与<code>reconnect</code>类似，返回一个<code>Promise</code></p>
+<p><code>data</code>：连接成功后，返回连接的钱包地址信息以及<code>chainId</code></p>
+<h2 id="232usesendtransaction">2.32.useSendTransaction</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useSendTransaction" target="_blank" rel="noopener noreffer">useSendTransaction</a> 手动调用，触发一个<code>transaction</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">sendTransaction</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useSendTransaction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">button</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sendTransaction</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">to</span><span class="o">:</span> <span class="s1">&#39;0xd2135CfB216b74109775236E36d4b433F1DF507B&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">value</span><span class="o">:</span> <span class="nx">parseEther</span><span class="p">(</span><span class="s1">&#39;0.01&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Send</span> <span class="nx">transaction</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>sendTransaction</code>：触发<code>transaction</code>的函数，其本身也包含几个额外的参数，如2.25描述一致</p>
+<p><code>sendTransactionAsync</code>：返回一个<code>Promise</code>性质的<code>sendTransaction</code></p>
+<p><code>data</code>：交易<code>hash</code></p>
+<h2 id="234usesignmessage">2.34.useSignMessage</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useSignMessage" target="_blank" rel="noopener noreffer">useSignMessage</a> 获取钱包签名，<a href="https://baskep.github.io/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/" target="_blank" rel="noopener noreffer">签名的描述</a></p>
+<p>返回结果：</p>
+<p><code>signMessage</code>：触发签名的钩子函数，它自身也包含几个额外的参数<code>account</code>、<code>connector</code>、<code>message</code>，其中<code>message</code>就是需要生成签名的数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">signMessage</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello world&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>signMessageAsync</code>：与<code>signMessage</code>类似，返回一个<code>Promise</code></p>
+<p><code>data</code>：签名的结果，签名是65字节的<code>hash</code></p>
+<h2 id="234usesigntypeddata">2.34.useSignTypedData</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useSignTypedData" target="_blank" rel="noopener noreffer">useSignTypedData</a> 也是获取钱包签名，只不过是获取<a href="https://eips.ethereum.org/EIPS/eip-712" target="_blank" rel="noopener noreffer">eip-712</a> 建议的签名</p>
+<p>返回结果：</p>
+<p><code>signTypedData</code>：同样是触发签名的钩子函数，它需要传入的参数会更加多一些，因为<code>eip-712</code>中，签名时，需要描述仔细，查看<a href="https://wagmi.sh/core/api/actions/signTypedData#parameters" target="_blank" rel="noopener noreffer">signTypedData签名参数</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="nx">button</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">signTypedData</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">types</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">Person</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;wallet&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;address&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="p">],</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">Mail</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;Person&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;Person&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;contents&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">primaryType</span><span class="o">:</span> <span class="s1">&#39;Mail&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">message</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">from</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Cow&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">wallet</span><span class="o">:</span> <span class="s1">&#39;0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">to</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">wallet</span><span class="o">:</span> <span class="s1">&#39;0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">contents</span><span class="o">:</span> <span class="s1">&#39;Hello, Bob!&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Sign</span> <span class="nx">message</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>signTypedDataAsync</code>：与<code>signTypedData</code>类型，返回一个<code>Promise</code></p>
+<p><code>data</code>：签名的<code>hash</code></p>
+<p>这个方式签名最大的不同在于，签名时钱包是有一个格式化界面的</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://eips.ethereum.org/assets/eip-712/eth_signTypedData.png"
+        data-srcset="https://eips.ethereum.org/assets/eip-712/eth_signTypedData.png, https://eips.ethereum.org/assets/eip-712/eth_signTypedData.png 1.5x, https://eips.ethereum.org/assets/eip-712/eth_signTypedData.png 2x"
+        data-sizes="auto"
+        alt="https://eips.ethereum.org/assets/eip-712/eth_signTypedData.png"
+        title="1" /></p>
+<h2 id="235usestorageat">2.35.useStorageAt</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useStorageAt" target="_blank" rel="noopener noreffer">useStorageAt</a> 查询指定合约、指定插槽的存储数据，比较偏底层的方法</p>
+<p>入参：</p>
+<p><code>address</code>：合约的地址</p>
+<p><code>slot</code>：插槽的序号，<a href="https://baskep.github.io/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/#41%E5%AD%98%E5%82%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5" target="_blank" rel="noopener noreffer">合约存储描述</a></p>
+<p><code>blockNumber &amp;&amp; blockTag &amp;&amp; chainId</code>：读取指定区块、链</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useStorageAt</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">slot</span><span class="o">:</span> <span class="s1">&#39;0x0&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：查询的结果值</p>
+<h2 id="236useswitchaccount">2.36.useSwitchAccount</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useSwitchAccount" target="_blank" rel="noopener noreffer">useSwitchAccount</a> 用于切换连接钱包的函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">connectors</span><span class="p">,</span> <span class="nx">switchAccount</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useSwitchAccount</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nx">connectors</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">connector</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">connector</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">switchAccount</span><span class="p">({</span> <span class="nx">connector</span> <span class="p">})}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">connector</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">))}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>connectors</code>：配置的钱包list</p>
+<p><code>switchAccount</code>：用于切换钱包的函数，它可以额外传一个<code>connector</code>配置，切换到指定钱包</p>
+<p><code>switchAccountAsync</code>：与<code>switchAccount</code>类似，返回一个<code>Promise</code></p>
+<p><code>data</code>：包含<code>accounts</code>、<code>chainId</code>的数据</p>
+<h2 id="237useswitchchain">2.37.useSwitchChain</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useSwitchChain" target="_blank" rel="noopener noreffer">useSwitchChain</a> 与<code>useSwitchAccount</code> 类似，它用作切换链</p>
+<h2 id="238usetransaction">2.38.useTransaction</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useTransaction" target="_blank" rel="noopener noreffer">useTransaction</a> 查询某个<code>transaction</code>信息</p>
+<p>入参：</p>
+<p><code>blockHash &amp;&amp; blockNumber &amp;&amp; blockTag &amp;&amp; chainId</code>：区块的信息，大部分上面都已经详细说明</p>
+<p><code>hash</code>：交易的<code>hash</code>，<a href="https://etherscan.io/" target="_blank" rel="noopener noreffer">etherscan</a>上查找</p>
+<p><code>index</code>：区块的索引，与<code>blockHash &amp;&amp; blockNumber &amp;&amp; blockTag &amp;&amp; chainId</code>类似，都是指定查询交易的区块的信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useTransaction</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hash</span><span class="o">:</span> <span class="s1">&#39;0x0fa64daeae54e207aa98613e308c2ba8abfe274f75507e741508cc4db82c8cb5&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：交易的详细信息</p>
+<h2 id="239usetransactionconfirmations">2.39.useTransactionConfirmations</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useTransactionConfirmations" target="_blank" rel="noopener noreffer">useTransactionConfirmations</a> 获取某个交易的确认数，如果确认数为0，那么这个交易就认定为还未确认以及未处理</p>
+<p>入参：</p>
+<p><code>hash</code>：交易hash</p>
+<p><code>transactionReceipt</code>：交易收据的信息，具体查看<a href="https://viem.sh/docs/glossary/terms#transaction-receipt" target="_blank" rel="noopener noreffer">定义</a></p>
+<p><code>chainId</code>：链id</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useTransactionConfirmations</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hash</span><span class="o">:</span> <span class="s1">&#39;0x0fa64daeae54e207aa98613e308c2ba8abfe274f75507e741508cc4db82c8cb5&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：交易确认数</p>
+<h2 id="240usetransactioncount">2.40.useTransactionCount</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useTransactionCount" target="_blank" rel="noopener noreffer">useTransactionCount</a> 获取某个钱包账户发起的交易数量</p>
+<p>入参：</p>
+<p><code>blockNumber &amp;&amp; blockTag &amp;&amp; chainId</code>：区块的信息</p>
+<p><code>address</code>：钱包的地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useTransactionCount</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0x4557B18E779944BFE9d78A672452331C186a9f48&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：交易数</p>
+<h2 id="241usetransactionreceipt">2.41.useTransactionReceipt</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useTransactionReceipt" target="_blank" rel="noopener noreffer">useTransactionReceipt</a> 获取交易回执信息，注意是一个准确的已经上链的交易</p>
+<p>入参：</p>
+<p><code>hash</code>：交易hash</p>
+<p><code>chainId</code>：链id</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useTransactionReceipt</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hash</span><span class="o">:</span> <span class="s1">&#39;0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：交易的回执数据</p>
+<h2 id="242usewaitfortransactionreceipt">2.42.useWaitForTransactionReceipt</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useWaitForTransactionReceipt" target="_blank" rel="noopener noreffer">useWaitForTransactionReceipt</a> 监听交易上链，上链之后，返回交易回执信息</p>
+<p>入参：</p>
+<p><code>chainId</code>：链id</p>
+<p><code>confirmations</code>：交易抛出回执之前需要等待的确认数</p>
+<p><code>onReplaced</code>：但交易被替换时，触发一个回调方法</p>
+<p><code>pollingInterval</code>：轮询频率，也就是查询的间隔</p>
+<p><code>hash</code>：交易的hash</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useWaitForTransactionReceipt</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hash</span><span class="o">:</span> <span class="s1">&#39;0x4ca7ee652d57678f26e887c149ab0735f41de37bcad58c9f6d3ed5824f15b74d&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：查询成功的回执单信息</p>
+<h2 id="243useverifymessage">2.43.useVerifyMessage</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useVerifyMessage" target="_blank" rel="noopener noreffer">useVerifyMessage</a> 验证签名是否 由<code>某个钱包 + 消息</code>签名而来，<a href="https://baskep.github.io/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/#33%E9%AA%8C%E8%AF%81%E7%AD%BE%E5%90%8D" target="_blank" rel="noopener noreffer">具体原理</a></p>
+<p>入参：</p>
+<p><code>address</code>：钱包地址，用来对比签名是否由该钱包生成</p>
+<p><code>message</code>：用于生成签名的数据</p>
+<p><code>signature</code>：已生成的签名</p>
+<p><code>chainId &amp;&amp; blockNumber &amp;&amp; blockTag</code>：区块链的信息</p>
+<p><code>address</code>、<code>message</code>、<code>signature</code>参数是不可或缺的，这样才能正确调用<code>useVerifyMessage</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useVerifyMessage</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello world&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">signature</span><span class="o">:</span> <span class="s1">&#39;0x66edc32e2ab001213321ab7d959a2207fcef5190cc9abb6da5b0d2a8a9af2d4d2b0700e2c317c4106f337fd934fbbb0bf62efc8811a78603b33a8265d3b8f8cb1c&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：布尔值，true 代表该签名是由对应的<code>钱包 + message</code>生成</p>
+<h2 id="244usewalletclient">2.44.useWalletClient</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useWalletClient" target="_blank" rel="noopener noreffer">useWalletClient</a> 生成一个<code>wallet client</code>，它包含了各种与以太坊的交互操作，<a href="https://viem.sh/docs/clients/wallet.html" target="_blank" rel="noopener noreffer">viem wallet client</a></p>
+<p>入参：</p>
+<p><code>account</code>：指定钱包地址</p>
+<p><code>chainId</code>：链id</p>
+<p><code>connector</code>：钱包的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useWalletClient</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>data</code>：<code>wallet client</code></p>
+<h2 id="245usewatchasset">2.45.useWatchAsset</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useWatchAsset" target="_blank" rel="noopener noreffer">useWatchAsset</a> 监听钱包中代币配置的变化，比如钱包中添加了一种代币，就会触发该<code>watch</code>事件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">watchAsset</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useWatchAsset</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="nx">button</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">watchAsset</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;ERC20&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;WAGMI&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">decimals</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Watch</span> <span class="nx">asset</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果：</p>
+<p><code>watchAsset</code>：监听触发函数，它也包含几个额外的参数<code>variables</code>、<code>onSuccess</code>、<code>onError</code>、<code>onSettled</code>。关于<code>variables</code><a href="https://wagmi.sh/core/api/actions/watchAsset#parameters" target="_blank" rel="noopener noreffer">参数定义</a>，主要是一些代币、钱包的配置项</p>
+<p><code>watchAssetAsync</code>：<code>Promise</code>版的<code>watchAsset</code></p>
+<p><code>data</code>：布尔值，如果代币配置添加成功返回为<code>true</code>、失败为<code>false</code></p>
+<h2 id="246usewatchblocks">2.46.useWatchBlocks</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useWatchBlocks" target="_blank" rel="noopener noreffer">useWatchBlocks</a> 监听区块的变化</p>
+<p>入参：</p>
+<p><code>blockTag &amp;&amp; chainId</code>：区块链的配置</p>
+<p><code>emitMissed</code>：是否将因网络错误、阻塞或其他原因而没监听到的区块抛出，当为<code>true</code>时，异常的区块数据会抛给<code>onBlock</code>方法</p>
+<p><code>emitOnBegin</code>：当这个监听订阅发起时，是否立即将数据抛给<code>onBlock</code>方法</p>
+<p><code>includeTransactions</code>：没太看懂这个参数，是否将区块的交易信息结构成一个对象？</p>
+<p><code>enabled</code>：监听函数的开关，当为false时，不监听区块的变化</p>
+<p><code>onBlock</code>：区块变化时，将数据传给<code>onBlock</code>回调函数</p>
+<p><code>onError</code>：获取区块时的抛错，传递给<code>onError</code>回调函数</p>
+<p><code>poll</code>：轮询的方式，默认<code>false</code>以<code>WebSocket</code>的方式查询，<code>true</code>为非<code>WebSocket</code>方式</p>
+<p><code>pollingInterval</code>：轮询的间隔，毫秒为单位</p>
+<p><code>syncConnectedChain</code>：当已连接的链发生改变时，设置监听器，没太看懂？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">useWatchBlocks</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onBlock</span><span class="p">(</span><span class="nx">block</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;New block&#39;</span><span class="p">,</span> <span class="nx">block</span><span class="p">.</span><span class="nx">number</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="247usewatchblocknumber">2.47.useWatchBlockNumber</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useWatchBlockNumber" target="_blank" rel="noopener noreffer">useWatchBlockNumber</a> 监听区块<code>number</code>变化，其入参与<code>useWatchBlocks</code>一致，通常来说<code>useWatchBlocks</code>会使用的更多</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">useWatchBlockNumber</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onBlockNumber</span><span class="p">(</span><span class="nx">blockNumber</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Block number changed!&#39;</span><span class="p">,</span> <span class="nx">blockNumber</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="248usewatchcontractevent">2.48.useWatchContractEvent</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useWatchContractEvent" target="_blank" rel="noopener noreffer">useWatchContractEvent</a> 监听合约<code>emit event</code>，将触发的<code>event logs</code>传给回调函数</p>
+<p>入参：</p>
+<p><code>abi</code>：合约<code>abi</code>配置</p>
+<p><code>address</code>：合约地址</p>
+<p><code>args</code>：调用合约方法时，指定的参数</p>
+<p><code>batch</code>：每次调用时，是否对该事件进行批处理</p>
+<p><code>chainId</code>：链id</p>
+<p><code>eventName</code>：合约中定义的事件名</p>
+<p><code>onError</code>：错误回调方法</p>
+<p><code>onLogs</code>：当事件的<code>Logs</code>发生改变时，触发回调</p>
+<p><code>poll &amp;&amp; pollingInterval</code>：轮询的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">useWatchContractEvent</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0x6b175474e89094c44da98b954eedeac495271d0f&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">abi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">eventName</span><span class="o">:</span> <span class="s1">&#39;Transfer&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onLogs</span><span class="p">(</span><span class="nx">logs</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;New logs!&#39;</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="249usewatchpendingtransactions">2.49.useWatchPendingTransactions</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useWatchPendingTransactions" target="_blank" rel="noopener noreffer">useWatchPendingTransactions</a> 监听返回链上待处理的<code>hashs</code></p>
+<p>入参：</p>
+<p><code>batch</code>：是否批处理</p>
+<p><code>chainId</code>：链id</p>
+<p><code>onError</code>：错误回调方法</p>
+<p><code>onTransactions</code>：当链上有新的待处理的交易时，触发该函数，回调参数是一个hash数组</p>
+<p><code>poll &amp;&amp; pollingInterval</code>：轮询的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">useWatchPendingTransactions</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onTransactions</span><span class="p">(</span><span class="nx">transactions</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;New transactions!&#39;</span><span class="p">,</span> <span class="nx">transactions</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="250usewritecontract">2.50.useWriteContract</h2>
+<p><a href="https://wagmi.sh/react/api/hooks/useWriteContract" target="_blank" rel="noopener noreffer">useWriteContract</a> 调用合约的某个函数，执行&quot;写入&quot;功能，意味着会修改链上的状态，也会有额外的gas费产生</p>
+<p>返回结果：</p>
+<p><code>writeContract</code>：执行合约操作的方法，包含<code>variables</code>、<code>onSuccess</code>、<code>onError</code>、<code>onSettled</code>额外参数，<code>variables</code>为调用合约方法的<a href="https://wagmi.sh/core/api/actions/writeContract#parameters" target="_blank" rel="noopener noreffer">参数配置</a></p>
+<p><code>writeContractAsync</code>：返回一个<code>Promise</code> <code>writeContract</code></p>
+<p><code>data</code>：<a href="https://wagmi.sh/core/api/actions/writeContract#return-type" target="_blank" rel="noopener noreffer">执行结果定义</a></p>
+<h1 id="3参考链接">3.参考链接</h1>
+<p>1.<a href="https://wagmi.sh/react/api/hooks" target="_blank" rel="noopener noreffer">wagmi hooks</a></p>
+<p>2.<a href="https://viem.sh/docs/getting-started" target="_blank" rel="noopener noreffer">viem</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-02-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/wagmi-hooks/" data-title="Wagmi Hooks"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/wagmi-hooks/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/wagmi-hooks/" data-title="Wagmi Hooks"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/wagmi-hooks/" data-title="Wagmi Hooks"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/wagmi-hooks/" data-title="Wagmi Hooks"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/hardhat%E7%9A%84%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="Hardhat的使用"><i class="fas fa-angle-left fa-fw"></i>Hardhat的使用</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
