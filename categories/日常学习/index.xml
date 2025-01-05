@@ -3,7 +3,14 @@
         <title>日常学习 - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
         <description>日常学习 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Feb 2024 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 07 May 2024 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>Tailwind CSS 的优缺点分析</title>
+    <link>https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/</link>
+    <pubDate>Tue, 07 May 2024 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[1.前言 tailwind css是目前社区非常流行的原子化css方案，所谓原子化css是一种用于设计和构建现代 Web 应用程序的 css 框架，它提出了一种将 css 拆分为更小]]></description>
+</item><item>
     <title>Wagmi Hooks</title>
     <link>https://baskep.top/wagmi-hooks/</link>
     <pubDate>Mon, 26 Feb 2024 14:35:12 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.top/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/</guid>
     <description><![CDATA[序言 便携式网络图形（英语：Portable Network Graphics，PNG）是一种支¶持无损压缩的位图图形格式，支持索引、灰度、RGB三种颜色方案]]></description>
-</item><item>
-    <title>GraphQL的入门</title>
-    <link>https://baskep.top/graphql%E7%9A%84%E5%85%A5%E9%97%A8/</link>
-    <pubDate>Thu, 30 Jun 2022 21:32:24 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/graphql%E7%9A%84%E5%85%A5%E9%97%A8/</guid>
-    <description><![CDATA[GraphQL 既是一种用于 API 的查询语言，它对API中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更]]></description>
 </item></channel>
 </rss>

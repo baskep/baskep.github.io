@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Tailwind CSS 的优缺点分析 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Tailwind CSS 的优缺点分析">
+  <meta property="og:description" content="1.前言 tailwind css是目前社区非常流行的原子化css方案，所谓原子化css是一种用于设计和构建现代 Web 应用程序的 css 框架，它提出了一种将 css 拆分为更小">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-05-07T14:35:12+08:00">
+    <meta property="article:modified_time" content="2024-05-07T14:35:12+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="Tailwind CSS 的优缺点分析">
+  <meta name="twitter:description" content="1.前言 tailwind css是目前社区非常流行的原子化css方案，所谓原子化css是一种用于设计和构建现代 Web 应用程序的 css 框架，它提出了一种将 css 拆分为更小">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/" /><link rel="prev" href="https://baskep.top/wagmi-hooks/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Tailwind CSS 的优缺点分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2562 ,
+        "url": "https:\/\/baskep.top\/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90\/","datePublished": "2024-05-07T14:35:12+08:00","dateModified": "2024-05-07T14:35:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Tailwind CSS 的优缺点分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-05-07">2024-05-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2562 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1前言">1.前言</a></li>
+    <li><a href="#2tailwind-css的配置">2.tailwind css的配置</a>
+      <ul>
+        <li><a href="#21安装基础的依赖库">2.1.安装基础的依赖库</a></li>
+        <li><a href="#22初始化项目">2.2.初始化项目</a></li>
+        <li><a href="#23修改基本配置">2.3.修改基本配置</a></li>
+        <li><a href="#24将tailwind-css配置引入全局">2.4.将tailwind css配置引入全局</a></li>
+      </ul>
+    </li>
+    <li><a href="#3tailwind-css具备优势">3.tailwind css具备优势</a>
+      <ul>
+        <li><a href="#31有效减少css体积">3.1.有效减少css体积</a></li>
+        <li><a href="#32css的模块化">3.2.css的模块化</a></li>
+        <li><a href="#33响应式适配">3.3.响应式适配</a></li>
+        <li><a href="#34团队规范的统一--省去命名的麻烦">3.4.团队规范的统一 &amp;&amp; 省去命名的麻烦</a></li>
+      </ul>
+    </li>
+    <li><a href="#4缺陷">4.缺陷</a>
+      <ul>
+        <li><a href="#41入门上手问题">4.1.入门上手问题</a></li>
+        <li><a href="#42代码的维护可读性问题">4.2.代码的维护可读性问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#5总结">5.总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1前言">1.前言</h1>
+<p><code>tailwind css</code>是目前社区非常流行的<code>原子化css</code>方案，所谓<code>原子化css</code>是一种用于设计和构建现代 Web 应用程序的 css 框架，它提出了一种将 css 拆分为更小、更可维护的部分的方法，以便更好地组织和管理css代码</p>
+<p>在原子化 css 中，css 组件被拆分为更小的部分，这些部分可以独立地编辑、测试和重用。这些原子通常是单个像素或极其微小的变化，例如颜色、大小、位置等。这些原子可以组合成更复杂的组件，例如按钮、表单、图标等。原子化 css 有助于减少代码量，提高代码的可维护性和可重用性，同时还有助于提高开发效率</p>
+<p>比如当给一个标题设置样式时，我们希望只写它的类名就加载所需样式，而不是单独还要定义一套css</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;text-3xl font-bold underline&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  Hello world!
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="2tailwind-css的配置">2.tailwind css的配置</h1>
+<h2 id="21安装基础的依赖库">2.1.安装基础的依赖库</h2>
+<p>以<code>next.js</code>为例，首选需要安装几个基础依赖<code>npm install -D tailwindcss postcss autoprefixer</code>，因为<code>tailwind css</code>是需要<code>postcss</code>为基础，以插件的形式接入到项目中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">D</span> <span class="nx">tailwindcss</span> <span class="nx">postcss</span> <span class="nx">autoprefixer</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="22初始化项目">2.2.初始化项目</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">npx</span> <span class="nx">tailwindcss</span> <span class="nx">init</span> <span class="o">-</span><span class="nx">p</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="23修改基本配置">2.3.修改基本配置</h2>
+<p>初始化项目后，会生成<code>tailwind.config.js</code>，里面包含了<code>content</code>、<code>theme</code>、<code>plugins</code>配置，分别代表指定的<code>tailwind css</code>生效目录、颜色主题、插件的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">content</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./app/**/*.{js,ts,jsx,tsx,mdx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./pages/**/*.{js,ts,jsx,tsx,mdx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;./components/**/*.{js,ts,jsx,tsx,mdx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="c1">// Or if using `src` directory:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s2">&#34;./src/**/*.{js,ts,jsx,tsx,mdx}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extend</span><span class="o">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="24将tailwind-css配置引入全局">2.4.将tailwind css配置引入全局</h2>
+<p>在项目中的<code>globals.css</code>里，添加<code>@tailwind</code>指令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="err">@</span><span class="nx">tailwind</span> <span class="nx">base</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="err">@</span><span class="nx">tailwind</span> <span class="nx">components</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="err">@</span><span class="nx">tailwind</span> <span class="nx">utilities</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后就能实现所有样式原子化成具体的class类名，只需要组合起来，就能生效成完整的样式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">h1</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;text-3xl font-bold underline&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Hello</span> <span class="nx">world</span><span class="o">!</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3tailwind-css具备优势">3.tailwind css具备优势</h1>
+<p>随着越来越多的团队选择<code>tailwind css</code>，说明它总是有过人之处的</p>
+<h2 id="31有效减少css体积">3.1.有效减少css体积</h2>
+<p>css文件的下载和解析虽然不会阻塞<code>DOM</code>的解析，但是却会阻塞页面的渲染，这实则上是浏览器为了优化重绘和回流的频率所做的优化机制。由此，我们可以很清晰的知道，css的文件体积是性能优化的一个关键问题。项目打包出来的css文件或者代码，往往会伴随着页面的增加而变大，进而最终影响页面的性能，其中最为直观的指标就是<code>首屏渲染时间</code></p>
+<p>而针对这个问题，自然有一些编译工具提供的<code>css 代码分割</code>、<code>压缩</code>等功能。但最有效的方法其实就是提高样式代码的复用性，以及在编译层面上尽可能的删除掉不需要的css代码，从而让css文件体积变得更小</p>
+<p>比如以下两个class</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">containerA</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">containerB</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>position: relative</code>、<code> width: 100px</code>是完全等价的，实际开发过程中也会有人把它单独抽成一个class name</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">containerC</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>随着项目的增大、开发人员越来越多，有些时候有的人为了图方便省事甚至直接随意定义一个类名，自己用的爽就行了。这个时候，项目中的<code>position: relative</code>、<code> width: 100px</code>就会越来越重复，导致css文件体积的不断增大</p>
+<p>而使用<code>tailwind</code>之后，全局会定义一个<code>relative</code> class name，而<code>width</code>则是动态的通过插件编译生成的<code>w-100</code>，不管怎么说，只会有一个<code> position: relative</code>、<code>width: 100px</code>，这就极大的减少了重复代码，减少了css的体积</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="o">=</span><span class="s">&#34;text-3xl font-bold underline text-silver w-100 relative&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  Hello world!
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="32css的模块化">3.2.css的模块化</h2>
+<p>为了避免全局的样式污染，之前社区已经提供了多种方案，比如<code>css in js</code>、<code>css modules</code>，但是仍然还有缺陷</p>
+<p><code>css modules</code>：通过计算hash值将书写的css类名更改成全局唯一的值，虽然有效的解决了样式污染问题，但是需要使用全局样式时，需要额外的定义<code>:global</code>的y样式，以及每个模块都需要单独的引入css文件</p>
+<p><code>css in js</code>：利用js的模块化能力去解决样式污染问题，css代码书写起来非常灵活，可以有效的利用js的逻辑，比如函数和变量等。但劣势也同样非常明显，需要在运行时层面上去动态计算每个组件的样式<code>hash</code>，以及动态插入到html文档中，最终造成性能上的损失</p>
+<p>而在tailwind面前，其实根本不存在样式污染问题。因为你书写的每一个样式，最终反映到页面上时，都是一个个独立存在的class，本身就是高度原子化和零耦合化，也就不存在任何污染的问题，前提是看语法是否规范</p>
+<h2 id="33响应式适配">3.3.响应式适配</h2>
+<p>我们想在不同分辨率下，控制某个元素的宽度，我们往往需要以下css代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#39;container&#39;</span><span class="p">&gt;</span>你好<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">.container {
+</span></span><span class="line"><span class="cl">   width: 100px;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">@media (min-width: 640px) {
+</span></span><span class="line"><span class="cl">  width: 20px;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">@media (min-width: 768px) {
+</span></span><span class="line"><span class="cl">  width: 50px;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>随着页面复杂度的提高，这些媒体查询内容只会越来越多，最终变成一堆很难维护的代码。但是在tailwind中，他直接支持在各个分辨率的断点中，去动态的适配各个原子类，进而来实现，颗粒度非常细的响应式样式代码，比如以上例子可以改写为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#39;w-[100px] sm:w-[20px] md:w-[50px]&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>sm</code>、<code>md</code>则是自定义的屏幕范围，可以在<code>tailwind.config.js</code>去配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">screens</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">sm</span><span class="o">:</span> <span class="s1">&#39;480px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">md</span><span class="o">:</span> <span class="s1">&#39;768px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">lg</span><span class="o">:</span> <span class="s1">&#39;976px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">xl</span><span class="o">:</span> <span class="s1">&#39;1440px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="34团队规范的统一--省去命名的麻烦">3.4.团队规范的统一 &amp;&amp; 省去命名的麻烦</h2>
+<p>当我们定义好<code>theme</code>配置后，完全可以推广到其它团队一起使用，以tailwind提供的插件功能为基础，去扩展自身的能力，包括添加基础类，以及修改css代码的能力，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;tailwindcss/plugin&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">plugin</span><span class="p">(</span><span class="kd">function</span><span class="p">({</span> <span class="nx">addComponents</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">addComponents</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;.btn&#39;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">padding</span><span class="o">:</span> <span class="s1">&#39;.5rem 1rem&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">borderRadius</span><span class="o">:</span> <span class="s1">&#39;.25rem&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">fontWeight</span><span class="o">:</span> <span class="s1">&#39;600&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而平常手写class时，需要额外定义各种类名，使用tailwind可以省去这个麻烦，直接写就完了</p>
+<h1 id="4缺陷">4.缺陷</h1>
+<h2 id="41入门上手问题">4.1.入门上手问题</h2>
+<p>对于新手来说，一开始只能边看文档边写css，能把tailwind用好前提是对它定义的class规则很熟悉，这里面是有一定学习成本的</p>
+<h2 id="42代码的维护可读性问题">4.2.代码的维护可读性问题</h2>
+<p>打开一个复杂的页面，也许映入眼帘的是各种乱七八糟的tailwind 定义的class，如果在项目中没能做到有效的样式封装和抽离，在使用tailwind的情况下，会额外增加代码阅读的负担，比如可以在<code>global.css</code>中去封装一个集合类<code>flex-center</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">@</span><span class="k">tailwind</span> <span class="nt">base</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">tailwind</span> <span class="nt">components</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">tailwind</span> <span class="nt">utilities</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">layer</span> <span class="nt">components</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="p">.</span><span class="nc">flex-center</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="err">@apply</span> <span class="err">flex</span> <span class="err">justify-center</span> <span class="err">items-center</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样写一个<code>flex</code>的垂直居中就可以直接用<code>flex-center</code></p>
+<h1 id="5总结">5.总结</h1>
+<p><code>tailwind css</code>提供了一种新的css 解决方案，能够极大地减少css代码的体积，并且解决样式污染问题，回归了最初的css本质，相信未来也会受到更多团队的青睐</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-05-07</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/" data-title="Tailwind CSS 的优缺点分析"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/" data-title="Tailwind CSS 的优缺点分析"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/" data-title="Tailwind CSS 的优缺点分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/" data-title="Tailwind CSS 的优缺点分析"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/wagmi-hooks/" class="prev" rel="prev" title="Wagmi Hooks"><i class="fas fa-angle-left fa-fw"></i>Wagmi Hooks</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
