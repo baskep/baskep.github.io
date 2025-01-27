@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>React Query使用示例 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="React Query使用示例">
+  <meta property="og:description" content="1.前言 大多数的 Web 框架(如React)都没有内置的从组件中获取或更新数据的方式，因此开发人员最终会构建自己的获取数据的方式。这通常意味着开发">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-07-16T15:04:14+08:00">
+    <meta property="article:modified_time" content="2024-07-16T15:04:14+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="React Query使用示例">
+  <meta name="twitter:description" content="1.前言 大多数的 Web 框架(如React)都没有内置的从组件中获取或更新数据的方式，因此开发人员最终会构建自己的获取数据的方式。这通常意味着开发">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" /><link rel="prev" href="https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "React Query使用示例",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  6623 ,
+        "url": "https:\/\/baskep.top\/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B\/","datePublished": "2024-07-16T15:04:14+08:00","dateModified": "2024-07-16T15:04:14+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">React Query使用示例</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%99%85%E8%BF%90%E7%94%A8/"><i class="far fa-folder fa-fw"></i>实际运用</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-07-16">2024-07-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6623 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1前言">1.前言</a></li>
+    <li><a href="#2usequery">2.useQuery</a>
+      <ul>
+        <li><a href="#21入参说明">2.1.入参说明</a>
+          <ul>
+            <li><a href="#211querykey">2.1.1.queryKey</a></li>
+            <li><a href="#212queryfn">2.1.2.queryFn</a></li>
+            <li><a href="#213enabled">2.1.3.enabled</a></li>
+            <li><a href="#214refetchonwindowfocus">2.1.4.refetchOnWindowFocus</a></li>
+            <li><a href="#215retry">2.1.5.retry</a></li>
+            <li><a href="#216retrydelay">2.1.6.retryDelay</a></li>
+            <li><a href="#217keeppreviousdata">2.1.7.keepPreviousData</a></li>
+            <li><a href="#218placeholderdata">2.1.8.placeholderData</a></li>
+            <li><a href="#219initialdata">2.1.9.initialData</a></li>
+            <li><a href="#2110staletime">2.1.10.staleTime</a></li>
+            <li><a href="#2111initialdataupdatedat">2.1.11.initialDataUpdatedAt</a></li>
+            <li><a href="#2112catchtime">2.1.12.catchTime</a></li>
+          </ul>
+        </li>
+        <li><a href="#22返回结果">2.2.返回结果</a></li>
+        <li><a href="#23并行查询可以定义多个query同时查询">2.3.并行查询，可以定义多个query同时查询</a></li>
+      </ul>
+    </li>
+    <li><a href="#3useinfinitequery">3.useInfiniteQuery</a>
+      <ul>
+        <li><a href="#31入参说明">3.1.入参说明</a>
+          <ul>
+            <li><a href="#311querykey">3.1.1.queryKey</a></li>
+            <li><a href="#312queryfn">3.1.2.queryFn</a></li>
+            <li><a href="#313initialpageparam">3.1.3.initialPageParam</a></li>
+            <li><a href="#314getnextpageparam">3.1.4.getNextPageParam</a></li>
+          </ul>
+        </li>
+        <li><a href="#32返回结果">3.2.返回结果</a></li>
+        <li><a href="#33应用场景">3.3.应用场景</a>
+          <ul>
+            <li><a href="#331重新获取部分页面">3.3.1.重新获取部分页面</a></li>
+            <li><a href="#332手动触发获取下一页数据">3.3.2.手动触发获取下一页数据</a></li>
+            <li><a href="#333手动更新查询结果">3.3.3.手动更新查询结果</a></li>
+          </ul>
+        </li>
+        <li><a href="#34其它注意事项">3.4.其它注意事项</a></li>
+      </ul>
+    </li>
+    <li><a href="#4usemutation">4.useMutation</a>
+      <ul>
+        <li><a href="#41入参说明">4.1.入参说明</a>
+          <ul>
+            <li><a href="#411mutationfn">4.1.1.mutationFn</a></li>
+            <li><a href="#412onsuccess">4.1.2.onSuccess</a></li>
+            <li><a href="#413onerror">4.1.3.onError</a></li>
+            <li><a href="#414onmutate">4.1.4.onMutate</a></li>
+            <li><a href="#415retry">4.1.5.retry</a></li>
+          </ul>
+        </li>
+        <li><a href="#42返回结果">4.2.返回结果</a></li>
+        <li><a href="#43注意事项">4.3.注意事项</a></li>
+      </ul>
+    </li>
+    <li><a href="#5预查询prefetchquery">5.预查询prefetchQuery</a></li>
+    <li><a href="#6network-mode">6.Network Mode</a></li>
+    <li><a href="#7主动查询失效-query-invalidation">7.主动查询失效 Query Invalidation</a>
+      <ul>
+        <li><a href="#71当使用-invalidatequeries-使查询无效时后台会重新请求新的数据放入缓存中">7.1.当使用 invalidateQueries 使查询无效时，后台会重新请求新的数据放入缓存中</a></li>
+        <li><a href="#72查询的匹配这其实是invalidatequeries-控制的颗粒度">7.2.查询的匹配，这其实是invalidateQueries 控制的颗粒度</a></li>
+        <li><a href="#73其它应用场景">7.3.其它应用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#8usequery查询取消">8.useQuery查询取消</a>
+      <ul>
+        <li><a href="#81主要是针对异步操作的查询取消">8.1.主要是针对异步操作的查询取消</a>
+          <ul>
+            <li><a href="#811fetch-api">8.1.1.fetch api</a></li>
+            <li><a href="#812axios">8.1.2.axios</a></li>
+            <li><a href="#813其它说明">8.1.3.其它说明</a></li>
+          </ul>
+        </li>
+        <li><a href="#82手动取消">8.2.手动取消</a></li>
+      </ul>
+    </li>
+    <li><a href="#9过滤器-filters">9.过滤器 Filters</a>
+      <ul>
+        <li><a href="#91包含一些处理缓存数据的方法">9.1.包含一些处理缓存数据的方法</a></li>
+        <li><a href="#92这些方法有着共同的参数">9.2.这些方法有着共同的参数</a></li>
+        <li><a href="#93获取正在mutation操作的数量">9.3.获取正在mutation操作的数量</a></li>
+      </ul>
+    </li>
+    <li><a href="#10默认的全局查询函数使用示例">10.默认的全局查询函数使用示例</a></li>
+    <li><a href="#11总结">11.总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1前言">1.前言</h1>
+<p>大多数的 Web 框架(如<code>React</code>)都没有内置的从组件中获取或更新数据的方式，因此开发人员最终会构建自己的获取数据的方式。这通常意味着开发者总是倾向于使用<code>React Hooks</code>将基于组件的<code>state</code>和<code>effects</code>整合在一起，或者使用更通用的状态管理库来存储和提供整个程序中的异步数据</p>
+<p>尽管大多数传统状态管理库非常适合用于处理客户端状态，但是它们<strong>并不适合处理异步或服务器状态</strong>。试想以下，当我们面对服务端数据的缓存、过时、结构化存储并共享查询结果等问题时，需要手动hack多个方法、多种途径才能实现这些效果</p>
+<p>而<code>React Query</code>，又或者说<code>TanStack Query</code>为了解决这些问题应运而生。一句话总结来说，<code>React Query</code>可以方便的维持应用的流畅 GUI 及更快的数据响应，节省了带宽和提高内存性能，更好的管理了与服务端的数据通信</p>
+<h1 id="2usequery">2.useQuery</h1>
+<p>React Query核心是基于<code>queryKey</code>为管理查询缓存。useQuery则是查询数据的核心钩子函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Todos</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">error</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;todos&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchTodoList</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;pending&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">Loading</span><span class="p">...</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nb">Error</span><span class="o">:</span> <span class="p">{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// also status === &#39;success&#39;, but &#34;else&#34; logic works, too
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">))}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="21入参说明">2.1.入参说明</h2>
+<h3 id="211querykey">2.1.1.queryKey</h3>
+<p>查询key，格式为一个数组。如果数组的属性顺序不同，那么代表的时不同的查询，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">useQuery</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;todos&#39;</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">page</span><span class="p">],</span> <span class="p">...</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="nx">useQuery</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;todos&#39;</span><span class="p">,</span> <span class="nx">page</span><span class="p">,</span> <span class="nx">status</span><span class="p">],</span> <span class="p">...});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上两个查询就是两个不同的查询，代表着不同的缓存结果</p>
+<p>同时还可以传入变量，当变量发生改变时，重新发起请求，比如以下查询依赖的<code>todoId</code>，当其发生改变时，会重新查询</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Todos</span><span class="p">({</span> <span class="nx">todoId</span> <span class="p">})</span> <span class="p">{{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;todos&#39;</span><span class="p">,</span> <span class="nx">todoId</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryFn</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">fetchTodoById</span><span class="p">(</span><span class="nx">todoId</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="212queryfn">2.1.2.queryFn</h3>
+<p>查询函数，返回一个<code>Promise</code>，必须包含<code>resolve</code>以及<code>抛错处理</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">,</span> <span class="nx">todoId</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;/todos/&#34;</span> <span class="o">+</span> <span class="nx">todoId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;Network response was not ok&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>queryFn的入参：</p>
+<p><code>queryKey</code>：查询键值</p>
+<p><code>signal</code>：<a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal" target="_blank" rel="noopener noreffer">AbortSignal</a>实例，可控制查询的取消</p>
+<h3 id="213enabled">2.1.3.enabled</h3>
+<p>控制查询是否可用，可以依赖传入的变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">fetchStatus</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">projects</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;projects&#34;</span><span class="p">,</span> <span class="nx">userId</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">getProjectsByUser</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 直到`userId`存在，查询才会被执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">enabled</span><span class="o">:</span> <span class="o">!!</span><span class="nx">userId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果<code>enabled</code>为false时，那么查询的行为：</p>
+<p><code>如果查询已缓存了数据</code>：查询将以status === &lsquo;success&rsquo;或isSuccess的状态进行初始化</p>
+<p><code>如果查询没有缓存的数据</code>：查询将以status === &rsquo;loading&rsquo;和fetchStatus === &lsquo;idle&rsquo;的状态进行初始化</p>
+<p>同时需要注意，enabled会忽略客户端的<code>invalidateQueries</code>和<code>refetchQueries</code>调用。但就算enabled为false，还是可以通过<code>refetch</code>去获取重新发起查询请求</p>
+<h3 id="214refetchonwindowfocus">2.1.4.refetchOnWindowFocus</h3>
+<p>默认情况下，用户切换页面，<code>useQuery</code>会重新触发查询，将<code>refetchOnWindowFocus</code>设置为false，可取消这个特性</p>
+<p>当然，<code>React Query</code>还提供了<code>focusManager</code>，当我们可以自定义窗口的foucs事件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">focusManager</span><span class="p">.</span><span class="nx">setEventListener</span><span class="p">((</span><span class="nx">handleFocus</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 监听 visibilitychange 和 focus 事件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">window</span> <span class="o">!==</span> <span class="s2">&#34;undefined&#34;</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;visibilitychange&#34;</span><span class="p">,</span> <span class="nx">handleFocus</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;focus&#34;</span><span class="p">,</span> <span class="nx">handleFocus</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 如果设置了新的处理程序，确保取消订阅
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&#34;visibilitychange&#34;</span><span class="p">,</span> <span class="nx">handleFocus</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s2">&#34;focus&#34;</span><span class="p">,</span> <span class="nx">handleFocus</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在iframe中，对于检测窗口焦点方面存在问题，可以忽略 iframe 的 Focus 事件，<a href="https://gist.github.com/tannerlinsley/1d3a2122332107fcd8c9cc379be10d88" target="_blank" rel="noopener noreffer">参考以下方法</a></p>
+<h3 id="215retry">2.1.5.retry</h3>
+<p>控制查询重试。当<code>useQuery</code>查询失败（查询函数引发错误）时，如果该查询的请求未达到最大连续重试次数（默认 3 次），或者未提供函数来确定是否允许重试，那么<code>React Query</code>将自动重试该查询</p>
+<p>它有以下定义：</p>
+<p><code>false</code>：将禁用重试</p>
+<p><code>true</code>：无限次重试</p>
+<p><code>数字比如3</code>：重试3次</p>
+<p><code>自定义查询回调函数</code>：<code>（failureCount，error）=&gt; ...允许基于请求失败的原因进行自定义逻辑</code></p>
+<h3 id="216retrydelay">2.1.6.retryDelay</h3>
+<p>设置之后，查询失败不会立即重试，而是有一个延迟。默认的retryDelay设置为以二的倍数递增（从1000ms开始），但不超过 30 秒</p>
+<p>它有以下定义：</p>
+<p><code>具体的毫秒数，比如1000</code>：等待1000毫秒然后重试</p>
+<p><code>自定义函数</code>：<code>retryDelay: (attemptIndex) =&gt; Math.min(1000 * 2 ** attemptIndex, 30000)</code></p>
+<h3 id="217keeppreviousdata">2.1.7.keepPreviousData</h3>
+<p>请求新数据时，即使查询键值已更改，上次成功获取的数据仍可用。这个属性可以搭配page、totalCount等参数，实现分页查询效果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">[</span><span class="nx">page</span><span class="p">,</span> <span class="nx">setPage</span><span class="p">]</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fetchProjects</span> <span class="o">=</span> <span class="p">(</span><span class="nx">page</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;/api/projects?page=&#34;</span> <span class="o">+</span> <span class="nx">page</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">isLoading</span><span class="p">,</span> <span class="nx">isError</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">isFetching</span><span class="p">,</span> <span class="nx">isPreviousData</span> <span class="p">}</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;projects&#34;</span><span class="p">,</span> <span class="nx">page</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">queryFn</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">fetchProjects</span><span class="p">(</span><span class="nx">page</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">keepPreviousData</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这和<code>React Query</code>中的无限查询<code>useInfiniteQuery </code>是两个概念</p>
+<h3 id="218placeholderdata">2.1.8.placeholderData</h3>
+<p>查询占位数据，用于展示默认的数据，但它<strong>实际没有被持久化到缓存中</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Todos</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">placeholderData</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">generateFakeTodos</span><span class="p">(),</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryFn</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;/todos&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">placeholderData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="219initialdata">2.1.9.initialData</h3>
+<p>初始化数据，与<code>placeholderData</code>不同，它是会放入缓存的，也正是因为这个特性，如果无法保证数据的完整性、准确性，那么最好还是<code>placeholderData</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 将立即显示 initialTodos，但在挂载后也将立即重新获取todos
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;/todos&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">initialData</span><span class="o">:</span> <span class="nx">initialTodos</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2110staletime">2.1.10.staleTime</h3>
+<p>设置过期时间毫秒，即在设置过期多少毫秒后才会自动重新查询数据，否则会从缓存中取，<code>isFetching</code>也会为false</p>
+<h3 id="2111initialdataupdatedat">2.1.11.initialDataUpdatedAt</h3>
+<p>js时间戳，如Date.now()，精确确定initialData上次更新时间</p>
+<h3 id="2112catchtime">2.1.12.catchTime</h3>
+<p>默认为5min，当查询不再有活动，设置缓存超时来删除和垃圾收集</p>
+<p>当设置initialData不设置staleTime时，会使用缓存数据展示，但此时后台也会立即查询新数据，待获取完毕后瞬间切换为新数据</p>
+<p>当同时设置initialData以及staleTime，则会staleTime时间范围内使用缓存</p>
+<h2 id="22返回结果">2.2.返回结果</h2>
+<p><code>isLoading </code>：查询中，暂时还没有数据</p>
+<p><code>isError</code>：查询出错</p>
+<p><code>isSuccess  </code>：查询成功，数据可用</p>
+<p><code>isInitialLoading </code>： 这是一个派生的标志，是由部分内容计算出来的：isLoading &amp;&amp; isFetching</p>
+<p><code>fetchStatus  </code>：反映的查询这个过程/操作的状态。fetching为查询中，paused为暂停操作，idle代表该查询为闲置状态</p>
+<p><code>error </code>：isError为true，error返回报错的信息</p>
+<p><code>data</code>：isSuccess为true，获取查询结果数据</p>
+<p><code>refetch </code>：手动重新查询，就算enabled为false，refetch也可重新查询</p>
+<h2 id="23并行查询可以定义多个query同时查询">2.3.并行查询，可以定义多个query同时查询</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">App</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 下面的查询将自动地并行执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">usersQuery</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">],</span> <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchUsers</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">teamsQuery</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;teams&#39;</span><span class="p">],</span> <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchTeams</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">projectsQuery</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;projects&#39;</span><span class="p">],</span> <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchProjects</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">App</span><span class="p">({</span> <span class="nx">users</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">userQueries</span> <span class="o">=</span> <span class="nx">useQueries</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queries</span><span class="o">:</span> <span class="nx">users</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">user</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">queryFn</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">fetchUserById</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3useinfinitequery">3.useInfiniteQuery</h1>
+<p>实现无限查询的钩子函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useInfiniteQuery</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;@tanstack/react-query&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Projects</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">fetchProjects</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">({</span> <span class="nx">pageParam</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;/api/projects?cursor=&#34;</span> <span class="o">+</span> <span class="nx">pageParam</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">error</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fetchNextPage</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hasNextPage</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isFetching</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">isFetchingNextPage</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="o">=</span> <span class="nx">useInfiniteQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryFn</span><span class="o">:</span> <span class="p">({</span> <span class="nx">pageParam</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="nx">fetchProjects</span><span class="p">(</span><span class="nx">pageParam</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">initialPageParam</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getNextPageParam</span><span class="o">:</span> <span class="p">(</span><span class="nx">lastPage</span><span class="p">,</span> <span class="nx">allPages</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">allPages</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">status</span> <span class="o">===</span> <span class="s2">&#34;loading&#34;</span> <span class="o">?</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Loading</span><span class="p">...</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">:</span> <span class="nx">status</span> <span class="o">===</span> <span class="s2">&#34;error&#34;</span> <span class="o">?</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nb">Error</span><span class="o">:</span> <span class="p">{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">:</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">pages</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">group</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">React</span><span class="p">.</span><span class="nx">Fragment</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span><span class="nx">group</span><span class="p">.</span><span class="nx">projects</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">project</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">project</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">project</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">))}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/React.Fragment&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">))}</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">button</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">fetchNextPage</span><span class="p">()}</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">disabled</span><span class="o">=</span><span class="p">{</span><span class="o">!</span><span class="nx">hasNextPage</span> <span class="o">||</span> <span class="nx">isFetchingNextPage</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span><span class="nx">isFetchingNextPage</span>
+</span></span><span class="line"><span class="cl">            <span class="o">?</span> <span class="s2">&#34;Loading more...&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">:</span> <span class="nx">hasNextPage</span>
+</span></span><span class="line"><span class="cl">            <span class="o">?</span> <span class="s2">&#34;Load More&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">:</span> <span class="s2">&#34;Nothing more to load&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">isFetching</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">isFetchingNextPage</span> <span class="o">?</span> <span class="s2">&#34;Fetching...&#34;</span> <span class="o">:</span> <span class="kc">null</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="31入参说明">3.1.入参说明</h2>
+<h3 id="311querykey">3.1.1.queryKey</h3>
+<p>查询key，与useQuery queryKey描述一致</p>
+<h3 id="312queryfn">3.1.2.queryFn</h3>
+<p>查询函数，返回一个Promise</p>
+<h3 id="313initialpageparam">3.1.3.initialPageParam</h3>
+<p>初始页面查询参数，注意这些都是必传的</p>
+<h3 id="314getnextpageparam">3.1.4.getNextPageParam</h3>
+<p>获取下一页查询参数的方法</p>
+<h2 id="32返回结果">3.2.返回结果</h2>
+<p><code>data </code>：每次请求的返回的数据</p>
+<p><code>error</code>：请求的错误信息</p>
+<p><code>fetchNextPage  </code>：请求下一页数据</p>
+<p><code>hasNextPage</code>： 是否还有下一页数据，如果为false，则不再请求查询</p>
+<p><code>isFetching  </code>：是否正在请求查询</p>
+<p><code>isFetchingNextPage </code>：是否正在请求查询下一页数据</p>
+<p><code>status</code>：isLoading、isError、isSuccess</p>
+<p><code>refetch</code>：重新请求查询的钩子函数</p>
+<h2 id="33应用场景">3.3.应用场景</h2>
+<h3 id="331重新获取部分页面">3.3.1.重新获取部分页面</h3>
+<p>通过refetch，传递refetchPage控制重新获取哪一部分数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">refetch</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useInfiniteQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;projects&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchProjects</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">getNextPageParam</span><span class="o">:</span> <span class="p">(</span><span class="nx">lastPage</span><span class="p">,</span> <span class="nx">pages</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">lastPage</span><span class="p">.</span><span class="nx">nextCursor</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 只重新获取 index===0 的页面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">refetch</span><span class="p">({</span> <span class="nx">refetchPage</span><span class="o">:</span> <span class="p">(</span><span class="nx">page</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">index</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="332手动触发获取下一页数据">3.3.2.手动触发获取下一页数据</h3>
+<p>将参数传递给fetchNextPage</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">skipToCursor50</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">fetchNextPage</span><span class="p">({</span> <span class="nx">pageParam</span><span class="o">:</span> <span class="mi">50</span> <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="333手动更新查询结果">3.3.3.手动更新查询结果</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 手动删除第一页
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">queryClient</span><span class="p">.</span><span class="nx">setQueryData</span><span class="p">([</span><span class="s2">&#34;projects&#34;</span><span class="p">],</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pages</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">pages</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pageParams</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">pageParams</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">}));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 手动删除某一个值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">newPagesArray</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">oldPagesArray</span><span class="o">?</span><span class="p">.</span><span class="nx">pages</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">page</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">page</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">val</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">val</span><span class="p">.</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">updatedId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="o">??</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">queryClient</span><span class="p">.</span><span class="nx">setQueryData</span><span class="p">([</span><span class="s2">&#34;projects&#34;</span><span class="p">],</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pages</span><span class="o">:</span> <span class="nx">newPagesArray</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pageParams</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">pageParams</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="34其它注意事项">3.4.其它注意事项</h2>
+<p>useInfiniteQuery 除了提供查询下一页数据的相关功能，还有查询上一页数据的能力</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">getPreviousPageParam</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fetchPreviousPage</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hasPreviousPage</span>
+</span></span><span class="line"><span class="cl"><span class="nx">isFetchingPreviousPage</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它只是提供了上下查询的功能，要实现无限滚动加载的效果，需要自己监听元素的滚动，然后去触发查询加载效果</p>
+<h1 id="4usemutation">4.useMutation</h1>
+<p>useMutation用于创建/更新/删除数据或执行服务器命令等副作用，用于修改数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">mutation</span> <span class="o">=</span> <span class="nx">useMutation</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mutationFn</span><span class="o">:</span> <span class="p">(</span><span class="nx">newTodo</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/todos&#34;</span><span class="p">,</span> <span class="nx">newTodo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span><span class="nx">mutation</span><span class="p">.</span><span class="nx">isLoading</span> <span class="o">?</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Adding todo...&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span> <span class="o">:</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span><span class="nx">mutation</span><span class="p">.</span><span class="nx">isError</span> <span class="o">?</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">An</span> <span class="nx">error</span> <span class="nx">occurred</span><span class="o">:</span> <span class="p">{</span><span class="nx">mutation</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">)</span> <span class="o">:</span> <span class="kc">null</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="p">{</span><span class="nx">mutation</span><span class="p">.</span><span class="nx">isSuccess</span> <span class="o">?</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Todo</span> <span class="nx">added</span><span class="o">!&lt;</span><span class="err">/div&gt; : null}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">button</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nx">mutation</span><span class="p">.</span><span class="nx">mutate</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&#34;Do Laundry&#34;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Create</span> <span class="nx">Todo</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="41入参说明">4.1.入参说明</h2>
+<h3 id="411mutationfn">4.1.1.mutationFn</h3>
+<p>定义修改的方法，返回一个Promise函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">mutationFn</span> <span class="o">=</span> <span class="p">(</span><span class="nx">params</span><span class="o">:</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">title</span><span class="o">:</span> <span class="nx">string</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">resolve</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span> <span class="mi">3000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="412onsuccess">4.1.2.onSuccess</h3>
+<p>mutationFn执行成功后的回调</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">onSuccess</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">queryClient</span><span class="p">.</span><span class="nx">invalidateQueries</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意，<code>onSuccess</code>里面的回调data，是<code>mutationFn</code>定义的<code>Promise</code> <code>resolve</code>出来的数据</p>
+<h3 id="413onerror">4.1.3.onError</h3>
+<p>调用失败报错</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">  <span class="nx">onError</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;错误&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="414onmutate">4.1.4.onMutate</h3>
+<p>调用mutationFn前会触发onMutate</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">  <span class="nx">onMutate</span><span class="p">(</span><span class="nx">variables</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="415retry">4.1.5.retry</h3>
+<p>与<code>useQuery</code>中的<code>retry</code>描述一致</p>
+<h2 id="42返回结果">4.2.返回结果</h2>
+<p><code>isSuccess</code>：mutation 修改成功</p>
+<p><code>isError</code>：修改报错</p>
+<p><code>isIdle</code>：修改目前处于闲置状态或处于全新/重置状态</p>
+<p><code>isLoading</code>：修改目前正在进行操作</p>
+<p><code>error &amp;&amp; data</code>：报错信息/修改的结果</p>
+<p><code>isFetchingNextPage </code>：是否正在请求查询下一页数据</p>
+<p><code>reset</code>：当需要清除error或者data数据时，可以手动调用reset方法</p>
+<p><code>status</code>：状态字符串，·loading/error/success`，与上面的isLoading isError isSuccess对应</p>
+<p><code>mutate</code>：手动触发mutationFn函数，可传递参数给mutationFn。并且上面定义的onSuccess、onError、onSettled也可以在mutate里面配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"> <span class="nx">mutate</span><span class="p">({</span> <span class="nx">id</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span> <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Do Laundry&#39;</span> <span class="p">},{</span>
+</span></span><span class="line"><span class="cl">	  <span class="nx">onSuccess</span><span class="o">:</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">	  <span class="nx">onError</span><span class="o">:</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">	  <span class="nx">onSettled</span><span class="o">:</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>mutateAsync</code>：返回一个Promise，抛出成功或者失败的结果</p>
+<h2 id="43注意事项">4.3.注意事项</h2>
+<p>mutate里面的onSuccess等回调与useMutation里面配置的onSuccess调用会有不同</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 当重复调用mutate时，onSuccess只会执行一次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="p">[(</span><span class="s2">&#34;Todo 1&#34;</span><span class="p">,</span> <span class="s2">&#34;Todo 2&#34;</span><span class="p">,</span> <span class="s2">&#34;Todo 3&#34;</span><span class="p">)].</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">todo</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mutate</span><span class="p">(</span><span class="nx">todo</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">onSuccess</span><span class="o">:</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 只会被TODO3触发，而被调用一次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// 无论之前被resolve的有多少
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 而useMutation中的onSuccess会调用多次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">useMutation</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mutationFn</span><span class="o">:</span> <span class="nx">addTodo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onSuccess</span><span class="o">:</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 将被调用3次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>onSuccess、onError、onSettled的执行顺序是，先执行useMutation里面的，再执行mutate里面的</p>
+<h1 id="5预查询prefetchquery">5.预查询prefetchQuery</h1>
+<p>它是<code>queryClient</code>上面的一个方法，预先进行数据查询，方便后续直接使用查询结果。如果此查询的数据已经在缓存中并且没有失效，则将不会获取该数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">prefetchTodos</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 该查询的结果将像普通查询一样被缓存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">await</span> <span class="nx">queryClient</span><span class="p">.</span><span class="nx">prefetchQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchTodos</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="6network-mode">6.Network Mode</h1>
+<p><code>React Query</code>使用的网络模式，这决定了查询时的一些行为、状态的不同，可在<code>queryClient</code>中配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">queryClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryClient</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">defaultOptions</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">queries</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">refetchOnWindowFocus</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">staleTime</span><span class="o">:</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">retry</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">networkMode</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">mutations</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">networkMode</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>online</code>：在这种模式下，除非有网络连接，否则query/mutation是不会执行的</p>
+<p><code>always</code>：查询会忽略网络状态，fetchStatus永远不会处于&rsquo;paused&rsquo;，retry永远不会被调用，如果失败就会抛error出来</p>
+<p><code>offlineFirst</code>：online/always的中间地带，查询会执行一次，随后暂停重试，它会拿离线/缓存的数据，至于是否失败取决于是否命中缓存</p>
+<h1 id="7主动查询失效-query-invalidation">7.主动查询失效 Query Invalidation</h1>
+<p><code>QueryClient</code> 包含一个 <code>invalidateQueries</code> 方法，可以智能地将查询标记为过时的，并使之可用重新获取数据</p>
+<h2 id="71当使用-invalidatequeries-使查询无效时后台会重新请求新的数据放入缓存中">7.1.当使用 invalidateQueries 使查询无效时，后台会重新请求新的数据放入缓存中</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 使缓存中的每个查询都无效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">queryClient</span><span class="p">.</span><span class="nx">invalidateQueries</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 无效以 `todos` 开头的键值的查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">queryClient</span><span class="p">.</span><span class="nx">invalidateQueries</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">]</span> <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="72查询的匹配这其实是invalidatequeries-控制的颗粒度">7.2.查询的匹配，这其实是invalidateQueries 控制的颗粒度</h2>
+<p>1.可通过前缀控制对应查询无效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">queryClient</span><span class="p">.</span><span class="nx">invalidateQueries</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">]</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 下面的两个查询都会被无效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">todoListQuery</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchTodoList</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">todoListQuery</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">page</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchTodoList</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.精确匹配某个queryKey使其无效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">queryClient</span><span class="p">.</span><span class="nx">invalidateQueries</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;done&#34;</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 该查询会被无效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">todoListQuery</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;done&#34;</span> <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchTodoList</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 该查询不会被无效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">todoListQuery</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">fetchTodoList</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="73其它应用场景">7.3.其它应用场景</h2>
+<p>当我们mutate触发mutationFn时，可以在onSuccess回调中使用invalidateQueries让查询失效，以便重新请求数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">queryClient</span> <span class="o">=</span> <span class="nx">useQueryClient</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 当此修改成功时，将所有带有`todos`和`reminders`查询键值的查询都无效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">mutation</span> <span class="o">=</span> <span class="nx">useMutation</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mutationFn</span><span class="o">:</span> <span class="nx">addTodo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">onSuccess</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryClient</span><span class="p">.</span><span class="nx">invalidateQueries</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">]</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryClient</span><span class="p">.</span><span class="nx">invalidateQueries</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;reminders&#34;</span><span class="p">]</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同样的，也可以在onSuccess中直接setQueryData修改数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"> <span class="kr">const</span> <span class="nx">queryClient</span> <span class="o">=</span> <span class="nx">useQueryClient</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">useMutation</span><span class="p">(</span><span class="nx">editTodo</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 注意第二个参数是`mutate`函数需要的变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">onSuccess</span><span class="o">:</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">variables</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">queryClient</span><span class="p">.</span><span class="nx">setQueryData</span><span class="p">([</span><span class="s2">&#34;todo&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">variables</span><span class="p">.</span><span class="nx">id</span> <span class="p">}],</span> <span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="8usequery查询取消">8.useQuery查询取消</h1>
+<h2 id="81主要是针对异步操作的查询取消">8.1.主要是针对异步操作的查询取消</h2>
+<h3 id="811fetch-api">8.1.1.fetch api</h3>
+<p>主要是基于<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AbortSignal" target="_blank" rel="noopener noreffer">AbortSignal</a>对象, 将abort对象传递到请求中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">signal</span> <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="812axios">8.1.2.axios</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 高于0.22.0时，同样可以传递signal 参数，用于控制取消
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="p">({</span> <span class="nx">signal</span> <span class="p">})</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/todos&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 传递可撤销的信号到 `axios`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">signal</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}),</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 低于0.22.0时，使用axios.CancelToken
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s2">&#34;axios&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;todos&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">queryFn</span><span class="o">:</span> <span class="p">({</span> <span class="nx">signal</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 给这个 request 创建一个 CancelToken
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">CancelToken</span> <span class="o">=</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">CancelToken</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">source</span> <span class="o">=</span> <span class="nx">CancelToken</span><span class="p">.</span><span class="nx">source</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/todos&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 传递这个 token 到该请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">cancelToken</span><span class="o">:</span> <span class="nx">source</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 如果 React Query 信号是 abort，那么撤销该请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">signal</span><span class="o">?</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;abort&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">source</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="s2">&#34;Query was cancelled by React Query&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">promise</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="813其它说明">8.1.3.其它说明</h3>
+<p>所以针对不支持fetch的环境来说，取消请求，就是监听queryFn: ({ signal })  signal的abort事件，然后再用当前的取消请求方法</p>
+<h2 id="82手动取消">8.2.手动取消</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"> <span class="o">&lt;</span><span class="nx">button</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">onClick</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">queryClient</span><span class="p">.</span><span class="nx">cancelQueries</span><span class="p">([</span><span class="s2">&#34;todos&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Cancel</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="9过滤器-filters">9.过滤器 Filters</h1>
+<h2 id="91包含一些处理缓存数据的方法">9.1.包含一些处理缓存数据的方法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 取消所有查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">await</span> <span class="nx">queryClient</span><span class="p">.</span><span class="nx">cancelQueries</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 删除所有以`posts`开头的键值的非活跃的查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">queryClient</span><span class="p">.</span><span class="nx">removeQueries</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;posts&#34;</span><span class="p">],</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;inactive&#34;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 重新获取所有活跃的查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">await</span> <span class="nx">queryClient</span><span class="p">.</span><span class="nx">refetchQueries</span><span class="p">({</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;active&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 重新获取键中以`posts`开头的所有活跃的查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">await</span> <span class="nx">queryClient</span><span class="p">.</span><span class="nx">refetchQueries</span><span class="p">({</span> <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">],</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;active&#39;</span> <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="92这些方法有着共同的参数">9.2.这些方法有着共同的参数</h2>
+<p><code>queryKey</code>：定义要匹配的查询键值</p>
+<p><code>exact</code>：如果你不想对键值做模糊查询(search queries inclusively)，则可以传递 exact: true 选项，只返回完整匹配的查询键值</p>
+<p><code>type：'active' | 'inactive' | 'all'</code>：all：默认为all，匹配满足满足条件的所有查询；active：匹配当前活跃的查询；inactive：匹配当前非活跃的查询</p>
+<p><code>stale</code>：true：匹配当前过时（staled）的；false：匹配当前没过时（fresh）的</p>
+<p><code>fetchStatus</code>：fetching：匹配当前正在获取的；paused：匹配当前想要获取但被暂停了的；idle：匹配当前未在获取的</p>
+<p><code>predicate</code>：(query: Query) =&gt; boolean，自定义的一个匹配函数</p>
+<h2 id="93获取正在mutation操作的数量">9.3.获取正在mutation操作的数量</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 获取所有正在获取的修改的数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">await</span> <span class="nx">queryClient</span><span class="p">.</span><span class="nx">isMutating</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 通过 mutationKey 过滤
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">await</span> <span class="nx">queryClient</span><span class="p">.</span><span class="nx">isMutating</span><span class="p">({</span> <span class="nx">mutationKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;post&#34;</span><span class="p">]</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用函数过滤
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">await</span> <span class="nx">queryClient</span><span class="p">.</span><span class="nx">isMutating</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">predicate</span><span class="o">:</span> <span class="p">(</span><span class="nx">mutation</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">mutation</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">variables</span><span class="o">?</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它的入参：</p>
+<p><code>mutationKey</code>：匹配的mutationKey</p>
+<p><code>exact &amp;&amp; fetching &amp;&amp; predicate</code>：如上面所描述</p>
+<h1 id="10默认的全局查询函数使用示例">10.默认的全局查询函数使用示例</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 使用 defaultOptions 向你的应用提供默认查询函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">queryClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryClient</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultOptions</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queries</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">queryFn</span><span class="o">:</span> <span class="nx">defaultQueryFn</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 然后useQuery里直接使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">isFetching</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">queryKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;/posts&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 如果想覆盖默认的 queryFn，像平常一样提供一个函数即可
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="11总结">11.总结</h1>
+<p><code>React Query</code> 是一个<strong>服务器状态库</strong>，负责管理服务器和客户端之间的异步操作。而以往的Redux，MobX，Zustand 等是<strong>客户端状态</strong>库，可用于存储异步数据，与<code>React Query</code>相比效率较低</p>
+<p><code>React Query</code>的出现使 React 程序中的<strong>获取，缓存，同步和更新服务器状态</strong>变得轻而易举，解决了以前技术栈中难以实现的缓存、数据管理问题，这就是它受欢迎的原因</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-07-16</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" data-title="React Query使用示例"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" data-title="React Query使用示例"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" data-title="React Query使用示例"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" data-title="React Query使用示例"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="Tailwind CSS 的优缺点分析"><i class="fas fa-angle-left fa-fw"></i>Tailwind CSS 的优缺点分析</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
