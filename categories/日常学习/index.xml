@@ -3,7 +3,14 @@
         <title>日常学习 - 分类 - 早起的老年人の博客</title>
         <link>https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/</link>
         <description>日常学习 - 分类 - 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 07 May 2024 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Sep 2024 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>Layer0、Layer1、Layer2分类</title>
+    <link>https://baskep.top/layer0layer1layer2%E5%88%86%E7%B1%BB/</link>
+    <pubDate>Sat, 28 Sep 2024 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/layer0layer1layer2%E5%88%86%E7%B1%BB/</guid>
+    <description><![CDATA[前言 2009年1月，神秘极客中本聪在一台位于赫尔辛基的服务器上生成了比特币区块。目前，比特币已经发展成为一个在全球拥有数万节点，单个货币超过]]></description>
+</item><item>
     <title>Tailwind CSS 的优缺点分析</title>
     <link>https://baskep.top/tailwind-css-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90/</link>
     <pubDate>Tue, 07 May 2024 14:35:12 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.top/web%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7/</guid>
     <description><![CDATA[前言 ⼀个⻚⾯性能差的话会⼤⼤影响⽤户体验，⽤户打开⻚⾯等待的太久，可能会直接关掉⻚⾯，甚⾄就不再使⽤了，这种情况在移动端更加明显，移动端⽤户]]></description>
-</item><item>
-    <title>PNG格式的详解</title>
-    <link>https://baskep.top/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/</link>
-    <pubDate>Sat, 06 Aug 2022 15:04:14 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/png%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3/</guid>
-    <description><![CDATA[序言 便携式网络图形（英语：Portable Network Graphics，PNG）是一种支¶持无损压缩的位图图形格式，支持索引、灰度、RGB三种颜色方案]]></description>
 </item></channel>
 </rss>

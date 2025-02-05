@@ -3,7 +3,14 @@
         <title>所有文章 - 早起的老年人の博客</title>
         <link>https://baskep.top/posts/</link>
         <description>所有文章 | 早起的老年人の博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Jul 2024 15:04:14 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Sep 2024 14:35:12 &#43;0800</lastBuildDate><atom:link href="https://baskep.top/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Layer0、Layer1、Layer2分类</title>
+    <link>https://baskep.top/layer0layer1layer2%E5%88%86%E7%B1%BB/</link>
+    <pubDate>Sat, 28 Sep 2024 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/layer0layer1layer2%E5%88%86%E7%B1%BB/</guid>
+    <description><![CDATA[前言 2009年1月，神秘极客中本聪在一台位于赫尔辛基的服务器上生成了比特币区块。目前，比特币已经发展成为一个在全球拥有数万节点，单个货币超过]]></description>
+</item><item>
     <title>React Query使用示例</title>
     <link>https://baskep.top/react-query%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/</link>
     <pubDate>Tue, 16 Jul 2024 15:04:14 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</guid>
     <description><![CDATA[1.描述 Yul是一种中间编程语言，可以用来在智能合约中编写汇编语言，这样对EVM有更细粒度的控制，学会用Yul可以了解底层运行的一些原理，反]]></description>
-</item><item>
-    <title>ERC20、ERC721标准</title>
-    <link>https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/</link>
-    <pubDate>Thu, 24 Nov 2022 14:35:12 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/erc20erc721%E6%A0%87%E5%87%86/</guid>
-    <description><![CDATA[1.描述 以太坊上运行的合约或者说运用，遵循着官方或者社区提出的各种标准，这些标准分为EIP或者ERC。EIP全称 Ethereum Improvement Proposals(以太]]></description>
 </item></channel>
 </rss>
