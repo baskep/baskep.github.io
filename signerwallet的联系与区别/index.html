@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Signer、Wallet的联系与区别 - 早起的老年人の博客</title><meta name="Description" content="早起的老年人做的网站"><meta property="og:url" content="https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/">
+  <meta property="og:site_name" content="早起的老年人の博客">
+  <meta property="og:title" content="Signer、Wallet的联系与区别">
+  <meta property="og:description" content="前言 Signer是以太坊账户的抽象，可以用来签名消息和交易，如将签名的交易发送到以太坊网络以执行状态更改的操作。Signer是抽象化的，不能">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-03T14:35:12+08:00">
+    <meta property="article:modified_time" content="2024-11-03T14:35:12+08:00">
+    <meta property="og:image" content="https://baskep.top/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://baskep.top/logo.png">
+  <meta name="twitter:title" content="Signer、Wallet的联系与区别">
+  <meta name="twitter:description" content="前言 Signer是以太坊账户的抽象，可以用来签名消息和交易，如将签名的交易发送到以太坊网络以执行状态更改的操作。Signer是抽象化的，不能">
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/" /><link rel="prev" href="https://baskep.top/layer0layer1layer2%E5%88%86%E7%B1%BB/" /><link rel="next" href="https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Signer、Wallet的联系与区别",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/baskep.top\/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB\/"
+        },"image": ["https:\/\/baskep.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2611 ,
+        "url": "https:\/\/baskep.top\/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB\/","datePublished": "2024-11-03T14:35:12+08:00","dateModified": "2024-11-03T14:35:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/baskep.top\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "早起的老年人"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fa fa-book'></i> 文章 </a><a class="menu-item" href="/categories/"><i class='fa fa-th'></i> 分类 </a><a class="menu-item" href="/about/"><i class='fa fa-info-circle'></i> 关于 </a><a class="menu-item" href="/links/"><i class='fas fa-user-friends'></i> 友链 </a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="早起的老年人の博客"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title=""><i class='fa fa-book'></i>文章</a><a class="menu-item" href="/categories/" title=""><i class='fa fa-th'></i>分类</a><a class="menu-item" href="/about/" title=""><i class='fa fa-info-circle'></i>关于</a><a class="menu-item" href="/links/" title=""><i class='fas fa-user-friends'></i>友链</a><a class="menu-item" href="https://github.com/baskep" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Signer、Wallet的联系与区别</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>早起的老年人</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>日常学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-11-03">2024-11-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2611 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#1signer的抽象方法">1.Signer的抽象方法</a>
+      <ul>
+        <li><a href="#11connect">1.1.connect</a></li>
+        <li><a href="#12getaddress">1.2.getAddress</a></li>
+        <li><a href="#13estimategas">1.3.estimateGas</a></li>
+        <li><a href="#14call">1.4.call</a></li>
+        <li><a href="#15getnonce">1.5.getNonce</a></li>
+        <li><a href="#16populatecall">1.6.populateCall</a></li>
+        <li><a href="#17populatetransaction">1.7.populateTransaction</a></li>
+        <li><a href="#18resolvename">1.8.resolveName</a></li>
+        <li><a href="#19sendtransaction">1.9.sendTransaction</a></li>
+        <li><a href="#110signmessage">1.10.signMessage</a></li>
+        <li><a href="#111signtransaction">1.11.signTransaction</a></li>
+        <li><a href="#112signtypeddata">1.12.signTypedData</a></li>
+      </ul>
+    </li>
+    <li><a href="#2wallet">2.Wallet</a>
+      <ul>
+        <li><a href="#21encrypt">2.1.encrypt</a></li>
+        <li><a href="#22encryptsync">2.2.encryptSync</a></li>
+        <li><a href="#23fromencryptedjson">2.3.fromEncryptedJson</a></li>
+        <li><a href="#24fromencryptedjsonsync">2.4.fromEncryptedJsonSync</a></li>
+        <li><a href="#25fromphrase">2.5.fromPhrase</a></li>
+      </ul>
+    </li>
+    <li><a href="#3jsonrpcsigner">3.JsonRpcSigner</a></li>
+    <li><a href="#4voidsigner">4.VoidSigner</a></li>
+    <li><a href="#5总结">5.总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="前言">前言</h1>
+<p><code>Signer</code>是以太坊账户的抽象，可以用来签名消息和交易，如将签名的交易发送到以太坊网络以执行状态更改的操作。Signer是抽象化的，不能直接实例化，要用一个具体的子类，比如<code>Wallet</code>、<code>VoidSigner</code>、<code>JsonRpcSigner</code>，也就是说，实际使用<code>Signer</code>时用的就是<code>Wallet</code>、<code>VoidSigner</code>、<code>JsonRpcSigner</code>其中一个类的实例</p>
+<p>注：本文章基于<code>ethers.js v6</code></p>
+<h1 id="1signer的抽象方法">1.Signer的抽象方法</h1>
+<p><code>Signer</code>的子类(Wallet、VoidSigner、JsonRpcSigner等示例)可以调用一些公共方法</p>
+<h2 id="11connect">1.1.connect</h2>
+<p><em>signer</em>.<strong>connect</strong>( <em>provider</em> ) ⇒ <em>Signer</em></p>
+<p>该方法返回一个<code>Signer</code>。比如，我们初始化了一个<code>Wallet</code>实例，然后<code>connect</code>传入一个<code>provider</code>，这个<code>provider</code>可能是<code>JsonRpcProvider</code>、<code>BrowserProvider</code>等，返回的结果<code>Signer</code>就可以调用一些公共方法了，比如发起交易<code>sendTransaction</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 创建hd钱包
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">mnemonic</span> <span class="o">=</span> <span class="sb">`air organ twist rule prison symptom jazz cheap rather dizzy verb glare jeans orbit weapon universe require tired sing casino business anxiety seminar hunt`</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">basePath</span> <span class="o">=</span> <span class="s2">&#34;44&#39;/60&#39;/0&#39;/0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">hdWallet</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">HDNodeWallet</span><span class="p">.</span><span class="nx">fromPhrase</span><span class="p">(</span><span class="nx">mnemonic</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">hdWalletNew</span> <span class="o">=</span> <span class="nx">hdWallet</span><span class="p">.</span><span class="nx">derivePath</span><span class="p">(</span><span class="nx">basePath</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">_wallet</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Wallet</span><span class="p">(</span><span class="nx">hdWalletNew</span><span class="p">.</span><span class="nx">privateKey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建eth sepolia provider
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">rpc</span> <span class="o">=</span> <span class="s1">&#39;https://eth-sepolia.g.alchemy.com/v2/4Y0PB8rrniQhVx-Oq1N1xhMudybbayTa&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">provider</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">BrowserProvider</span> <span class="p">(</span><span class="nx">rpc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 调用connect，_walletConnect即是一个Signer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">_walletConnect</span> <span class="o">=</span> <span class="nx">_wallet</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">provider</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 它就可以发起交易等操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">await</span> <span class="nx">_walletConnect</span><span class="p">.</span><span class="nx">sendTransaction</span><span class="p">(</span><span class="nx">tx</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="12getaddress">1.2.getAddress</h2>
+<p><em>signer</em>.<strong>getAddress</strong>()⇒ <em>Promise&lt; string &gt;</em></p>
+<p>返回账户钱包地址，注意它返回的一个Promise</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">walletAddress</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">getAddress</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="13estimategas">1.3.estimateGas</h2>
+<p><em>signer</em>.<strong>estimateGas</strong>(<em>tx: <a href="https://docs.ethers.org/v6/api/providers/#TransactionRequest" target="_blank" rel="noopener noreffer">TransactionRequest</a></em>)⇒ <em>Promise&lt; bigint &gt;</em></p>
+<p>预估<code>gas</code>费</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">walletAddress</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">estimateGas</span><span class="p">(</span><span class="nx">tx</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="14call">1.4.call</h2>
+<p><em>signer</em>.<strong>call</strong>(<em>tx: <a href="https://docs.ethers.org/v6/api/providers/#TransactionRequest" target="_blank" rel="noopener noreffer">TransactionRequest</a></em>)⇒ <em>Promise&lt; string &gt;</em></p>
+<p>根据当前区块链状态运行交易来评估交易。这无法改变状态，并且不会产生任何以太币成本，因为它实际上是在模拟执行</p>
+<h2 id="15getnonce">1.5.getNonce</h2>
+<p><em>signer</em>.<strong>getNonce</strong>(<em>blockTag?: <a href="https://docs.ethers.org/v6/api/providers/#BlockTag" target="_blank" rel="noopener noreffer">BlockTag</a></em>)⇒ <em>Promise&lt; number &gt;</em></p>
+<p>获取指定区块下一次交易的<code>nonce</code>值</p>
+<h2 id="16populatecall">1.6.populateCall</h2>
+<p><em>signer</em>.<strong>populateTransaction</strong>(<em>tx: <a href="https://docs.ethers.org/v6/api/providers/#TransactionRequest" target="_blank" rel="noopener noreffer">TransactionRequest</a></em>)⇒ <em>Promise&lt; <a href="https://docs.ethers.org/v6/api/transaction/#TransactionLike" target="_blank" rel="noopener noreffer">TransactionLike</a>  &lt; string &gt; &gt;</em></p>
+<p>准备一个call调用对象，它会填充<code>from</code>、<code>to</code>等完整信息，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 无需关注参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">tx</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">to</span><span class="o">:</span> <span class="nx">address</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="o">:</span> <span class="nx">param</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">value</span><span class="o">:</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">parseEther</span><span class="p">(</span><span class="s2">&#34;0.001&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">receipt</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">populateCall</span><span class="p">(</span><span class="nx">tx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 返回结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">to</span><span class="o">:</span> <span class="s1">&#39;0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;0xd0e30db0&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">value</span><span class="o">:</span> <span class="mi">1000000000000000</span><span class="nx">n</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">from</span><span class="o">:</span> <span class="s1">&#39;0xe16C1623c1AA7D919cd2241d8b36d9E79C1Be2A2&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="17populatetransaction">1.7.populateTransaction</h2>
+<p><em>signer</em>.<strong>populateTransaction</strong>(<em>tx: <a href="https://docs.ethers.org/v6/api/providers/#TransactionRequest" target="_blank" rel="noopener noreffer">TransactionRequest</a></em>)⇒ <em>Promise&lt; <a href="https://docs.ethers.org/v6/api/transaction/#TransactionLike" target="_blank" rel="noopener noreffer">TransactionLike</a>  &lt; string &gt; &gt;</em></p>
+<p>与<code>populateCall</code>有些类似，不过它是准备一个完整的<code>transaction</code>对象。它会填充<code>nonce</code>、<code>from</code>、<code>gasLimit</code>、<code>chainId</code>等等信息，在调用之前，请注意钱包余额是否足够，否则会报错</p>
+<h2 id="18resolvename">1.8.resolveName</h2>
+<p><em>signer</em>.<strong>resolveName</strong>(<em>name: string</em>)⇒ <em>Promise&lt; null | string &gt;</em></p>
+<p>将 ENS 名称解析为地址</p>
+<h2 id="19sendtransaction">1.9.sendTransaction</h2>
+<p><em>signer</em>.<strong>sendTransaction</strong>(<em>tx: <a href="https://docs.ethers.org/v6/api/providers/#TransactionRequest" target="_blank" rel="noopener noreffer">TransactionRequest</a></em>)⇒ <em>Promise&lt; <a href="https://docs.ethers.org/v6/api/providers/#TransactionResponse" target="_blank" rel="noopener noreffer">TransactionResponse</a>  &gt;</em></p>
+<p>发起交易，可以调用<code>populateTransaction</code>准备一些交易必须的属性</p>
+<h2 id="110signmessage">1.10.signMessage</h2>
+<p><em>signer</em>.<strong>signMessage</strong>(<em>message: string | Uint8Array</em>)⇒ <em>Promise&lt; string &gt;</em></p>
+<p>使用钱包签名一个消息，返回的是65字节的签名结果，参考<a href="https://baskep.github.io/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/#222%E4%BD%BF%E7%94%A8ethersjs%E5%8F%91%E8%B5%B7%E7%AD%BE%E5%90%8D%E6%96%B9%E6%B3%95" target="_blank" rel="noopener noreffer">以太坊中数字签名、消息的概念</a></p>
+<h2 id="111signtransaction">1.11.signTransaction</h2>
+<p><em>signer</em>.<strong>signTransaction</strong>(<em>tx: <a href="https://docs.ethers.org/v6/api/providers/#TransactionRequest" target="_blank" rel="noopener noreffer">TransactionRequest</a></em>)⇒ <em>Promise&lt; string &gt;</em></p>
+<p>返回一个已签名的交易的Promise</p>
+<h2 id="112signtypeddata">1.12.signTypedData</h2>
+<p><em>signer</em>.<strong>signTypedData</strong>(<em>domain: <a href="https://docs.ethers.org/v6/api/hashing/#TypedDataDomain" target="_blank" rel="noopener noreffer">TypedDataDomain</a></em>, <em>types: Record&lt; string, Array&lt; <a href="https://docs.ethers.org/v6/api/hashing/#TypedDataField" target="_blank" rel="noopener noreffer">TypedDataField</a>  &gt; &gt;</em>, <em>value: Record&lt; string, any &gt;</em>)⇒ <em>Promise&lt; string &gt;</em></p>
+<p>同样是签名一个消息，不过是<code>eip-712</code>提议格式的，参考<a href="https://baskep.github.io/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/#222%E4%BD%BF%E7%94%A8ethersjs%E5%8F%91%E8%B5%B7%E7%AD%BE%E5%90%8D%E6%96%B9%E6%B3%95" target="_blank" rel="noopener noreffer">以太坊中数字签名、消息的概念</a></p>
+<h1 id="2wallet">2.Wallet</h1>
+<p>钱包类，它可以拿来实例化一个钱包实例，而这个实例是可以使用<code>Signer</code>上的方法的，因为它必须去实现这些方法，它本身也实现了一些方法</p>
+<h2 id="21encrypt">2.1.encrypt</h2>
+<p><em>wallet</em>.<strong>encrypt</strong>(<em>password: Uint8Array | string</em>, <em>progressCallback?: <a href="https://docs.ethers.org/v6/api/crypto/#ProgressCallback" target="_blank" rel="noopener noreffer">ProgressCallback</a></em>)⇒ <em>Promise&lt; string &gt;</em></p>
+<p>加密钱包，使用<em>password</em>返回一个解析为JSON钱包的Promise</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 生成的json还要看你的钱包是什么格式的，比如这里的wallet实际是指的【以太坊外部链钱包】
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">pwd</span> <span class="o">=</span> <span class="s1">&#39;password&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">wallet</span><span class="p">.</span><span class="nx">encrypt</span><span class="p">(</span><span class="nx">pwd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="s2">&#34;address&#34;</span><span class="o">:</span> <span class="s2">&#34;db8d4b87b9572a22c7f53784e307d78a54e7d95e&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="s2">&#34;id&#34;</span><span class="o">:</span> <span class="s2">&#34;ce1d9133-7204-49e7-8990-3547ea6d384a&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="s2">&#34;Crypto&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;cipher&#34;</span><span class="o">:</span> <span class="s2">&#34;aes-128-ctr&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;cipherparams&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="s2">&#34;iv&#34;</span><span class="o">:</span> <span class="s2">&#34;3f14aff1e391c0ec898aa2f5b1d8c8a8&#34;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;ciphertext&#34;</span><span class="o">:</span> <span class="s2">&#34;471c99189c5cc3a17a62de8c94e09858909ceae9e6d7c49f79454bdd4e6aad98&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;kdf&#34;</span><span class="o">:</span> <span class="s2">&#34;scrypt&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;kdfparams&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="s2">&#34;salt&#34;</span><span class="o">:</span> <span class="s2">&#34;a3b8652523adcb1cd758357267896e3b6890b5eb893c6d2379bdb286d9cbe723&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="s2">&#34;n&#34;</span><span class="o">:</span> <span class="mi">131072</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="s2">&#34;dklen&#34;</span><span class="o">:</span> <span class="mi">32</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="s2">&#34;p&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="s2">&#34;r&#34;</span><span class="o">:</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;mac&#34;</span><span class="o">:</span> <span class="s2">&#34;187eb42850df3d631d72701cdb70b22c81aef849ae0a1b06a69a573a577c1950&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="s2">&#34;x-ethers&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;client&#34;</span><span class="o">:</span> <span class="s2">&#34;ethers/6.13.2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;gethFilename&#34;</span><span class="o">:</span> <span class="s2">&#34;UTC--2025-02-09T07-16-12.0Z--db8d4b87b9572a22c7f53784e307d78a54e7d95e&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;path&#34;</span><span class="o">:</span> <span class="s2">&#34;m/44&#39;/60&#39;/0&#39;/0/0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;locale&#34;</span><span class="o">:</span> <span class="s2">&#34;en&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;mnemonicCounter&#34;</span><span class="o">:</span> <span class="s2">&#34;0e4993d6bee9284d6050863822a18796&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;mnemonicCiphertext&#34;</span><span class="o">:</span> <span class="s2">&#34;e084a168c9746de21a7f99a4ff2833762cfd680131626ae4c8b0ab171288c645&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="s2">&#34;0.1&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="22encryptsync">2.2.encryptSync</h2>
+<p><em>wallet</em>.<strong>encryptSync</strong>(<em>password: Uint8Array | string</em>)⇒ <em>string</em></p>
+<p>与上面类似，不同的地方在于它是一个异步版本</p>
+<h2 id="23fromencryptedjson">2.3.fromEncryptedJson</h2>
+<p><em>Wallet</em>.<strong>fromEncryptedJson</strong>(<em>json: string</em>, <em>password: Uint8Array | string</em>, <em>progress?: <a href="https://docs.ethers.org/v6/api/crypto/#ProgressCallback" target="_blank" rel="noopener noreffer">ProgressCallback</a></em>)⇒ <em>Promise&lt; <a href="https://docs.ethers.org/v6/api/wallet/#HDNodeWallet" target="_blank" rel="noopener noreffer">HDNodeWallet</a> | <a href="https://docs.ethers.org/v6/api/wallet/#Wallet" target="_blank" rel="noopener noreffer">Wallet</a> &gt;</em></p>
+<p>从<code>encrypt</code>生成的加密json中读取钱包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">wallet</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Wallet</span><span class="p">.</span><span class="nx">fromEncryptedJson</span><span class="p">(</span><span class="nx">json</span><span class="p">,</span> <span class="nx">pwd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">HDNodeWallet</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">provider</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">address</span><span class="o">:</span> <span class="s1">&#39;0xDb8D4b87B9572A22c7f53784e307D78A54E7D95e&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">publicKey</span><span class="o">:</span> <span class="s1">&#39;0x03a464d073e7be2f095d369e142443e8bf34d75fe7761a50cbfe2a4554f8c17cce&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fingerprint</span><span class="o">:</span> <span class="s1">&#39;0xe919434c&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">parentFingerprint</span><span class="o">:</span> <span class="s1">&#39;0x9ad42df7&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mnemonic</span><span class="o">:</span> <span class="nx">Mnemonic</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">phrase</span><span class="o">:</span> <span class="s1">&#39;repair dice ripple explain race gap pride crew napkin knee avocado bone glory orchard wheat course park mouse uphold heavy broken craft cannon craft&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">wordlist</span><span class="o">:</span> <span class="nx">LangEn</span> <span class="p">{</span> <span class="nx">locale</span><span class="o">:</span> <span class="s1">&#39;en&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">entropy</span><span class="o">:</span> <span class="s1">&#39;0xb687aee9284b06beaaa19a92ef703f8ca639383e798aa05217bb3531c8640859&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">chainCode</span><span class="o">:</span> <span class="s1">&#39;0x66ce04c1802990ac8116cff090600ac7a205add8d789f3b1643409c653d6c4fb&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">path</span><span class="o">:</span> <span class="s2">&#34;m/44&#39;/60&#39;/0&#39;/0/0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">index</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">depth</span><span class="o">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="24fromencryptedjsonsync">2.4.fromEncryptedJsonSync</h2>
+<p><em>Wallet</em>.<strong>fromEncryptedJsonSync</strong>(<em>json: string</em>, <em>password: Uint8Array | string</em>)⇒ <em><a href="https://docs.ethers.org/v6/api/wallet/#HDNodeWallet" target="_blank" rel="noopener noreffer">HDNodeWallet</a> | <a href="https://docs.ethers.org/v6/api/wallet/#Wallet" target="_blank" rel="noopener noreffer">Wallet</a></em></p>
+<p>从<code>encrypt</code>生成的加密json中读取钱包，异步版本</p>
+<h2 id="25fromphrase">2.5.fromPhrase</h2>
+<p><em>Wallet</em>.<strong>fromPhrase</strong>(<em>phrase: string</em>, <em>provider?: <a href="https://docs.ethers.org/v6/api/providers/#Provider" target="_blank" rel="noopener noreffer">Provider</a></em>)⇒ <em><a href="https://docs.ethers.org/v6/api/wallet/#HDNodeWallet" target="_blank" rel="noopener noreffer">HDNodeWallet</a></em></p>
+<p>通过助记词创建钱包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">mnemonic</span> <span class="o">=</span> <span class="sb">`air organ twist rule prison symptom jazz cheap rather dizzy verb glare jeans orbit weapon universe require tired sing casino business anxiety seminar hunt`</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">hdWallet</span> <span class="o">=</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">HDNodeWallet</span><span class="p">.</span><span class="nx">fromPhrase</span><span class="p">(</span><span class="nx">mnemonic</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里要说下<code>HDNodeWallet</code>，它是一个使用<a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank" rel="noopener noreffer">BIP-32</a>标准的 HD 节点派生的钱包，HD 节点形成一个层次结构，每个 HD 节点都有一个私钥，并能够派生子 HD 节点，由指示每个子节点索引的路径定义，<code>HDNodeWallet</code>本身也有各种方法，这里不多描述</p>
+<h1 id="3jsonrpcsigner">3.JsonRpcSigner</h1>
+<p><code>JsonRpcSigner</code>是一个简单的Signer，它由一个连接的<a href="https://docs.ethers.org/v6/api/providers/jsonrpc/" target="_blank" rel="noopener noreffer">JsonRpcProvider</a>支持。与<code>wallet</code>不同的是，通过钱包工具与链上连接，获一个<code>JsonRpcSigner</code>后，就可以对链上进行读写</p>
+<p>接下来说明在<code>Wagmi</code>环境下，如何获取一个<code>JsonRpcSigner</code>实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserProvider</span><span class="p">,</span> <span class="nx">JsonRpcSigner</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;ethers&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">getConnectorClient</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@wagmi/core&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getEthersSigner</span><span class="p">({</span> <span class="nx">chainId</span> <span class="p">}</span><span class="o">:</span> <span class="p">{</span> <span class="nx">chainId</span><span class="o">?:</span> <span class="nx">number</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 获取client信息，传给clientToSigner
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">getConnectorClient</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="p">{</span> <span class="nx">chainId</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">client</span> <span class="o">?</span> <span class="nx">clientToSigner</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span> <span class="o">:</span> <span class="kc">undefined</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">clientToSigner</span><span class="p">(</span><span class="nx">client</span><span class="o">:</span> <span class="nx">Client</span><span class="o">&lt;</span><span class="nx">Transport</span><span class="p">,</span> <span class="nx">Chain</span><span class="p">,</span> <span class="nx">Account</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">account</span><span class="p">,</span> <span class="nx">chain</span><span class="p">,</span> <span class="nx">transport</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">client</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">network</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">chainId</span><span class="o">:</span> <span class="nx">chain</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="nx">chain</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ensAddress</span><span class="o">:</span> <span class="nx">chain</span><span class="p">.</span><span class="nx">contracts</span><span class="o">?</span><span class="p">.</span><span class="nx">ensRegistry</span><span class="o">?</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// transport为https://docs.ethers.org/v6/api/providers/#Eip1193Provider
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// network 为连接的链的信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// new JsonRpcSigner传递 new BrowserProvider、address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">provider</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BrowserProvider</span><span class="p">(</span><span class="nx">transport</span><span class="p">,</span> <span class="nx">network</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">signer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JsonRpcSigner</span><span class="p">(</span><span class="nx">provider</span><span class="p">,</span> <span class="nx">account</span><span class="p">.</span><span class="nx">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">signer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>const signer = new JsonRpcSigner(provider, account.address)</code>，<code>signer</code>就可以拿去初始化合约实例，实现与以太坊链上的交互</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">contractAdress</span><span class="p">,</span> <span class="nx">WTFAPEABI</span><span class="p">,</span> <span class="nx">signer</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4voidsigner">4.VoidSigner</h1>
+<p>new <strong>VoidSigner</strong>(<em>address: string</em>, <em>provider?: null | <a href="https://docs.ethers.org/v6/api/providers/#Provider" target="_blank" rel="noopener noreffer">Provider</a></em>)</p>
+<p><code>VoidSigner</code>是一个简单的Signer，它不能签名，当API需要signer作为参数时，它作为只读的signer是有用的，但它只能携带<strong>只读的操作</strong>。比如，初始化合约实例，作为参数传递，查询链上信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">address</span> <span class="o">=</span> <span class="s2">&#34;0x8ba1f109551bD432803012645Ac136ddd64DBA72&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">signer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">VoidSigner</span><span class="p">(</span><span class="nx">address</span><span class="p">,</span> <span class="nx">provider</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// The DAI token contract
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">abi</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;function balanceOf(address) view returns (uint)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;function transfer(address, uint) returns (bool)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ethers</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="s2">&#34;dai.tokens.ethers.eth&#34;</span><span class="p">,</span> <span class="nx">abi</span><span class="p">,</span> <span class="nx">signer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 获取此帐户的token数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">tokens</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">balanceOf</span><span class="p">(</span><span class="nx">signer</span><span class="p">.</span><span class="nx">getAddress</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// { BigNumber: &#34;2413468059122458201631&#34; }
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5总结">5.总结</h1>
+<p>以上阐述了<code>Signer</code>、<code>Wallet</code>、<code>VoidSigner</code>之间的关系，作为一个开发者，还是有必要了解清楚</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-11-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/" data-title="Signer、Wallet的联系与区别"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/" data-title="Signer、Wallet的联系与区别"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/" data-title="Signer、Wallet的联系与区别"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/" data-title="Signer、Wallet的联系与区别"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/layer0layer1layer2%E5%88%86%E7%B1%BB/" class="prev" rel="prev" title="Layer0、Layer1、Layer2分类"><i class="fas fa-angle-left fa-fw"></i>Layer0、Layer1、Layer2分类</a>
+            <a href="/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/" class="next" rel="next" title="合约安全问题研究">合约安全问题研究<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">早起的老年人</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10000},"comment":{},"data":{"id-1":"今天就到这里，回去等通知吧","id-2":"今天就到这里，回去等通知吧"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -13,6 +13,13 @@
     <guid>https://baskep.top/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/</guid>
     <description><![CDATA[前言 在web3中，去中心化让服务变得自发的治理，让参与者能够参与、制定社区的运维方向。但同时，区块的可见性、数据的公开性，让心怀不轨的人有了]]></description>
 </item><item>
+    <title>Signer、Wallet的联系与区别</title>
+    <link>https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/</link>
+    <pubDate>Sun, 03 Nov 2024 14:35:12 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://baskep.top/signerwallet%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/</guid>
+    <description><![CDATA[前言 Signer是以太坊账户的抽象，可以用来签名消息和交易，如将签名的交易发送到以太坊网络以执行状态更改的操作。Signer是抽象化的，不能]]></description>
+</item><item>
     <title>Layer0、Layer1、Layer2分类</title>
     <link>https://baskep.top/layer0layer1layer2%E5%88%86%E7%B1%BB/</link>
     <pubDate>Sat, 28 Sep 2024 14:35:12 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://baskep.top/merkle-tree/</guid>
     <description><![CDATA[1.简介 Merkle Tree也叫默克尔树或哈希树，是区块链的底层加密技术，被比特币和以太坊区块链广泛采用。Merkle Tree是一种自下而上构建的加密]]></description>
-</item><item>
-    <title>以太坊中数字签名、消息的概念</title>
-    <link>https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/</link>
-    <pubDate>Fri, 10 Mar 2023 14:35:12 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://baskep.top/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%B6%88%E6%81%AF%E7%9A%84%E6%A6%82%E5%BF%B5/</guid>
-    <description><![CDATA[1.消息 1.1.基本概念 消息在以太坊的ECDSA标准中，是一组keccak256哈希数据，为bytes32类型。我们可以把任何想要签名的内容]]></description>
 </item></channel>
 </rss>
